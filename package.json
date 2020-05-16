@@ -1,0 +1,16 @@
+{
+  "name": "bookmarks-app",
+  "version": "1.0.0",
+  "description": "Web based bookmark tool that is available everywhere. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miles Nature",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.14"
+  }
+}
