@@ -12,7 +12,7 @@ __Early stage of construction__. This is __not ready__ for consumption, nor cont
 * Data can be retrieved
 
 ### Instructions
-1. Create a config.js file in the main directory. This provides access to the mongodb database and sets deployment port. The url below points to a locally deployed instance, named MyDatabase. This should be updated with the path yours.
+1. Create a config.js file in the main directory. This provides access to the mongodb database and sets deployment port. The url below points to a locally deployed instance, named MyDatabase. This should be updated with your db connection string.
 ```javascript
 module.exports = {
     url: 'mongodb://localhost:27017/MyDatabase',
