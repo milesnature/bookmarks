@@ -1,2 +1,2 @@
 # bookmarks
-Online bookmarks tool for developers and beyond.
+Online bookmarks tool.
