@@ -1,27 +1,27 @@
 # bookmarks
 
-DESCRIPTION
+### Description
+Online bookmarks tool.
+* NodeJS REST API (express, mongoose, mongodb). 
 
-Online bookmarks tool. REST API, using node, express, mongoose, mongodb an vanilla js. 
+### Version 0.0.1 
+
+* __Early stage of construction__. This is __not ready__ for consumption, nor contribution. 
+* However, the basic API works, the app is deployable, database connection is working, and data can be retrieved.
 
 
-VERSION 0.0.1 
+### Instructions
 
-EARLY STAGE OF CONSTRUCTION. This is NOT READY for consumption, nor contribution. 
-However, the basic API works, the app is deployable, database connection is working, and data can be retrieved.
+1. Create a config.js file in the main directory. It provides access to the mongodb database and sets deployment port. Update the url
 
-
-INSTRUCTIONS
-
-Create a config.js file in the main directory. It contains the access to desired mongodb database.
-
+```javascript
 module.exports = {
-    url: '<mongodb-access-url>',
+    url: 'mongodb://localhost:27017/MyDatabase',
     serverport: 3000 
 }
+```
 
-Installation requires node and npm.
-$ npm install
-
-Deploy
-$ node server.js
+2. Install node and npm
+3. $ npm install
+4. $ node server.js
+5. http://localhost:3000
