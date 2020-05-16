@@ -304,44 +304,78 @@ var bmkSection   = document.getElementById("bmkSection"),
 	
 	},
 
-	buildBookmarkLists = function( bookmarks ) {
+	constructBookmarkList = function( bookmarks ) {
 
-		var html = "";
+		/* SCHEMA
+		<ul class="bookmarks">
+			<li><button class="all">Group Name</button>
+				<ul>
+					<li><a id="9" href="http://random.com" target="_blank">Name</a></li>
+					...
+				</ul>
+			</li>
+		</ul>
+		*/
 
-		html += '<ul class="bookmarks">';
-		html += '<li><button class="all">' + bookmark.group + '</button>';
-		html += '<ul>';
+		var group              = bookmarks[0].group,
+			fragment           = document.createDocumentFragment(),
+			outer_UL           = document.createElement  ( 'UL' ),
+			outer_UL_class     = document.createAttribute( 'class' ),
+			outer_LI           = document.createElement  ( 'LI' ),
+			outer_BUTTON       = document.createElement  ( 'BUTTON' ),
+			outer_BUTTON_class = document.createAttribute( 'class' ),
+			outer_BUTTON_text  = document.createTextNode ( group ),
+			inner_UL           = document.createElement  ( 'UL' ),
+			i;
 
+		// Set class attribute for outer UL
+		outer_UL_class.value     = "bookmarks";
+		outer_UL.setAttributeNode( outer_UL_class );
 
+		// Set class attribute and text for BUTTON
+		outer_BUTTON_class.value = "all";
+		outer_BUTTON.setAttributeNode( outer_BUTTON_class );
+		outer_BUTTON.appendChild( outer_BUTTON_text );
 
-	
-	
-	/* SCHEMA
-	<ul class="bookmarks">
-		<li><button class="all" id="1">Development</button>
-			<ul>
-				<li><a id="9" href="http://caniuse.com/#search=text-shadow" target="_blank">caniuse</a></li>
-				<li><a id="4" href="https://panel.dreamhost.com/" target="_blank">DreamHost</a></li>
-				<li><a id="7" href="https://favicon.io/favicon-converter/" target="_blank">favicon.io</a></li>
-				<li><a id="5" href="https://github.com/" target="_blank">GitHub</a></li>
-				<li><a id="136" href="https://help.dreamhost.com/hc/en-us/articles/360029083351-Installing-a-custom-version-of-NVM-and-Node-js" target="_blank">Intall Node Dreamhost</a></li>
-				<li><a id="8" href="https://jsonformatter.curiousconcept.com" target="_blank">jsonformatter</a></li>
-				<li><a id="2" href="http://milesnature-dist:8888/" target="_blank">milesnature-src</a></li>
-				<li><a id="1" href="https://milesnature.com/" target="_blank">milesnature.com</a></li>
-				<li><a id="6" href="https://myfonts.com" target="_blank">MyFonts</a></li>
-				<li><a id="137" href="https://node.milesnature.com/" target="_blank">node.milesnature.com</a></li>
-				<li><a id="139" href="https://notes.milesnature.com/" target="_blank">Notes</a></li>
-				<li><a id="10" href="http://regexpal.com/" target="_blank">Regex Tester</a></li>
-				<li><a id="3" href="http://speedtest.net/" target="_blank">Speedtest</a></li>
-				<li><a id="90" href="https://www.w3schools.com" target="_blank">w3schools</a></li>
-				<li><a id="138" href="https://cart.milesnature.com/" target="_blank">Zen Cart</a></li>
-			</ul>
-		</li>
-	</ul>
-	*/
+		for ( i = 0; i < bookmarks.length; i += 1 ) {
+
+			// Create individual bookmarks.
+			var li     = document.createElement   ( 'LI' ),
+			    a      = document.createElement   ( 'A' ),
+				id     = document.createAttribute ( 'id' ),
+				href   = document.createAttribute ( 'href' ),
+				target = document.createAttribute ( 'target' ),
+				text   = document.createTextNode  ( bookmarks[i].name );
+
+			// Set anchor tag attributes and text.
+			id.value = bookmarks[i]._id;
+			a.setAttributeNode( id );
+			href.value = bookmarks[i].url;
+			a.setAttributeNode( href );
+			target.value = "_blank";
+			a.setAttributeNode( target );
+			a.appendChild( text );
+
+			// Insert anchor element into list item.
+			li.appendChild( a );
+
+			// Insert the list item into it's conatiner, an unordered list.
+			inner_UL.appendChild( li );
+
+		}
+
+		// Assemble final output, working from the inside out.
+		outer_LI.appendChild( outer_BUTTON );
+		outer_LI.appendChild( inner_UL );
+		outer_UL.appendChild( outer_LI );
+
+		// Update html fragment
+		fragment.appendChild( outer_UL );
+
+		// Add to the DOM
+		document.getElementById("bmkSection").appendChild( fragment );
 
 	},
-
 
 	/* AJAX CALLS */
 	userParam = "?user="+user(),
@@ -354,7 +388,8 @@ var bmkSection   = document.getElementById("bmkSection"),
 		    
 	        if (this.readyState == 4 && this.status == 200) {
 		       	if ( this.responseText ) {
-	            	bmkSection.innerHTML = this.responseText;
+		       		var bookmarks = JSON.parse( this.responseText );
+	            	constructBookmarkList( bookmarks );
 					setupGroupsEventHandler();
 	            } else {
 	            	bmkSection.innerHTML = "";
