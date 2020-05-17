@@ -317,63 +317,67 @@ var bmkSection   = document.getElementById("bmkSection"),
 		</ul>
 		*/
 
-		var group              = bookmarks[0].group,
-			fragment           = document.createDocumentFragment(),
-			outer_UL           = document.createElement  ( 'UL' ),
-			outer_UL_class     = document.createAttribute( 'class' ),
-			outer_LI           = document.createElement  ( 'LI' ),
-			outer_BUTTON       = document.createElement  ( 'BUTTON' ),
-			outer_BUTTON_class = document.createAttribute( 'class' ),
-			outer_BUTTON_text  = document.createTextNode ( group ),
-			inner_UL           = document.createElement  ( 'UL' ),
-			i;
+		if ( bookmarks.length ) {
 
-		// Set class attribute for outer UL
-		outer_UL_class.value     = "bookmarks";
-		outer_UL.setAttributeNode( outer_UL_class );
+			var group              = bookmarks[0].group,
+				fragment           = document.createDocumentFragment(),
+				outer_UL           = document.createElement  ( 'UL' ),
+				outer_UL_class     = document.createAttribute( 'class' ),
+				outer_LI           = document.createElement  ( 'LI' ),
+				outer_BUTTON       = document.createElement  ( 'BUTTON' ),
+				outer_BUTTON_class = document.createAttribute( 'class' ),
+				outer_BUTTON_text  = document.createTextNode ( group ),
+				inner_UL           = document.createElement  ( 'UL' ),
+				i;
 
-		// Set class attribute and text for BUTTON
-		outer_BUTTON_class.value = "all";
-		outer_BUTTON.setAttributeNode( outer_BUTTON_class );
-		outer_BUTTON.appendChild( outer_BUTTON_text );
+			// Set class attribute for outer UL
+			outer_UL_class.value     = "bookmarks";
+			outer_UL.setAttributeNode( outer_UL_class );
 
-		for ( i = 0; i < bookmarks.length; i += 1 ) {
+			// Set class attribute and text for BUTTON
+			outer_BUTTON_class.value = "all";
+			outer_BUTTON.setAttributeNode( outer_BUTTON_class );
+			outer_BUTTON.appendChild( outer_BUTTON_text );
 
-			// Create individual bookmarks.
-			var li     = document.createElement   ( 'LI' ),
-			    a      = document.createElement   ( 'A' ),
-				id     = document.createAttribute ( 'id' ),
-				href   = document.createAttribute ( 'href' ),
-				target = document.createAttribute ( 'target' ),
-				text   = document.createTextNode  ( bookmarks[i].name );
+			for ( i = 0; i < bookmarks.length; i += 1 ) {
 
-			// Set anchor tag attributes and text.
-			id.value = bookmarks[i]._id;
-			a.setAttributeNode( id );
-			href.value = bookmarks[i].url;
-			a.setAttributeNode( href );
-			target.value = "_blank";
-			a.setAttributeNode( target );
-			a.appendChild( text );
+				// Create individual bookmarks.
+				var li     = document.createElement   ( 'LI' ),
+				    a      = document.createElement   ( 'A' ),
+					id     = document.createAttribute ( 'id' ),
+					href   = document.createAttribute ( 'href' ),
+					target = document.createAttribute ( 'target' ),
+					text   = document.createTextNode  ( bookmarks[i].name );
 
-			// Insert anchor element into list item.
-			li.appendChild( a );
+				// Set anchor tag attributes and text.
+				id.value = bookmarks[i]._id;
+				a.setAttributeNode( id );
+				href.value = bookmarks[i].url;
+				a.setAttributeNode( href );
+				target.value = "_blank";
+				a.setAttributeNode( target );
+				a.appendChild( text );
 
-			// Insert the list item into it's conatiner, an unordered list.
-			inner_UL.appendChild( li );
+				// Insert anchor element into list item.
+				li.appendChild( a );
+
+				// Insert the list item into it's conatiner, an unordered list.
+				inner_UL.appendChild( li );
+
+			}
+
+			// Assemble final output, working from the inside out.
+			outer_LI.appendChild( outer_BUTTON );
+			outer_LI.appendChild( inner_UL );
+			outer_UL.appendChild( outer_LI );
+
+			// Update html fragment
+			fragment.appendChild( outer_UL );
+
+			// Add to the DOM
+			document.getElementById("bmkSection").appendChild( fragment );
 
 		}
-
-		// Assemble final output, working from the inside out.
-		outer_LI.appendChild( outer_BUTTON );
-		outer_LI.appendChild( inner_UL );
-		outer_UL.appendChild( outer_LI );
-
-		// Update html fragment
-		fragment.appendChild( outer_UL );
-
-		// Add to the DOM
-		document.getElementById("bmkSection").appendChild( fragment );
 
 	},
 
@@ -402,7 +406,7 @@ var bmkSection   = document.getElementById("bmkSection"),
 	        
 	    };
 	    
-	    xhr.open("GET", window.location.href + "bookmarks?group=News", true);
+	    xhr.open("GET", window.location.href + "bookmarks", true);
 	    xhr.send();
 	
 	},

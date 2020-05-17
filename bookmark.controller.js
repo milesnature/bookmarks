@@ -32,7 +32,7 @@ exports.create = (req, res) => {
 
 // Retrieve all bookmarks from the database.
 exports.findAll = (req, res) => {
-    Bookmark.find({ group: "News" })
+    Bookmark.find()
     .then(bookmarks => {
         res.send(bookmarks);
     }).catch(err => {
@@ -45,12 +45,12 @@ exports.findAll = (req, res) => {
 // Retrieve all bookmarks by group.
 exports.findAllByGroup = (req, res) => {
     console.log('req', req);
-    Bookmark.find(req.params.bookmarkGroup, { group: req.params.bookmarkGroup })
+    Bookmark.find({group: req.params.group})
     .then(bookmarks => {
         res.send(bookmarks);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "No bookmarks found for group named " + req.params.bookmarkGroup
+            message: err.message || "No bookmarks found for group named " + req.params.group
         });
     });
 };

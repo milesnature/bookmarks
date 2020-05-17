@@ -8,7 +8,7 @@ module.exports = (app) => {
     app.get('/bookmarks', bookmark.findAll);
 
     // Retrieve all Bookmarks by group
-    app.get('/bookmarks/:bookmarkGroup', bookmark.findAllByGroup);
+    app.get('/bookmarks/:group', bookmark.findAllByGroup);
 
     // Retrieve a single Bookmark with bookmarkId
     app.get('/bookmarks/:bookmarkId', bookmark.findOne);
