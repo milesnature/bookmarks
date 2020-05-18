@@ -1,5 +1,6 @@
 
 // get dependencies
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -26,7 +27,7 @@ require('./bookmark.routes.js')(app);  //Add route file here
 mongoose.Promise = global.Promise;
 
 // Connecting to the database - mongoose.connect(uri, { useFindAndModify: false });
-mongoose.connect(config.url, {
+mongoose.connect(process.env.DB_CONNECTION, {
 	useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true

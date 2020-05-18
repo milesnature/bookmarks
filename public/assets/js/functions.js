@@ -328,11 +328,9 @@ var bmkSection   = document.getElementById("bmkSection"),
 
 		groupsByName.sort();
 
-		console.log( 'groupsByName', groupsByName, groupsByName.sort() );
+		console.log( 'groupsByName', groupsByName, groupsByName.sort(), groupsByName );
 
 		return groupsByName;
-
-
 
 	},
 
