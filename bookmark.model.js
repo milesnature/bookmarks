@@ -1,9 +1,26 @@
 const mongoose = require('mongoose');
 
 const BookmarkSchema = mongoose.Schema({
-    name   : String,
-    url    : String,
-    group  : String
+    name : {
+    	type: String,
+    	required: true,
+    	unique: true
+    },
+    url : {
+    	type: String,
+    	required: true,
+    	unique: true
+    },
+    group : {
+    	type: String,
+    	required: true,
+    	unique: true
+    },
+    target : {
+    	type: String,
+    	required: true,
+    	unique: true
+    }
 }, {
     timestamps: true
 });

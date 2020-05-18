@@ -310,10 +310,14 @@ var bmkSection   = document.getElementById("bmkSection"),
 
 		var groupName = item.group;
 
-		if ( groupsByName.hasOwnProperty( groupName ) ) {
-			groupsByName[ groupName ].push( item );
-		} else {
-			groupsByName[ groupName ] = [ item ];
+		if ( groupName ) {
+
+			if ( groupsByName.hasOwnProperty( groupName ) ) {
+				groupsByName[ groupName ].push( item );
+			} else {
+				groupsByName[ groupName ] = [ item ];
+			}
+
 		}
 
 	},
@@ -322,7 +326,13 @@ var bmkSection   = document.getElementById("bmkSection"),
 
 		bookmarks.forEach( sortGroup );
 
+		groupsByName.sort();
+
+		console.log( 'groupsByName', groupsByName, groupsByName.sort() );
+
 		return groupsByName;
+
+
 
 	},
 
@@ -348,6 +358,8 @@ var bmkSection   = document.getElementById("bmkSection"),
 
 			for ( item in sortedList ) { 
 
+				if ( !item ) { continue; };
+
 				group = sortedList[ item ];
 
 				var groupName          = item,
@@ -371,18 +383,22 @@ var bmkSection   = document.getElementById("bmkSection"),
 
 				for ( i = 0; i < group.length; i += 1 ) {
 
+					var bookmark = group[i];
+
+					if ( !bookmark.group || !bookmark.name || !bookmark.url ) { continue; }
+
 					// Create individual bookmarks.
 					var li     = document.createElement   ( 'LI' ),
 					    a      = document.createElement   ( 'A' ),
 						id     = document.createAttribute ( 'id' ),
 						href   = document.createAttribute ( 'href' ),
 						target = document.createAttribute ( 'target' ),
-						text   = document.createTextNode  ( group[i].name );
+						text   = document.createTextNode  ( bookmark.name );
 
 					// Set anchor tag attributes and text.
-					id.value = group[i]._id;
+					id.value = bookmark._id;
 					a.setAttributeNode( id );
-					href.value = group[i].url;
+					href.value = bookmark.url;
 					a.setAttributeNode( href );
 					target.value = "_blank";
 					a.setAttributeNode( target );

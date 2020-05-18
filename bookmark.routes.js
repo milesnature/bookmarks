@@ -4,6 +4,9 @@ module.exports = (app) => {
     // Create a new Bookmark
     app.post('/bookmarks', bookmark.create);
 
+    // Create a new Bookmark
+    /* app.post('/bookmarks/collection', bookmark.createBookmarkSet); */
+
     // Retrieve all Bookmarks
     app.get('/bookmarks', bookmark.findAll);
 

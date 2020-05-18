@@ -1,4 +1,5 @@
 const Bookmark = require('./bookmark.model.js');
+/* const BookmarkSet = require('./bookmark-set.model.js'); */
 const Group = require('./group.model.js');
 
 //Create new Bookmark
@@ -14,7 +15,8 @@ exports.create = (req, res) => {
     const bookmark = new Bookmark({
         name   : req.body.name   || "", 
         url    : req.body.url    || "",
-        group  : req.body.group  || ""
+        group  : req.body.group  || "",
+        parent : req.body.parent || ""
     });
 
     // Save Bookmark in the database
@@ -28,7 +30,44 @@ exports.create = (req, res) => {
     });
 };
 
+/*
 // Model.collection.insert(docs, options, callback)
+exports.createBookmarkSet = (req, res) => {
+    // Request validation
+    if(!req.body) {
+        return res.status(400).send({
+            message: "Bookmark set content can not be empty."
+        });
+    }
+
+    // Create a Collection
+    var bookmarkSet = [],
+    createBookmarkSet = function( item, index ) {
+
+        const bookmark = new Bookmark({
+            name   : item.name   || "", 
+            url    : item.url    || "",
+            group  : item.group  || "",
+            parent : item.parent || ""
+        });
+
+        bookmarkSet.push( bookmark );
+    }
+
+    req.body.forEach( createBookmarkSet );
+
+    // Save Collection in the database
+    bookmarkSet.insert()
+    .then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Something wrong while creating the collection."
+        });
+    });
+};
+*/
+
 
 // Retrieve all bookmarks from the database.
 exports.findAll = (req, res) => {
@@ -88,9 +127,10 @@ exports.update = (req, res) => {
 
     // Find and update bookmark with the request body
     Bookmark.findByIdAndUpdate(req.params.bookmarkId, {
-        name   : req.body.name, 
-        url    : req.body.url,
-        group  : req.body.group
+        name   : req.body.name   || "", 
+        url    : req.body.url    || "",
+        group  : req.body.group  || "",
+        parent : req.body.parent || ""
     }, { new: true })
     .then(bookmark => {
         if(!bookmark) {
