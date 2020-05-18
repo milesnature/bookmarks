@@ -16,6 +16,11 @@ const BookmarkSchema = mongoose.Schema({
     	required: true,
     	unique: true
     },
+    parent : {
+    	type: String,
+    	required: false,
+    	unique: false
+    },
     target : {
     	type: String,
     	required: false,

@@ -20,7 +20,6 @@ app.use(function(req, res, next) {
 });
 
 // Configuring the database
-const config = require('./config.js');
 const mongoose = require('mongoose');
 require('./bookmark.routes.js')(app);  //Add route file here
 
@@ -47,6 +46,6 @@ app.get('/', (req, res) => {
 });
 
 // listen on port 3000
-app.listen(config.serverport, () => {
+app.listen(process.env.SERVER_PORT, () => {
     console.log("Server is listening on port 3000");
 })
