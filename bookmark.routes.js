@@ -4,14 +4,11 @@ module.exports = (app) => {
     // Create a new Bookmark
     app.post('/bookmarks', bookmark.create);
 
-    // Create a new Bookmark
-    /* app.post('/bookmarks/collection', bookmark.createBookmarkSet); */
-
     // Retrieve all Bookmarks
     app.get('/bookmarks', bookmark.findAll);
 
     // Retrieve all Bookmarks by group
-    app.get('/bookmarks/:group', bookmark.findAllByGroup);
+    app.get('/bookmarks/group/:group', bookmark.findAllByGroup);
 
     // Retrieve a single Bookmark with bookmarkId
     app.get('/bookmarks/:bookmarkId', bookmark.findOne);
