@@ -15,6 +15,7 @@ __Early stage of construction__. This is __not ready__ for consumption, nor cont
 1. Create a .env file in the main directory. This provides access to the mongodb database and sets deployment port. The url below points to a locally deployed instance, named MyDatabase. This should be updated with your db connection string.
 ```javascript
 DB_CONNECTION=mongodb://localhost:27017/MyDatabase
+SERVER_PORT=3000
 ```
 2. Install node and npm
 3. $ npm install
