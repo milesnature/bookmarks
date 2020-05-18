@@ -18,8 +18,8 @@ const BookmarkSchema = mongoose.Schema({
     },
     target : {
     	type: String,
-    	required: true,
-    	unique: true
+    	required: false,
+    	unique: false
     }
 }, {
     timestamps: true
