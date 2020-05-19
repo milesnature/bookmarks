@@ -224,7 +224,7 @@ form .fieldset select {
 
 .button {
 	margin: 0;
-	width: 69px;
+	min-width: 69px;
 	text-align: center;
 	cursor: pointer;
 }
@@ -264,7 +264,7 @@ footer nav {
 
 footer nav button {
 	cursor: pointer;
-	width: 69px;
+	min-width: 69px;
 }
 
 footer small {
