@@ -1,9 +1,10 @@
 /* OPEN ALL BOOKMARKS WITHIN A GROUP. THIS ADDS AN EVENT LISTENER TO EACH GROUP. ALL BOOKMARKS WITHIN EACH GROUP ARE LAUNCHED WHEN CLIKCING ON GROUP NAME. OTHERWISE, LINKS ARE OPENED INDIVIDUALLY VIA THEIR RESPECTIVE ANCHOR TAGS. */
-var bmkSection   = document.getElementById("bmkSection"),
-	ajaxResponse = document.getElementById("ajaxResponse"),
+var bmkSection     = document.getElementById("bmkSection"),
+	ajaxResponse   = document.getElementById("ajaxResponse"),
 	noGroups,
 	noBookmarks,
-	
+	bookmarksArray = [],
+
 	user = function () {
 		var path = window.location.pathname,
 			u;
@@ -334,7 +335,7 @@ var bmkSection   = document.getElementById("bmkSection"),
 
 	},
 
-	constructBookmarkList = function( bookmarks ) {
+	constructBookmarkLists = function( ) {
 
 		/* HTML STRUCTURE
 		<ul class="bookmarks">
@@ -346,6 +347,8 @@ var bmkSection   = document.getElementById("bmkSection"),
 			</li>
 		</ul>
 		*/
+
+		var bookmarks = bookmarksArray;
 
 		if ( bookmarks.length ) {
 
@@ -430,83 +433,27 @@ var bmkSection   = document.getElementById("bmkSection"),
 	/* AJAX CALLS */
 	userParam = "?user="+user(),
 	
-	getBookmarks = function () {
-		
-		var xhr = new XMLHttpRequest();
-			    
-	    xhr.onreadystatechange = function() {
-		    
-	        if (this.readyState == 4 && this.status == 200) {
-		       	if ( this.responseText ) {
-		       		var bookmarks = JSON.parse( this.responseText );
-	            	constructBookmarkList( bookmarks );
-					setupGroupsEventHandler();
-	            } else {
-	            	bmkSection.innerHTML = "";
-	            }
-	        } else {
-		        if ( this.responseText ) {
-		        	//ajaxResponse.innerHTML = this.responseText;
-		        }
-	        }
-	        
+	getBookmarks = function ( url, cbf ) {
+		var	xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function( ) {
+			// In local files, status is 0 upon success in Mozilla Firefox
+			if( xhr.readyState === XMLHttpRequest.DONE ) {
+				var status = xhr.status;
+				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
+			       	if ( this.responseText ) {
+			       		bookmarksArray = JSON.parse( this.responseText );
+		       			cbf();
+		            } else {
+		            	bmkSection.innerHTML = this;
+		            }
+				} else {
+					bmkSection.innerHTML = this;
+				}
+			}	        
 	    };
 	    
-	    xhr.open("GET", window.location.href + "bookmarks", true);
-	    xhr.send();
-	
-	},
-
-	getBookmarkGroupOptions = function () {
-	    
-		console.log({ "window.location" : window.location });
-
-	    var xhr = new XMLHttpRequest();
-	    
-	    xhr.onreadystatechange = function() {
-	        if (this.readyState == 4 && this.status == 200) {
-		        if ( this.responseText ) { 
-	            	detailGroupSelect.innerHTML = this.responseText;
-	            	detailParentSelect.innerHTML = "<option id=\"none\" name=\"none\" value=\"0\">None</option>" + this.responseText;
-	            	noGroupsSetup(false);
-	            } else {
-		            noGroupsSetup(true);
-	            }
-	        } else {
-		        if ( this.responseText ) {
-		        	//ajaxResponse.innerHTML = this.responseText;
-		        }
-	        }
-	        
-	    };
-	    
-	    xhr.open("GET", window.location.href + "bookmarks", true);
-	    xhr.send();
-	
-	},	
-
-	getBookmarkNameOptions = function () {
-	    
-	    var xhr = new XMLHttpRequest();
-	    
-	    xhr.onreadystatechange = function() {
-	        if (this.readyState == 4 && this.status == 200) {
-		        if ( this.responseText ) { 
-	            	detailNameSelect.innerHTML = this.responseText;
-	            	noBookmarksSetup(false);
-	            } else {
-		            noBookmarksSetup(true);
-	            }	            	
-	        } else {
-		        if ( this.responseText ) { 
-		        	//ajaxResponse.innerHTML = this.responseText;
-		        }
-	        }
-	    };
-	    
-	    xhr.open("GET", "https://bookmarks.milesnature.com/bmk-name-options.php"+userParam, true);
-	    xhr.send();
-	
+	    xhr.open("GET", url, true);
+	    xhr.send();	
 	},
 
 	formSubmit = function( event ) {
@@ -561,10 +508,11 @@ var bmkSection   = document.getElementById("bmkSection"),
 window.onload = function () {
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
-	//getBookmarkGroupOptions();
-	//getBookmarkNameOptions();
-	getBookmarks();	
-	
+	getBookmarks( window.location.href + "bookmarks", constructBookmarkLists );
+	//constructBookmarkGroupOptions();
+	//constructBookmarkNameOptions();	
+	setupGroupsEventHandler();
+
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
 	var formState = localStorage.getItem("form");
 	
