@@ -60,7 +60,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		"elementGroup"         : document.getElementById('elementGroup'),
 		"detailGroupText"      : document.getElementById('detailGroupText'),
 		"detailGroupSelect"    : document.getElementById('detailGroupSelect'),
-		"detailParentSelect"   : document.getElementById('detailParentSelect'),
+		// "detailParentSelect"   : document.getElementById('detailParentSelect'),
 		"detailNameText"       : document.getElementById('detailNameText'),
 		"detailNameSelect"     : document.getElementById('detailNameSelect'),		
 		"detailUrlText"        : document.getElementById('detailUrlText'),
@@ -80,7 +80,7 @@ var bmkSection     = document.getElementById("bmkSection"),
         "bmkGroupValue"        : function () { return detailGroupText.value },
 		"bmkGroupSelectValue"  : function () { return detailGroupSelect.value },
 		"bmkGroupSelectText"   : function () { return detailGroupSelect.options[detailGroupSelect.selectedIndex].text },
-		"bmkParentSelectText"  : function () { return ( detailParentSelect.options.length ) ? detailParentSelect.options[detailParentSelect.selectedIndex].value : 0; },
+		// "bmkParentSelectText"  : function () { return ( detailParentSelect.options.length ) ? detailParentSelect.options[detailParentSelect.selectedIndex].value : 0; },
 		"bmkTitleValue"        : function () { return detailNameText.value },
 		"bmkTitleSelectValue"  : function () { return detailNameSelect.value },
 		"bmkTitleSelectText"   : function () { return detailNameSelect.options[detailNameSelect.selectedIndex].text },
@@ -226,82 +226,74 @@ var bmkSection     = document.getElementById("bmkSection"),
         	
 	},
 	
-	getFormParams = function () {
+	getFormValues = function () {
 	
 		var action  = formElmnts.bmkActionValue(),
 			element = formElmnts.bmkElementValue(),
 			config  = {
-				"bmk_action"     : "bmk_action=" + action,
-				"bmk_element"    : "bmk_element=" + element,
-				"bmk_group_id"   : function() {
-									   if ( element === 'group' && action === 'delete' ) {
-										   return "bmk_group_id=" + formElmnts.bmkGroupSelectValue();
-									   } else if ( element === 'bookmark' && action === 'create' ) { 
-										   return "bmk_group_id=" + formElmnts.bmkGroupSelectValue(); 
-									   } else {
-										   return "";
-									   }
-								   },
-			    "bmk_parent_id"  : function() { 
-			    					   if ( element === 'group' && action === 'create' ) { 
-			    					       return "bmk_parent_id=" + formElmnts.bmkParentSelectText();
-			    					   } else if ( element === 'bookmark' && action === 'create' ) {
-			    					   	   return "bmk_parent_id=" + formElmnts.bmkParentSelectText();
-			    					   } else {
-			    					   	   return "";
-			    					   }
-			    				   },
-				"bmk_group_text" : function() { 
+
+			    // "parent"           : function() { 
+			    // 					   if ( element === 'group' && action === 'create' ) { 
+			    // 					       return formElmnts.bmkParentSelectText();
+			    // 					   } else if ( element === 'bookmark' && action === 'create' ) {
+			    // 					   	   return formElmnts.bmkParentSelectText();
+			    // 					   } else {
+			    // 					   	   return "";
+			    // 					   }
+			    // 				   }(),
+				"group"            : function() { 
 									   if ( element === 'group' && action === 'create' ) { 
-										   return "bmk_group_text=" + formElmnts.bmkGroupValue();
+										   return formElmnts.bmkGroupValue();
 									   } else if ( element === 'group' && action === 'delete' ) {
-										   return "bmk_group_text=" + formElmnts.bmkGroupSelectText();
+										   return formElmnts.bmkGroupSelectText();
 									   } else if ( element === 'bookmark' && action === 'create' ) { 
-										   return "bmk_group_text=" + formElmnts.bmkGroupSelectText(); 
+										   return formElmnts.bmkGroupSelectText(); 
 									   } else {
 										   return "";
 									   }
-								   },
-				"bmk_title_id"   : function() { 
+								   }(),
+				"id"               : function() { 
 									   if ( element === 'bookmark' && action === 'delete' ) { 
-										   return "bmk_title_id=" + formElmnts.bmkTitleSelectValue();
+										   return formElmnts.bmkTitleSelectValue();
 									   } else {
 										   return "";
 									   }
-								   },								   
-				"bmk_title_text" : function() { 
+								   }(),								   
+				"name"             : function() { 
 									   if ( element === 'bookmark' && action === 'delete' ) { 
-										   return "bmk_title_text=" + formElmnts.bmkTitleSelectText(); 
+										   return formElmnts.bmkTitleSelectText(); 
 									   } else if ( element === 'bookmark' && action === 'create' ) { 
-										   return "bmk_title_text=" + formElmnts.bmkTitleValue(); 
+										   return formElmnts.bmkTitleValue(); 
 									   } else {
 										   return "";
 									   }
-								   },
-				"bmk_url"        : function() {
+								   }(),
+				"url"              : function() {
 								       if ( element === 'bookmark' && action === 'create' ) {
-								           return "bmk_url=" + formElmnts.bmkUrlValue();
+								           return formElmnts.bmkUrlValue();
 								       } else {
 									       return "";
 								       }
-								   }
-			},
+								   }()
+			};
 			
-			params = [];
+		// 	params = [];
 			
-		params.push( config.bmk_action );
-		params.push( config.bmk_element );
-		if ( config.bmk_group_id()   !== "" ) { params.push( config.bmk_group_id()   ) };
-		if ( config.bmk_parent_id()  !== "" ) { params.push( config.bmk_parent_id()  ) };
-		if ( config.bmk_group_text() !== "" ) { params.push( config.bmk_group_text() ) };
-		if ( config.bmk_title_id()   !== "" ) { params.push( config.bmk_title_id()   ) };
-		if ( config.bmk_title_text() !== "" ) { params.push( config.bmk_title_text() ) };
-		if ( config.bmk_url()        !== "" ) { params.push( config.bmk_url()        ) };
-		params.push( "user=" + user() );
+		// params.push( config.bmk_action );
+		// params.push( config.bmk_element );
+		// if ( config.bmk_group_id()   !== "" ) { params.push( config.bmk_group_id()   ) };
+		// if ( config.bmk_parent_id()  !== "" ) { params.push( config.bmk_parent_id()  ) };
+		// if ( config.bmk_group_text() !== "" ) { params.push( config.bmk_group_text() ) };
+		// if ( config.bmk_title_id()   !== "" ) { params.push( config.bmk_title_id()   ) };
+		// if ( config.bmk_title_text() !== "" ) { params.push( config.bmk_title_text() ) };
+		// if ( config.bmk_url()        !== "" ) { params.push( config.bmk_url()        ) };
+		// params.push( "user=" + user() );
 		
 		//console.log( params.join('&') );
 		
-		return params.join('&');
+		return { 
+			"action" : action, "element": element, "config": config 
+		};
 	
 	},
 
@@ -477,10 +469,10 @@ var bmkSection     = document.getElementById("bmkSection"),
 
 				buildOptions  = function ( item, index ) {
 					option    = document.createElement   ( 'OPTION' ),
-					id        = document.createAttribute ( 'id' ),
+					val       = document.createAttribute ( 'value' ),
 					text      = document.createTextNode  ( item.name );
-					id.value  = item._id;
-					option.setAttributeNode( id );
+					val.value = item._id;
+					option.setAttributeNode( val );
 					option.appendChild( text );
 					groupFramgment.appendChild( option );
 				};
@@ -502,7 +494,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 	/* AJAX CALLS */
 	userParam = "?user="+user(),
 	
-	getBookmarks = function ( url, cbf ) {
+	getBookmarks = function ( action, url, params, cbf ) {
 		var	xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function( ) {
 			// In local files, status is 0 upon success in Mozilla Firefox
@@ -513,56 +505,57 @@ var bmkSection     = document.getElementById("bmkSection"),
 			       		bookmarksArray = JSON.parse( this.responseText );
 		       			cbf();
 		            } else {
-		            	bmkSection.innerHTML = this;
+		            	bmkSection.innerHTML = this.responseText;
 		            }
 				} else {
-					bmkSection.innerHTML = this;
+					bmkSection.innerHTML = this.responseText;
 				}
 			}	        
 	    };
 	    
-	    xhr.open("GET", url, true);
-	    xhr.send();	
+	    xhr.open( action, url, true );
+	    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    xhr.send( params );	
+	},
+
+	createBookmark = function ( action, url, params, cbf ) {
+		var	xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function( ) {
+			// In local files, status is 0 upon success in Mozilla Firefox
+			if( xhr.readyState === XMLHttpRequest.DONE ) {
+				var status = xhr.status;
+				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
+			       	if ( this.responseText ) {
+			       		bookmarksArray = JSON.parse( this.responseText );
+			       		detailGroupText.value = "";
+					 	detailNameText.value  = "";
+					 	detailUrlText.value   = "";
+		       			cbf();
+		            } else {
+		            	ajaxResponse.innerHTML = this.responseText;
+		            }
+				} else {
+					ajaxResponse.innerHTML = this.responseText;
+				}
+			}	        
+	    };
+	    
+	    xhr.open( action, url, true );
+	    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    xhr.send( params );	
 	},
 
 	formSubmit = function( event ) {
 		
 		event.preventDefault();
 		
-		var xhr = new XMLHttpRequest();
-		
-	    xhr.onreadystatechange = function() {
-		    
-	        if (this.readyState == 4 && this.status == 200) {
-	         
-				if ( !this.responseText ) {
-					
-	            	getBookmarks();
-					getBookmarkGroupOptions();
-					getBookmarkNameOptions();					
-					detailGroupText.value = "";
-					detailNameText.value = "";
-					detailUrlText.value = "";	 
-				
-				} else {
-					
-					 ajaxResponse.innerHTML = this.responseText;
-				
-				}         
-	            
-	        } else {
-		        
-		        ajaxResponse.innerHTML = this.responseText;
-		        
-	        }
-	        
-	    };
-	    
-	    xhr.open("POST", "https://bookmarks.milesnature.com/form.php", true);
-	    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    xhr.send( getFormParams() );
+// Logic to determine action.
+console.log( getFormValues() );
+
+		createBookmark( 'POST', window.location.href + "bookmarks", "name=Miles2&group=News&url=https://beta.milesnature.com/opinion", constructBookmarkLists );
 	
 	},
+
 	toggleModalAbout = function(  ) {
 		document.getElementsByClassName('modal')[0].classList.toggle('show');
 	},
@@ -577,7 +570,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 window.onload = function () {
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
-	getBookmarks( window.location.href + "bookmarks", constructBookmarkLists );
+	getBookmarks( 'GET', window.location.href + "bookmarks", {}, constructBookmarkLists );
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
 	var formState = localStorage.getItem("form");
