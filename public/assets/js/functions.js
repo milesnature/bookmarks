@@ -306,6 +306,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	groupsByName = [];
+	groups       = [];
 
 	sortGroup = function( item, index ) {
 
@@ -317,6 +318,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 				groupsByName[ groupName ].push( item );
 			} else {
 				groupsByName[ groupName ] = [ item ];
+				groups.push( groupName );
 			}
 
 		}			
@@ -324,9 +326,11 @@ var bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	sortBookmarksIntoGroups = function( bookmarks ) {
-		var groups = [];
+
 		bookmarks.forEach( sortGroup );
+
 		return groupsByName;
+
 	},
 
 	constructBookmarkLists = function( ) {
@@ -422,6 +426,77 @@ var bmkSection     = document.getElementById("bmkSection"),
 
 		}
 
+		setupGroupsEventHandler();
+		constructBookmarkGroupOptions();
+		constructBookmarkNameOptions( sortedList );
+
+	},
+
+	constructBookmarkGroupOptions = function ( ) { 
+		
+		/* HTML STRUCTURE
+		   <option value="News">News</option> 
+		*/
+
+		var fragment      = document.createDocumentFragment(),
+			
+			buildOptions  = function ( item, index ) {
+				option    = document.createElement   ( 'OPTION' ),
+				val       = document.createAttribute ( 'value' ),
+				text      = document.createTextNode  ( item );
+				val.value = item;
+				option.setAttributeNode( val );
+				option.appendChild( text );
+				fragment.appendChild( option );
+			};
+
+		groups.forEach( buildOptions );
+
+		formElmnts.detailGroupSelect.appendChild( fragment );
+
+	},
+
+	constructBookmarkNameOptions = function ( sortedList ) { 
+		
+		/* HTML STRUCTURE
+			<optgroup label="News"><option id="5ec592b3fcceb051486e9c2f">Ars Technica</option></optgroup>
+		*/
+
+		var fragment = document.createDocumentFragment(),
+			group    = [];
+
+		for ( item in sortedList ) { 
+
+			if ( !item ) { continue; };
+
+			group = sortedList[ item ];
+
+			var groupFramgment = document.createDocumentFragment(),
+				optgroup       = document.createElement   ( 'OPTGROUP' ),
+				label          = document.createAttribute ( 'label' ),
+
+				buildOptions  = function ( item, index ) {
+					option    = document.createElement   ( 'OPTION' ),
+					id        = document.createAttribute ( 'id' ),
+					text      = document.createTextNode  ( item.name );
+					id.value  = item._id;
+					option.setAttributeNode( id );
+					option.appendChild( text );
+					groupFramgment.appendChild( option );
+				};
+
+			label.value  = item;
+			optgroup.setAttributeNode( label );
+
+			group.forEach( buildOptions );
+
+			optgroup.appendChild( groupFramgment );
+			fragment.appendChild( optgroup );
+
+		}
+
+		formElmnts.detailNameSelect.appendChild( fragment );
+
 	},
 
 	/* AJAX CALLS */
@@ -503,9 +578,6 @@ window.onload = function () {
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
 	getBookmarks( window.location.href + "bookmarks", constructBookmarkLists );
-	//constructBookmarkGroupOptions();
-	//constructBookmarkNameOptions();	
-	setupGroupsEventHandler();
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
 	var formState = localStorage.getItem("form");
