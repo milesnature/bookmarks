@@ -70,8 +70,10 @@ exports.createBookmarkSet = (req, res) => {
 
 
 // Retrieve all bookmarks from the database.
+// TODO: Sorting on mixed lower and upper case doesn't work as expected. Known issue with mongodb.
 exports.findAll = (req, res) => {
     Bookmark.find()
+    .sort({group: 'asc', name: 'asc'})
     .then(bookmarks => {
         res.send(bookmarks);
     }).catch(err => {
@@ -85,6 +87,7 @@ exports.findAll = (req, res) => {
 exports.findAllByGroup = (req, res) => {
     console.log('req', req);
     Bookmark.find({group: req.params.group})
+    .sort({name: -1})
     .then(bookmarks => {
         res.send(bookmarks);
     }).catch(err => {

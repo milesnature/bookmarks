@@ -319,20 +319,14 @@ var bmkSection     = document.getElementById("bmkSection"),
 				groupsByName[ groupName ] = [ item ];
 			}
 
-		}
+		}			
 
 	},
 
 	sortBookmarksIntoGroups = function( bookmarks ) {
-
+		var groups = [];
 		bookmarks.forEach( sortGroup );
-
-		groupsByName.sort();
-
-		console.log( 'groupsByName', groupsByName, groupsByName.sort(), groupsByName );
-
 		return groupsByName;
-
 	},
 
 	constructBookmarkLists = function( ) {
