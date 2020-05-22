@@ -297,6 +297,12 @@ var bmkSection     = document.getElementById("bmkSection"),
 	
 	},
 
+	resetFormFields = function () {
+		detailGroupText.value = "";
+		detailNameText.value  = "";
+		detailUrlText.value   = "";
+	},
+
 	groupsByName = [];
 	groups       = [];
 
@@ -318,6 +324,9 @@ var bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	sortBookmarksIntoGroups = function( bookmarks ) {
+
+		groupsByName = [];
+		groups       = [];
 
 		bookmarks.forEach( sortGroup );
 
@@ -414,7 +423,16 @@ var bmkSection     = document.getElementById("bmkSection"),
 			}
 
 			// Add to the DOM
-			document.getElementById("bmkSection").appendChild( fragment );
+			if ( bmkSection.hasChildNodes() ) {
+		        var child = bmkSection.lastElementChild;  
+		        while (child) { 
+		            bmkSection.removeChild(child); 
+		            child = bmkSection.lastElementChild; 
+		        } 
+				bmkSection.appendChild( fragment );
+			} else {
+				bmkSection.appendChild( fragment );
+			}
 
 		}
 
@@ -444,7 +462,17 @@ var bmkSection     = document.getElementById("bmkSection"),
 
 		groups.forEach( buildOptions );
 
-		formElmnts.detailGroupSelect.appendChild( fragment );
+
+		if ( formElmnts.detailGroupSelect.hasChildNodes() ) {
+	        var child = formElmnts.detailGroupSelect.lastElementChild;  
+	        while (child) { 
+	            formElmnts.detailGroupSelect.removeChild(child); 
+	            child = formElmnts.detailGroupSelect.lastElementChild; 
+	        } 
+			formElmnts.detailGroupSelect.appendChild( fragment );
+		} else {
+			formElmnts.detailGroupSelect.appendChild( fragment );
+		}
 
 	},
 
@@ -487,14 +515,23 @@ var bmkSection     = document.getElementById("bmkSection"),
 
 		}
 
-		formElmnts.detailNameSelect.appendChild( fragment );
+		if ( formElmnts.detailNameSelect.hasChildNodes() ) {
+	        var child = formElmnts.detailNameSelect.lastElementChild;  
+	        while (child) { 
+	            formElmnts.detailNameSelect.removeChild(child); 
+	            child =formElmnts.detailNameSelect.lastElementChild; 
+	        } 
+			formElmnts.detailNameSelect.appendChild( fragment );
+		} else {
+			formElmnts.detailNameSelect.appendChild( fragment );
+		}
 
 	},
 
 	/* AJAX CALLS */
 	userParam = "?user="+user(),
 	
-	getBookmarks = function ( action, url, params, cbf ) {
+	getBookmarks = function ( ) {
 		var	xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function( ) {
 			// In local files, status is 0 upon success in Mozilla Firefox
@@ -503,7 +540,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
 			       		bookmarksArray = JSON.parse( this.responseText );
-		       			cbf();
+		       			constructBookmarkLists( );
 		            } else {
 		            	bmkSection.innerHTML = this.responseText;
 		            }
@@ -512,13 +549,12 @@ var bmkSection     = document.getElementById("bmkSection"),
 				}
 			}	        
 	    };
-	    
-	    xhr.open( action, url, true );
+	    xhr.open( 'GET', window.location.href + "bookmarks", true );
 	    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    xhr.send( params );	
+	    xhr.send();	
 	},
 
-	createBookmark = function ( action, url, params, cbf ) {
+	verbBookmark = function ( action, url, params, cbf ) {
 		var	xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function( ) {
 			// In local files, status is 0 upon success in Mozilla Firefox
@@ -526,10 +562,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 				var status = xhr.status;
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
-			       		bookmarksArray = JSON.parse( this.responseText );
-			       		detailGroupText.value = "";
-					 	detailNameText.value  = "";
-					 	detailUrlText.value   = "";
+						resetFormFields();
 		       			cbf();
 		            } else {
 		            	ajaxResponse.innerHTML = this.responseText;
@@ -548,19 +581,36 @@ var bmkSection     = document.getElementById("bmkSection"),
 	formSubmit = function( event ) {
 		
 		event.preventDefault();
-		
-// Logic to determine action.
-console.log( getFormValues() );
 
-		createBookmark( 'POST', window.location.href + "bookmarks", "name=Miles2&group=News&url=https://beta.milesnature.com/opinion", constructBookmarkLists );
-	
+		// Logic to determine action.		
+		var values = getFormValues();
+
+		if ( values.action === "create" && values.element === "bookmark" ) {
+			var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+			verbBookmark( 
+				'POST', 
+				window.location.href + "bookmarks", 
+				params,
+				getBookmarks
+			);
+		}
+
+		if ( values.action === "delete" && values.element === "bookmark"  ) {
+			var params = "";
+			verbBookmark( 
+				'DELETE', 
+				window.location.href + "bookmarks/" + values.config.id, 
+				params, 
+				getBookmarks
+			);
+		}
+
 	},
 
 	toggleModalAbout = function(  ) {
 		document.getElementsByClassName('modal')[0].classList.toggle('show');
 	},
 	toggleModalHelp = function(  ) {
-		console.log(document.getElementsByClassName('modal')[1]);
 		document.getElementsByClassName('modal')[1].classList.toggle('show');
 	};
 
@@ -570,7 +620,7 @@ console.log( getFormValues() );
 window.onload = function () {
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
-	getBookmarks( 'GET', window.location.href + "bookmarks", {}, constructBookmarkLists );
+	getBookmarks();
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
 	var formState = localStorage.getItem("form");
@@ -636,44 +686,3 @@ window.onload = function () {
 	});
 	
 };
-
-/* DRAG AND DROP SANDBOX
-function allowDrop( ev ) {
-	ev.preventDefault();
-	
-	console.log("allowDrop", ev);
-}
-
-function drag( ev ) {
-	ev.dataTransfer.setData("text", ev.target.id);
-
-	console.log("drag", ev);
-}
-
-function drop( ev ) {
-	
-	ev.preventDefault();
-	//var data = ev.dataTransfer.getData("text");
-	//ev.target.appendChild(document.getElementById(data));
-  
-	console.log("drop", ev);
- 
-}
-*/
-	
-/* TODO: CHECK FOR POPUP BLOCKING AND ALERT USER. LOW PRIORITY.
-var popup = window.open( );
-	setTimeout( function() {
-    	if(!popup || popup.outerHeight === 0) {
-        	//First Checking Condition Works For IE & Firefox
-			//Second Checking Condition Works For Chrome
-			alert("Popup Blocker is enabled! Please add this site to your exception list.");
-			window.location.href = 'warning.html';
-    	} else {
-        	//Popup Blocker Is Disabled
-			window.open('','_self');
-			window.close();
-    	} 
-	}, 25);	
-*/				
-				
