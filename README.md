@@ -12,12 +12,10 @@ __Early stage of construction__. This is __not ready__ for consumption, nor cont
 * Data can be retrieved
 
 ### Instructions
-1. Create a config.js file in the main directory. This provides access to the mongodb database and sets deployment port. The url below points to a locally deployed instance, named MyDatabase. This should be updated with your db connection string.
+1. Create a .env file in the main directory. This provides access to the mongodb database and sets deployment port. The url below points to a locally deployed instance, named MyDatabase. This should be updated with your db connection string.
 ```javascript
-module.exports = {
-    url: 'mongodb://localhost:27017/MyDatabase',
-    serverport: 3000 
-}
+DB_CONNECTION=mongodb://localhost:27017/MyDatabase
+SERVER_PORT=3000
 ```
 2. Install node and npm
 3. $ npm install
