@@ -5,13 +5,13 @@ var bmkSection     = document.getElementById("bmkSection"),
 	noBookmarks,
 	bookmarksArray = [],
 
-	user = function () {
-		var path = window.location.pathname,
-			u;
-		u = path.replace("/users/", "");
-		u = u.replace("/", "");
-		return u;
-	},
+	// user = function () {
+	// 	var path = window.location.pathname,
+	// 		u;
+	// 	u = path.replace("/users/", "");
+	// 	u = u.replace("/", "");
+	// 	return u;
+	// },
 	
 	getLists = function () { 
 		return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
@@ -176,31 +176,6 @@ var bmkSection     = document.getElementById("bmkSection"),
 		
 	},
 
-	noGroupsSetup = function ( noGroups ) {
-		
-		if ( noGroups === true ) {
-
-			if ( !formElmnts.bmksForm.classList.contains('noGroups') ) {
-	        	formElmnts.bmksForm.classList.add('noGroups');
-	        }
-	        
-	        formElmnts.actionCreate.checked = "checked";
-	        formElmnts.elementGroup.checked = "checked";
-	        formActionState(); 
-	        formElementState();
-	        document.body.classList.add('edit');
-	        ajaxResponse.innerHTML = "No groups were found. Please create a group. \<a class=\"get-help\" onclick=\"toggleModalHelp()\">Help\<\/a>.";
-	        	        
-        } else {
-	        
-	        if ( formElmnts.bmksForm.classList.contains('noGroups') ) {
-	        	formElmnts.bmksForm.classList.remove('noGroups');
-	        }
-	        	        
-        }
-        	
-	},
-
 	noBookmarksSetup = function ( noBookmarks ) {
 		
 		if ( noBookmarks === true && !formElmnts.bmksForm.classList.contains('noGroups') ) {
@@ -276,20 +251,6 @@ var bmkSection     = document.getElementById("bmkSection"),
 								       }
 								   }()
 			};
-			
-		// 	params = [];
-			
-		// params.push( config.bmk_action );
-		// params.push( config.bmk_element );
-		// if ( config.bmk_group_id()   !== "" ) { params.push( config.bmk_group_id()   ) };
-		// if ( config.bmk_parent_id()  !== "" ) { params.push( config.bmk_parent_id()  ) };
-		// if ( config.bmk_group_text() !== "" ) { params.push( config.bmk_group_text() ) };
-		// if ( config.bmk_title_id()   !== "" ) { params.push( config.bmk_title_id()   ) };
-		// if ( config.bmk_title_text() !== "" ) { params.push( config.bmk_title_text() ) };
-		// if ( config.bmk_url()        !== "" ) { params.push( config.bmk_url()        ) };
-		// params.push( "user=" + user() );
-		
-		//console.log( params.join('&') );
 		
 		return { 
 			"action" : action, "element": element, "config": config 
@@ -529,7 +490,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	/* AJAX CALLS */
-	userParam = "?user="+user(),
+	// userParam = "?user="+user(),
 	
 	getBookmarks = function ( ) {
 		var	xhr = new XMLHttpRequest();

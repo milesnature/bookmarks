@@ -1,9 +1,8 @@
 const Bookmark = require('./bookmark.model.js');
-/* const BookmarkSet = require('./bookmark-set.model.js'); */
 const Group = require('./group.model.js');
 
 //Create new Bookmark
-exports.create = (req, res) => {
+exports.createBookmark = (req, res) => {
     // Request validation
     if(!req.body) {
         return res.status(400).send({
@@ -71,20 +70,20 @@ exports.createBookmarkSet = (req, res) => {
 
 // Retrieve all bookmarks from the database.
 // TODO: Sorting on mixed lower and upper case doesn't work as expected. Known issue with mongodb.
-exports.findAll = (req, res) => {
+exports.getBookmarks = (req, res) => {
     Bookmark.find()
     .sort({group: 'asc', name: 'asc'})
     .then(bookmarks => {
         res.send(bookmarks);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something wrong while retrieving bookmarks."
+            message: err.message || "Could not retrieve bookmarks"
         });
     });
 };
 
 // Retrieve all bookmarks by group.
-exports.findAllByGroup = (req, res) => {
+exports.getBookmarksByGroup = (req, res) => {
     console.log('req', req);
     Bookmark.find({group: req.params.group})
     .sort({name: -1})
@@ -92,35 +91,35 @@ exports.findAllByGroup = (req, res) => {
         res.send(bookmarks);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "No bookmarks found for group named " + req.params.group
+            message: err.message || "No bookmarks found for group named [" + req.params.group + "]"
         });
     });
 };
 
 // Find a single bookmark with a bookmarkId
-exports.findOne = (req, res) => {
+exports.getBookmark = (req, res) => {
     Bookmark.findById(req.params.bookmarkId)
     .then(bookmark => {
         if(!bookmark) {
             return res.status(404).send({
-                message: "Bookmark not found with id " + req.params.bookmarkId
+                message: "Bookmark with the id [" + req.params.bookmarkId + "] was not found"
             });            
         }
         res.send(bookmark);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Bookmark not found with id " + req.params.bookmarkId
+                message: "Bookmark with the id [" + req.params.bookmarkId + "] was not found"
             });                
         }
         return res.status(500).send({
-            message: "Something wrong retrieving bookmark with id " + req.params.bookmarkId
+            message: "Could not get bookmark with id [" + req.params.bookmarkId + "]"
         });
     });
 };
 
 // Update a bookmark
-exports.update = (req, res) => {
+exports.updateBookmark = (req, res) => {
     // Validate Request
     if(!req.body) {
         return res.status(400).send({
@@ -138,40 +137,40 @@ exports.update = (req, res) => {
     .then(bookmark => {
         if(!bookmark) {
             return res.status(404).send({
-                message: "Bookmark not found with id " + req.params.bookmarkId
+                message: "Bookmark with the id [" + req.params.bookmarkId + "] was not found"
             });
         }
         res.send(bookmark);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Bookmark not found with id " + req.params.bookmarkId
+                message: "Bookmark with the id [" + req.params.bookmarkId + "] was not found"
             });                
         }
         return res.status(500).send({
-            message: "Something wrong updating bookmark with id " + req.params.bookmarkId
+            message: "Could not update bookmark with id [" + req.params.bookmarkId + "]"
         });
     });
 };
 
 // Delete a bookmark with the specified bookmarkId in the request
-exports.delete = (req, res) => {
+exports.deleteBookmark = (req, res) => {
     Bookmark.findByIdAndRemove(req.params.bookmarkId)
     .then(bookmark => {
         if(!bookmark) {
             return res.status(404).send({
-                message: "Bookmark not found with id " + req.params.bookmarkId
+                message: "Bookmark with the id [" + req.params.bookmarkId + "] was not found"
             });
         }
         res.send({message: "Bookmark deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Bookmark not found with id " + req.params.bookmarkId
+                message: "Bookmark with the id [" + req.params.bookmarkId + "] was not found"
             });                
         }
         return res.status(500).send({
-            message: "Could not delete bookmark with id " + req.params.bookmarkId
+            message: "Could not delete bookmark with id [" + req.params.bookmarkId + "]"
         });
     });
 };
@@ -182,18 +181,18 @@ exports.deleteGroup = (req, res) => {
     .then(bookmark => {
         if(!bookmark) {
             return res.status(404).send({
-                message: "Group not found with name " + req.params.group
+                message: "No group named [" + req.params.group + "] was found"
             });
         }
-        res.send({message: "Bookmark deleted successfully!"});
+        res.send({message: "Group deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Group not found with name " + req.params.group
+                message: "No group named [" + req.params.group + "] was found"
             });                
         }
         return res.status(500).send({
-            message: "Could not delete group with name " + req.params.group
+            message: "Could not delete the group named [" + req.params.group + "]"
         });
     });
 };
