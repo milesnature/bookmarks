@@ -3,3 +3,5 @@ bookmarks.sublime-project
 bookmarks.sublime-workspace
 node_modules
 bookmarks.json
+.htaccess
+.htpasswd
