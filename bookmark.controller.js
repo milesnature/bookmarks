@@ -175,3 +175,25 @@ exports.delete = (req, res) => {
         });
     });
 };
+
+// Delete all bookmarks that share the same group name.
+exports.deleteGroup = (req, res) => {
+    Bookmark.deleteMany({ group: req.params.group })
+    .then(bookmark => {
+        if(!bookmark) {
+            return res.status(404).send({
+                message: "Group not found with name " + req.params.group
+            });
+        }
+        res.send({message: "Bookmark deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "Group not found with name " + req.params.group
+            });                
+        }
+        return res.status(500).send({
+            message: "Could not delete group with name " + req.params.group
+        });
+    });
+};

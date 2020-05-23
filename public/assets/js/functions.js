@@ -262,14 +262,14 @@ var bmkSection     = document.getElementById("bmkSection"),
 				"name"             : function() { 
 									   if ( element === 'bookmark' && action === 'delete' ) { 
 										   return formElmnts.bmkTitleSelectText(); 
-									   } else if ( element === 'bookmark' && action === 'create' ) { 
+									   } else if ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) { 
 										   return formElmnts.bmkTitleValue(); 
 									   } else {
 										   return "";
 									   }
 								   }(),
 				"url"              : function() {
-								       if ( element === 'bookmark' && action === 'create' ) {
+								       if ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) {
 								           return formElmnts.bmkUrlValue();
 								       } else {
 									       return "";
@@ -583,9 +583,10 @@ var bmkSection     = document.getElementById("bmkSection"),
 		event.preventDefault();
 
 		// Logic to determine action.		
-		var values = getFormValues();
+		var values = getFormValues(),
+			params = "";
 
-		if ( values.action === "create" && values.element === "bookmark" ) {
+		if ( values.action === "create" && ( values.element === "bookmark" || values.element === "group" ) ) {
 			var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 			verbBookmark( 
 				'POST', 
@@ -596,10 +597,18 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 
 		if ( values.action === "delete" && values.element === "bookmark"  ) {
-			var params = "";
 			verbBookmark( 
 				'DELETE', 
 				window.location.href + "bookmarks/" + values.config.id, 
+				params, 
+				getBookmarks
+			);
+		}
+
+		if ( values.action === "delete" && values.element === "group" ) {
+			verbBookmark( 
+				'DELETE', 
+				window.location.href + "bookmarks/group/" + values.config.group, 
 				params, 
 				getBookmarks
 			);
