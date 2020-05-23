@@ -18,4 +18,7 @@ module.exports = (app) => {
 
     // Delete a Note with bookmarkId
     app.delete('/bookmarks/:bookmarkId', bookmark.delete);
+
+    // Delete all bookmarks by their shared group name
+    app.delete('/bookmarks/group/:group', bookmark.deleteGroup);
 }

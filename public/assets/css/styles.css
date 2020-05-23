@@ -172,11 +172,11 @@ form.create.bookmark #detailNameSelect { display: none; }
 
 form.create.group #detailGroupText { display: inline-block; }
 form.create.group #detailGroupSelect { display: none; }
-form.create.group #detailNameLabel { display: none; }
-form.create.group #detailNameText { display: none; }
+form.create.group #detailNameLabel { display: inline-block; }
+form.create.group #detailNameText { display: inline-block; }
 form.create.group #detailNameSelect { display: none; }
-form.create.group #detailUrlLabel { display: none; }
-form.create.group #detailUrlText { display: none; }
+form.create.group #detailUrlLabel { display: inline-block; }
+form.create.group #detailUrlText { display: inline-block; }
 
 form.delete.bookmark #detailGroupLabel { display: none; }
 form.delete.bookmark #detailGroupText { display: none; }
@@ -213,13 +213,13 @@ form .fieldset {
  	grid-template-rows: 1fr 1fr 1fr;
 	grid-gap: 13px;
 	align-items: center;
-    
 }
 
 form .fieldset label,
 form .fieldset input, 
 form .fieldset select {
 	margin: 0;
+	font-size: 12px;
 }
 
 .button {
@@ -265,11 +265,12 @@ footer nav {
 footer nav button {
 	cursor: pointer;
 	min-width: 69px;
+	font-size: 12px;
 }
 
 footer small {
 	font-family: Helvetica;
-	font-size: .65em;
+	font-size: .8em;
 }
 
 footer small.links {
