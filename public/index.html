@@ -50,7 +50,7 @@
 			<div class="detail fieldset">
 
 				<label id="detailUpdateBookmarkLabel">Bookmark:
-					<select id="detailUpdateBookmarkSelect" name="name_select"></select>
+					<select id="detailUpdateBookmarkSelect" name="name_select" onchange="bookmarkFiller()"></select>
 				</label>				
 											
 				<label id="detailGroupLabel">Group:
@@ -95,8 +95,6 @@
 			</button>
 		
 		</form>
-
-
 		
 		<main>
 				
@@ -154,7 +152,6 @@
 				
 				<ul>
 					<li>Sessions</li>
-					<li>Update actions</li>
 					<li>Inline editing</li>
 					<li>Drag and drop</li>
 					<li>Import bookmark files</li>

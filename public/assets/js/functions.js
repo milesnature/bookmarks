@@ -79,7 +79,8 @@ var bmkSection     = document.getElementById("bmkSection"),
 		"isBookmarkChecked"    : function () { return formElmnts.elementBookmark.checked },
 		"isGroupChecked"       : function () { return formElmnts.elementGroup.checked },
 				
-		"bmkGroupSelectText"   : function () { return detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text },		
+		"updateBookmarkSelectText"    : function () { return detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text },
+		"updateBookmarkSelectValue"   : function () { return detailUpdateBookmarkSelect.value },		
         "bmkGroupValue"        : function () { return detailGroupText.value },
 		"bmkGroupSelectValue"  : function () { return detailGroupSelect.value },
 		"bmkGroupSelectText"   : function () { return detailGroupSelect.options[detailGroupSelect.selectedIndex].text },
@@ -141,11 +142,36 @@ var bmkSection     = document.getElementById("bmkSection"),
 		
 	},
 	
+	bookmarkFiller = function () {
+
+		var group = "",
+			name  = formElmnts.updateBookmarkSelectText(),
+			url   = "",
+			id    = formElmnts.updateBookmarkSelectValue(),
+
+			findBookmarkDetails = function ( item, index ) {
+
+				if ( item._id === id ) {
+					group = item.group;
+					url   = item.url;
+				}
+			};
+
+		bookmarksArray.forEach( findBookmarkDetails );
+
+		formElmnts.detailGroupText.value = group;
+		formElmnts.detailNameText.value  = name;
+		formElmnts.detailUrlText.value   = url;		
+	},
+
 	formActionState = function () { 
 
 		formElmnts.bmksForm.classList.remove( 'create' );
 		formElmnts.bmksForm.classList.remove( 'delete' );
 		formElmnts.bmksForm.classList.remove( 'update' );
+
+		resetFormFields();
+
 		removeChildNodes( ajaxResponse );
 
 		if ( formElmnts.isCreateChecked() ) {
@@ -165,6 +191,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 			formElmnts.bmksForm.classList.add( 'update' );
 			formElmnts.buttonSubmit.value = 'Update';
 			formElmnts.elementBookmark.checked = "checked";
+			bookmarkFiller();
 		}
 		
 	},
@@ -191,31 +218,6 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 		
 	},
-
-	// noBookmarksSetup = function ( noBookmarks ) {
-		
-	// 	if ( noBookmarks === true && !formElmnts.bmksForm.classList.contains('noGroups') ) {
-			
-	// 		if ( !formElmnts.bmksForm.classList.contains('noBookmarks') ) {
-	//         	formElmnts.bmksForm.classList.add('noBookmarks');
-	//         }
-	        
-	//         formElmnts.actionCreate.checked    = "checked";
-	//         formElmnts.elementBookmark.checked = "checked";
-	//         formActionState();
-	//         formElementState();
-	//         document.body.classList.add('edit');
-	//         setAjaxResponse( "No bookmarks were found. Please create a bookmark. \<a class=\"get-help\" onclick=\"toggleModalHelp()\">Help\<\/a>." );	        
-	        	        
- //        } else {
-	        
-	//         if ( formElmnts.bmksForm.classList.contains('noBookmarks') ) {
-	//         	formElmnts.bmksForm.classList.remove('noBookmarks');
-	//         }
-	        	        
- //        }	
-        	
-	// },
 	
 	getFormValues = function () {
 	
@@ -224,11 +226,9 @@ var bmkSection     = document.getElementById("bmkSection"),
 			config  = {
 
 				"group" : function() { 
-					if ( element === 'group' && action === 'create' ) { 
+					if ( ( element === 'group' && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) { 
 						return formElmnts.bmkGroupValue();
-					} else if ( element === 'group' && action === 'delete' ) {
-						return formElmnts.bmkGroupSelectText();
-					} else if ( element === 'bookmark' && action === 'create' ) { 
+					} else if ( ( element === 'group' && action === 'delete' ) || ( element === 'bookmark' && action === 'create' ) ) {
 						return formElmnts.bmkGroupSelectText();
 					} else {
 						return "";
@@ -238,6 +238,8 @@ var bmkSection     = document.getElementById("bmkSection"),
 				"id" : function() { 
 					if ( element === 'bookmark' && action === 'delete' ) {
 						return formElmnts.bmkTitleSelectValue();
+					} else if ( element === 'bookmark' && action === 'update' ) {
+						return formElmnts.updateBookmarkSelectValue();
 					} else {
 						return "";
 					}
@@ -246,15 +248,15 @@ var bmkSection     = document.getElementById("bmkSection"),
 				"name" : function() {
 					if ( element === 'bookmark' && action === 'delete' ) {
 						return formElmnts.bmkTitleSelectText();
-					} else if ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) {
-						return formElmnts.bmkTitleValue(); 
+					} else if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' )  ) {
+						return formElmnts.bmkTitleValue();
 					} else {
 						return "";
 					}
 				}(),
 				
 				"url" : function() {
-					if ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) {
+					if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) {
 						return formElmnts.bmkUrlValue();
 					} else {
 						return "";
@@ -504,15 +506,20 @@ var bmkSection     = document.getElementById("bmkSection"),
 	        removeChildNodes( formElmnts.detailNameSelect );
 		}
 
-		var fragment2 = fragment.cloneNode(true);
+		if ( formElmnts.detailUpdateBookmarkSelect.hasChildNodes() ) {
+	        removeChildNodes( formElmnts.detailUpdateBookmarkSelect);
+		}
+
+		var fragment2 = fragment.cloneNode( true );
 
 		formElmnts.detailNameSelect.appendChild( fragment );
 		formElmnts.detailUpdateBookmarkSelect.appendChild( fragment2 );
 
+		bookmarkFiller();
+
 	},
 
 	/* AJAX CALLS */
-	// userParam = "?user="+user(),
 	getBookmarks = function ( ) {
 		var	xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function( ) {
@@ -611,6 +618,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 	toggleModalAbout = function(  ) {
 		document.getElementsByClassName('modal')[0].classList.toggle('show');
 	},
+
 	toggleModalHelp = function(  ) {
 		document.getElementsByClassName('modal')[1].classList.toggle('show');
 	};
