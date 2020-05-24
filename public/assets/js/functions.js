@@ -132,7 +132,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 			formElmnts.actionDelete.checked = "checked";
 		}
 		if ( action === "updateBookmark" ) {
-			formElmnts.updateUpdate.checked = "checked";
+			formElmnts.actionUpdate.checked = "checked";
 		}
 
 		formElmnts.elementBookmark.checked = "checked";
@@ -162,10 +162,9 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 
 		if ( formElmnts.isUpdateChecked() ) {
-			if ( !formElmnts.hasDeleteClass() ) {
-				formElmnts.bmksForm.classList.add( 'update' );
-				formElmnts.buttonSubmit.value = 'Update';
-			}
+			formElmnts.bmksForm.classList.add( 'update' );
+			formElmnts.buttonSubmit.value = 'Update';
+			formElmnts.elementBookmark.checked = "checked";
 		}
 		
 	},
@@ -185,6 +184,10 @@ var bmkSection     = document.getElementById("bmkSection"),
 				formElmnts.bmksForm.classList.add( 'group' );
 			}
 			formElmnts.bmksForm.classList.remove( 'bookmark' );
+		}
+		if ( formElmnts.isUpdateChecked() ) {
+			formElmnts.bmksForm.classList.add( 'bookmark' );
+			formElmnts.bmksForm.classList.remove( 'group' );
 		}
 		
 	},
@@ -273,7 +276,6 @@ var bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	removeChildNodes = function ( e ) {
-
 		if ( e.hasChildNodes( ) ) {
 	        var child = e.lastElementChild;  
 	        while ( child ) { 
@@ -281,7 +283,6 @@ var bmkSection     = document.getElementById("bmkSection"),
 	            child = e.lastElementChild; 
 	        } 
 		}
-
 		if ( e.textContent.length ) {
 			e.textContent = "";
 		}
@@ -512,7 +513,6 @@ var bmkSection     = document.getElementById("bmkSection"),
 
 	/* AJAX CALLS */
 	// userParam = "?user="+user(),
-	
 	getBookmarks = function ( ) {
 		var	xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function( ) {
@@ -638,11 +638,12 @@ window.onload = function () {
 		var target = e.target,
 			tag    = target.tagName,
 			name   = target.name;
-												
+						
 		if ( tag === "INPUT" ) {
 			switch (name) {
 				case "action":
 					 formActionState();
+					 formElementState();
 					 break;
 					 
 				case "element":
@@ -660,6 +661,10 @@ window.onload = function () {
 			}
 		}
 		
+		if ( ( tag === "BUTTON" && name === "cancel" ) || tag === "svg" || tag === "polyline" ) {
+			openCloseForm(); 
+		}
+
 	});
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
