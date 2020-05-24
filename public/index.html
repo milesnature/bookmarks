@@ -15,54 +15,74 @@
 	
 	</head>
 
-	<body class="">
+	<body>
 		
 		<form action="" method="post" class="create bookmark">
 			
 			<div class="action fieldset">
 									
-				<label id="actionCreateLabel" for="actionCreate" class="">Create:</label>
-				<input id="actionCreate" type="radio" name="action" value="create" checked="checked" />
+				<label id="actionCreateLabel">Create:
+					<input id="actionCreate" type="radio" name="action" value="create" checked="checked" />
+				</label>
 				
-				<label id="actionDeleteLabel" for="actionDelete" class="">Delete:</label>
-				<input id="actionDelete" type="radio" name="action" value="delete" />
+				<label id="actionDeleteLabel">Delete:
+					<input id="actionDelete" type="radio" name="action" value="delete" />
+				</label>
 			
+				<label id="actionUpdateLabel">Update:
+					<input id="actionUpdate" type="radio" name="action" value="update" />
+				</label>
+
 			</div>
 
 			<div class="element fieldset">
 								
-				<label id="elementBookmarkLabel" for="elementBookmark" class="">Bookmark:</label>
-				<input id="elementBookmark" type="radio" name="element" value="bookmark" checked="checked" />
+				<label id="elementBookmarkLabel">Bookmark:
+					<input id="elementBookmark" type="radio" name="element" value="bookmark" checked="checked" />
+				</label>
 				
-				<label id="elementGroupLabel" for="elementGroup" class="">Group:</label>
-				<input id="elementGroup" type="radio" name="element" value="group" />
+				<label id="elementGroupLabel">Group:
+					<input id="elementGroup" type="radio" name="element" value="group" />
+				</label>
 			
 			</div>				
 
 			<div class="detail fieldset">
+
+				<label id="detailUpdateBookmarkLabel">Bookmark:
+					<select id="detailUpdateBookmarkSelect" name="name_select"></select>
+				</label>				
 											
-				<label id="detailGroupLabel" for="detailGroupText" class="">Group:</label>
-				<input id="detailGroupText" class="" type="text" name="group" placeholder="Group" />
-				<select id="detailGroupSelect" class="" name="group_select"></select>
+				<label id="detailGroupLabel">Group:
+					<input id="detailGroupText" type="text" name="group" placeholder="Group" />
+					<select id="detailGroupSelect" name="group_select"></select>
+				</label>
 				
 <!--
- 				<label id="detailParentLabel" for="detailParentSelect" class="">Parent Group:</label>
-				<select id="detailParentSelect" class="" name="parent_select"></select> 
+ 				<label id="detailParentLabel">Parent Group:</label>
+				<select id="detailParentSelect" name="parent_select"></select> 
 -->
 
-				<label id="detailNameLabel" for="detailName" class="">Name:</label>
-				<input id="detailNameText" class="" type="text" name="name" placeholder="Name" />
-				<select id="detailNameSelect" class="" name="name_select"></select>
+				<label id="detailNameLabel">Name:
+					<input id="detailNameText" type="text" name="name" placeholder="Name" />
+					<select id="detailNameSelect" name="name_select"></select>
+				</label>
 
-				<label id="detailUrlLabel" for="detailUrl" class="">Url:</label>
-				<input id="detailUrlText" type="text" name="url" placeholder="Url" />
+				<label id="detailUrlLabel">Url:
+					<input id="detailUrlText" type="text" name="url" placeholder="Url" />
+				</label>
 				
 			</div>
 			
 			<div class="complete fieldset">
-									
-				<input id="buttonSubmit" type="submit" name="submit" class="button" value="Create" />				
-				<input id="buttonCancel" type="button" name="cancel" class="button cancel" value="Done" />
+						
+				<label>		
+					<input id="buttonSubmit" type="submit" name="submit" class="button" value="Create" />
+				</label>	
+
+				<label>	
+					<input id="buttonCancel" type="button" name="cancel" class="button cancel" value="Done" />
+				</label>	
 				
 				<div id="ajaxResponse"></div>
 			
