@@ -431,6 +431,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		setupGroupsEventHandler();
 		constructBookmarkGroupOptions();
 		constructBookmarkNameOptions( sortedList );
+		resetFormFields();
 
 	},
 
