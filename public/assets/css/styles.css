@@ -163,12 +163,23 @@ form.noGroups #actionDelete { display: none; }
 form.noGroups #elementBookmarkLabel { display: none; }
 form.noGroups #elementBookmark { display: none; }
 
+form #detailUpdateBookmarkLabel { display: none; }
+
 form.create.bookmark #detailGroupText { display: none; }
 form.create.bookmark #detailGroupSelect { display: inline-block; }
-form.create.bookmark #detailParentLabel { display: none; }
-form.create.bookmark #detailParentSelect { display: none; }
+/*form.create.bookmark #detailParentLabel { display: none; }
+form.create.bookmark #detailParentSelect { display: none; }*/
 form.create.bookmark #detailNameText { display: inline-block; }
 form.create.bookmark #detailNameSelect { display: none; }
+
+form.update.bookmark #detailUpdateBookmarkLabel { display: inline-block; }
+form.update.bookmark #detailGroupText { display: inline-block; }
+form.update.bookmark #detailGroupSelect { display: none; }
+/*form.update.bookmark #detailParentLabel { display: none; }
+form.update.bookmark #detailParentSelect { display: none; }*/
+form.update.bookmark #detailNameText { display: inline-block; }
+form.update.bookmark #detailNameSelect { display: none; }
+form.update #elementGroupLabel { display: none; }
 
 form.create.group #detailGroupText { display: inline-block; }
 form.create.group #detailGroupSelect { display: none; }
@@ -181,8 +192,8 @@ form.create.group #detailUrlText { display: inline-block; }
 form.delete.bookmark #detailGroupLabel { display: none; }
 form.delete.bookmark #detailGroupText { display: none; }
 form.delete.bookmark #detailGroupSelect { display: none; }
-form.delete.bookmark #detailParentLabel { display: none; }
-form.delete.bookmark #detailParentSelect { display: none; }
+/*form.delete.bookmark #detailParentLabel { display: none; }
+form.delete.bookmark #detailParentSelect { display: none; }*/
 form.delete.bookmark #detailNameText { display: none; }
 form.delete.bookmark #detailNameSelect { display: inline-block; }
 form.delete.bookmark #detailUrlLabel { display: none; }
@@ -190,8 +201,8 @@ form.delete.bookmark #detailUrlText { display: none; }
 
 form.delete.group #detailGroupText { display: none; }
 form.delete.group #detailGroupSelect { display: inline-block; }
-form.delete.group #detailParentLabel { display: none; }
-form.delete.group #detailParentSelect { display: none; }
+/*form.delete.group #detailParentLabel { display: none; }
+form.delete.group #detailParentSelect { display: none; }*/
 form.delete.group #detailNameLabel { display: none; }
 form.delete.group #detailNameText { display: none; }
 form.delete.group #detailNameSelect { display: none; }
@@ -204,14 +215,14 @@ form .fieldset {
 	border-width: 5px;
     border-style: solid;
     border-color: rgba(64, 64, 64, 1);
-    padding: 21px;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
     background-color: rgba(74, 74, 74, 1);
 	display: grid;
- 	grid-template-columns: max-content max-content;
- 	grid-template-rows: 1fr 1fr 1fr;
-	grid-gap: 13px;
+ 	grid-template-columns: max-content;
+ 	grid-template-rows: 1fr 1fr 1fr 1fr;
+	grid-gap: 0;
 	align-items: center;
 }
 
@@ -220,6 +231,41 @@ form .fieldset input,
 form .fieldset select {
 	margin: 0;
 	font-size: 12px;
+}
+
+form .fieldset label {
+	line-height: 2em;
+	text-align: right;
+	padding: 10px 20px 10px 20px;
+	border-bottom: 1px solid rgba(64, 64, 64, 1);
+	cursor: pointer;
+}
+
+form .fieldset label:hover,
+form .fieldset label:focus,
+form .fieldset label:active {
+	background-color: rgba(54, 54, 54, 1);
+}
+
+form .fieldset label input,
+form .fieldset label select {
+	margin-left: 13px;
+	min-width: 172px;
+}
+
+form .detail.fieldset label {
+	min-width: 300px;
+	max-width: 300px;
+}
+
+form .complete.fieldset label {
+	min-width: 150px;
+	text-align: center;
+}
+
+form .complete.fieldset label input  {
+	margin: 0;
+	width: 80px;
 }
 
 .button {
@@ -234,14 +280,14 @@ form .fieldset select {
 }
 
 #ajaxResponse {
-	grid-column: 1 / 3;
-	grid-row: 2 / 4;
+	grid-column: 1 / 2;
+	grid-row: 3 / 5;
 	align-self: start;
 	color: #ff0000;
 	max-width: 150px;
 	font-size: .85em;
 	line-height: 1.2em;
-	
+	padding: 10px;
 }
 
 .get-help {
