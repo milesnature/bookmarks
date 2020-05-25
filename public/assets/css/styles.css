@@ -292,6 +292,7 @@ form .fieldset label:active {
 form .fieldset label input,
 form .fieldset label select {
 	margin-left: 13px;
+	vertical-align: middle;
 }
 
 form .detail.fieldset label {
