@@ -192,7 +192,7 @@ form {
 	flex-wrap: wrap;
 	justify-content: center;
 	color: var(--grayscale-00);
-	padding: 35px 13px 5px 13px;
+	padding: 35px 13px 0px 13px;
 }	
 
 form.noGroups #actionDeleteLabel { display: none; }
@@ -279,14 +279,10 @@ form .fieldset label {
 	cursor: pointer;
 }
 
-form .fieldset label:nth-of-type(4) {
-	border-bottom: none;
-}
-
 form .fieldset label:hover,
 form .fieldset label:focus,
 form .fieldset label:active {
-	background-color: var(--grayscale-21);
+	background-image: linear-gradient( rgba( 54, 54, 54, 1 ), rgba( 54, 54, 54, .85 ) );
 }
 
 form .fieldset label input,
@@ -327,8 +323,8 @@ form .complete.fieldset label input  {
 	background-color: transparent;
 	border: none;
 	width: 90%;
-	margin-top: 21px;
-	padding: 0;
+	margin-top: 16px;
+	padding: 5px 0;
 }
 
 .button.cancel svg {
@@ -339,7 +335,7 @@ form .complete.fieldset label input  {
 }
 
 .button.cancel:hover {
-	background-color: var(--grayscale-21);
+	background-image: linear-gradient( rgba( 54, 54, 54, .85 ), rgba( 54, 54, 54, 1 ) );
 }
 
 .button.cancel:hover svg{
