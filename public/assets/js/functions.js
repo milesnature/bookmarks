@@ -432,6 +432,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		constructBookmarkGroupOptions();
 		constructBookmarkNameOptions( sortedList );
 		resetFormFields();
+		removeChildNodes( ajaxResponse );
 
 	},
 
@@ -572,46 +573,80 @@ var bmkSection     = document.getElementById("bmkSection"),
 		
 		event.preventDefault();
 
+		removeChildNodes( ajaxResponse );
+
 		// Logic to determine action.		
-		var values = getFormValues(),
-			params = "";
+		var values     = getFormValues(),
+			params     = "",
+			validation = {
+					action  : ( values.action )       ? "" : "An action is required.",
+					element : ( values.element )      ? "" : "An element is required.",
+					name    : ( values.config.name )  ? "" : "A name is required.",
+					url     : ( values.config.url )   ? "" : "A url is required.",
+					group   : ( values.config.group ) ? "" : "A group is required.",
+					id      : ( values.config.id )    ? "" : "This action requires an id. Something may be wrong with database entry."
+			};
 
-		if ( values.action === "create" && ( values.element === "bookmark" || values.element === "group" ) ) {
-			var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
-			verbBookmark( 
-				'POST', 
-				window.location.href + "bookmarks", 
-				params,
-				getBookmarks
-			);
-		}
+		if ( validation.action === "" && validation.element === "" ) {
 
-		if ( values.action === "delete" && values.element === "bookmark"  ) {
-			verbBookmark( 
-				'DELETE', 
-				window.location.href + "bookmarks/" + values.config.id, 
-				params, 
-				getBookmarks
-			);
-		}
+			if ( values.action === "create" && ( values.element === "bookmark" || values.element === "group" ) ) {
+				if ( validation.name === "" && validation.url === "" && validation.group === "" ) {
+					var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+					verbBookmark( 
+						'POST', 
+						window.location.href + "bookmarks", 
+						params,
+						getBookmarks
+					);
+				} else {
+					console.log(validation.name + "\n" + validation.url + "\n" + validation.group);
+					setAjaxResponse( validation.name + "\n" + validation.url + "\n" + validation.group );
+				}
+			}
 
-		if ( values.action === "delete" && values.element === "group" ) {
-			verbBookmark( 
-				'DELETE', 
-				window.location.href + "bookmarks/group/" + values.config.group, 
-				params, 
-				getBookmarks
-			);
-		}
 
-		if ( values.action === "update" && values.element === "bookmark" ) {
-			var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
-			verbBookmark( 
-				'PUT', 
-				window.location.href + "bookmarks/" + values.config.id, 
-				params, 
-				getBookmarks
-			);
+			if ( values.action === "delete" && values.element === "bookmark"  ) {
+				if ( validation.id === "" ) {
+					verbBookmark( 
+						'DELETE', 
+						window.location.href + "bookmarks/" + values.config.id, 
+						params, 
+						getBookmarks
+					);
+				} else {
+					setAjaxResponse( validation.id );
+				}
+			}
+
+			if ( values.action === "delete" && values.element === "group" ) {
+				if ( validation.group === "" ) {
+					verbBookmark( 
+						'DELETE', 
+						window.location.href + "bookmarks/group/" + values.config.group, 
+						params, 
+						getBookmarks
+					);
+				} else {
+					setAjaxResponse( validation.group );
+				}
+			}
+
+			if ( values.action === "update" && values.element === "bookmark" ) {
+				if ( validation.name === "" && validation.url === "" && validation.group === "" && validation.id === "" ) {
+					var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+					verbBookmark( 
+						'PUT', 
+						window.location.href + "bookmarks/" + values.config.id, 
+						params, 
+						getBookmarks
+					); 
+				} else {
+					setAjaxResponse( validation.name + " " + validation.url + " " + validation.group + " " + validation.id );
+				}
+			}
+		
+		} else {
+			setAjaxResponse( validation.action + " " + validation.element );
 		}
 
 	},
