@@ -31,7 +31,7 @@
 	--grayscale-24: rgba( 25, 25, 25, 1 );    /* #191919 */
 	--grayscale-25: rgba( 15, 15, 15, 1 );    /* #0f0f0f */
 	--grayscale-26: rgba( 0, 0, 0, 1 );       /* #000000 */
-	--red: rgba( 200, 0, 0, 1 );              /* #c80000 */
+	--red: rgba( 221, 0, 0, 1 );              /* #c80000 */
 
 }
 
@@ -81,6 +81,10 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+html {
+	-webkit-text-size-adjust: 100%; /* Text size fix for iphone landscape orientation. */
 }
 
 html, body {
@@ -299,7 +303,7 @@ form .detail.fieldset label {
 form .detail.fieldset label input,
 form .detail.fieldset label select {
 	margin-left: 13px;
-	min-width: 172px;
+	width: 172px;
 }
 
 form .complete.fieldset label {
@@ -348,7 +352,7 @@ form .complete.fieldset label input  {
 	align-self: start;
 	color: var(--red);
 	max-width: 150px;
-	font-size: .85em;
+	font-size: 1em;
 	line-height: 1.2em;
 	padding: 10px;
 }
