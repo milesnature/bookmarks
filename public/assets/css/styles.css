@@ -255,7 +255,7 @@ form .fieldset {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    background-color: var(--grayscale-19);
+    
 	display: grid;
  	grid-template-columns: max-content;
  	grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -275,6 +275,7 @@ form .fieldset label {
 	text-align: right;
 	padding: 10px 20px 10px 20px;
 	border-bottom: 1px solid var(--grayscale-20);
+	background-color: var(--grayscale-19);
 	cursor: pointer;
 }
 
@@ -291,12 +292,17 @@ form .fieldset label:active {
 form .fieldset label input,
 form .fieldset label select {
 	margin-left: 13px;
-	min-width: 172px;
 }
 
 form .detail.fieldset label {
 	min-width: 300px;
 	max-width: 300px;
+}
+
+form .detail.fieldset label input,
+form .detail.fieldset label select {
+	margin-left: 13px;
+	min-width: 172px;
 }
 
 form .complete.fieldset label {
