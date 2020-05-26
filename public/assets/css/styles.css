@@ -154,6 +154,7 @@ ul li button {
 	padding: .25em .75em;
 	margin: 0;
 	width: 100%;
+	border-radius: 0;
 }
 
 ul li button:hover {
@@ -283,6 +284,7 @@ form .fieldset label {
 	border-bottom: 1px solid var(--grayscale-20);
 	background-color: var(--grayscale-19);
 	cursor: pointer;
+	user-select: none;
 }
 
 form .fieldset label:hover,
