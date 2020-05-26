@@ -579,12 +579,12 @@ var bmkSection     = document.getElementById("bmkSection"),
 		var values     = getFormValues(),
 			params     = "",
 			validation = {
-					action  : ( values.action )       ? "" : "An action is required.",
-					element : ( values.element )      ? "" : "An element is required.",
-					name    : ( values.config.name )  ? "" : "A name is required.",
-					url     : ( values.config.url )   ? "" : "A url is required.",
-					group   : ( values.config.group ) ? "" : "A group is required.",
-					id      : ( values.config.id )    ? "" : "This action requires an id. Something may be wrong with database entry."
+					action  : ( values.action )       ? "" : "Action is required.",
+					element : ( values.element )      ? "" : "Element is required.",
+					name    : ( values.config.name )  ? "" : "Name is required.",
+					url     : ( values.config.url )   ? "" : "URL is required.",
+					group   : ( values.config.group ) ? "" : "Group is required.",
+					id      : ( values.config.id )    ? "" : "ID is required. Something may be wrong with database entry."
 			};
 
 		if ( validation.action === "" && validation.element === "" ) {
@@ -599,8 +599,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 						getBookmarks
 					);
 				} else {
-					console.log(validation.name + "\n" + validation.url + "\n" + validation.group);
-					setAjaxResponse( validation.name + "\n" + validation.url + "\n" + validation.group );
+					setAjaxResponse( validation.group + " " + validation.name + " " + validation.url );
 				}
 			}
 
@@ -641,7 +640,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 						getBookmarks
 					); 
 				} else {
-					setAjaxResponse( validation.name + " " + validation.url + " " + validation.group + " " + validation.id );
+					setAjaxResponse( validation.group + " " + validation.name + " " + validation.url + " " + validation.id );
 				}
 			}
 		
