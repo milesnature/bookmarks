@@ -579,12 +579,36 @@ var bmkSection     = document.getElementById("bmkSection"),
 		var values     = getFormValues(),
 			params     = "",
 			validation = {
-					action  : ( values.action )       ? "" : "Action is required.",
-					element : ( values.element )      ? "" : "Element is required.",
-					name    : ( values.config.name )  ? "" : "Name is required.",
-					url     : ( values.config.url )   ? "" : "URL is required.",
-					group   : ( values.config.group ) ? "" : "Group is required.",
-					id      : ( values.config.id )    ? "" : "ID is required. Something may be wrong with database entry."
+					action  : function () { 
+						if ( !values.action ) { return "Action is required."; }
+						else if ( values.action && values.action.length > 50 ) { return "Action exceeds maximum character length of 50."; }
+						else { return ""; }
+					}(),
+					element : function () { 
+						if ( !values.element ) { return "Element is required."; }
+						else if ( values.element && values.element.length > 50 ) { return "Element exceeds maximum character length of 50."; }
+						else { return ""; }
+					}(),
+					name    : function () {
+						if ( !values.config.name ) { return "Name is required."; }
+						else if ( values.config.name.length > 100 ) { return "Name exceeds maximum character length of 100."; }
+						else { return ""; }
+					}(),
+					url     : function () {
+						if ( !values.config.url ) { return "URL is required."; }
+						else if ( values.config.url.length > 2083 ) { return "URL exceeds maximum character length of 2083."; }
+						else { return ""; }
+					}(),
+					group   : function () {
+						if ( !values.config.group  ) { return "Group is required."; }
+						else if ( values.config.group.length > 100 ) { return "Group exceeds maximum character length of 100."; }
+						else { return ""; }
+					}(),
+					id      : function () {
+						if ( !values.config.id ) { return "ID is required. Something may be wrong with database entry."; }
+						else if ( values.config.id.length > 25 ) { return "ID exceeds maximum character length of 25."; }
+						else { return ""; }
+					}()
 			};
 
 		if ( validation.action === "" && validation.element === "" ) {

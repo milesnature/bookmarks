@@ -5,3 +5,4 @@ node_modules
 bookmarks.json
 .htaccess
 .htpasswd
+package-lock.json

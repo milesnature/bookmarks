@@ -1,13 +1,17 @@
 
-// get dependencies
+// Get dependencies
 require('dotenv').config();
-const express = require('express');
+const express    = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
+const path       = require('path');
+const uuid       = require('uuid/v4');
+const session    = require('express-session');
+const FileStore  = require('session-file-store')(session);
 
-const app = express();
 
-// parse requests
+const app        = express();
+
+// Parse requests
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -21,6 +25,19 @@ app.use(function(req, res, next) {
     res.header('Pragma', 'no-cache');    
     next();
 });
+
+// Add & configure middleware
+app.use(session({
+  genid: (req) => {
+    console.log('Inside the session middleware')
+    console.log(req.sessionID)
+    return uuid() // use UUIDs for session IDs
+  },
+  store: new FileStore(),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // Configuring the database
 const mongoose = require('mongoose');
@@ -40,15 +57,22 @@ mongoose.connect(process.env.DB_CONNECTION, {
     process.exit();
 });
 
-// static access to public folder
+// Static access to public folder
 app.use(express.static(__dirname + '/public'));
 
-// default route
+// Default route
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname+'index.html'));
+	res.sendFile(path.join(__dirname+'/public/index.html'));
 });
 
-// listen on port 3000
+app.get('/login', (req, res) => {
+    console.log('Inside the homepage callback function')
+    console.log(req.sessionID)
+    res.send(`You hit home page!\n`)
+    // res.sendFile(path.join(__dirname+'/public/login.html'));
+});
+
+// Listen on port 3000
 app.listen(process.env.SERVER_PORT, () => {
     console.log("Server is listening on port 3000");
 })
