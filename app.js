@@ -4,9 +4,9 @@ require('dotenv').config();
 const express    = require('express');
 const bodyParser = require('body-parser');
 const path       = require('path');
-const uuid       = require('uuid/v4');
-const session    = require('express-session');
-const FileStore  = require('session-file-store')(session);
+// const uuid       = require('uuid/v4');
+// const session    = require('express-session');
+// const FileStore  = require('session-file-store')(session);
 
 const app        = express();
 
@@ -26,17 +26,17 @@ app.use(function(req, res, next) {
 });
 
 // Add & configure middleware
-app.use(session({
-  genid: (req) => {
-    console.log('Inside the session middleware')
-    console.log(req.sessionID)
-    return uuid() // use UUIDs for session IDs
-  },
-  store: new FileStore(),
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   genid: (req) => {
+//     console.log('Inside the session middleware')
+//     console.log(req.sessionID)
+//     return uuid() // use UUIDs for session IDs
+//   },
+//   store: new FileStore(),
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true
+// }));
 
 // Configuring the database
 const mongoose = require('mongoose');
