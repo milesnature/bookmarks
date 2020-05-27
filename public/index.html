@@ -11,7 +11,7 @@
 		<meta name="author" content="Miles Nature">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="stylesheet" href="assets/css/styles.css?v=1">
+		<link rel="stylesheet" href="assets/css/styles.css">
 	
 	</head>
 
@@ -50,7 +50,7 @@
 			<div class="detail fieldset">
 
 				<label id="detailUpdateBookmarkLabel">Bookmark:
-					<select id="detailUpdateBookmarkSelect" name="name_select" onchange="bookmarkFiller()"></select>
+					<select id="detailUpdateBookmarkSelect" name="name_select" onchange="updateBookmarkPrefill()"></select>
 				</label>				
 											
 				<label id="detailGroupLabel">Group:
@@ -78,11 +78,7 @@
 						
 				<label>		
 					<input id="buttonSubmit" type="submit" name="submit" class="button" value="Create" />
-				</label>	
-
-<!-- 				<label>	
-					<input id="buttonCancel" type="button" name="cancel" class="button cancel" value="Done" />
-				</label> -->	
+				</label>		
 				
 				<div id="ajaxResponse"></div>
 			
