@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   sodipodi:docname="favicon.svg"
+   id="svg9"
+   style="background-color: #ffffff"
+   version="1.1"
+   viewBox="-10 -2 40 40">
+  <metadata
+     id="metadata15">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs13" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg9"
+     inkscape:window-maximized="1"
+     inkscape:window-y="27"
+     inkscape:window-x="74"
+     inkscape:cy="20"
+     inkscape:cx="20"
+     inkscape:zoom="8.1375"
+     showgrid="false"
+     id="namedview11"
+     inkscape:window-height="896"
+     inkscape:window-width="1462"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <circle
+     r="17.272192"
+     cy="18.083675"
+     cx="10.183702"
+     id="path840"
+     style="fill:#ffffff;stroke-width:1.06281" />
+  <g
+     transform="matrix(0.79195769,0,0,0.79195769,2.2443461,3.6662721)"
+     id="g7"
+     fill-rule="evenodd"
+     fill="none"
+     stroke="none">
+    <g
+       fill-rule="nonzero"
+       id="icon-miles-arts-smaller">
+      <path
+         fill="#000000"
+         id="head"
+         d="m 7,0 c 1,2 5,2 6,0 l -3,11 z" />
+      <polygon
+         points="4,23 4,11 7,19 13,19 16,11 16,23 20,23 20,6 13,6 10,16 7,6 0,6 0,23 "
+         fill="#c80000"
+         id="torso" />
+      <circle
+         r="2"
+         cy="32"
+         cx="10"
+         fill="#c80000"
+         id="ball" />
+      <polygon
+         points="10,23 15,36 20,36 13,19 7,19 0,36 5,36 "
+         fill="#000000"
+         id="legs" />
+    </g>
+  </g>
+</svg>
