@@ -1,5 +1,4 @@
 const Bookmark = require('./bookmark.model.js');
-const Group = require('./group.model.js');
 
 //Create new Bookmark
 exports.createBookmark = (req, res) => {
