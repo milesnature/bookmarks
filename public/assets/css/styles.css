@@ -134,7 +134,7 @@ main ul {
 	list-style-type: none;
 	border-width: 0;
 	border-style: solid;
-	border-color: var(--grayscale-06);
+	border-color: transparent;
 }
 
 ul.bookmarks { }
