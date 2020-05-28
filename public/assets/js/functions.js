@@ -601,6 +601,7 @@ window.onload = function () {
 					 break;
 					 
 				case "element":
+					resetFormFields();
 					formElementState();
 					break;
 				

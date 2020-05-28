@@ -18,7 +18,7 @@ const BookmarkSchema = mongoose.Schema({
     group : {
     	type: String,
     	required: true,
-    	unique: true,
+    	unique: false,
         minlength: 1,
         maxlength: 100
     },
