@@ -340,7 +340,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		// Update html fragment
 		fragment.appendChild( outer_UL );
 		// Add to the DOM
-		bmkSection.appendChild( fragment );
+		return fragment;
 	},
 
 	removeBookmarks = function ( ) {
@@ -350,14 +350,16 @@ var bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	constructBookmarksSection = function ( ) {
-		var bookmarks  = bookmarksArray;
-			sortedList = sortBookmarksIntoGroups( bookmarks );
+		var bookmarks  = bookmarksArray,
+			sortedList = sortBookmarksIntoGroups( bookmarks ),
+			fragments   = document.createDocumentFragment();
 		removeBookmarks();
 		for ( item in sortedList ) { 
 			if ( !item ) { continue; };
 			group = sortedList[ item ];
-			constructBookmarkList( group );
+			fragments.appendChild( constructBookmarkList( group ) );
 		}
+		bmkSection.appendChild( fragments );
 		setupGroupsEventHandler();
 		constructBookmarkGroupOptions();
 		constructBookmarkNameOptions( sortedList );

@@ -142,9 +142,9 @@ ul.bookmarks { }
 ul li button {
 	cursor: pointer;
 	display: block;
-	border-width: 0 0 1px 0;
+	border-width: 0 0 0 0;
 	border-style: solid;
-	border-color: var(--grayscale-04);
+	border-color: transparent;
 	background-color: transparent;
 	font-weight: bold;
 	font-size: 1em;
@@ -172,7 +172,7 @@ ul li:hover ul {
 }			
 
 ul li ul li {
-	border-bottom: 1px solid var(--grayscale-04);
+	border-bottom: 1px solid transparent;
 }
 
 ul li ul li a {
