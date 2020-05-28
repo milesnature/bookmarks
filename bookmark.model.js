@@ -26,13 +26,11 @@ const BookmarkSchema = mongoose.Schema({
     	type: String,
     	required: false,
     	unique: false,
-        minlength: 1,
         maxlength: 100
     },
     target : {
     	type: String,
     	required: false,
-        minlength: 1,
         maxlength: 20
     }
 }, {
