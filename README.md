@@ -21,3 +21,7 @@ SERVER_PORT=3000
 3. $ npm install
 4. $ node server.js
 5. http://localhost:3000
+
+### Example
+Please use caution when clicking links you haven't generated. Validation has not been completed for all security risks.
+http://bookmarks-example.milesnature.com/
