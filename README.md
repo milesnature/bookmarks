@@ -28,6 +28,7 @@ Please use caution when clicking links you haven't generated. Validation has not
 http://bookmarks-example.milesnature.com/
 
 ### TO DO
+* Improve first time user experience with an empty database.
 * Secure login with UUID, authentication ...
 * Nested groups of bookmarks
 * Inline editing
