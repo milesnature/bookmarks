@@ -38,3 +38,4 @@ http://bookmarks-example.milesnature.com/
 * Order and layout preferences
 * Bookmark Sets
 * Improve mobile layout
+* Minify code source and other optimizations to load times 
