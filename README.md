@@ -26,3 +26,15 @@ SERVER_PORT=3000
 Please use caution when clicking links you haven't generated. Validation has not been completed for all security risks.
 
 http://bookmarks-example.milesnature.com/
+
+### TO DO
+* Secure login with UUID, authentication ...
+* Nested groups of bookmarks
+* Inline editing
+* Drag and drop
+* Import bookmark files (ie. exported from a browser)
+* Export bookmarks to file
+* Multiple simultaneous edits
+* Order and layout preferences
+* Bookmark Sets
+* Improve mobile layout
