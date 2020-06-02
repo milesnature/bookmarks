@@ -1,8 +1,10 @@
+.htaccess
+.htpasswd
 .env
 bookmarks.sublime-project
 bookmarks.sublime-workspace
 node_modules
-bookmarks.json
-.htaccess
-.htpasswd
 package-lock.json
+bookmarks.json
+bookmarks-example.json
+cookie-file.txt
