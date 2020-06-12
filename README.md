@@ -19,7 +19,7 @@ SERVER_PORT=3000
 ```
 2. Install node and npm
 3. $ npm install
-4. $ node server.js
+4. $ node app.js
 5. http://localhost:3000
 
 ### Example
