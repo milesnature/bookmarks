@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	
+	<form>
+		
+		<input type="search" placeholder="Search">
+
+	</form>
+
+	<section id="bmkSection"></section>
+
+	<script type="text/javascript">
+
+		var bmkSection = document.getElementById('bmkSection');
+			bookmarks = [
+				{"_id":"5ec98b087588f34b251f1d6f","url":"https://bitbucket-sed.broadcom.net/projects/SAEP/repos/icdm-console/browse","group":"ICDM","name":"I Bitbucket","target":"","parents":["Broadcom"],"updatedAt":"2020-05-26T19:02:05.092Z"},
+				{"_id":"5ec98b087588f34b251f1d70","url":"https://www.dev.sepadvanced.cloud/v1/#/login","group":"ICDM","name":"I Dev","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d71","url":"https://saep-jenkins-bcom.apps.acp-dev.us-east-1.symc.dev.aws.symcpe.net/job/SAEP/job/icdm-console/job/develop/","group":"ICDM","name":"I Jenkins Build","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d72","url":"https://saep-jenkins-bcom.apps.acp-dev.us-east-1.symc.dev.aws.symcpe.net/job/SAEP-Deployment-Pipelines/job/icdm-console/job/deployment-pipelines/job/deploy-to-saep-dev-int/","group":"ICDM","name":"I Jenkins Deploy","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d73","url":"https://sed-jira.broadcom.net/browse/CDM-56657?filter=-1","group":"ICDM","name":"I Jira","target":"","parents":["Broadcom"]},
+				{"_id":"5ecd7549c652fa6acccd012b","name":"I Local","url":"http://localhost:8080/v1/#/login","group":"ICDM","parents":["Broadcom"],"createdAt":"2020-05-26T20:00:09.923Z","updatedAt":"2020-05-26T20:00:09.923Z","__v":0},
+				{"_id":"5ec98b087588f34b251f1d74","url":"https://sep.securitycloud.symantec.com/v1/#/landing","group":"ICDM","name":"I Prod","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d75","url":"https://www.stage.sepadvanced.cloud/v1/#/login","group":"ICDM","name":"I Stage","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d76","url":"https://broadcom.okta.com/","group":"Broadcom","name":"Okta","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d77","url":"https://dev.milesnature.com/clients/symantec/svg/","group":"SVG","name":"SVG Check","target":"","parents":["Broadcom"]},
+				{"_id":"5ecd4ab3c652fa6acccd0127","name":"SVG Sprite","url":"file:///Users/milesnature/Development/sandbox/svg/Figma/index.html","group":"SVG","parents":["Broadcom"],"createdAt":"2020-05-26T16:58:27.918Z","updatedAt":"2020-05-26T16:58:27.918Z","__v":0},
+				{"_id":"5ec98b087588f34b251f1d78","url":"https://bitbucket-sed.broadcom.net/projects/SAEP/repos/saep-ux-assets/browse","group":"Toolkit","name":"T Bitbucket Assets","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d79","url":"https://bitbucket-sed.broadcom.net/projects/SAEP/repos/saep-ux-toolkit/browse","group":"Toolkit","name":"T Bitbucket V1","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d7a","url":"https://bitbucket-sed.broadcom.net/projects/SAEP/repos/ux-toolkit-v2/browse","group":"Toolkit","name":"T Bitbucket V2","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d7b","url":"https://saep-jenkins-bcom.apps.acp-dev.us-east-1.symc.dev.aws.symcpe.net/job/SAEP/job/ux-toolkit-v2/job/develop/","group":"Toolkit","name":"T Jenkins Build","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d7c","url":"https://saep-jenkins-bcom.apps.acp-dev.us-east-1.symc.dev.aws.symcpe.net/job/SAEP-Deployment-Pipelines/job/ux-toolkit-v2/job/deployment-pipelines/job/deploy-to-saep-dev-int/","group":"Toolkit","name":"T Jenkins Deploy","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d7d","url":"https://sed-jira.broadcom.net/issues/?jql=project in (CDM) AND issuetype in (defect) AND status not in (Closed, Done, Resolved) AND (component in (&quot;AEP - Admin Service&quot;, &quot;AEP - WorkBench&quot;, &quot;AEP Common Policy Service&quot;, CDM, &quot;CDM-API Gateway&quot;, CDM-Alerts, &quot;CDM-Assessment Service&quot;, CDM-Binary-Download-Service, CDM-Discover-Deploy, &quot;CDM-Events Service&quot;, CDM-IDP-SYNC, &quot;CDM-Licensing &amp; Provisioning&quot;, &quot;CDM-Reporting &amp; Dashboards&quot;, CDM-Scheduler, CDM-Toolkit, Common-Inventory-Service, SAEP-MDR2, SYMANTEC-ONE) OR component is EMPTY) AND component not in (SEP-HE-APP-CONTROL, SEP-HE-APP-ISOLATION, CDM-SEP-Mobile) AND component = CDM-ToolKit AND project = CDM ORDER BY key ASC, component","group":"Toolkit","name":"T Jira V1","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d7e","url":"https://artifactory-ren.broadcom.net/artifactory/webapp/#/packages/npm/@sym-ui~2Ftoolkit/","group":"Toolkit","name":"T NPM Manager","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d7f","url":"https://acp-dev.us-east-1.symc.dev.aws.symcpe.net/console/","group":"Toolkit","name":"T OpenShift","target":"","parents":["Broadcom"]},
+				{"_id":"5ec98b087588f34b251f1d80","url":"https://saep-dev-int-ux-toolkit.apps.acp-dev.us-east-1.symc.dev.aws.symcpe.net/v1/#/guide/","group":"Toolkit","name":"T V1","target":"","parents":["Broadcom"]},
+				{"_id":"5ecd7505c652fa6acccd012a","name":"T V1 Local","url":"http://localhost:9000/","group":"Toolkit","parents":["Broadcom"],"createdAt":"2020-05-26T19:59:01.734Z","updatedAt":"2020-05-26T19:59:01.734Z","__v":0},
+				{"_id":"5ec98b087588f34b251f1d81","url":"https://saep-dev-int-ux-toolkit.apps.acp-dev.us-east-1.symc.dev.aws.symcpe.net/#/","group":"Toolkit","name":"T V2","target":"","parents":["Broadcom"]},
+				{"_id":"5ecd74e8c652fa6acccd0129","name":"T V2 Local","url":"http://localhost:4200/#/","group":"Toolkit","parents":["Broadcom"],"createdAt":"2020-05-26T19:58:32.005Z","updatedAt":"2020-05-26T19:59:14.161Z","__v":0},
+				{"_id":"5ecc6ddd0d70ea9de98cc726","name":"Authentication","url":"https://medium.com/@evangow/server-authentication-basics-express-sessions-passport-and-curl-359b7456003d","group":"Development","parents":[],"createdAt":"2020-05-26T01:16:13.209Z","updatedAt":"2020-05-26T01:16:13.209Z","__v":0},
+				{"_id":"5ec98b087588f34b251f1d82","url":"http://caniuse.com/#search=text-shadow","group":"Development","name":"Can I use?","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d83","url":"https://panel.dreamhost.com/","group":"Development","name":"DreamHost","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d84","url":"https://favicon.io/favicon-converter/","group":"Development","name":"Favicon.io","target":"","parents":[],"updatedAt":"2020-05-24T18:40:34.958Z"},
+				{"_id":"5ec98b087588f34b251f1d85","url":"https://github.com/","group":"Development","name":"GitHub","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d86","url":"https://help.dreamhost.com/hc/en-us/articles/360029083351-Installing-a-custom-version-of-NVM-and-Node-js","group":"Development","name":"Intall Node Dreamhost","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d87","url":"https://jsonformatter.curiousconcept.com","group":"Development","name":"JSON Formatter","target":"","parents":[],"updatedAt":"2020-05-24T18:41:14.732Z"},
+				{"_id":"5ec98b087588f34b251f1d89","url":"https://milesnature.com/","group":"Development","name":"Milesnature","target":"","parents":[],"updatedAt":"2020-05-24T18:53:57.307Z"},
+				{"_id":"5ec98b087588f34b251f1d90","url":"https://cart.milesnature.com/","group":"Development","name":"Milesnature Cart","target":"","parents":[],"updatedAt":"2020-05-25T00:47:47.839Z"},
+				{"_id":"5ec98b087588f34b251f1d88","url":"http://milesnature-dist:8888/","group":"Development","name":"Milesnature Local","target":"","parents":[],"updatedAt":"2020-05-24T18:53:21.891Z"},
+				{"_id":"5ec98b087588f34b251f1d8b","url":"https://node.milesnature.com/","group":"Development","name":"Milesnature Node","target":"","parents":[],"updatedAt":"2020-05-24T18:53:36.461Z"},
+				{"_id":"5ec98b087588f34b251f1d8a","url":"https://myfonts.com","group":"Development","name":"MyFonts","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d8c","url":"https://notes.milesnature.com/","group":"Development","name":"Notes","target":"","parents":[]},
+				{"_id":"5eca86a4043ce174ed0311e2","name":"Regex Sublime Text","url":"https://jdhao.github.io/2019/02/28/sublime_text_regex_cheat_sheet/","group":"Development","parents":[],"createdAt":"2020-05-24T14:37:24.049Z","updatedAt":"2020-05-24T14:37:24.049Z","__v":0},
+				{"_id":"5ec98b087588f34b251f1d8d","url":"http://regexpal.com/","group":"Development","name":"Regex Tester","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d8e","url":"http://speedtest.net/","group":"Development","name":"Speedtest","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d8f","url":"https://www.w3schools.com","group":"Development","name":"W3Schools","target":"","parents":[],"updatedAt":"2020-05-24T18:26:56.262Z"},
+				{"_id":"5ec98b087588f34b251f1d91","url":"https://mail.google.com/","group":"Email","name":"Gmail","target":"","parents":[]},
+				{"_id":"5ec98b087588f34b251f1d92","url":"https://beta.protonmail.com/","group":"Email","name":"ProtonMail","target":"","parents":[],"updatedAt":"2020-05-25T00:50:15.733Z"},
+				{"_id":"5ec592b3fcceb051486e9c12","url":"https://symantec.empower-retirement.com/participant/#/login?accu=SymantecWR","group":"Finance","name":"401K Emp Rtrmnt","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c13","url":"https://my.adp.com/static/redbox/4.4.64/#/pay","group":"Finance","name":"ADP","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c14","url":"https://www.americanexpress.com/personalsavings/","group":"Finance","name":"AMEX Savings","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c15","url":"https://www.chase.com","group":"Finance","name":"Chase","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c16","url":"https://us.etrade.com/","group":"Finance","name":"E*trade","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c17","url":"https://www.paypal.com/","group":"Finance","name":"PayPal","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c18","url":"http://target.com","group":"Finance","name":"Target","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c19","url":"https://www.usbank.com","group":"Finance","name":"US Bank","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c1a","url":"https://instantpot.com/instantpot-cooking-time/","group":"Food","name":"Instant Pot","target":"","parents":[]},
+				{"_id":"5ecc774f0d70ea9de98cc727","name":"Lazy Dog","url":"https://www.lazydogrestaurants.com/","group":"Food","parents":[],"createdAt":"2020-05-26T01:56:31.962Z","updatedAt":"2020-05-26T01:56:31.962Z","__v":0},
+				{"_id":"5ec592b3fcceb051486e9c1b","url":"https://www.meritvegetarian.com","group":"Food","name":"Merit","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c1c","url":"https://www.specialtys.com/","group":"Food","name":"Specialtys","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c1d","url":"https://www.veggiegrill.com","group":"Food","name":"Veggie Grill","target":"","parents":[],"updatedAt":"2020-05-24T18:54:26.625Z"},
+				{"_id":"5ec592b3fcceb051486e9c1e","url":"https://manage.autodesk.com/home/","group":"Graphics","name":"Fusion 360","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c1f","url":"https://www.fire.ca.gov/incidents/","group":"Health","name":"Cal Fire","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c20","url":"http://www.baaqmd.gov/about-air-quality/current-air-quality","group":"Health","name":"Current Air Quality","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c21","url":"https://www.amazon.com/gp/product/B003DKDD1M/ref=pd_sim_201_1?ie=UTF8&amp;pd_rd_i=B003DKDD1M&amp;pd_rd_r=413K9GM6GVC5EFG760P5&amp;pd_rd_w=kZ8Px&amp;pd_rd_wg=FpK3J&amp;psc=1&amp;refRID=413K9GM6GVC5EFG760P5","group":"Health","name":"HRF-B2 Pre-Filter","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c22","url":"https://www.amazon.com/gp/product/B003DKDD08/ref=pd_sim_201_3?ie=UTF8&amp;pd_rd_i=B003DKDD08&amp;pd_rd_r=413K9GM6GVC5EFG760P5&amp;pd_rd_w=kZ8Px&amp;pd_rd_wg=FpK3J&amp;psc=1&amp;refRID=413K9GM6GVC5EFG760P5","group":"Health","name":"HRF-H2 Filter","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c23","url":"https://www.sutterhealth.org/pamf","group":"Health","name":"PAMF","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c24","url":"http://sparetheair.org","group":"Health","name":"Spare The Air","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c25","url":"https://brave-browser.readthedocs.io/en/latest/installing-brave.html#linux","group":"Linux","name":"Brave","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c26","url":"https://www.linux.com/tutorials/how-install-software-linux-introduction/","group":"Linux","name":"Install Software","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c27","url":"https://www.dell.com/support/home/us/en/04/product-support/product/xps-13-9300-laptop/docs","group":"Linux","name":"XPS Manual","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c28","url":"https://support.yubico.com/support/solutions/articles/15000010964-enabling-the-yubico-ppa-on-ubuntu","group":"Linux","name":"Yubico Auth Apt-Get","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c29","url":"https://www.yubico.com/products/services-software/download/yubico-authenticator/","group":"Linux","name":"Yubico Authenticator","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c2f","url":"https://arstechnica.com/","group":"News","name":"Ars Technica","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c30","url":"https://apod.nasa.gov/apod/astropix.html","group":"News","name":"Astronomy","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c31","url":"https://www.bbc.com/","group":"News","name":"BBC","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c32","url":"https://feedly.com/i/my","group":"News","name":"Feedly","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c33","url":"https://www.kqed.org/news","group":"News","name":"KQED","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c35","url":"https://www.npr.org/","group":"News","name":"NPR","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c36","url":"https://www.nytimes.com/","group":"News","name":"NY Times","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c34","url":"https://www.nationalgeographic.com/","group":"News","name":"National Geographic","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c38","url":"https://www.pbs.org/","group":"News","name":"PBS","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c37","url":"https://patch.com/california/newark","group":"News","name":"Patch","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c39","url":"https://www.reuters.com/","group":"News","name":"Reuters","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c3a","url":"https://www.sciencenews.org/","group":"News","name":"Science News","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c3b","url":"https://slashdot.org/","group":"News","name":"Slashdot","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c3c","url":"https://www.theatlantic.com/","group":"News","name":"The Atlantic","target":"","parents":[]},
+				{"_id":"5ec9109d24188f19aa7aa772","name":"ARRL","url":"http://www.arrl.org/","group":"Radio","parents":[],"createdAt":"2020-05-23T12:01:33.433Z","updatedAt":"2020-05-23T12:01:33.433Z","__v":0},
+				{"_id":"5ec592b3fcceb051486e9c3d","url":"https://www.elttam.com/blog/intro-sdr-and-rf-analysis/","group":"Radio","name":"Analysis","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c47","url":"https://morsecode.world/international/morse2.html","group":"Radio","name":"Morse Code","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c3e","url":"https://en.wikipedia.org/wiki/NATO_phonetic_alphabet","group":"Radio","name":"NATO Phonetic Alphabet","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c3f","url":"https://www.nasa.gov/directorates/heo/scan/communications/outreach/funfacts/txt_radio_spectrum.html","group":"Radio","name":"Spectrum","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c40","url":"https://www.ntia.doc.gov/files/ntia/publications/2003-allochrt.pdf","group":"Radio","name":"Spectrum Map","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c41","url":"https://www.crimereports.com/home/#!/dashboard?incident_types=Assault%252CAssault%2520with%2520Deadly%2520Weapon%252CBreaking%2520%2526%2520Entering%252CDisorder%252CDrugs%252CHomicide%252CKidnapping%252CLiquor%252COther%2520Sexual%2520Offense%252CProperty%2520Crime%252CProperty%2520Crime%2520Commercial%252CProperty%2520Crime%2520Residential%252CQuality%2520of%2520Life%252CRobbery%252CSexual%2520Assault%252CSexual%2520Offense%252CTheft%252CTheft%2520from%2520Vehicle%252CThef","group":"Security","name":"Crime Fremont","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c42","url":"https://npd.crimegraphics.com/2013/default.aspx","group":"Security","name":"Crime Newark","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c43","url":"https://www.eff.org","group":"Security","name":"EFF","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c44","url":"https://ethical.net/resource/","group":"Security","name":"Ethical","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c45","url":"https://www.frontpointsecurity.com/","group":"Security","name":"Frontpoint","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c46","url":"https://blog.bejarano.io/hardening-macos/","group":"Security","name":"Hardening macOS","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c48","url":"https://nest.com/","group":"Security","name":"Nest","target":"","parents":[]},
+				{"_id":"5ec592b3fcceb051486e9c49","url":"https://nextdoor.com","group":"Security","name":"Nextdoor","target":"","parents":[]},
+				{"_id":"5ec7f0abe0bd1a19145f379e","name":"PG&E","url":"https://pge.com","group":"Utilities","parents":[],"createdAt":"2020-05-22T15:32:59.725Z","updatedAt":"2020-05-22T15:32:59.725Z","__v":0},
+				{"_id":"5ec592b3fcceb051486e9c4b","url":"https://www.republicservices.com/svc/RSHolidaySchedule/HolidaySchedule-4916.pdf","group":"Utilities","name":"Republic Schedule","target":"","parents":[]}
+			],
+
+			sortGroup = function( item, index ) {
+				var groupName    = item.group,
+				    groupParents = item.parents;
+				if ( groupName ) {
+					if ( groupsByName.hasOwnProperty( groupName ) ) {
+						groupsByName[ groupName ].bookmarks.push( item );
+					} else {
+						groupsByName[ groupName ] = { bookmarks : [ item ], parents : groupParents };
+						groups.push( groupName );
+					}
+				}
+			},
+
+			sortParents = function( sortedGroups ) {
+
+				var masterList = sortedGroups,
+
+					sortParents = function( item ) {
+
+						var group   = sortedGroups[item],
+							parents = group.parents;
+
+						if ( typeof parents.length !== "" ) {
+
+							console.log( group, parent, masterList[ parents ] );
+
+							// for 
+
+							// if ( parent ) {
+							// 	masterList[ parent ].bookmarks.push( item );
+							// }
+
+						}
+
+					};
+
+				for ( item in sortedGroups ) {
+					sortParents( item );
+				}
+
+				return masterList;
+
+
+			},
+
+			groupsByName = [],
+			groups       = [],
+			sortBookmarksIntoGroups = function( bookmarks ) {
+				groupsByName = [];
+				groups       = [];
+				bookmarks.forEach( sortGroup );
+				return groupsByName;
+			},
+
+			listFragments = [],
+			constructBookmarkList = function( group ) {
+
+				/* HTML STRUCTURE
+				<ul class="bookmarks" id="group">
+					<li><button class="all">Group</button>
+						<ul>
+							<li><a id="9" href="http://random.com" target="_blank">Name</a></li>
+							...
+						</ul>
+					</li>
+				</ul>
+				*/
+
+				console.log( item, group );
+
+				var listFragment       = document.createDocumentFragment(),
+					groupName          = item,
+					outer_UL           = document.createElement  ( 'UL' ),
+					outer_UL_id        = document.createAttribute( 'id' ),
+					outer_UL_class     = document.createAttribute( 'class' ),
+					outer_LI           = document.createElement  ( 'LI' ),
+					outer_BUTTON       = document.createElement  ( 'BUTTON' ),
+					outer_BUTTON_class = document.createAttribute( 'class' ),
+					outer_BUTTON_text  = document.createTextNode ( groupName ),
+					inner_UL           = document.createElement  ( 'UL' ),
+					i;
+
+				// Set class attribute for outer UL
+				outer_UL_id.value        = groupName;
+				outer_UL.setAttributeNode( outer_UL_id );
+				outer_UL_class.value     = "bookmarks";
+				outer_UL.setAttributeNode( outer_UL_class );
+
+				// Set class attribute and text for BUTTON
+				outer_BUTTON_class.value = "all";
+				outer_BUTTON.setAttributeNode( outer_BUTTON_class );
+				outer_BUTTON.appendChild( outer_BUTTON_text );
+
+				for ( i = 0; i < group.length; i += 1 ) {
+
+					var bookmark = group[i];
+
+					if ( !bookmark.group || !bookmark.name || !bookmark.url ) { continue; }
+
+					// Create individual bookmarks.
+					var li     = document.createElement   ( 'LI' ),
+					    a      = document.createElement   ( 'A' ),
+						id     = document.createAttribute ( 'id' ),
+						href   = document.createAttribute ( 'href' ),
+						target = document.createAttribute ( 'target' ),
+						text   = document.createTextNode  ( bookmark.name );
+
+					// Set anchor tag attributes and text.
+					id.value = bookmark._id;
+					a.setAttributeNode( id );
+					href.value = bookmark.url;
+					a.setAttributeNode( href );
+					target.value = "_blank";
+					a.setAttributeNode( target );
+					a.appendChild( text );
+
+					// Insert anchor element into list item.
+					li.appendChild( a );
+
+					// Insert the list item into it's container, an unordered list.
+					inner_UL.appendChild( li );
+
+				}
+
+				// Assemble final output, working from the inside out.
+				outer_LI.appendChild( outer_BUTTON );
+				outer_LI.appendChild( inner_UL );
+				outer_UL.appendChild( outer_LI );
+
+				// Update html fragment
+				listFragment.appendChild( outer_UL );
+
+				listFragments.push( listFragment );
+
+				// Add to the DOM
+				// bmkSection.appendChild(  );
+
+			},
+
+			removeBookmarks = function () {
+				if ( bmkSection.hasChildNodes() ) {
+					removeChildNodes( bmkSection );
+				}
+			},
+
+			constructor = function () {
+				var sortedGroups = sortBookmarksIntoGroups( bookmarks );
+					masterList   = sortParents( sortedGroups );
+				// console.log( 'sortedGroups' , sortedGroups );
+				console.log( 'masterList', masterList );
+				// for ( item in sortedList ) { 
+				// 	if ( !item ) { continue; };
+				// 	group = sortedList[ item ];
+				// 	constructBookmarkList( group );
+				// }
+				// console.log( listFragments );	
+			}();
+
+	</script>
+
+</body>
+
+</html>
