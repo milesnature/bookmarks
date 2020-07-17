@@ -1,42 +1,42 @@
 /* OPEN ALL BOOKMARKS WITHIN A GROUP. THIS ADDS AN EVENT LISTENER TO EACH GROUP. ALL BOOKMARKS WITHIN EACH GROUP ARE LAUNCHED WHEN CLIKCING ON GROUP NAME. OTHERWISE, LINKS ARE OPENED INDIVIDUALLY VIA THEIR RESPECTIVE ANCHOR TAGS. */
-var bmkSection     = document.getElementById("bmkSection"),
+let bmkSection     = document.getElementById("bmkSection"),
 	ajaxResponse   = document.getElementById("ajaxResponse"),
 	noGroups,
 	noBookmarks,
 	bookmarksArray = [],
 	
-	getLists = function () { 
+	getLists = () => { 
 		return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
 	},
 	
-	openNewTab = function ( value, index, array ) {
+	openNewTab = ( value, index, array ) => {
 		window.open( value, '_blank' );
 		window.focus();
 	},
 
-	getUrls = function ( items ) {
-		var urls_array = [],
-			buildArray = function( value, index, array ) {
+	getUrls = ( items ) => {
+		let urls_array = [],
+			buildArray = ( value, index, array ) => {
 				urls_array.push( value.firstChild.href );
 			}; 
 		items.forEach( buildArray );
 		return urls_array;
 	},
 	
-	openTabs = function ( e ) {
-		var target = e.target,
-			elements = [], list_items = [], urls = [];
+	openTabs = ( e ) => {
+		let target     = e.target,
+			elements   = [], 
+			list_items = [], 
+			urls       = [];
 		elements   = Array.prototype.slice.call( target.parentNode.children );
-		list_items = Array.prototype.slice.call(  elements[1].getElementsByTagName('LI') );
+		list_items = Array.prototype.slice.call( elements[1].getElementsByTagName('LI') );
 		urls       = getUrls( list_items );
-		urls.forEach( openNewTab );
-		
+		urls.forEach( openNewTab );	
 	},
 	
-	setupGroupsEventHandler = function ( value, index, array ) {
-		var bmkSection = document.getElementById("bmkSection");
-		bmkSection.addEventListener("click", function( e ) {
-			var target = e.target; 			
+	setupGroupsEventHandler = ( value, index, array ) => {
+		bmkSection.addEventListener("click", ( e ) => {
+			let target = e.target; 			
 			if ( target.classList.contains('all') ) { openTabs( e ); }
 		});
 	},
@@ -44,67 +44,55 @@ var bmkSection     = document.getElementById("bmkSection"),
 	/* FORM DOM ELEMENTS. THIS IS FOR EDITING DATA WITH MSQLI.  */
 	formElmnts = {
 			
-		"bmksForm"             : document.forms[0],
-
-		"actionCreate"         : document.getElementById('actionCreate'),
-		"actionDelete"         : document.getElementById('actionDelete'),
-		"actionUpdate"         : document.getElementById('actionUpdate'),
-
-		"elementBookmark"      : document.getElementById('elementBookmark'),
-		"elementGroup"         : document.getElementById('elementGroup'),
-
+		"bmksForm"             		 : document.forms[0],
+		"actionCreate"         		 : document.getElementById('actionCreate'),
+		"actionDelete"         		 : document.getElementById('actionDelete'),
+		"actionUpdate"         		 : document.getElementById('actionUpdate'),
+		"elementBookmark"      		 : document.getElementById('elementBookmark'),
+		"elementGroup"         		 : document.getElementById('elementGroup'),
 		"detailUpdateBookmarkSelect" : document.getElementById('detailUpdateBookmarkSelect'),
-		"detailGroupText"      : document.getElementById('detailGroupText'),
-		"detailGroupSelect"    : document.getElementById('detailGroupSelect'),
-		// "detailParentText"     : document.getElementById('detailParentText'),		
-		// "detailParentSelect"   : document.getElementById('detailParentSelect'),
-		"detailNameText"       : document.getElementById('detailNameText'),
-		"detailNameSelect"     : document.getElementById('detailNameSelect'),		
-		"detailUrlText"        : document.getElementById('detailUrlText'),
-
-		"buttonSubmit"         : document.getElementById('buttonSubmit'),
-		"buttonCancel"         : document.getElementById('buttonCancel'),		
-
-		"hasCreateClass"       : function () { return formElmnts.bmksForm.classList.contains('create') },
-		"hasDeleteClass"       : function () { return formElmnts.bmksForm.classList.contains('delete') },
-		"hasUpdateClass"       : function () { return formElmnts.bmksForm.classList.contains('update') },
-
-		"hasBookmarkClass"     : function () { return formElmnts.bmksForm.classList.contains('bookmark') },
-		"hasGroupClass"        : function () { return formElmnts.bmksForm.classList.contains('group') },
-		
-		"isCreateChecked"      : function () { return formElmnts.actionCreate.checked },
-		"isDeleteChecked"      : function () { return formElmnts.actionDelete.checked },
-		"isUpdateChecked"      : function () { return formElmnts.actionUpdate.checked },
-
-		"isBookmarkChecked"    : function () { return formElmnts.elementBookmark.checked },
-		"isGroupChecked"       : function () { return formElmnts.elementGroup.checked },
-				
-		"updateBookmarkSelectText"  : function () { return detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text },
-		"updateBookmarkSelectValue" : function () { return detailUpdateBookmarkSelect.value },		
-        
-        "bmkGroupValue"        : function () { return detailGroupText.value },
-		"bmkGroupSelectValue"  : function () { return detailGroupSelect.value },
-		"bmkGroupSelectText"   : function () { return detailGroupSelect.options[detailGroupSelect.selectedIndex].text },
-		"bmkTitleValue"        : function () { return detailNameText.value },
-		"bmkTitleSelectValue"  : function () { return detailNameSelect.value },
-		"bmkTitleSelectText"   : function () { return detailNameSelect.options[detailNameSelect.selectedIndex].text },
-		"bmkUrlValue"          : function () { return detailUrlText.value },
-		"bmkActionValue"    : function () { 
-							    var action = "";
+		"detailGroupText"      		 : document.getElementById('detailGroupText'),
+		"detailGroupSelect"    		 : document.getElementById('detailGroupSelect'),
+		"detailNameText"       		 : document.getElementById('detailNameText'),
+		"detailNameSelect"     		 : document.getElementById('detailNameSelect'),		
+		"detailUrlText"        		 : document.getElementById('detailUrlText'),
+		"buttonSubmit"         		 : document.getElementById('buttonSubmit'),
+		"buttonCancel"         		 : document.getElementById('buttonCancel'),		
+		"hasCreateClass"       		 : () => formElmnts.bmksForm.classList.contains('create'),
+		"hasDeleteClass"       		 : () => formElmnts.bmksForm.classList.contains('delete'),
+		"hasUpdateClass"       		 : () => formElmnts.bmksForm.classList.contains('update'),
+		"hasBookmarkClass"     		 : () => formElmnts.bmksForm.classList.contains('bookmark'),
+		"hasGroupClass"        		 : () => formElmnts.bmksForm.classList.contains('group'),
+		"isCreateChecked"      		 : () => formElmnts.actionCreate.checked,
+		"isDeleteChecked"      		 : () => formElmnts.actionDelete.checked,
+		"isUpdateChecked"      		 : () => formElmnts.actionUpdate.checked,
+		"isBookmarkChecked"    		 : () => formElmnts.elementBookmark.checked,
+		"isGroupChecked"       		 : () => formElmnts.elementGroup.checked,
+		"updateBookmarkSelectText"   : () => detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text,
+		"updateBookmarkSelectValue"  : () => detailUpdateBookmarkSelect.value ,		
+        "bmkGroupValue"        		 : () => detailGroupText.value,
+		"bmkGroupSelectValue"  		 : () => detailGroupSelect.value,
+		"bmkGroupSelectText"   		 : () => detailGroupSelect.options[detailGroupSelect.selectedIndex].text,
+		"bmkTitleValue"        		 : () => detailNameText.value,
+		"bmkTitleSelectValue"  		 : () => detailNameSelect.value,
+		"bmkTitleSelectText"   		 : () => detailNameSelect.options[detailNameSelect.selectedIndex].text,
+		"bmkUrlValue"          		 : () => detailUrlText.value,
+		"bmkActionValue"    : () => { 
+							    let action = "";
 								if ( formElmnts.hasCreateClass() ) { action = 'create' }
 								if ( formElmnts.hasDeleteClass() ) { action = 'delete' }
 								if ( formElmnts.hasUpdateClass() ) { action = 'update' }
 								return action;
 							},
-		"bmkElementValue"   : function () { 
-								var element = "";
+		"bmkElementValue"   : () => { 
+								let element = "";
 								if ( formElmnts.hasBookmarkClass() ) { element = 'bookmark' }
 								if ( formElmnts.hasGroupClass() )    { element = 'group' }
 								return element;
 							}
 	},
 	
-	openCloseForm = function () { 
+	openCloseForm = () => { 
 		document.body.classList.toggle('edit');
 		if ( document.body.classList.contains('edit') ) {
 			localStorage.setItem("form","open");
@@ -115,7 +103,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 	},
 	
-	actionFromFooter = function ( action ) {
+	actionFromFooter = ( action ) => {
 		if ( !document.body.classList.contains('edit') ) { openCloseForm(); }
 		if ( action === "createBookmark" ) { formElmnts.actionCreate.checked = "checked"; }		
 		if ( action === "deleteBookmark" ) { formElmnts.actionDelete.checked = "checked"; }
@@ -125,12 +113,12 @@ var bmkSection     = document.getElementById("bmkSection"),
 		formElementState();		
 	},
 	
-	updateBookmarkPrefill = function () {
-		var group = "",
+	updateBookmarkPrefill = () => {
+		let group = "",
 			name  = formElmnts.updateBookmarkSelectText(),
 			url   = "",
 			id    = formElmnts.updateBookmarkSelectValue(),
-			findBookmarkDetails = function ( item, index ) {
+			findBookmarkDetails = ( item, index ) => {
 				if ( item._id === id ) {
 					group = item.group;
 					url   = item.url;
@@ -142,7 +130,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		formElmnts.detailUrlText.value   = url;		
 	},
 
-	formActionState = function () { 
+	formActionState = () => { 
 		formElmnts.bmksForm.classList.remove( 'create' );
 		formElmnts.bmksForm.classList.remove( 'delete' );
 		formElmnts.bmksForm.classList.remove( 'update' );
@@ -168,7 +156,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 	},
 	
-	formElementState = function () {
+	formElementState = () => {
 		removeChildNodes( ajaxResponse );
 		if ( formElmnts.isBookmarkChecked() ) {
 			if ( !formElmnts.hasBookmarkClass() ) {
@@ -188,11 +176,11 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 	},
 	
-	getFormValues = function () {
-		var action  = formElmnts.bmkActionValue(),
+	getFormValues = () => {
+		let action  = formElmnts.bmkActionValue(),
 			element = formElmnts.bmkElementValue(),
 			config  = {
-				"group" : function() { 
+				"group" : (() => { 
 					if ( ( element === 'group' && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) { 
 						return formElmnts.bmkGroupValue();
 					} else if ( ( element === 'group' && action === 'delete' ) || ( element === 'bookmark' && action === 'create' ) ) {
@@ -200,8 +188,8 @@ var bmkSection     = document.getElementById("bmkSection"),
 					} else {
 						return "";
 					}
-				}(),
-				"id" : function() { 
+				})(),
+				"id" : (() => { 
 					if ( element === 'bookmark' && action === 'delete' ) {
 						return formElmnts.bmkTitleSelectValue();
 					} else if ( element === 'bookmark' && action === 'update' ) {
@@ -209,8 +197,8 @@ var bmkSection     = document.getElementById("bmkSection"),
 					} else {
 						return "";
 					}
-				}(),								   
-				"name" : function() {
+				})(),								   
+				"name" : (() => {
 					if ( element === 'bookmark' && action === 'delete' ) {
 						return formElmnts.bmkTitleSelectText();
 					} else if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' )  ) {
@@ -218,29 +206,29 @@ var bmkSection     = document.getElementById("bmkSection"),
 					} else {
 						return "";
 					}
-				}(),
-				"url" : function() {
+				})(),
+				"url" : (() => {
 					if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) {
 						return formElmnts.bmkUrlValue();
 					} else {
 						return "";
 					}
-				}()
+				})()
 			};
 		return { 
 			"action" : action, "element": element, "config": config 
 		};
 	},
 
-	resetFormFields = function ( ) {
+	resetFormFields = () => {
 		detailGroupText.value = "";
 		detailNameText.value  = "";
 		detailUrlText.value   = "";
 	},
 
-	removeChildNodes = function ( e ) {
+	removeChildNodes = ( e ) => {
 		if ( e.hasChildNodes( ) ) {
-	        var child = e.lastElementChild;  
+	        let child = e.lastElementChild;  
 	        while ( child ) { 
 	            e.removeChild( child ); 
 	            child = e.lastElementChild; 
@@ -251,18 +239,18 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 	},
 
-	setAjaxResponse = function ( message ) {
+	setAjaxResponse = ( message ) => {
 		removeChildNodes( ajaxResponse );
 		if ( message ) {
-	        var fragment = document.createDocumentFragment(),
+	        let fragment = document.createDocumentFragment(),
 	        	textNode = document.createTextNode( message );
 	        fragment.appendChild( textNode );
 	        ajaxResponse.appendChild( fragment );
 		}
 	},
 
-	sortGroup = function( item, index ) {
-		var groupName = item.group;
+	sortGroup = ( item, index ) => {
+		let groupName = item.group;
 		if ( groupName ) {
 			if ( groupsByName.hasOwnProperty( groupName ) ) {
 				groupsByName[ groupName ].push( item );
@@ -275,14 +263,14 @@ var bmkSection     = document.getElementById("bmkSection"),
 
 	groupsByName = [],
 	groups       = [],
-	sortBookmarksIntoGroups = function( bookmarks ) {
+	sortBookmarksIntoGroups = ( bookmarks ) => {
 		groupsByName = [];
 		groups       = [];
 		bookmarks.forEach( sortGroup );
 		return groupsByName;
 	},
 
-	constructBookmarkList = function( group ) {
+	constructBookmarkList = ( group ) => {
 		/* 
 		<ul class="bookmarks">
 			<li><button class="all">Group Name</button>
@@ -293,7 +281,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 			</li>
 		</ul>
 		*/
-		var fragment           = document.createDocumentFragment(),
+		let fragment           = document.createDocumentFragment(),
 			groupName          = item,
 			outer_UL           = document.createElement  ( 'UL' ),
 			outer_UL_class     = document.createAttribute( 'class' ),
@@ -311,10 +299,10 @@ var bmkSection     = document.getElementById("bmkSection"),
 		outer_BUTTON.setAttributeNode( outer_BUTTON_class );
 		outer_BUTTON.appendChild( outer_BUTTON_text );
 		for ( i = 0; i < group.length; i += 1 ) {
-			var bookmark = group[i];
+			let bookmark = group[i];
 			if ( !bookmark.group || !bookmark.name || !bookmark.url ) { continue; }
 			// Create individual bookmarks.
-			var li     = document.createElement   ( 'LI' ),
+			let li     = document.createElement   ( 'LI' ),
 			    a      = document.createElement   ( 'A' ),
 				id     = document.createAttribute ( 'id' ),
 				href   = document.createAttribute ( 'href' ),
@@ -343,16 +331,16 @@ var bmkSection     = document.getElementById("bmkSection"),
 		return fragment;
 	},
 
-	removeBookmarks = function ( ) {
+	removeBookmarks = () => {
 		if ( bmkSection.hasChildNodes() ) {
 			removeChildNodes( bmkSection );
 		}
 	},
 
-	constructBookmarksSection = function ( ) {
-		var bookmarks  = bookmarksArray,
+	constructBookmarksSection = () => {
+		let bookmarks  = bookmarksArray,
 			sortedList = sortBookmarksIntoGroups( bookmarks ),
-			fragments   = document.createDocumentFragment();
+			fragments  = document.createDocumentFragment();
 		removeBookmarks();
 		for ( item in sortedList ) { 
 			if ( !item ) { continue; };
@@ -367,10 +355,10 @@ var bmkSection     = document.getElementById("bmkSection"),
 		removeChildNodes( ajaxResponse );		
 	},
 
-	constructBookmarkGroupOptions = function ( ) { 
+	constructBookmarkGroupOptions = () => { 
 		/* <option value="News">News</option> */
-		var fragment      = document.createDocumentFragment(),
-			buildOptions  = function ( item, index ) {
+		let fragment      = document.createDocumentFragment(),
+			buildOptions  = ( item, index ) => {
 				option    = document.createElement   ( 'OPTION' ),
 				val       = document.createAttribute ( 'value' ),
 				text      = document.createTextNode  ( item );
@@ -386,17 +374,17 @@ var bmkSection     = document.getElementById("bmkSection"),
 		formElmnts.detailGroupSelect.appendChild( fragment );
 	},
 
-	constructBookmarkNameOptions = function ( sortedList, target ) { 
+	constructBookmarkNameOptions = ( sortedList, target ) => { 
 		/* <optgroup label="News"><option id="5ec592b3fcceb051486e9c2f">Ars Technica</option></optgroup> */
-		var fragment = function ( ) { return document.createDocumentFragment() } (),
+		let fragment = (() => { return document.createDocumentFragment() })(),
 			group    = [];
 		for ( item in sortedList ) { 
 			if ( !item ) { continue; };
 			group = sortedList[ item ];
-			var groupFramgment = document.createDocumentFragment(),
+			let groupFramgment = document.createDocumentFragment(),
 				optgroup       = document.createElement   ( 'OPTGROUP' ),
 				label          = document.createAttribute ( 'label' ),
-				buildOptions  = function ( item, index ) {
+				buildOptions  = ( item, index ) => {
 					option    = document.createElement   ( 'OPTION' ),
 					val       = document.createAttribute ( 'value' ),
 					text      = document.createTextNode  ( item.name );
@@ -417,19 +405,19 @@ var bmkSection     = document.getElementById("bmkSection"),
 		if ( formElmnts.detailUpdateBookmarkSelect.hasChildNodes() ) {
 	        removeChildNodes( formElmnts.detailUpdateBookmarkSelect);
 		}
-		var fragment2 = fragment.cloneNode( true );
+		let fragment2 = fragment.cloneNode( true );
 		formElmnts.detailNameSelect.appendChild( fragment );
 		formElmnts.detailUpdateBookmarkSelect.appendChild( fragment2 );
 		updateBookmarkPrefill();
 	},
 
 	/* AJAX CALLS */
-	getBookmarks = function ( ) {
-		var	xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function( ) {
+	getBookmarks = () => {
+		let	xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
 			// In local files, status is 0 upon success in Mozilla Firefox
 			if( xhr.readyState === XMLHttpRequest.DONE ) {
-				var status = xhr.status;
+				let status = xhr.status;
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
 			       		bookmarksArray = JSON.parse( this.responseText );
@@ -447,12 +435,12 @@ var bmkSection     = document.getElementById("bmkSection"),
 	    xhr.send();	
 	},
 
-	verbBookmark = function ( action, url, params, cbf ) {
-		var	xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function( ) {
+	verbBookmark = ( action, url, params, cbf ) => {
+		let	xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
 			// In local files, status is 0 upon success in Mozilla Firefox
 			if( xhr.readyState === XMLHttpRequest.DONE ) {
-				var status = xhr.status;
+				let status = xhr.status;
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
 						resetFormFields();
@@ -471,48 +459,48 @@ var bmkSection     = document.getElementById("bmkSection"),
 	    xhr.send( params );	
 	},
 
-	formSubmit = function( event ) {
+	formSubmit = ( event ) => {
 		event.preventDefault();
 		removeChildNodes( ajaxResponse );
 		// Logic to determine action.		
-		var values     = getFormValues(),
+		let values     = getFormValues(),
 			params     = "",
 			validation = {
-					action  : function () { 
+					action  : (() => { 
 						if ( !values.action ) { return "Action is required."; }
 						else if ( values.action && values.action.length > 25 ) { return "Action exceeds maximum character length of 25."; }
 						else { return ""; }
-					}(),
-					element : function () { 
+					})(),
+					element : (() => { 
 						if ( !values.element ) { return "Element is required."; }
 						else if ( values.element && values.element.length > 25 ) { return "Element exceeds maximum character length of 25."; }
 						else { return ""; }
-					}(),
-					name    : function () {
+					})(),
+					name    : (() => {
 						if ( !values.config.name ) { return "Name is required."; }
 						else if ( values.config.name.length > 100 ) { return "Name exceeds maximum character length of 100."; }
 						else { return ""; }
-					}(),
-					url     : function () {
+					})(),
+					url     : (() => {
 						if ( !values.config.url ) { return "URL is required."; }
 						else if ( values.config.url.length > 2083 ) { return "URL exceeds maximum character length of 2083."; }
 						else { return ""; }
-					}(),
-					group   : function () {
+					})(),
+					group   : (() => {
 						if ( !values.config.group  ) { return "Group is required."; }
 						else if ( values.config.group.length > 100 ) { return "Group exceeds maximum character length of 100."; }
 						else { return ""; }
-					}(),
-					id      : function () {
+					})(),
+					id      : (() => {
 						if ( !values.config.id ) { return "ID is required."; }
 						else if ( values.config.id.length > 25 ) { return "ID exceeds maximum character length of 25."; }
 						else { return ""; }
-					}()
+					})()
 			};
 		if ( validation.action === "" && validation.element === "" ) {
 			if ( values.action === "create" && ( values.element === "bookmark" || values.element === "group" ) ) {
 				if ( validation.name === "" && validation.url === "" && validation.group === "" ) {
-					var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+					let params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 					verbBookmark( 
 						'POST', 
 						window.location.href + "bookmarks", 
@@ -549,7 +537,7 @@ var bmkSection     = document.getElementById("bmkSection"),
 			}
 			if ( values.action === "update" && values.element === "bookmark" ) {
 				if ( validation.name === "" && validation.url === "" && validation.group === "" && validation.id === "" ) {
-					var params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+					let params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 					verbBookmark( 
 						'PUT', 
 						window.location.href + "bookmarks/" + values.config.id, 
@@ -565,22 +553,18 @@ var bmkSection     = document.getElementById("bmkSection"),
 		}
 	},
 
-	toggleModalAbout = function( ) {
-		document.getElementsByClassName('modal')[0].classList.toggle('show');
-	},
+	toggleModalAbout = () => document.getElementsByClassName('modal')[0].classList.toggle('show'),
 
-	toggleModalHelp = function( ) {
-		document.getElementsByClassName('modal')[1].classList.toggle('show');
-	};
+	toggleModalHelp  = () => document.getElementsByClassName('modal')[1].classList.toggle('show');
 
 // SETUP AFTER PAGE LOADS	
-window.onload = function () {
+window.onload = () => {
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
 	getBookmarks();
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
-	var formState = localStorage.getItem("form");
+	let formState = localStorage.getItem("form");
 	
 	if ( formState === "open" ) {
 		if ( !document.body.classList.contains('edit') ) {
@@ -589,8 +573,8 @@ window.onload = function () {
 	}
 	
 	// EVENT HANDLER TO HIDE/SHOW FORM INPUTS BASED ON REQUESTED ACTION.
-	formElmnts.bmksForm.addEventListener("click", function( e ) {
-		var target = e.target,
+	formElmnts.bmksForm.addEventListener("click", ( e ) => {
+		let target = e.target,
 			tag    = target.tagName,
 			name   = target.name;		
 		if ( tag === "INPUT" ) {
@@ -601,7 +585,6 @@ window.onload = function () {
 					 break;
 					 
 				case "element":
-					resetFormFields();
 					formElementState();
 					break;
 				
@@ -621,8 +604,8 @@ window.onload = function () {
 	});
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
-	document.getElementsByTagName("footer")[0].addEventListener("click", function( e ) {
-		var target = e.target,
+	document.getElementsByTagName("footer")[0].addEventListener("click", ( e ) => {
+		let target = e.target,
 			tag    = target.tagName,
 			name   = target.className;
 		if ( tag === "BUTTON" ) {
