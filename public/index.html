@@ -20,55 +20,50 @@
 			
 			<div class="action fieldset">
 									
-				<label id="actionCreateLabel">Create:
-					<input id="actionCreate" type="radio" name="action" value="create" checked="checked" />
+				<label id="createLabel">Create:
+					<input id="create" type="radio" name="action" value="create" checked="checked" />
 				</label>
 				
-				<label id="actionDeleteLabel">Delete:
-					<input id="actionDelete" type="radio" name="action" value="delete" />
+				<label id="deleteLabel">Delete:
+					<input id="delete" type="radio" name="action" value="delete" />
 				</label>
 			
-				<label id="actionUpdateLabel">Update:
-					<input id="actionUpdate" type="radio" name="action" value="update" />
+				<label id="updateLabel">Update:
+					<input id="update" type="radio" name="action" value="update" />
 				</label>
 
 			</div>
 
 			<div class="element fieldset">
 								
-				<label id="elementBookmarkLabel">Bookmark:
-					<input id="elementBookmark" type="radio" name="element" value="bookmark" checked="checked" />
+				<label id="bookmarkLabel">Bookmark:
+					<input id="bookmark" type="radio" name="element" value="bookmark" checked="checked" />
 				</label>
 				
-				<label id="elementGroupLabel">Group:
-					<input id="elementGroup" type="radio" name="element" value="group" />
+				<label id="groupLabel">Group:
+					<input id="group" type="radio" name="element" value="group" />
 				</label>
 			
 			</div>				
 
 			<div class="detail fieldset">
 
-				<label id="detailUpdateBookmarkLabel">Bookmark:
-					<select id="detailUpdateBookmarkSelect" name="name_select" onchange="updateBookmarkPrefill()"></select>
+				<label id="bookmarksLabel">Bookmark:
+					<select id="bookmarksSelect" name="name_select" onchange="updateBookmarkPrefill()"></select>
 				</label>				
 											
-				<label id="detailGroupLabel">Group:
-					<input id="detailGroupText" type="text" name="group" placeholder="Group" />
-					<select id="detailGroupSelect" name="group_select"></select>
-				</label>
-				
-<!--
- 				<label id="detailParentLabel">Parent Group:</label>
-				<select id="detailParentSelect" name="parent_select"></select> 
--->
-
-				<label id="detailNameLabel">Name:
-					<input id="detailNameText" type="text" name="name" placeholder="Name" />
-					<select id="detailNameSelect" name="name_select"></select>
+				<label id="groupsLabel">Group:
+					<input id="groupText" type="text" name="group" placeholder="Group" />
+					<select id="groupSelect" name="group_select"></select>
 				</label>
 
-				<label id="detailUrlLabel">Url:
-					<input id="detailUrlText" type="text" name="url" placeholder="Url" />
+				<label id="nameLabel">Name:
+					<input id="nameText" type="text" name="name" placeholder="Name" />
+					<select id="nameSelect" name="name_select"></select>
+				</label>
+
+				<label id="urlLabel">Url:
+					<input id="urlText" type="text" name="url" placeholder="Url" />
 				</label>
 				
 			</div>
@@ -93,7 +88,7 @@
 		
 		<main>
 				
-			<section id="bmkSection" class="bmk-grid"></section>	
+			<section id="bookmarks" class="bookmarks-grid"></section>	
 		
 		</main>
 
