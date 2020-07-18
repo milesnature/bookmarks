@@ -322,6 +322,7 @@ form .complete.fieldset label {
 form .complete.fieldset label input  {
 	margin: 0;
 	width: 100px;
+	text-transform: capitalize;
 }
 
 .button {

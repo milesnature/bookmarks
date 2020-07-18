@@ -43,13 +43,8 @@ let bmkSection     = document.getElementById("bmkSection"),
 
 	/* FORM DOM ELEMENTS. THIS IS FOR EDITING DATA WITH MSQLI.  */
 	f = {
-			
 		"container"             	 : document.forms[0],
-		"actionCreate"         		 : document.getElementById('actionCreate'),
-		"actionDelete"         		 : document.getElementById('actionDelete'),
-		"actionUpdate"         		 : document.getElementById('actionUpdate'),
-		"elementBookmark"      		 : document.getElementById('elementBookmark'),
-		"elementGroup"         		 : document.getElementById('elementGroup'),
+		'elementBookmark'            : document.getElementById('elementBookmark'),
 		"detailUpdateBookmarkSelect" : document.getElementById('detailUpdateBookmarkSelect'),
 		"detailGroupText"      		 : document.getElementById('detailGroupText'),
 		"detailGroupSelect"    		 : document.getElementById('detailGroupSelect'),
@@ -57,12 +52,6 @@ let bmkSection     = document.getElementById("bmkSection"),
 		"detailNameSelect"     		 : document.getElementById('detailNameSelect'),		
 		"detailUrlText"        		 : document.getElementById('detailUrlText'),
 		"buttonSubmit"         		 : document.getElementById('buttonSubmit'),
-		"buttonCancel"         		 : document.getElementById('buttonCancel'),		
-		"isCreateChecked"      		 : () => { return f.actionCreate.checked },
-		"isDeleteChecked"      		 : () => { return f.actionDelete.checked },
-		"isUpdateChecked"      		 : () => { return f.actionUpdate.checked },
-		"isBookmarkChecked"    		 : () => { return f.elementBookmark.checked },
-		"isGroupChecked"       		 : () => { return f.elementGroup.checked },
 		"updateBookmarkSelectText"   : () => { return detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text },
 		"updateBookmarkSelectValue"  : () => { return detailUpdateBookmarkSelect.value },	
         "bmkGroupValue"        		 : () => { return detailGroupText.value },
@@ -72,20 +61,8 @@ let bmkSection     = document.getElementById("bmkSection"),
 		"bmkTitleSelectValue"  		 : () => { return detailNameSelect.value },
 		"bmkTitleSelectText"   		 : () => { return detailNameSelect.options[detailNameSelect.selectedIndex].text },
 		"bmkUrlValue"          		 : () => { return detailUrlText.value },
-		"actionValue"                : () => { 
-										let actions = "";
-										if ( f.isCreateChecked() ) { action = 'create' }
-										if ( f.isDeleteChecked() ) { action = 'delete' }
-										if ( f.isUpdateChecked() ) { action = 'update' }
-										return action;
-								  	 },
-		"elementValue"               : () => { 
-										let element = "";
-										if ( f.isBookmarkChecked() ) { element = 'bookmark' }
-										if ( f.isGroupChecked() )    { element = 'group' }
-										return element;
-								     }	
-
+		"actionValue"                : () => { return document.querySelector('input[name="action"]:checked').value },
+		"elementValue"               : () => { return document.querySelector('input[name="element"]:checked').value }	
 	},
 
 	formRemoveClasses = ( ...classes ) => { f.container.classList.remove( ...classes ); },
@@ -105,9 +82,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 	
 	actionFromFooter = ( action ) => {
 		if ( !document.body.classList.contains('edit') ) { openCloseForm(); }
-		if ( action === "createBookmark" ) { f.actionCreate.checked = "checked"; }		
-		if ( action === "deleteBookmark" ) { f.actionDelete.checked = "checked"; }
-		if ( action === "updateBookmark" ) { f.actionUpdate.checked = "checked"; }
+		document.querySelector( 'input[value=' + action + ']' ).checked = "checked";
 		f.elementBookmark.checked = "checked";
 		formActionState();
 		formElementState();		
@@ -130,43 +105,25 @@ let bmkSection     = document.getElementById("bmkSection"),
 		f.detailUrlText.value   = url;		
 	},
 
-	formActionState = () => { 
+	formActionState = () => {
+		let action = f.actionValue();
 		formRemoveClasses( 'create', 'delete', 'update' );
 		resetFormFields();
 		removeChildNodes( ajaxResponse );
-		switch ( f.actionValue() ) {
-			case 'create': 
-				formAddClasses( 'create' );
-				formUpdateButton( 'Create' );
-				break;
-			case 'delete': 
-				formAddClasses( 'delete' );
-				formUpdateButton( 'Delete' );
-				break;
-			case 'update': 
-				formAddClasses( 'update' );
-				formUpdateButton( 'Update' );
-				f.elementBookmark.checked = "checked";
-				updateBookmarkPrefill();
-				break;
+		formAddClasses( action );
+		formUpdateButton( action );		
+		if ( action === 'update' ) { 
+			f.elementBookmark.checked = "checked";
+			updateBookmarkPrefill();
 		}
 	},
 	
 	formElementState = () => {
+		let element = f.elementValue();
 		formRemoveClasses( 'bookmark', 'group' );
 		resetFormFields();
 		removeChildNodes( ajaxResponse );
-		switch ( f.elementValue() ) {
-			case 'bookmark': 
-				formAddClasses( 'bookmark' );
-				break;
-			case 'update': 
-				formAddClasses( 'bookmark' );
-				break;
-			case 'group': 
-				formAddClasses( 'group' );
-				break;
-		}		
+		formAddClasses( element );	
 	},
 	
 	getFormValues = () => {
@@ -214,9 +171,9 @@ let bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	resetFormFields = () => {
-		detailGroupText.value = "";
-		detailNameText.value  = "";
-		detailUrlText.value   = "";
+		f.detailGroupText.value = "";
+		f.detailNameText.value  = "";
+		f.detailUrlText.value   = "";
 	},
 
 	removeChildNodes = ( e ) => {
@@ -601,17 +558,7 @@ window.onload = () => {
 			tag    = target.tagName,
 			name   = target.className;
 		if ( tag === "BUTTON" ) {
-			switch (name) {
-				case "createBookmark":
-					actionFromFooter( 'createBookmark' );
-					break;
-				case "deleteBookmark":
-					actionFromFooter( 'deleteBookmark' );
-					break;
-				case "updateBookmark":
-					actionFromFooter( 'updateBookmark' );
-					break;
-			}
+			actionFromFooter( name );
 			document.body.scrollTop = 0; // For Safari
 			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
