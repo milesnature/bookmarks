@@ -44,7 +44,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 	/* FORM DOM ELEMENTS. THIS IS FOR EDITING DATA WITH MSQLI.  */
 	f = {
 		"container"             	 : document.forms[0],
-		'elementBookmark'            : document.getElementById('elementBookmark'),
+		"elementBookmark"            : document.getElementById('elementBookmark'),
 		"detailUpdateBookmarkSelect" : document.getElementById('detailUpdateBookmarkSelect'),
 		"detailGroupText"      		 : document.getElementById('detailGroupText'),
 		"detailGroupSelect"    		 : document.getElementById('detailGroupSelect'),
@@ -70,18 +70,18 @@ let bmkSection     = document.getElementById("bmkSection"),
 	formUpdateButton  = ( action )     => { f.buttonSubmit.value = action; },	
 
 	openCloseForm = () => { 
-		document.body.classList.toggle('edit');
-		if ( document.body.classList.contains('edit') ) {
-			localStorage.setItem("form","open");
+		document.body.classList.toggle( 'edit' );
+		if ( document.body.classList.contains( 'edit' ) ) {
+			localStorage.setItem( "form" , "open" );
 			f.container.reset();
 			removeChildNodes( ajaxResponse );
 		} else {
-			localStorage.setItem("form","closed");
+			localStorage.setItem( "form", "closed" );
 		}
 	},
 	
 	actionFromFooter = ( action ) => {
-		if ( !document.body.classList.contains('edit') ) { openCloseForm(); }
+		if ( !document.body.classList.contains( 'edit' ) ) { openCloseForm(); }
 		document.querySelector( 'input[value=' + action + ']' ).checked = "checked";
 		f.elementBookmark.checked = "checked";
 		formActionState();
@@ -119,46 +119,60 @@ let bmkSection     = document.getElementById("bmkSection"),
 	},
 	
 	formElementState = () => {
-		let element = f.elementValue();
+		let element = f.elementValue(),
+			action  = f.actionValue();
 		formRemoveClasses( 'bookmark', 'group' );
-		resetFormFields();
 		removeChildNodes( ajaxResponse );
-		formAddClasses( element );	
+		formAddClasses( element );
+		if ( action !== 'update' ) { resetFormFields(); }	
 	},
 	
-	getFormValues = () => {
+	formGetStates = () => {
 		let action  = f.actionValue(),
-			element = f.elementValue(),
+		    element = f.elementValue();
+		return {
+			"isCreate"   : ( action  === 'create' ),
+			"isDelete"   : ( action  === 'delete' ),
+			"isUpdate"   : ( action  === 'update' ),
+			"isGroup"    : ( element === 'group' ),
+			"isBookmark" : ( element === 'bookmark' )				
+		}
+	},
+
+	getFormValues = () => {  
+		let action     = f.actionValue(),
+			element    = f.elementValue(),
+			state      = formGetStates(),
 			config  = {
 				"group" : (() => { 
-					if ( ( element === 'group' && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) { 
+					if ( ( state.isGroup && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) { 
 						return f.bmkGroupValue();
-					} else if ( ( element === 'group' && action === 'delete' ) || ( element === 'bookmark' && action === 'create' ) ) {
+					} else if ( ( state.isGroup && state.isDelete ) || ( state.isBookmark && state.isCreate ) ) {
 						return f.bmkGroupSelectText();
 					} else {
 						return "";
 					}
 				})(),
 				"id" : (() => { 
-					if ( element === 'bookmark' && action === 'delete' ) {
+					if ( state.isBookmark && state.isDelete ) {
 						return f.bmkTitleSelectValue();
-					} else if ( element === 'bookmark' && action === 'update' ) {
+					} else if ( state.isBookmark && state.isUpdate ) {
 						return f.updateBookmarkSelectValue();
 					} else {
 						return "";
 					}
 				})(),								   
 				"name" : (() => {
-					if ( element === 'bookmark' && action === 'delete' ) {
+					if ( state.isBookmark && state.isDelete ) {
 						return f.bmkTitleSelectText();
-					} else if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' )  ) {
+					} else if ( ( ( state.isBookmark || state.isGroup ) && state.isCreate ) || ( state.isBookmark && state.isUpdate )  ) {
 						return f.bmkTitleValue();
 					} else {
 						return "";
 					}
 				})(),
 				"url" : (() => {
-					if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) {
+					if ( ( ( state.isBookmark || state.isGroup ) && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) {
 						return f.bmkUrlValue();
 					} else {
 						return "";
@@ -166,7 +180,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 				})()
 			};
 		return { 
-			"action" : action, "element": element, "config": config 
+			"action" : action, "element": element, "state": state, "config": config 
 		};
 	},
 
@@ -414,6 +428,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 		removeChildNodes( ajaxResponse );
 		// Logic to determine action.		
 		let values     = getFormValues(),
+			state      = values.state,
 			params     = "",
 			validation = {
 					action  : (() => { 
@@ -448,7 +463,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 					})()
 			};
 		if ( validation.action === "" && validation.element === "" ) {
-			if ( values.action === "create" && ( values.element === "bookmark" || values.element === "group" ) ) {
+			if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 				if ( validation.name === "" && validation.url === "" && validation.group === "" ) {
 					let params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 					verbBookmark( 
@@ -461,7 +476,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 					setAjaxResponse( validation.group + " " + validation.name + " " + validation.url );
 				}
 			}
-			if ( values.action === "delete" && values.element === "bookmark"  ) {
+			if ( state.isDelete && state.isBookmark  ) {
 				if ( validation.id === "" ) {
 					verbBookmark( 
 						'DELETE', 
@@ -473,7 +488,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 					setAjaxResponse( validation.id );
 				}
 			}
-			if ( values.action === "delete" && values.element === "group" ) {
+			if ( state.isDelete && state.isGroup ) {
 				if ( validation.group === "" ) {
 					verbBookmark( 
 						'DELETE', 
@@ -485,7 +500,7 @@ let bmkSection     = document.getElementById("bmkSection"),
 					setAjaxResponse( validation.group );
 				}
 			}
-			if ( values.action === "update" && values.element === "bookmark" ) {
+			if ( state.isUpdate && state.isBookmark ) {
 				if ( validation.name === "" && validation.url === "" && validation.group === "" && validation.id === "" ) {
 					let params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 					verbBookmark( 
