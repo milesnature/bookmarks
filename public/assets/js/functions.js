@@ -42,9 +42,9 @@ let bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	/* FORM DOM ELEMENTS. THIS IS FOR EDITING DATA WITH MSQLI.  */
-	formElmnts = {
+	f = {
 			
-		"bmksForm"             		 : document.forms[0],
+		"container"             	 : document.forms[0],
 		"actionCreate"         		 : document.getElementById('actionCreate'),
 		"actionDelete"         		 : document.getElementById('actionDelete'),
 		"actionUpdate"         		 : document.getElementById('actionUpdate'),
@@ -58,45 +58,45 @@ let bmkSection     = document.getElementById("bmkSection"),
 		"detailUrlText"        		 : document.getElementById('detailUrlText'),
 		"buttonSubmit"         		 : document.getElementById('buttonSubmit'),
 		"buttonCancel"         		 : document.getElementById('buttonCancel'),		
-		"hasCreateClass"       		 : () => formElmnts.bmksForm.classList.contains('create'),
-		"hasDeleteClass"       		 : () => formElmnts.bmksForm.classList.contains('delete'),
-		"hasUpdateClass"       		 : () => formElmnts.bmksForm.classList.contains('update'),
-		"hasBookmarkClass"     		 : () => formElmnts.bmksForm.classList.contains('bookmark'),
-		"hasGroupClass"        		 : () => formElmnts.bmksForm.classList.contains('group'),
-		"isCreateChecked"      		 : () => formElmnts.actionCreate.checked,
-		"isDeleteChecked"      		 : () => formElmnts.actionDelete.checked,
-		"isUpdateChecked"      		 : () => formElmnts.actionUpdate.checked,
-		"isBookmarkChecked"    		 : () => formElmnts.elementBookmark.checked,
-		"isGroupChecked"       		 : () => formElmnts.elementGroup.checked,
-		"updateBookmarkSelectText"   : () => detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text,
-		"updateBookmarkSelectValue"  : () => detailUpdateBookmarkSelect.value ,		
-        "bmkGroupValue"        		 : () => detailGroupText.value,
-		"bmkGroupSelectValue"  		 : () => detailGroupSelect.value,
-		"bmkGroupSelectText"   		 : () => detailGroupSelect.options[detailGroupSelect.selectedIndex].text,
-		"bmkTitleValue"        		 : () => detailNameText.value,
-		"bmkTitleSelectValue"  		 : () => detailNameSelect.value,
-		"bmkTitleSelectText"   		 : () => detailNameSelect.options[detailNameSelect.selectedIndex].text,
-		"bmkUrlValue"          		 : () => detailUrlText.value,
-		"bmkActionValue"    : () => { 
-							    let action = "";
-								if ( formElmnts.hasCreateClass() ) { action = 'create' }
-								if ( formElmnts.hasDeleteClass() ) { action = 'delete' }
-								if ( formElmnts.hasUpdateClass() ) { action = 'update' }
-								return action;
-							},
-		"bmkElementValue"   : () => { 
-								let element = "";
-								if ( formElmnts.hasBookmarkClass() ) { element = 'bookmark' }
-								if ( formElmnts.hasGroupClass() )    { element = 'group' }
-								return element;
-							}
+		"isCreateChecked"      		 : () => { return f.actionCreate.checked },
+		"isDeleteChecked"      		 : () => { return f.actionDelete.checked },
+		"isUpdateChecked"      		 : () => { return f.actionUpdate.checked },
+		"isBookmarkChecked"    		 : () => { return f.elementBookmark.checked },
+		"isGroupChecked"       		 : () => { return f.elementGroup.checked },
+		"updateBookmarkSelectText"   : () => { return detailUpdateBookmarkSelect.options[detailUpdateBookmarkSelect.selectedIndex].text },
+		"updateBookmarkSelectValue"  : () => { return detailUpdateBookmarkSelect.value },	
+        "bmkGroupValue"        		 : () => { return detailGroupText.value },
+		"bmkGroupSelectValue"  		 : () => { return detailGroupSelect.value },
+		"bmkGroupSelectText"   		 : () => { return detailGroupSelect.options[detailGroupSelect.selectedIndex].text },
+		"bmkTitleValue"        		 : () => { return detailNameText.value },
+		"bmkTitleSelectValue"  		 : () => { return detailNameSelect.value },
+		"bmkTitleSelectText"   		 : () => { return detailNameSelect.options[detailNameSelect.selectedIndex].text },
+		"bmkUrlValue"          		 : () => { return detailUrlText.value },
+		"actionValue"                : () => { 
+										let actions = "";
+										if ( f.isCreateChecked() ) { action = 'create' }
+										if ( f.isDeleteChecked() ) { action = 'delete' }
+										if ( f.isUpdateChecked() ) { action = 'update' }
+										return action;
+								  	 },
+		"elementValue"               : () => { 
+										let element = "";
+										if ( f.isBookmarkChecked() ) { element = 'bookmark' }
+										if ( f.isGroupChecked() )    { element = 'group' }
+										return element;
+								     }	
+
 	},
-	
+
+	formRemoveClasses = ( ...classes ) => { f.container.classList.remove( ...classes ); },
+	formAddClasses    = ( ...classes ) => { f.container.classList.add( ...classes ); },
+	formUpdateButton  = ( action )     => { f.buttonSubmit.value = action; },	
+
 	openCloseForm = () => { 
 		document.body.classList.toggle('edit');
 		if ( document.body.classList.contains('edit') ) {
 			localStorage.setItem("form","open");
-			formElmnts.bmksForm.reset();
+			f.container.reset();
 			removeChildNodes( ajaxResponse );
 		} else {
 			localStorage.setItem("form","closed");
@@ -105,19 +105,19 @@ let bmkSection     = document.getElementById("bmkSection"),
 	
 	actionFromFooter = ( action ) => {
 		if ( !document.body.classList.contains('edit') ) { openCloseForm(); }
-		if ( action === "createBookmark" ) { formElmnts.actionCreate.checked = "checked"; }		
-		if ( action === "deleteBookmark" ) { formElmnts.actionDelete.checked = "checked"; }
-		if ( action === "updateBookmark" ) { formElmnts.actionUpdate.checked = "checked"; }
-		formElmnts.elementBookmark.checked = "checked";
+		if ( action === "createBookmark" ) { f.actionCreate.checked = "checked"; }		
+		if ( action === "deleteBookmark" ) { f.actionDelete.checked = "checked"; }
+		if ( action === "updateBookmark" ) { f.actionUpdate.checked = "checked"; }
+		f.elementBookmark.checked = "checked";
 		formActionState();
 		formElementState();		
 	},
 	
 	updateBookmarkPrefill = () => {
 		let group = "",
-			name  = formElmnts.updateBookmarkSelectText(),
+			name  = f.updateBookmarkSelectText(),
 			url   = "",
-			id    = formElmnts.updateBookmarkSelectValue(),
+			id    = f.updateBookmarkSelectValue(),
 			findBookmarkDetails = ( item, index ) => {
 				if ( item._id === id ) {
 					group = item.group;
@@ -125,91 +125,84 @@ let bmkSection     = document.getElementById("bmkSection"),
 				}
 			};
 		bookmarksArray.forEach( findBookmarkDetails );
-		formElmnts.detailGroupText.value = group;
-		formElmnts.detailNameText.value  = name;
-		formElmnts.detailUrlText.value   = url;		
+		f.detailGroupText.value = group;
+		f.detailNameText.value  = name;
+		f.detailUrlText.value   = url;		
 	},
 
 	formActionState = () => { 
-		formElmnts.bmksForm.classList.remove( 'create' );
-		formElmnts.bmksForm.classList.remove( 'delete' );
-		formElmnts.bmksForm.classList.remove( 'update' );
+		formRemoveClasses( 'create', 'delete', 'update' );
 		resetFormFields();
 		removeChildNodes( ajaxResponse );
-		if ( formElmnts.isCreateChecked() ) {
-			if ( !formElmnts.hasCreateClass() ) {
-				formElmnts.bmksForm.classList.add( 'create' );
-				formElmnts.buttonSubmit.value = 'Create';
-			}
-		}
-		if ( formElmnts.isDeleteChecked() ) {
-			if ( !formElmnts.hasDeleteClass() ) {
-				formElmnts.bmksForm.classList.add( 'delete' );
-				formElmnts.buttonSubmit.value = 'Delete';
-			}
-		}
-		if ( formElmnts.isUpdateChecked() ) {
-			formElmnts.bmksForm.classList.add( 'update' );
-			formElmnts.buttonSubmit.value = 'Update';
-			formElmnts.elementBookmark.checked = "checked";
-			updateBookmarkPrefill();
+		switch ( f.actionValue() ) {
+			case 'create': 
+				formAddClasses( 'create' );
+				formUpdateButton( 'Create' );
+				break;
+			case 'delete': 
+				formAddClasses( 'delete' );
+				formUpdateButton( 'Delete' );
+				break;
+			case 'update': 
+				formAddClasses( 'update' );
+				formUpdateButton( 'Update' );
+				f.elementBookmark.checked = "checked";
+				updateBookmarkPrefill();
+				break;
 		}
 	},
 	
 	formElementState = () => {
+		formRemoveClasses( 'bookmark', 'group' );
+		resetFormFields();
 		removeChildNodes( ajaxResponse );
-		if ( formElmnts.isBookmarkChecked() ) {
-			if ( !formElmnts.hasBookmarkClass() ) {
-				formElmnts.bmksForm.classList.add( 'bookmark' );
-			}
-			formElmnts.bmksForm.classList.remove( 'group' );
-		}
-		if ( formElmnts.isGroupChecked() ) {
-			if ( !formElmnts.hasGroupClass() ) {
-				formElmnts.bmksForm.classList.add( 'group' );
-			}
-			formElmnts.bmksForm.classList.remove( 'bookmark' );
-		}
-		if ( formElmnts.isUpdateChecked() ) {
-			formElmnts.bmksForm.classList.add( 'bookmark' );
-			formElmnts.bmksForm.classList.remove( 'group' );
-		}
+		switch ( f.elementValue() ) {
+			case 'bookmark': 
+				formAddClasses( 'bookmark' );
+				break;
+			case 'update': 
+				formAddClasses( 'bookmark' );
+				break;
+			case 'group': 
+				formAddClasses( 'group' );
+				break;
+		}		
 	},
 	
 	getFormValues = () => {
-		let action  = formElmnts.bmkActionValue(),
-			element = formElmnts.bmkElementValue(),
+		let action  = f.actionValue(),
+			element = f.elementValue(),
 			config  = {
 				"group" : (() => { 
 					if ( ( element === 'group' && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) { 
-						return formElmnts.bmkGroupValue();
+						return f.bmkGroupValue();
 					} else if ( ( element === 'group' && action === 'delete' ) || ( element === 'bookmark' && action === 'create' ) ) {
-						return formElmnts.bmkGroupSelectText();
+						return f.bmkGroupSelectText();
 					} else {
 						return "";
 					}
 				})(),
 				"id" : (() => { 
 					if ( element === 'bookmark' && action === 'delete' ) {
-						return formElmnts.bmkTitleSelectValue();
+						return f.bmkTitleSelectValue();
 					} else if ( element === 'bookmark' && action === 'update' ) {
-						return formElmnts.updateBookmarkSelectValue();
+						return f.updateBookmarkSelectValue();
 					} else {
 						return "";
 					}
 				})(),								   
 				"name" : (() => {
 					if ( element === 'bookmark' && action === 'delete' ) {
-						return formElmnts.bmkTitleSelectText();
+						return f.bmkTitleSelectText();
 					} else if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' )  ) {
-						return formElmnts.bmkTitleValue();
+						return f.bmkTitleValue();
 					} else {
 						return "";
 					}
 				})(),
 				"url" : (() => {
 					if ( ( ( element === 'bookmark' || element === 'group' ) && action === 'create' ) || ( element === 'bookmark' && action === 'update' ) ) {
-						return formElmnts.bmkUrlValue();
+						return f.bmkUrlValue();
 					} else {
 						return "";
 					}
@@ -368,10 +361,10 @@ let bmkSection     = document.getElementById("bmkSection"),
 				fragment.appendChild( option );
 			};
 		groups.forEach( buildOptions );
-		if ( formElmnts.detailGroupSelect.hasChildNodes() ) {
-	        removeChildNodes( formElmnts.detailGroupSelect );
+		if ( f.detailGroupSelect.hasChildNodes() ) {
+	        removeChildNodes( f.detailGroupSelect );
 		}
-		formElmnts.detailGroupSelect.appendChild( fragment );
+		f.detailGroupSelect.appendChild( fragment );
 	},
 
 	constructBookmarkNameOptions = ( sortedList, target ) => { 
@@ -399,15 +392,15 @@ let bmkSection     = document.getElementById("bmkSection"),
 			optgroup.appendChild( groupFramgment );
 			fragment.appendChild( optgroup );
 		}
-		if ( formElmnts.detailNameSelect.hasChildNodes() ) {
-	        removeChildNodes( formElmnts.detailNameSelect );
+		if ( f.detailNameSelect.hasChildNodes() ) {
+	        removeChildNodes( f.detailNameSelect );
 		}
-		if ( formElmnts.detailUpdateBookmarkSelect.hasChildNodes() ) {
-	        removeChildNodes( formElmnts.detailUpdateBookmarkSelect);
+		if ( f.detailUpdateBookmarkSelect.hasChildNodes() ) {
+	        removeChildNodes( f.detailUpdateBookmarkSelect);
 		}
 		let fragment2 = fragment.cloneNode( true );
-		formElmnts.detailNameSelect.appendChild( fragment );
-		formElmnts.detailUpdateBookmarkSelect.appendChild( fragment2 );
+		f.detailNameSelect.appendChild( fragment );
+		f.detailUpdateBookmarkSelect.appendChild( fragment2 );
 		updateBookmarkPrefill();
 	},
 
@@ -554,7 +547,6 @@ let bmkSection     = document.getElementById("bmkSection"),
 	},
 
 	toggleModalAbout = () => document.getElementsByClassName('modal')[0].classList.toggle('show'),
-
 	toggleModalHelp  = () => document.getElementsByClassName('modal')[1].classList.toggle('show');
 
 // SETUP AFTER PAGE LOADS	
@@ -573,7 +565,7 @@ window.onload = () => {
 	}
 	
 	// EVENT HANDLER TO HIDE/SHOW FORM INPUTS BASED ON REQUESTED ACTION.
-	formElmnts.bmksForm.addEventListener("click", ( e ) => {
+	f.container.addEventListener("click", ( e ) => {
 		let target = e.target,
 			tag    = target.tagName,
 			name   = target.name;		
