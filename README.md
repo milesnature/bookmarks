@@ -45,7 +45,7 @@ http://bookmarks-example.milesnature.com/
 
 ### TMI
 Implementation & Design
-This website was designed and created from scratch (Node JS and related NPM libs excepted). The latest versions of languages and syntax were chosen above older, more backwards compatible alternatives (type-script excepted).
+This website was designed and created from hand coded scratch (Node JS and related NPM libs excepted). The latest versions of languages and syntax were chosen above older, more backwards compatible alternatives.
 
 The layout is designed to be the most useful for a web developer, someone who is constantly jumping from one bowser or operating system to another. The organization is deliberately simple (no folders or collapsing groups), allowing the user to see everything all at once. Alternative layouts and functionality may be added, especially for mobile.
 
