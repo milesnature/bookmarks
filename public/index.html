@@ -16,7 +16,7 @@
 
 	<body>
 		
-		<form action="" method="post" class="create bookmark">
+		<form class="create bookmark" novalidate>
 			
 			<div class="action fieldset">
 									
@@ -88,7 +88,7 @@
 		
 		<main>
 				
-			<section id="bookmarks" class="bookmarks-grid"></section>	
+			<section id="bookmarks"></section>	
 		
 		</main>
 
@@ -98,103 +98,103 @@
 
 			<small>Copyright &copy;  Miles Nature. All Rights Reserved.</small>
 
-			<small class="links"><a onclick="toggleModalAbout()">About</a> | <a onclick="toggleModalHelp()">Help</a></small>		
-
-			<div class="modal about">
-				
-				<a class="close" onclick="toggleModalAbout()">Close</a>
-											
-				<h2>About</h2>
-				
-				<h3>Implementation & Design</h3>
-				
-				<p>
-					This website was created from scratch. 
-					No 3rd party libraries were used. 
-					The latest versions of languages and syntax were chosen above older, more backwards compatible alternatives (type-script excepted).
-				</p>
-				
-				<p>
-					The layout is designed to be the most useful for a web developer, someone who is constantly jumping from one bowser or operating system to another. 
-					The organization is deliberately simple (no folders or collapsing groups), allowing the user to see everything all at once. 
-					Alternative layouts and functionality may be added, especially for mobile.
-				</p>
-				
-				<p>
-					Form elements are deliberately not styled. 
-					Operating systems create shared widgets that are familiar to their users. 
-					I have personally customized multitudes of form elements and or used all the 3rd party solutions at one point or another.
-					My conclusion is that the results do not outweigh the effort nor compromises involved.
-					Default form elements are compact, quick to load, have no learning curve and just work.
-					Every designer's nightmare, I know. :)
-				</p>
-				
-				<p>
-					Database storage was added to accommodate users who might not have ftp access or have the knowledge to edit a webpage. 
-					It's also pretty handy for quick edits. 
-					The goal is to make saving a bookmark as simple as possible. 
-					Enhancements to come.
-				</p>
-				
-				<h3 class="child">The Future</h3>
-				
-				<p>As previously noted, alternative layouts and enhanced editing capability are forthcoming. Notable objectives include:</p>
-				
-				<ul>
-					<li>Sessions</li>
-					<li>Inline editing</li>
-					<li>Drag and drop</li>
-					<li>Import bookmark files</li>
-					<li>Export bookmarks to file</li>
-					<li>Multiple simultaneous edits</li>
-					<li>Order preferences</li>
-					<li>Bookmark Sets</li>
-				</ul>	
-							
-				<p>
-					My intention is to share the code publicly on GitHub. 
-					Ideally a user would install their own instance, password protect the directory, and own all of their data.
-					This may also end up being a service I offer and maintain on a subscription basis.
-				</p>
-				
-				<p>Enjoy!</p>
-							
-			</div>
-
-			<div class="modal help">
-					
-				<a class="close" onclick="toggleModalHelp()">Close</a>
-											
-				<h2>Help</h2>
-				
-				<h3>No groups were found.</h3>
-				
-				<p>All bookmarks must belong to a group. The first step is to create one.</p>
-
-				<p>If you do not see the form (at the top of the page) then click the <strong>Create</strong> button in the footer to open the form. This help modal may be obstructing the form and or the footer.</p>
-				
-				<p>
-					The form has 4 main sections, starting from left to right.
-					<ol>
-						<li><strong>Action.</strong> Choose create or delete.</li>
-						<li><strong>Element.</strong> Choose group or bookmark.</li>
-						<li><strong>Detail.</strong> Provide details pertaining to the desired action.</li>
-						<li><strong>Submit.</strong> Click the corresponding button to submit the request.</li>
-					</ol>
-				</p>
-				
-				<p>Ensure that the form indicates <strong>Create</strong> (1), <strong>Group</strong> (2).</p>
-
-				<p>Add a <strong>Group Name</strong> (3) and then click <strong>Create</strong> (4).</p>
-				
-				<p>Now follow the same steps for adding a bookmark.</p>
-
-				<p>Click <strong>Done</strong> to close the form.</p>
-							
-			</div>						
+			<small class="links"><a onclick="toggleModalAbout()">About</a> | <a onclick="toggleModalHelp()">Help</a></small>							
 											
 		</footer>
-		
+
+		<div class="modal about">
+			
+			<a class="close" onclick="toggleModalAbout()">Close</a>
+										
+			<h2>About</h2>
+			
+			<h3>Implementation & Design</h3>
+			
+			<p>
+				This website was created from scratch. 
+				No 3rd party libraries were used. 
+				The latest versions of languages and syntax were chosen above older, more backwards compatible alternatives (type-script excepted).
+			</p>
+			
+			<p>
+				The layout is designed to be the most useful for a web developer, someone who is constantly jumping from one bowser or operating system to another. 
+				The organization is deliberately simple (no folders or collapsing groups), allowing the user to see everything all at once. 
+				Alternative layouts and functionality may be added, especially for mobile.
+			</p>
+			
+			<p>
+				Form elements are deliberately not styled. 
+				Operating systems create shared widgets that are familiar to their users. 
+				I have personally customized multitudes of form elements and or used all the 3rd party solutions at one point or another.
+				My conclusion is that the results do not outweigh the effort nor compromises involved.
+				Default form elements are compact, quick to load, have no learning curve and just work.
+				Every designer's nightmare, I know. :)
+			</p>
+			
+			<p>
+				Database storage was added to accommodate users who might not have ftp access or have the knowledge to edit a webpage. 
+				It's also pretty handy for quick edits. 
+				The goal is to make saving a bookmark as simple as possible. 
+				Enhancements to come.
+			</p>
+			
+			<h3 class="child">The Future</h3>
+			
+			<p>As previously noted, alternative layouts and enhanced editing capability are forthcoming. Notable objectives include:</p>
+			
+			<ul>
+				<li>Sessions</li>
+				<li>Inline editing</li>
+				<li>Drag and drop</li>
+				<li>Import bookmark files</li>
+				<li>Export bookmarks to file</li>
+				<li>Multiple simultaneous edits</li>
+				<li>Order preferences</li>
+				<li>Bookmark Sets</li>
+			</ul>	
+						
+			<p>
+				My intention is to share the code publicly on GitHub. 
+				Ideally a user would install their own instance, password protect the directory, and own all of their data.
+				This may also end up being a service I offer and maintain on a subscription basis.
+			</p>
+			
+			<p>Enjoy!</p>
+						
+		</div>
+
+		<div class="modal help">
+				
+			<a class="close" onclick="toggleModalHelp()">Close</a>
+										
+			<h2>Help</h2>
+			
+			<h3>No groups were found.</h3>
+			
+			<p>All bookmarks must belong to a group. The first step is to create one.</p>
+
+			<p>If you do not see the form (at the top of the page) then click the <strong>Create</strong> button in the footer to open the form. This help modal may be obstructing the form and or the footer.</p>
+			
+			<p>
+				The form has 4 main sections, starting from left to right.
+				<ol>
+					<li><strong>Action.</strong> Choose create or delete.</li>
+					<li><strong>Element.</strong> Choose group or bookmark.</li>
+					<li><strong>Detail.</strong> Provide details pertaining to the desired action.</li>
+					<li><strong>Submit.</strong> Click the corresponding button to submit the request.</li>
+				</ol>
+			</p>
+			
+			<p>Ensure that the form indicates <strong>Create</strong> (1), <strong>Group</strong> (2).</p>
+
+			<p>Add a <strong>Group Name</strong> (3) and then click <strong>Create</strong> (4).</p>
+			
+			<p>Now follow the same steps for adding a bookmark.</p>
+
+			<p>Click <strong>Done</strong> to close the form.</p>
+						
+		</div>			
+
 		<script src="assets/js/functions.js"></script>		
 					  
 	</body>
