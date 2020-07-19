@@ -1,6 +1,7 @@
 /* OPEN ALL BOOKMARKS WITHIN A GROUP. THIS ADDS AN EVENT LISTENER TO EACH GROUP. ALL BOOKMARKS WITHIN EACH GROUP ARE LAUNCHED WHEN CLIKCING ON GROUP NAME. OTHERWISE, LINKS ARE OPENED INDIVIDUALLY VIA THEIR RESPECTIVE ANCHOR TAGS. */
 const bmkSection   = document.getElementById("bookmarks"),
-	  ajaxResponse = document.getElementById("ajaxResponse");
+	  ajaxResponse = document.getElementById("ajaxResponse"),
+	  year         = new Date();
 
 let noGroups,
 	noBookmarks,
@@ -46,6 +47,7 @@ let noGroups,
 	f = {
 		"container"             	 : document.forms[0],
 		"bookmark"                   : document.getElementById('bookmark'),
+		"group"                      : document.getElementById('group'),
 		"bookmarksSelect"            : document.getElementById('bookmarksSelect'),
 		"groupText"      		     : document.getElementById('groupText'),
 		"groupSelect"    		     : document.getElementById('groupSelect'),
@@ -81,29 +83,35 @@ let noGroups,
 		}
 	},
 	
-	actionFromFooter = ( action ) => {
+	actionFromFooter = ( action, empty ) => {
 		if ( !document.body.classList.contains( 'edit' ) ) { openCloseForm(); }
 		document.querySelector( 'input[value=' + action + ']' ).checked = "checked";
-		f.bookmark.checked = "checked";
+		if ( !empty ) { 
+			f.bookmark.checked = "checked"; 
+		} else {
+			f.group.checked = "checked"; 
+		}
 		formActionState();
 		formElementState();		
 	},
 	
 	updateBookmarkPrefill = () => {
-		let group = "",
-			name  = f.updateBookmarkSelectText(),
-			url   = "",
-			id    = f.updateBookmarkSelectValue(),
-			findBookmarkDetails = ( item, index ) => {
-				if ( item._id === id ) {
-					group = item.group;
-					url   = item.url;
-				}
-			};
-		bookmarksArray.forEach( findBookmarkDetails );
-		f.groupText.value = group;
-		f.nameText.value  = name;
-		f.urlText.value   = url;		
+		if ( bookmarksArray.length > 0 ) {
+			let group = "",
+				name  = f.updateBookmarkSelectText(),
+				url   = "",
+				id    = f.updateBookmarkSelectValue(),
+				findBookmarkDetails = ( item, index ) => {
+					if ( item._id === id ) {
+						group = item.group;
+						url   = item.url;
+					}
+				};
+			bookmarksArray.forEach( findBookmarkDetails );
+			f.groupText.value = group;
+			f.nameText.value  = name;
+			f.urlText.value   = url;
+		}		
 	},
 
 	formActionState = () => {
@@ -386,7 +394,12 @@ let noGroups,
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
 			       		bookmarksArray = JSON.parse( this.responseText );
-		       			constructBookmarksSection();
+			       		if ( bookmarksArray.length > 0 ) {
+		       				constructBookmarksSection();
+		       			} else {
+		       				actionFromFooter( 'create', true );
+		       				toggleModalHelp();
+		       			}
 		            } else {
 		            	bmkSection.textContent = this.responseText;
 		            }
@@ -519,8 +532,7 @@ let noGroups,
 		}
 	},
 
-	toggleModalAbout = () => document.getElementsByClassName('modal')[0].classList.toggle('show'),
-	toggleModalHelp  = () => document.getElementsByClassName('modal')[1].classList.toggle('show');
+	toggleModalHelp  = () => document.getElementsByClassName('modal')[0].classList.toggle('show');
 
 // SETUP AFTER PAGE LOADS	
 window.onload = () => {
@@ -579,4 +591,7 @@ window.onload = () => {
 			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
 	});
+
+	document.getElementById('year').innerText = year.getFullYear();
+
 };
