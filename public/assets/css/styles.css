@@ -416,8 +416,6 @@ footer small.links a {
 	}
 }
 
-.modal.about.show { display: block; }
-
 .modal.help.show { display: block; }
 
 .modal section {
@@ -470,6 +468,17 @@ footer small.links a {
 	grid-auto-rows: auto;
 	grid-gap: 1em;
 }
+
+@media (max-width: 600px) {
+	.modal ol {
+		grid-template-columns: 1fr 1fr;
+		grid-auto-rows: auto auto;
+	}
+	.modal {
+		padding: 1.5em;
+	}	
+}
+
 
 .modal ol li {
 	line-height: 1.5em;
