@@ -398,7 +398,7 @@ footer small.links a {
 	left: 0;
 	z-index: 1;
 	margin: auto;
-	max-width: 80vw;
+	max-width: 800px;
  	height: 80vh; 
 	background-color: var(--grayscale-00);
 	padding: 3em;
