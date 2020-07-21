@@ -91,7 +91,7 @@ html {
 
 html, body {
 	font-family: var(--primary-font-family);
-	font-size: 12px;
+	font-size: 13px;
 	background-color: var(--grayscale-20);
 	margin: 0;
 	padding: 0;
@@ -357,7 +357,9 @@ footer {
 	grid-area: footer;
 	align-self: center;
 	text-align: center;
-	padding: 10px 0;
+	font-family: var(--primary-font-family);
+	font-size: 1em;
+	padding: 3em 0;
 	background-color: var(--grayscale-08);
 	position: relative;
 }
@@ -372,21 +374,23 @@ footer nav button {
 	font-size: 12px;
 }
 
-footer small {
-	font-family: var(--primary-font-family);
-	font-size: 1em;
+footer small { }
+
+footer small.copyright {
+	font-size: .8em;
 }
 
 footer small.links {
 	text-align: center;
 	display: block;
+	margin: 0 0 1em 0;
 }
 
 footer small.links a {
 	text-decoration: underline;
 	cursor: pointer;
 	display: inline-block;
-	margin: 10px 0 0 0;
+	margin: 0 0 0 0;
 	color: var(--grayscale-24);
 }
 
@@ -406,6 +410,7 @@ footer small.links a {
 	display: none;
 	text-align: left;
 	line-height: 1.3em;
+	font-size: 1.1em;
 	overflow: auto;
 }
 
