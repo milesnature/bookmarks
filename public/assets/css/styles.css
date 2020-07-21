@@ -256,7 +256,7 @@ form .fieldset label,
 form .fieldset input, 
 form .fieldset select {
 	margin: 0;
-	font-size: 12px;
+	font-size: 1em;
 }
 
 form .fieldset label {
@@ -359,7 +359,7 @@ footer {
 	text-align: center;
 	font-family: var(--primary-font-family);
 	font-size: 1em;
-	padding: 3em 0;
+	padding: 4em 0 2em 0;
 	background-color: var(--grayscale-08);
 	position: relative;
 }
@@ -371,13 +371,8 @@ footer nav {
 footer nav button {
 	cursor: pointer;
 	min-width: 69px;
-	font-size: 12px;
-}
-
-footer small { }
-
-footer small.copyright {
-	font-size: .8em;
+	font-size: 1em;
+	margin: 0 .35em 0 .35em;
 }
 
 footer small.links {
@@ -390,8 +385,12 @@ footer small.links a {
 	text-decoration: underline;
 	cursor: pointer;
 	display: inline-block;
-	margin: 0 0 0 0;
+	margin: 0 .35em 0 .35em;
 	color: var(--grayscale-24);
+}
+
+footer small.copyright {
+	font-size: .8em;
 }
 
 .modal { 
