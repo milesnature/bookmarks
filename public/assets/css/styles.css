@@ -372,7 +372,7 @@ footer nav button {
 	cursor: pointer;
 	min-width: 69px;
 	font-size: 1em;
-	margin: 0 .35em 0 .35em;
+	margin: 0 .6em 0 .6em;
 }
 
 footer small.links {
@@ -385,8 +385,16 @@ footer small.links a {
 	text-decoration: underline;
 	cursor: pointer;
 	display: inline-block;
-	margin: 0 .35em 0 .35em;
+	padding: .3em 1em;
 	color: var(--grayscale-24);
+}
+
+footer small.links a:hover {
+	color: var(--medium-red);	
+}
+
+footer small.links a:first-child {
+	border-right: 1px solid var(--grayscale-18);
 }
 
 footer small.copyright {
@@ -431,13 +439,13 @@ footer small.copyright {
 }
 
 .modal h2 {
-	margin: 0 0 2em 0;
+	margin: 0 0 1.5em 0;
 	font-size: 1.3em;
 	font-weight: bold;
 }
 
 .modal h3 {
-	margin: .25em 0 1.5em 0;
+	margin: .25em 0 1em 0;
 	font-size: 1.2em;
 	font-weight: bold;
 }
