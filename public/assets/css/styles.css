@@ -231,7 +231,7 @@ form.update.bookmark .detail  #groupSelect {    display: none; }
 form.update.bookmark .detail  #nameText {       display: inline-block; }
 form.update.bookmark .detail  #nameSelect {     display: none; }
 
-/* Had to revert filedset tags to divs because chrome did not support css grid on them. */
+/* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
 form .fieldset {
 	border-width: 5px;
     border-style: solid;
@@ -372,7 +372,7 @@ footer nav button {
 	cursor: pointer;
 	min-width: 69px;
 	font-size: 1em;
-	margin: 0 .6em 0 .6em;
+	margin: 0 .35em 0 .35em;
 }
 
 footer small.links {

@@ -1,11 +1,9 @@
-/* OPEN ALL BOOKMARKS WITHIN A GROUP. THIS ADDS AN EVENT LISTENER TO EACH GROUP. ALL BOOKMARKS WITHIN EACH GROUP ARE LAUNCHED WHEN CLIKCING ON GROUP NAME. OTHERWISE, LINKS ARE OPENED INDIVIDUALLY VIA THEIR RESPECTIVE ANCHOR TAGS. */
+/* OPEN ALL BOOKMARKS WITHIN A GROUP. ALL BOOKMARKS WITHIN EACH GROUP ARE LAUNCHED WHEN CLIKCING ON A GROUP NAME. OTHERWISE, LINKS ARE OPENED INDIVIDUALLY VIA THEIR RESPECTIVE ANCHOR TAGS. */
 const bmkSection   = document.getElementById("bookmarks"),
 	  ajaxResponse = document.getElementById("ajaxResponse"),
 	  year         = new Date();
 
-let noGroups,
-	noBookmarks,
-	bookmarksArray = [],
+let bookmarksArray = [],
 	
 	getLists = () => { 
 		return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
@@ -144,15 +142,15 @@ let noGroups,
 			"isDelete"   : ( action  === 'delete' ),
 			"isUpdate"   : ( action  === 'update' ),
 			"isGroup"    : ( element === 'group' ),
-			"isBookmark" : ( element === 'bookmark' )				
+			"isBookmark" : ( element === 'bookmark' ),
+			"action"     : action,
+			"element"    : element			
 		}
 	},
 
 	getFormValues = () => {  
-		let action     = f.actionValue(),
-			element    = f.elementValue(),
-			state      = formGetStates(),
-			config  = {
+		let state  = formGetStates(),
+			config = {
 				"group" : (() => { 
 					if ( ( state.isGroup && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) { 
 						return f.groupValue();
@@ -189,7 +187,7 @@ let noGroups,
 				})()
 			};
 		return { 
-			"action" : action, "element": element, "state": state, "config": config 
+			"action" : state.action, "element": state.element, "state": state, "config": config 
 		};
 	},
 
