@@ -1,4 +1,4 @@
-/* OPEN ALL BOOKMARKS WITHIN A GROUP. ALL BOOKMARKS WITHIN EACH GROUP ARE LAUNCHED WHEN CLIKCING ON A GROUP NAME. OTHERWISE, LINKS ARE OPENED INDIVIDUALLY VIA THEIR RESPECTIVE ANCHOR TAGS. */
+/* CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS. */
 const bmkSection   = document.getElementById("bookmarks"),
 	  ajaxResponse = document.getElementById("ajaxResponse"),
 	  year         = new Date();
@@ -41,7 +41,7 @@ let bookmarksArray = [],
 		});
 	},
 
-	/* FORM DOM ELEMENTS. THIS IS FOR EDITING DATA WITH MSQLI.  */
+	/* FORM DOM ELEMENTS. */
 	f = {
 		"container"             	 : document.forms[0],
 		"bookmark"                   : document.getElementById('bookmark'),
@@ -210,6 +210,7 @@ let bookmarksArray = [],
 		}
 	},
 
+	/* GENERAL ERROR MESSAGE CONTAINER. FIRST REMOVES OLD MESSAGE THEN APPENDS NEW MESSAGE. */
 	setAjaxResponse = ( message ) => {
 		removeChildNodes( ajaxResponse );
 		if ( message ) {
@@ -435,6 +436,7 @@ let bookmarksArray = [],
 	    xhr.send( params );	
 	},
 
+	/* FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID. */
 	formSubmit = ( event ) => {
 		event.preventDefault();
 		removeChildNodes( ajaxResponse );
@@ -590,6 +592,7 @@ window.onload = () => {
 		}
 	});
 
+	/* FOOTER COPYRIGHT DATE */
 	document.getElementById('year').innerText = year.getFullYear();
 
 };
