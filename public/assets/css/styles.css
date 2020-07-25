@@ -132,7 +132,7 @@ form {
 	background-color: var(--grayscale-20);
 	display: none;
 	color: var(--grayscale-00);
-	padding: 21px 21px 0 21px;
+	padding: 31px 21px 0 21px;
 }
 
 @media (max-width: 750px) {
@@ -229,9 +229,8 @@ form .fieldset label select {
 }
 
 form .detail.fieldset label {
-/*	min-width: 300px;
-	max-width: 300px;
-*/}
+	min-width: 300px;
+}
 
 form .detail.fieldset label input,
 form .detail.fieldset label select {
@@ -279,7 +278,7 @@ button.close:hover svg{
 	stroke: var(--grayscale-08);
 }
 
-#ajaxResponse {
+#errorMessage {
 	grid-column: 1 / 2;
 	grid-row: 2 / 5;
 	align-self: start;

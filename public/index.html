@@ -49,7 +49,7 @@
 			<div class="detail fieldset">
 
 				<label id="bookmarksLabel">Bookmark:
-					<select id="bookmarksSelect" name="name_select" onchange="updateBookmarkPrefill()"></select>
+					<select id="bookmarksSelect" name="name_select" onchange="f.updateBookmarkPrefill()"></select>
 				</label>				
 											
 				<label id="groupsLabel">Group:
@@ -74,7 +74,7 @@
 					<input id="submit" type="submit" name="submit" class="button" value="Create" />
 				</label>		
 				
-				<div id="ajaxResponse"></div>
+				<div id="errorMessage"></div>
 			
 			</div>
 
@@ -132,7 +132,7 @@
 					</ol>
 				</p>
 
-				<p>A succefull request will reset the form and reload the bookmarks section. This page does not need to be manually reloaded or refreshed.</p>
+				<p>A successfull request will reset the form and reload the bookmarks section. This page does not need to be manually reloaded or refreshed.</p>
 
 				<p>Errors are displayed in red, underneath the submit button.</p>
 
