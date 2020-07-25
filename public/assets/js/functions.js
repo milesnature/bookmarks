@@ -1,14 +1,14 @@
-/* CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS. */
-const bmkSection   = document.getElementById("bookmarks"),
-	  ajaxResponse = document.getElementById("ajaxResponse"),
-	  year         = new Date();
 
-let bookmarksArray = [],
-	
+const 
+	bmkSection   = document.getElementById("bookmarks"),
+	ajaxResponse = document.getElementById("ajaxResponse"),
+	year         = new Date(),
+
+	/* CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS. */
 	getLists = () => { 
 		return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
 	},
-	
+
 	openNewTab = ( value, index, array ) => {
 		window.open( value, '_blank' );
 		window.focus();
@@ -16,59 +16,60 @@ let bookmarksArray = [],
 
 	getUrls = ( items ) => {
 		let urls_array = [],
-			buildArray = ( value, index, array ) => {
-				urls_array.push( value.firstChild.href );
-			}; 
+		buildArray = ( value, index, array ) => {
+			urls_array.push( value.firstChild.href );
+		}; 
 		items.forEach( buildArray );
 		return urls_array;
 	},
-	
+
 	openTabs = ( e ) => {
-		let target     = e.target,
+		let 
+			target     = e.target,
 			elements   = [], 
 			list_items = [], 
 			urls       = [];
-		elements   = Array.prototype.slice.call( target.parentNode.children );
-		list_items = Array.prototype.slice.call( elements[1].getElementsByTagName('LI') );
-		urls       = getUrls( list_items );
-		urls.forEach( openNewTab );	
+			elements   = Array.prototype.slice.call( target.parentNode.children );
+			list_items = Array.prototype.slice.call( elements[1].getElementsByTagName('LI') );
+			urls       = getUrls( list_items );
+			urls.forEach( openNewTab );	
 	},
 	
 	setupGroupsEventHandler = ( value, index, array ) => {
 		bmkSection.addEventListener("click", ( e ) => {
-			let target = e.target; 			
+			const target = e.target; 			
 			if ( target.classList.contains('all') ) { openTabs( e ); }
 		});
 	},
 
-	/* FORM DOM ELEMENTS. */
+	/* FORM DOM ELEMENTS AND METHODS. */
 	f = {
-		"container"             	 : document.forms[0],
-		"bookmark"                   : document.getElementById('bookmark'),
-		"group"                      : document.getElementById('group'),
-		"bookmarksSelect"            : document.getElementById('bookmarksSelect'),
-		"groupText"      		     : document.getElementById('groupText'),
-		"groupSelect"    		     : document.getElementById('groupSelect'),
-		"nameText"       		     : document.getElementById('nameText'),
-		"nameSelect"     		     : document.getElementById('nameSelect'),		
-		"urlText"        		     : document.getElementById('urlText'),
-		"buttonSubmit"         		 : document.getElementById('buttonSubmit'),
-		"updateBookmarkSelectValue"  : () => { return bookmarksSelect.value },
-		"updateBookmarkSelectText"   : () => { return ( bookmarksSelect.options.length > 0  ) ? bookmarksSelect.options[bookmarksSelect.selectedIndex].text : "" },
-        "groupValue"        		 : () => { return groupText.value },
-		"groupSelectValue"  		 : () => { return groupSelect.value },
-		"groupSelectText"   		 : () => { return ( groupSelect.options.length > 0 ) ? groupSelect.options[groupSelect.selectedIndex].text : "" },
-		"titleValue"        		 : () => { return nameText.value },
-		"titleSelectValue"  		 : () => { return nameSelect.value },
-		"titleSelectText"   		 : () => { return ( nameSelect.options.length > 0  ) ? nameSelect.options[nameSelect.selectedIndex].text : "" },
-		"urlValue"          		 : () => { return urlText.value },
-		"actionValue"                : () => { return document.querySelector('input[name="action"]:checked').value },
-		"elementValue"               : () => { return document.querySelector('input[name="element"]:checked').value }	
+		"container"                 : document.forms[0],
+		"bookmark"                  : document.getElementById('bookmark'),
+		"group"                     : document.getElementById('group'),
+		"bookmarksSelect"           : document.getElementById('bookmarksSelect'),
+		"groupText"      		    : document.getElementById('groupText'),
+		"groupSelect"    		    : document.getElementById('groupSelect'),
+		"nameText"       		    : document.getElementById('nameText'),
+		"nameSelect"     		    : document.getElementById('nameSelect'),		
+		"urlText"        		    : document.getElementById('urlText'),
+		"buttonSubmit"         	    : document.getElementById('submit'),
+		"updateBookmarkSelectValue" : () => { return bookmarksSelect.value },
+		"updateBookmarkSelectText"  : () => { return ( bookmarksSelect.options.length > 0  ) ? bookmarksSelect.options[bookmarksSelect.selectedIndex].text : "" },
+		"groupValue"        		: () => { return groupText.value },
+		"groupSelectValue"  		: () => { return groupSelect.value },
+		"groupSelectText"   		: () => { return ( groupSelect.options.length > 0 ) ? groupSelect.options[groupSelect.selectedIndex].text : "" },
+		"titleValue"        		: () => { return nameText.value },
+		"titleSelectValue"  		: () => { return nameSelect.value },
+		"titleSelectText"   		: () => { return ( nameSelect.options.length > 0  ) ? nameSelect.options[nameSelect.selectedIndex].text : "" },
+		"urlValue"          		: () => { return urlText.value },
+		"actionValue"               : () => { return document.querySelector('input[name="action"]:checked').value },
+		"elementValue"              : () => { return document.querySelector('input[name="element"]:checked').value }	
 	},
 
 	formRemoveClasses = ( ...classes ) => { f.container.classList.remove( ...classes ); },
 	formAddClasses    = ( ...classes ) => { f.container.classList.add( ...classes ); },
-	formUpdateButton  = ( action )     => { f.buttonSubmit.value = action; },	
+	formUpdateButton  = ( action )     => { f.buttonSubmit.value = action; },
 
 	openCloseForm = () => { 
 		document.body.classList.toggle( 'edit' );
@@ -93,6 +94,7 @@ let bookmarksArray = [],
 		formElementState();		
 	},
 	
+	/* THIS PREFILLS BOOKMARK DATA TO FACILITATE UPDATING BOOKMARKS */
 	updateBookmarkPrefill = () => {
 		if ( bookmarksArray.length > 0 ) {
 			let group = "",
@@ -113,7 +115,7 @@ let bookmarksArray = [],
 	},
 
 	formActionState = () => {
-		let action = f.actionValue();
+		const action = f.actionValue();
 		formRemoveClasses( 'create', 'delete', 'update' );
 		resetFormFields();
 		removeChildNodes( ajaxResponse );
@@ -126,7 +128,8 @@ let bookmarksArray = [],
 	},
 	
 	formElementState = () => {
-		let element = f.elementValue(),
+		const 
+			element = f.elementValue(),
 			action  = f.actionValue();
 		formRemoveClasses( 'bookmark', 'group' );
 		removeChildNodes( ajaxResponse );
@@ -135,8 +138,9 @@ let bookmarksArray = [],
 	},
 	
 	formGetStates = () => {
-		let action  = f.actionValue(),
-		    element = f.elementValue();
+		const 
+			action = f.actionValue(),
+		    element  = f.elementValue();
 		return {
 			"isCreate"   : ( action  === 'create' ),
 			"isDelete"   : ( action  === 'delete' ),
@@ -149,7 +153,8 @@ let bookmarksArray = [],
 	},
 
 	getFormValues = () => {  
-		let state  = formGetStates(),
+		const 
+			state  = formGetStates(),
 			config = {
 				"group" : (() => { 
 					if ( ( state.isGroup && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) { 
@@ -197,6 +202,18 @@ let bookmarksArray = [],
 		f.urlText.value   = "";
 	},
 
+	/* GENERAL ERROR MESSAGE CONTAINER. FIRST REMOVES OLD MESSAGE THEN APPENDS NEW MESSAGE. */
+	setAjaxResponse = ( message ) => {
+		removeChildNodes( ajaxResponse );
+		if ( message ) {
+	        let fragment = document.createDocumentFragment(),
+	        	textNode = document.createTextNode( message );
+	        fragment.appendChild( textNode );
+	        ajaxResponse.appendChild( fragment );
+		}
+	},
+
+	/* GENERIC CONTENT REMOVAL TOOL */
 	removeChildNodes = ( e ) => {
 		if ( e.hasChildNodes( ) ) {
 	        let child = e.lastElementChild;  
@@ -210,19 +227,9 @@ let bookmarksArray = [],
 		}
 	},
 
-	/* GENERAL ERROR MESSAGE CONTAINER. FIRST REMOVES OLD MESSAGE THEN APPENDS NEW MESSAGE. */
-	setAjaxResponse = ( message ) => {
-		removeChildNodes( ajaxResponse );
-		if ( message ) {
-	        let fragment = document.createDocumentFragment(),
-	        	textNode = document.createTextNode( message );
-	        fragment.appendChild( textNode );
-	        ajaxResponse.appendChild( fragment );
-		}
-	},
-
+	/* BOOKMARK METHODS */
 	sortGroup = ( item, index ) => {
-		let groupName = item.group;
+		const groupName = item.group;
 		if ( groupName ) {
 			if ( groupsByName.hasOwnProperty( groupName ) ) {
 				groupsByName[ groupName ].push( item );
@@ -233,14 +240,12 @@ let bookmarksArray = [],
 		}			
 	},
 
-	groupsByName = [],
-	groups       = [],
 	sortBookmarksIntoGroups = ( bookmarks ) => {
 		groupsByName = [];
 		groups       = [];
 		bookmarks.forEach( sortGroup );
 		return groupsByName;
-	},
+	}	
 
 	constructBookmarkList = ( group ) => {
 		/* 
@@ -385,11 +390,11 @@ let bookmarksArray = [],
 
 	/* AJAX CALLS */
 	getBookmarks = () => {
-		let	xhr = new XMLHttpRequest();
+		const xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function () {
 			// In local files, status is 0 upon success in Mozilla Firefox
 			if( xhr.readyState === XMLHttpRequest.DONE ) {
-				let status = xhr.status;
+				const status = xhr.status;
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
 			       		bookmarksArray = JSON.parse( this.responseText );
@@ -398,6 +403,7 @@ let bookmarksArray = [],
 		       			} else {
 		       				actionFromFooter( 'create', true );
 		       				toggleModalHelp();
+		       				removeBookmarks();
 		       			}
 		            } else {
 		            	bmkSection.textContent = this.responseText;
@@ -413,11 +419,11 @@ let bookmarksArray = [],
 	},
 
 	verbBookmark = ( action, url, params, cbf ) => {
-		let	xhr = new XMLHttpRequest();
+		const xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function () {
 			// In local files, status is 0 upon success in Mozilla Firefox
 			if( xhr.readyState === XMLHttpRequest.DONE ) {
-				let status = xhr.status;
+				const status = xhr.status;
 				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 			       	if ( this.responseText ) {
 						resetFormFields();
@@ -441,9 +447,9 @@ let bookmarksArray = [],
 		event.preventDefault();
 		removeChildNodes( ajaxResponse );
 		// Logic to determine action.		
-		let values     = getFormValues(),
+		const 
+			values     = getFormValues(),
 			state      = values.state,
-			params     = "",
 			validation = {
 					action  : (() => { 
 						if ( !values.action ) { return "Action is required."; }
@@ -476,10 +482,11 @@ let bookmarksArray = [],
 						else { return ""; }
 					})()
 			};
+		let params = "";
 		if ( validation.action === "" && validation.element === "" ) {
 			if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 				if ( validation.name === "" && validation.url === "" && validation.group === "" ) {
-					let params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+					params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 					verbBookmark( 
 						'POST', 
 						window.location.href + "bookmarks", 
@@ -516,7 +523,7 @@ let bookmarksArray = [],
 			}
 			if ( state.isUpdate && state.isBookmark ) {
 				if ( validation.name === "" && validation.url === "" && validation.group === "" && validation.id === "" ) {
-					let params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
+					params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
 					verbBookmark( 
 						'PUT', 
 						window.location.href + "bookmarks/" + values.config.id, 
@@ -532,7 +539,12 @@ let bookmarksArray = [],
 		}
 	},
 
-	toggleModalHelp  = () => document.getElementsByClassName('modal')[0].classList.toggle('show');
+	toggleModalHelp  = () => document.getElementsByClassName('modal')[0].classList.toggle('show');	  
+
+let 
+	bookmarksArray = [],
+	groupsByName   = [],
+	groups         = [];
 
 // SETUP AFTER PAGE LOADS	
 window.onload = () => {
@@ -541,7 +553,7 @@ window.onload = () => {
 	getBookmarks();
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
-	let formState = localStorage.getItem("form");
+	const formState = localStorage.getItem("form");
 	
 	if ( formState === "open" ) {
 		if ( !document.body.classList.contains('edit') ) {
@@ -551,7 +563,8 @@ window.onload = () => {
 	
 	// EVENT HANDLER TO HIDE/SHOW FORM INPUTS BASED ON REQUESTED ACTION.
 	f.container.addEventListener("click", ( e ) => {
-		let target = e.target,
+		const 
+			target = e.target,
 			tag    = target.tagName,
 			name   = target.name;		
 		if ( tag === "INPUT" ) {
@@ -565,7 +578,7 @@ window.onload = () => {
 					formElementState();
 					break;
 				
-				case "cancel":
+				case "close":
 					openCloseForm();
 					break;
 					
@@ -575,14 +588,15 @@ window.onload = () => {
 										
 			}
 		}
-		if ( ( tag === "BUTTON" && name === "cancel" ) || tag === "svg" || tag === "polyline" ) {
+		if ( ( tag === "BUTTON" && name === "close" ) || tag === "svg" || tag === "polyline" ) {
 			openCloseForm(); 
 		}
 	});
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
 	document.getElementsByTagName("footer")[0].addEventListener("click", ( e ) => {
-		let target = e.target,
+		const 
+			target = e.target,
 			tag    = target.tagName,
 			name   = target.className;
 		if ( tag === "BUTTON" ) {
