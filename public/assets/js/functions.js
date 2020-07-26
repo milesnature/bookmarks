@@ -3,11 +3,11 @@ const
 	body         = document.body,
 	bmkSection   = document.getElementById("bookmarks"),
 	errorMessage = document.getElementById("errorMessage"),
-	year         = new Date(),
+	footer       = document.getElementsByTagName("footer")[0],
+	modalHelp    = document.getElementById("modelHelp"),
 
+	/* CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS. */
 	openGroup    = {
-
-		/* CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS. */
 		
 		getLists : () => { 
 			return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
@@ -46,7 +46,6 @@ const
 			});
 		}
 	},
-
 
 	/* FORM DOM ELEMENTS AND METHODS. */
 	form = {
@@ -231,10 +230,9 @@ const
 		},
 
 		/* FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID. */
-		formSubmit : ( event ) => {
-			event.preventDefault();
+		formSubmit : ( e ) => {
+			e.preventDefault();
 			removeChildNodes( errorMessage );
-			// Logic to determine action.		
 			const 
 				values     = form.getFormValues(),
 				state      = values.state,
@@ -270,19 +268,19 @@ const
 							else if ( values.config.id.length > 25 ) { return "ID exceeds maximum character length of 25."; }
 							else { return valid; }
 						})()
-				},
-				getValidationString = ( item ) => { return ( item === valid ) ? "" : item };
+				};
 
 			let params = "";
+			// Choose API call based on form states and values.
 			if ( validation.action === valid && validation.element === valid ) {
 				if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid ) {
 						params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
-						verbBookmark( 
+						api.verbBookmark( 
 							'POST', 
 							window.location.href + "bookmarks", 
 							params,
-							getBookmarks
+							api.getBookmarks
 						);
 					} else {
 						form.displayErrorMessage( validation.group, validation.name, validation.url );
@@ -290,11 +288,11 @@ const
 				}
 				if ( state.isDelete && state.isBookmark  ) {
 					if ( validation.id === valid ) {
-						verbBookmark( 
+						api.verbBookmark( 
 							'DELETE', 
 							window.location.href + "bookmarks/" + values.config.id, 
 							params, 
-							getBookmarks
+							api.getBookmarks
 						);
 					} else {
 						form.displayErrorMessage( validation.id );
@@ -302,11 +300,11 @@ const
 				}
 				if ( state.isDelete && state.isGroup ) {
 					if ( validation.group === valid ) {
-						verbBookmark( 
+						api.verbBookmark( 
 							'DELETE', 
 							window.location.href + "bookmarks/group/" + values.config.group, 
 							params, 
-							getBookmarks
+							api.getBookmarks
 						);
 					} else {
 						form.displayErrorMessage( validation.group );
@@ -315,11 +313,11 @@ const
 				if ( state.isUpdate && state.isBookmark ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid && validation.id === valid ) {
 						params = "name=" + values.config.name + "&url=" + values.config.url + "&group=" + values.config.group;
-						verbBookmark( 
+						api.verbBookmark( 
 							'PUT', 
 							window.location.href + "bookmarks/" + values.config.id, 
 							params, 
-							getBookmarks
+							api.getBookmarks
 						); 
 					} else {
 						form.displayErrorMessage( validation.group, validation.name, validation.url, validation.id );
@@ -329,6 +327,225 @@ const
 				form.displayErrorMessage( validation.action, validation.element );
 			}
 		}		
+	},
+
+	/* BOOKMARK METHODS */
+	bookmarks = {
+		sortGroup : ( item, index ) => {
+			const groupName = item.group;
+			if ( groupName ) {
+				if ( groupsByName.hasOwnProperty( groupName ) ) {
+					groupsByName[ groupName ].push( item );
+				} else {
+					groupsByName[ groupName ] = [ item ];
+					groups.push( groupName );
+				}
+			}			
+		},
+
+		sortBookmarksIntoGroups : ( b ) => {
+			groupsByName = [];
+			groups       = [];
+			b.forEach( bookmarks.sortGroup );
+			return groupsByName;
+		},
+
+		constructBookmarkList : ( group ) => {
+			/* 
+			<ul class="bookmarks">
+				<li><button class="all">Group Name</button>
+					<ul>
+						<li><a id="9" href="http://random.com" target="_blank">Name</a></li>
+						...
+					</ul>
+				</li>
+			</ul>
+			*/
+			let fragment           = document.createDocumentFragment(),
+				groupName          = item,
+				outer_UL           = document.createElement  ( 'UL' ),
+				outer_UL_class     = document.createAttribute( 'class' ),
+				outer_LI           = document.createElement  ( 'LI' ),
+				outer_BUTTON       = document.createElement  ( 'BUTTON' ),
+				outer_BUTTON_class = document.createAttribute( 'class' ),
+				outer_BUTTON_text  = document.createTextNode ( groupName ),
+				inner_UL           = document.createElement  ( 'UL' ),
+				i;
+			// Set class attribute for outer UL
+			outer_UL_class.value     = "bookmarks";
+			outer_UL.setAttributeNode( outer_UL_class );
+			// Set class attribute and text for BUTTON
+			outer_BUTTON_class.value = "all";
+			outer_BUTTON.setAttributeNode( outer_BUTTON_class );
+			outer_BUTTON.appendChild( outer_BUTTON_text );
+			for ( i = 0; i < group.length; i += 1 ) {
+				let bookmark = group[i];
+				if ( !bookmark.group || !bookmark.name || !bookmark.url ) { continue; }
+				// Create individual bookmarks.
+				let li     = document.createElement   ( 'LI' ),
+				    a      = document.createElement   ( 'A' ),
+					id     = document.createAttribute ( 'id' ),
+					href   = document.createAttribute ( 'href' ),
+					target = document.createAttribute ( 'target' ),
+					text   = document.createTextNode  ( bookmark.name );
+				// Set anchor tag attributes and text.
+				id.value = bookmark._id;
+				a.setAttributeNode( id );
+				href.value = bookmark.url;
+				a.setAttributeNode( href );
+				target.value = "_blank";
+				a.setAttributeNode( target );
+				a.appendChild( text );
+				// Insert anchor element into list item.
+				li.appendChild( a );
+				// Insert the list item into it's container, an unordered list.
+				inner_UL.appendChild( li );
+			}
+			// Assemble final output, working from the inside out.
+			outer_LI.appendChild( outer_BUTTON );
+			outer_LI.appendChild( inner_UL );
+			outer_UL.appendChild( outer_LI );
+			// Update html fragment
+			fragment.appendChild( outer_UL );
+			// Add to the DOM
+			return fragment;
+		},
+
+		constructBookmarksSection : () => {
+			let b          = bookmarksArray,
+				sortedList = bookmarks.sortBookmarksIntoGroups( b ),
+				fragments  = document.createDocumentFragment();
+			bookmarks.removeBookmarks();
+			for ( item in sortedList ) { 
+				if ( !item ) { continue; };
+				group = sortedList[ item ];
+				fragments.appendChild( bookmarks.constructBookmarkList( group ) );
+			}
+			bmkSection.appendChild( fragments );
+			openGroup.setupEventHandler();
+			bookmarks.constructBookmarkGroupOptions();
+			bookmarks.constructBookmarkNameOptions( sortedList );
+			form.resetFormFields();
+			removeChildNodes( errorMessage );		
+		},
+
+		removeBookmarks : () => {
+			if ( bmkSection.hasChildNodes() ) {
+				removeChildNodes( bmkSection );
+			}
+		},	
+
+		constructBookmarkGroupOptions : () => { 
+			/* <option value="News">News</option> */
+			let fragment      = document.createDocumentFragment(),
+				buildOptions  = ( item, index ) => {
+					option    = document.createElement   ( 'OPTION' ),
+					val       = document.createAttribute ( 'value' ),
+					text      = document.createTextNode  ( item );
+					val.value = item;
+					option.setAttributeNode( val );
+					option.appendChild( text );
+					fragment.appendChild( option );
+				};
+			groups.forEach( buildOptions );
+			if ( form.groupSelect.hasChildNodes() ) {
+		        removeChildNodes( form.groupSelect );
+			}
+			form.groupSelect.appendChild( fragment );
+		},
+
+		constructBookmarkNameOptions : ( sortedList, target ) => { 
+			/* <optgroup label="News"><option id="5ec592b3fcceb051486e9c2f">Ars Technica</option></optgroup> */
+			let fragment = (() => { return document.createDocumentFragment() })(),
+				group    = [];
+			for ( item in sortedList ) { 
+				if ( !item ) { continue; };
+				group = sortedList[ item ];
+				let groupFramgment = document.createDocumentFragment(),
+					optgroup       = document.createElement   ( 'OPTGROUP' ),
+					label          = document.createAttribute ( 'label' ),
+					buildOptions  = ( item, index ) => {
+						option    = document.createElement   ( 'OPTION' ),
+						val       = document.createAttribute ( 'value' ),
+						text      = document.createTextNode  ( item.name );
+						val.value = item._id;
+						option.setAttributeNode( val );
+						option.appendChild( text );
+						groupFramgment.appendChild( option );
+					};
+				label.value = item;
+				optgroup.setAttributeNode( label );
+				group.forEach( buildOptions );
+				optgroup.appendChild( groupFramgment );
+				fragment.appendChild( optgroup );
+			}
+			if ( form.nameSelect.hasChildNodes() ) {
+		        removeChildNodes( form.nameSelect );
+			}
+			if ( form.bookmarksSelect.hasChildNodes() ) {
+		        removeChildNodes( form.bookmarksSelect );
+			}
+			let fragment2 = fragment.cloneNode( true );
+			form.nameSelect.appendChild( fragment );
+			form.bookmarksSelect.appendChild( fragment2 );
+			form.updateBookmarkPrefill();
+		}
+	},
+
+	/* API CALLS */
+	api = {
+		getBookmarks : () => {
+			const xhr = new XMLHttpRequest();
+		    xhr.onreadystatechange = function () {
+				// In local files, status is 0 upon success in Mozilla Firefox
+				if( xhr.readyState === XMLHttpRequest.DONE ) {
+					const status = xhr.status;
+					if ( status === 0 || ( status >= 200 && status < 400 ) ) {
+				       	if ( this.responseText ) {
+				       		bookmarksArray = JSON.parse( this.responseText );
+				       		if ( bookmarksArray.length > 0 ) {
+			       				bookmarks.constructBookmarksSection();
+			       			} else {
+			       				form.actionFromFooter( 'create', true );
+			       				toggleModalHelp();
+			       				bookmarks.removeBookmarks();
+			       			}
+			            } else {
+			            	bmkSection.textContent = this.responseText;
+			            }
+					} else {
+						bmkSection.textContent = this.responseText;
+					}
+				}	        
+		    };
+		    xhr.open( 'GET', window.location.href + "bookmarks", true );
+		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		    xhr.send();	
+		},
+
+		verbBookmark : ( action, url, params, cbf ) => {
+			const xhr = new XMLHttpRequest();
+		    xhr.onreadystatechange = function () {
+				// In local files, status is 0 upon success in Mozilla Firefox
+				if( xhr.readyState === XMLHttpRequest.DONE ) {
+					const status = xhr.status;
+					if ( status === 0 || ( status >= 200 && status < 400 ) ) {
+				       	if ( this.responseText ) {
+							form.resetFormFields();
+			       			cbf();
+			            } else {
+			            	form.displayErrorMessage( this.responseText );
+			            }
+					} else {
+						form.displayErrorMessage( this.responseText );
+					}
+				}	        
+		    };
+		    
+		    xhr.open( action, url, true );
+		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		    xhr.send( params );	
+		}
 	},
 
 	/* GENERIC CONTENT REMOVAL TOOL */
@@ -345,222 +562,8 @@ const
 		}
 	},
 
-	/* BOOKMARK METHODS */
-	sortGroup = ( item, index ) => {
-		const groupName = item.group;
-		if ( groupName ) {
-			if ( groupsByName.hasOwnProperty( groupName ) ) {
-				groupsByName[ groupName ].push( item );
-			} else {
-				groupsByName[ groupName ] = [ item ];
-				groups.push( groupName );
-			}
-		}			
-	},
-
-	sortBookmarksIntoGroups = ( bookmarks ) => {
-		groupsByName = [];
-		groups       = [];
-		bookmarks.forEach( sortGroup );
-		return groupsByName;
-	},
-
-	constructBookmarkList = ( group ) => {
-		/* 
-		<ul class="bookmarks">
-			<li><button class="all">Group Name</button>
-				<ul>
-					<li><a id="9" href="http://random.com" target="_blank">Name</a></li>
-					...
-				</ul>
-			</li>
-		</ul>
-		*/
-		let fragment           = document.createDocumentFragment(),
-			groupName          = item,
-			outer_UL           = document.createElement  ( 'UL' ),
-			outer_UL_class     = document.createAttribute( 'class' ),
-			outer_LI           = document.createElement  ( 'LI' ),
-			outer_BUTTON       = document.createElement  ( 'BUTTON' ),
-			outer_BUTTON_class = document.createAttribute( 'class' ),
-			outer_BUTTON_text  = document.createTextNode ( groupName ),
-			inner_UL           = document.createElement  ( 'UL' ),
-			i;
-		// Set class attribute for outer UL
-		outer_UL_class.value     = "bookmarks";
-		outer_UL.setAttributeNode( outer_UL_class );
-		// Set class attribute and text for BUTTON
-		outer_BUTTON_class.value = "all";
-		outer_BUTTON.setAttributeNode( outer_BUTTON_class );
-		outer_BUTTON.appendChild( outer_BUTTON_text );
-		for ( i = 0; i < group.length; i += 1 ) {
-			let bookmark = group[i];
-			if ( !bookmark.group || !bookmark.name || !bookmark.url ) { continue; }
-			// Create individual bookmarks.
-			let li     = document.createElement   ( 'LI' ),
-			    a      = document.createElement   ( 'A' ),
-				id     = document.createAttribute ( 'id' ),
-				href   = document.createAttribute ( 'href' ),
-				target = document.createAttribute ( 'target' ),
-				text   = document.createTextNode  ( bookmark.name );
-			// Set anchor tag attributes and text.
-			id.value = bookmark._id;
-			a.setAttributeNode( id );
-			href.value = bookmark.url;
-			a.setAttributeNode( href );
-			target.value = "_blank";
-			a.setAttributeNode( target );
-			a.appendChild( text );
-			// Insert anchor element into list item.
-			li.appendChild( a );
-			// Insert the list item into it's container, an unordered list.
-			inner_UL.appendChild( li );
-		}
-		// Assemble final output, working from the inside out.
-		outer_LI.appendChild( outer_BUTTON );
-		outer_LI.appendChild( inner_UL );
-		outer_UL.appendChild( outer_LI );
-		// Update html fragment
-		fragment.appendChild( outer_UL );
-		// Add to the DOM
-		return fragment;
-	},
-
-	constructBookmarksSection = () => {
-		let bookmarks  = bookmarksArray,
-			sortedList = sortBookmarksIntoGroups( bookmarks ),
-			fragments  = document.createDocumentFragment();
-		removeBookmarks();
-		for ( item in sortedList ) { 
-			if ( !item ) { continue; };
-			group = sortedList[ item ];
-			fragments.appendChild( constructBookmarkList( group ) );
-		}
-		bmkSection.appendChild( fragments );
-		openGroup.setupEventHandler();
-		constructBookmarkGroupOptions();
-		constructBookmarkNameOptions( sortedList );
-		form.resetFormFields();
-		removeChildNodes( errorMessage );		
-	},
-
-	removeBookmarks = () => {
-		if ( bmkSection.hasChildNodes() ) {
-			removeChildNodes( bmkSection );
-		}
-	},	
-
-	constructBookmarkGroupOptions = () => { 
-		/* <option value="News">News</option> */
-		let fragment      = document.createDocumentFragment(),
-			buildOptions  = ( item, index ) => {
-				option    = document.createElement   ( 'OPTION' ),
-				val       = document.createAttribute ( 'value' ),
-				text      = document.createTextNode  ( item );
-				val.value = item;
-				option.setAttributeNode( val );
-				option.appendChild( text );
-				fragment.appendChild( option );
-			};
-		groups.forEach( buildOptions );
-		if ( form.groupSelect.hasChildNodes() ) {
-	        removeChildNodes( form.groupSelect );
-		}
-		form.groupSelect.appendChild( fragment );
-	},
-
-	constructBookmarkNameOptions = ( sortedList, target ) => { 
-		/* <optgroup label="News"><option id="5ec592b3fcceb051486e9c2f">Ars Technica</option></optgroup> */
-		let fragment = (() => { return document.createDocumentFragment() })(),
-			group    = [];
-		for ( item in sortedList ) { 
-			if ( !item ) { continue; };
-			group = sortedList[ item ];
-			let groupFramgment = document.createDocumentFragment(),
-				optgroup       = document.createElement   ( 'OPTGROUP' ),
-				label          = document.createAttribute ( 'label' ),
-				buildOptions  = ( item, index ) => {
-					option    = document.createElement   ( 'OPTION' ),
-					val       = document.createAttribute ( 'value' ),
-					text      = document.createTextNode  ( item.name );
-					val.value = item._id;
-					option.setAttributeNode( val );
-					option.appendChild( text );
-					groupFramgment.appendChild( option );
-				};
-			label.value = item;
-			optgroup.setAttributeNode( label );
-			group.forEach( buildOptions );
-			optgroup.appendChild( groupFramgment );
-			fragment.appendChild( optgroup );
-		}
-		if ( form.nameSelect.hasChildNodes() ) {
-	        removeChildNodes( form.nameSelect );
-		}
-		if ( form.bookmarksSelect.hasChildNodes() ) {
-	        removeChildNodes( form.bookmarksSelect );
-		}
-		let fragment2 = fragment.cloneNode( true );
-		form.nameSelect.appendChild( fragment );
-		form.bookmarksSelect.appendChild( fragment2 );
-		form.updateBookmarkPrefill();
-	},
-
-	/* AJAX CALLS */
-	getBookmarks = () => {
-		const xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-			// In local files, status is 0 upon success in Mozilla Firefox
-			if( xhr.readyState === XMLHttpRequest.DONE ) {
-				const status = xhr.status;
-				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
-			       	if ( this.responseText ) {
-			       		bookmarksArray = JSON.parse( this.responseText );
-			       		if ( bookmarksArray.length > 0 ) {
-		       				constructBookmarksSection();
-		       			} else {
-		       				form.actionFromFooter( 'create', true );
-		       				toggleModalHelp();
-		       				removeBookmarks();
-		       			}
-		            } else {
-		            	bmkSection.textContent = this.responseText;
-		            }
-				} else {
-					bmkSection.textContent = this.responseText;
-				}
-			}	        
-	    };
-	    xhr.open( 'GET', window.location.href + "bookmarks", true );
-	    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    xhr.send();	
-	},
-
-	verbBookmark = ( action, url, params, cbf ) => {
-		const xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-			// In local files, status is 0 upon success in Mozilla Firefox
-			if( xhr.readyState === XMLHttpRequest.DONE ) {
-				const status = xhr.status;
-				if ( status === 0 || ( status >= 200 && status < 400 ) ) {
-			       	if ( this.responseText ) {
-						form.resetFormFields();
-		       			cbf();
-		            } else {
-		            	form.displayErrorMessage( this.responseText );
-		            }
-				} else {
-					form.displayErrorMessage( this.responseText );
-				}
-			}	        
-	    };
-	    
-	    xhr.open( action, url, true );
-	    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    xhr.send( params );	
-	},
-
-	toggleModalHelp  = () => document.getElementsByClassName('modal')[0].classList.toggle('show');	  
+	/* MODAL HANDLER */
+	toggleModalHelp = () => document.getElementsByClassName('modal')[0].classList.toggle('show');	  
 
 let 
 	bookmarksArray = [],
@@ -571,7 +574,7 @@ let
 window.onload = () => {
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
-	getBookmarks();
+	api.getBookmarks();
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
 	const formState = localStorage.getItem("form");
@@ -583,51 +586,81 @@ window.onload = () => {
 	}
 	
 	// EVENT HANDLER TO HIDE/SHOW FORM INPUTS BASED ON REQUESTED ACTION.
+	form.container.addEventListener("change", ( e ) => {
+		const 
+			target = e.target,
+			tag    = target.tagName,
+			name   = target.name,
+			id     = target.id;
+					
+		switch ( tag ) {
+			case "INPUT":
+				switch ( name ) {
+					case "action":
+						form.formActionState();
+						form.formElementState();
+						break;
+					case "element":
+						form.formElementState();
+						break;
+				}
+				break;formSubmit
+			case "SELECT":
+				if ( name === "name_select" ) { form.updateBookmarkPrefill() }
+				break;
+		}
+	});
+
 	form.container.addEventListener("click", ( e ) => {
 		const 
 			target = e.target,
 			tag    = target.tagName,
-			name   = target.name;		
-		if ( tag === "INPUT" ) {
-			switch (name) {
-				case "action":
-					 form.formActionState();
-					 form.formElementState();
-					 break;
-					 
-				case "element":
-					form.formElementState();
-					break;
-				
-				case "close":
-					form.openCloseForm();
-					break;
-					
-				case "submit":
-					form.formSubmit( e );
-					break;
-										
-			}
+			name   = target.name,
+			id     = target.id;
+		switch ( tag ) {
+			case "INPUT": 
+				if ( name === "submit" ) { form.formSubmit( e ); }
+				break;
+			case "BUTTON":
+				form.openCloseForm();
+				break;
+			case "svg":
+				form.openCloseForm();
+				break;
+			case "polyline":
+				form.openCloseForm();
+				break;				
 		}
-		if ( ( tag === "BUTTON" && name === "close" ) || tag === "svg" || tag === "polyline" ) {
-			form.openCloseForm(); 
-		}
+
 	});
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
-	document.getElementsByTagName("footer")[0].addEventListener("click", ( e ) => {
+	footer.addEventListener("click", ( e ) => {
 		const 
 			target = e.target,
 			tag    = target.tagName,
 			name   = target.className;
-		if ( tag === "BUTTON" ) {
-			form.actionFromFooter( name );
-			body.scrollTop = 0; // For Safari
-			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+		switch ( tag ) {
+			case "BUTTON":
+				form.actionFromFooter( name );
+				body.scrollTop = 0; // For Safari
+				document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+				break;
+			case "A":
+				if ( id = "help" ) { toggleModalHelp(); }
+				break;
 		}
 	});
 
-	/* FOOTER COPYRIGHT DATE */
-	document.getElementById('year').innerText = year.getFullYear();
+	modelHelp.addEventListener("click", ( e ) => {
+		const 
+			target = e.target,
+			tag    = target.tagName,
+			name   = target.className;
+		if ( tag === "A" && name === "close") { toggleModalHelp(); }
+	});
 
+	/* FOOTER COPYRIGHT DATE */
+	const year = new Date();
+	document.getElementById('year').innerText = year.getFullYear();
 };

@@ -49,7 +49,7 @@
 			<div class="detail fieldset">
 
 				<label id="bookmarksLabel">Bookmark:
-					<select id="bookmarksSelect" name="name_select" onchange="f.updateBookmarkPrefill()"></select>
+					<select id="bookmarksSelect" name="name_select"></select>
 				</label>				
 											
 				<label id="groupsLabel">Group:
@@ -96,15 +96,15 @@
 			
 			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button></nav>
 
-			<small class="links"><a href="https://github.com/milesnature/bookmarks" target="_blank">About</a><a onclick="toggleModalHelp()">Help</a></small>
+			<small class="links"><a href="https://github.com/milesnature/bookmarks" target="_blank">About</a><a id="help">Help</a></small>
 
 			<small class="copyright">Copyright &copy; <span id="year"></span>  Miles Nature. All Rights Reserved.</small>
 
 		</footer>
 
-		<div class="modal help">
+		<div id="modelHelp" class="modal help">
 				
-			<a class="close" onclick="toggleModalHelp()">Close</a>
+			<a class="close">Close</a>
 										
 			<h2>Help</h2>
 			
