@@ -69,11 +69,11 @@ const
 		'urlValue'          		: () => { return urlText.value },
 		'actionValue'               : () => { return document.querySelector('input[name="action"]:checked').value },
 		'elementValue'              : () => { return document.querySelector('input[name="element"]:checked').value },	
-		'formRemoveClasses'         : ( ...classes ) => { form.container.classList.remove( ...classes ); },
-		'formAddClasses'            : ( ...classes ) => { form.container.classList.add( ...classes ); },
-		'formUpdateButton'          : ( action )     => { form.buttonSubmit.value = action; },
+		'removeClasses'             : ( ...classes ) => { form.container.classList.remove( ...classes ); },
+		'addClasses'                : ( ...classes ) => { form.container.classList.add( ...classes ); },
+		'updateButton'              : ( action )     => { form.buttonSubmit.value = action; },
 
-		openCloseForm : () => { 
+		openClose : () => { 
 			body.classList.toggle( 'edit' );
 			if ( body.classList.contains( 'edit' ) ) {
 				localStorage.setItem( 'form' , 'open' );
@@ -85,19 +85,19 @@ const
 		},
 		
 		actionFromFooter : ( action, empty ) => {
-			if ( !body.classList.contains( 'edit' ) ) { form.openCloseForm(); }
+			if ( !body.classList.contains( 'edit' ) ) { form.openClose(); }
 			document.querySelector( 'input[value=' + action + ']' ).checked = 'checked';
 			if ( !empty ) { 
 				form.bookmark.checked = 'checked'; 
 			} else {
 				form.group.checked = 'checked'; 
 			}
-			form.formActionState();
-			form.formElementState();		
+			form.actionState();
+			form.elementState();		
 		},
 		
 		// THIS PREFILLS BOOKMARK DATA TO FACILITATE UPDATING BOOKMARKS
-		updateBookmarkPrefill : () => {
+		updatePrefill : () => {
 			if ( bookmarksArray.length > 0 ) {
 				let group = '',
 					name  = form.updateBookmarkSelectText(),
@@ -116,30 +116,30 @@ const
 			}		
 		},
 
-		formActionState : () => {
+		actionState : () => {
 			const action = form.actionValue();
-			form.formRemoveClasses( 'create', 'delete', 'update' );
-			form.resetFormFields();
+			form.removeClasses( 'create', 'delete', 'update' );
+			form.resetFields();
 			removeChildNodes( errorMessage );
-			form.formAddClasses( action );
-			form.formUpdateButton( action );		
+			form.addClasses( action );
+			form.updateButton( action );		
 			if ( action === 'update' ) { 
 				form.bookmark.checked = 'checked';
-				form.updateBookmarkPrefill();
+				form.updatePrefill();
 			}
 		},
 		
-		formElementState : () => {
+		elementState : () => {
 			const
 				element = form.elementValue(),
 				action  = form.actionValue();
-			form.formRemoveClasses( 'bookmark', 'group' );
+			form.removeClasses( 'bookmark', 'group' );
 			removeChildNodes( errorMessage );
-			form.formAddClasses( element );
-			if ( action !== 'update' ) { form.resetFormFields(); }	
+			form.addClasses( element );
+			if ( action !== 'update' ) { form.resetFields(); }	
 		},
 		
-		formGetStates : () => {
+		getStates : () => {
 			const 
 				action  = form.actionValue(),
 			    element = form.elementValue();
@@ -154,9 +154,9 @@ const
 			}
 		},
 
-		getFormValues : () => {  
+		getValues : () => {  
 			const 
-				state  = form.formGetStates(),
+				state  = form.getStates(),
 				config = {
 					'group' : (() => { 
 						if ( ( state.isGroup && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) { 
@@ -198,7 +198,7 @@ const
 			};
 		},
 
-		resetFormFields : () => {
+		resetFields : () => {
 			form.groupText.value = '';
 			form.nameText.value  = '';
 			form.urlText.value   = '';
@@ -233,7 +233,7 @@ const
 			e.preventDefault();
 			removeChildNodes( errorMessage );
 			const 
-				values     = form.getFormValues(),
+				values     = form.getValues(),
 				state      = values.state,
 				valid      = '',
 				validation = {
@@ -342,14 +342,14 @@ const
 			}			
 		},
 
-		sortBookmarksIntoGroups : ( b ) => {
+		sortIntoGroups : ( b ) => {
 			groupsByName = [];
 			groups       = [];
 			b.forEach( bookmarks.sortGroup );
 			return groupsByName;
 		},
 
-		constructBookmarkList : ( group ) => {
+		constructList : ( group ) => {
 			/* 
 			<ul class='bookmarks'>
 				<li><button class='all'>Group Name</button>
@@ -410,31 +410,31 @@ const
 			return fragment;
 		},
 
-		constructBookmarksSection : () => {
+		constructSection : () => {
 			let b          = bookmarksArray,
-				sortedList = bookmarks.sortBookmarksIntoGroups( b ),
+				sortedList = bookmarks.sortIntoGroups( b ),
 				fragments  = document.createDocumentFragment();
-			bookmarks.removeBookmarks();
+			bookmarks.remove();
 			for ( item in sortedList ) { 
 				if ( !item ) { continue; };
 				group = sortedList[ item ];
-				fragments.appendChild( bookmarks.constructBookmarkList( group ) );
+				fragments.appendChild( bookmarks.constructList( group ) );
 			}
 			bmkSection.appendChild( fragments );
 			openGroup.setupEventHandler();
-			bookmarks.constructBookmarkGroupOptions();
-			bookmarks.constructBookmarkNameOptions( sortedList );
-			form.resetFormFields();
+			bookmarks.constructGroupOptions();
+			bookmarks.constructNameOptions( sortedList );
+			form.resetFields();
 			removeChildNodes( errorMessage );		
 		},
 
-		removeBookmarks : () => {
+		remove : () => {
 			if ( bmkSection.hasChildNodes() ) {
 				removeChildNodes( bmkSection );
 			}
 		},	
 
-		constructBookmarkGroupOptions : () => { 
+		constructGroupOptions : () => { 
 			// <option value='News'>News</option>
 			let fragment      = document.createDocumentFragment(),
 				buildOptions  = ( item, index ) => {
@@ -453,7 +453,7 @@ const
 			form.groupSelect.appendChild( fragment );
 		},
 
-		constructBookmarkNameOptions : ( sortedList, target ) => { 
+		constructNameOptions : ( sortedList, target ) => { 
 			// <optgroup label='News'><option id='5ec592b3fcceb051486e9c2f'>Ars Technica</option></optgroup>
 			let fragment = (() => { return document.createDocumentFragment() })(),
 				group    = [];
@@ -487,7 +487,7 @@ const
 			let fragment2 = fragment.cloneNode( true );
 			form.nameSelect.appendChild( fragment );
 			form.bookmarksSelect.appendChild( fragment2 );
-			form.updateBookmarkPrefill();
+			form.updatePrefill();
 		}
 	},
 
@@ -502,11 +502,11 @@ const
 				       	if ( this.responseText ) {
 				       		bookmarksArray = JSON.parse( this.responseText );
 				       		if ( bookmarksArray.length > 0 ) {
-			       				bookmarks.constructBookmarksSection();
+			       				bookmarks.constructSection();
 			       			} else {
 			       				form.actionFromFooter( 'create', true );
 			       				toggleModalHelp();
-			       				bookmarks.removeBookmarks();
+			       				bookmarks.remove();
 			       			}
 			            } else {
 			            	bmkSection.textContent = this.responseText;
@@ -528,7 +528,7 @@ const
 					const status = xhr.status;
 					if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 				       	if ( this.responseText ) {
-							form.resetFormFields();
+							form.resetFields();
 			       			cbf();
 			            } else {
 			            	form.displayErrorMessage( this.responseText );
@@ -578,7 +578,7 @@ window.onload = () => {
 	
 	if ( formState === 'open' ) {
 		if ( !body.classList.contains('edit') ) {
-			form.openCloseForm();
+			form.openClose();
 		}
 	}
 	
@@ -594,16 +594,16 @@ window.onload = () => {
 			case 'INPUT':
 				switch ( name ) {
 					case 'action':
-						form.formActionState();
-						form.formElementState();
+						form.actionState();
+						form.elementState();
 						break;
 					case 'element':
-						form.formElementState();
+						form.elementState();
 						break;
 				}
 				break;
 			case 'SELECT':
-				if ( name === 'name_select' ) { form.updateBookmarkPrefill() }
+				if ( name === 'name_select' ) { form.updatePrefill() }
 				break;
 		}
 	});
@@ -620,13 +620,13 @@ window.onload = () => {
 				if ( name === 'submit' ) { form.formSubmit( e ); }
 				break;
 			case 'BUTTON':
-				form.openCloseForm();
+				form.openClose();
 				break;
 			case 'svg':
-				form.openCloseForm();
+				form.openClose();
 				break;
 			case 'polyline':
-				form.openCloseForm();
+				form.openClose();
 				break;				
 		}
 

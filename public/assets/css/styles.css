@@ -140,6 +140,9 @@ form {
 		grid-template-areas: 'action element' 'detail detail' 'complete complete' 'close close';
 		padding: 13px 0 0 0;
 	}
+	form button.close {
+		margin-top: 0;
+	}
 }	
 
 form.create.bookmark .detail #bookmarksLabel { display: none; } 
