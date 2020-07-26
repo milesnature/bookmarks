@@ -1,7 +1,5 @@
 <!doctype html>
-
 <html lang="en">
-	
 	<head>
 		<meta charset="utf-8">
 		<title>My Bookmarks</title>
@@ -13,115 +11,73 @@
 		<link rel="alternate icon" href="/favicon.ico">		
 		<link rel="stylesheet" href="assets/css/styles.css">
 	</head>
-
 	<body>
-		
 		<form class="create bookmark" novalidate>
-			
-			<div class="action fieldset">
-									
+			<div class="action fieldset">	
 				<label id="createLabel">Create:
 					<input id="create" type="radio" name="action" value="create" checked="checked" />
 				</label>
-				
 				<label id="deleteLabel">Delete:
 					<input id="delete" type="radio" name="action" value="delete" />
 				</label>
-			
 				<label id="updateLabel">Update:
 					<input id="update" type="radio" name="action" value="update" />
 				</label>
-
 			</div>
-
 			<div class="element fieldset">
-								
 				<label id="bookmarkLabel">Bookmark:
 					<input id="bookmark" type="radio" name="element" value="bookmark" checked="checked" />
 				</label>
-				
 				<label id="groupLabel">Group:
 					<input id="group" type="radio" name="element" value="group" />
 				</label>
-			
-			</div>				
-
+			</div>	
 			<div class="detail fieldset">
-
 				<label id="bookmarksLabel">Bookmark:
 					<select id="bookmarksSelect" name="name_select"></select>
 				</label>				
-											
 				<label id="groupsLabel">Group:
 					<input id="groupText" type="text" name="group" placeholder="Group" />
 					<select id="groupSelect" name="group_select"></select>
 				</label>
-
 				<label id="nameLabel">Name:
 					<input id="nameText" type="text" name="name" placeholder="Name" />
 					<select id="nameSelect" name="name_select"></select>
 				</label>
-
 				<label id="urlLabel">Url:
 					<input id="urlText" type="text" name="url" placeholder="Url" />
 				</label>
-				
 			</div>
-			
 			<div class="complete fieldset">
-						
 				<label>		
 					<input id="submit" type="submit" name="submit" class="button" value="Create" />
 				</label>		
-				
 				<div id="errorMessage"></div>
-			
 			</div>
-
 			<button id="close" type="button" name="close" title="Close" class="close">
 				<svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 54 34">
 					<polyline points="7 26.642 28 8 47 27"/>
 				</svg>
 			</button>
-		
 		</form>
-		
 		<main>
-				
-			<section id="bookmarks"></section>	
-		
+			<section id="bookmarks"></section>
 		</main>
-
 		<footer>
-			
 			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button></nav>
-
 			<small class="links"><a href="https://github.com/milesnature/bookmarks" target="_blank">About</a><a id="help">Help</a></small>
-
 			<small class="copyright">Copyright &copy; <span id="year"></span>  Miles Nature. All Rights Reserved.</small>
-
 		</footer>
-
 		<div id="modelHelp" class="modal help">
-				
-			<a class="close">Close</a>
-										
+			<a class="close">Close</a>				
 			<h2>Help</h2>
-			
 			<section>
-
 				<h3>How to open the form.</h3>
-
 				<p>There are 3 buttons in the footer, at the bottom of the page: <strong>Create</strong>, <strong>Delete</strong>, and <strong>Update</strong>. Clicking one of these actions will open the form and auto-scroll to it.</p>
-
 				<p>This help modal may be obstructing the form and or the actions buttons.</p>
-			
 			</section>
-
 			<section>
-
 				<h3>How to use the form.</h3>
-						
 				<p>
 					The form has 4 main sections (boxes). It is designed to make sense when completed in order.
 					<ol>
@@ -131,33 +87,18 @@
 						<li><strong>4. Submit.</strong> Click the corresponding button to submit the request.</li>
 					</ol>
 				</p>
-
 				<p>A successfull request will reset the form and reload the bookmarks section. This page does not need to be manually reloaded or refreshed.</p>
-
 				<p>Errors are displayed in red, underneath the submit button.</p>
-
 				<p>Close the form with the up arrow, located at the bottom edge of the form window. An open form will persist (in local storage) after page refreshes until it is manually closed.</p>
-			
 			</section>
-
 			<section>
-
 				<h3>New (empty) database.</h3>
-				
 				<p>The first step is to create a group. A bookmark and it's repsective group share the same database object. This requires a bookmark to be created at the same time as a new group.</p>
-
 				<p>Select form fields <strong>Create</strong> (Action) and <strong>Group</strong> (Element). The form should already be open with these options preselected.</p>
-
 				<p>Add a <strong>Group</strong>, a <strong>Name</strong>, and a <strong>Url</strong> (Detail). Then click <strong>Create</strong> (Submit).</p>
-				
 				<p>Rinse and repeat.</p>
-
 			</section>
-							
 		</div>			
-
-		<script src="assets/js/functions.js"></script>		
-					  
+		<script src="assets/js/functions.js"></script>			  
 	</body>
-
 </html>

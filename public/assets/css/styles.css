@@ -132,12 +132,13 @@ form {
 	background-color: var(--grayscale-20);
 	display: none;
 	color: var(--grayscale-00);
-	padding: 31px 21px 0 21px;
+	padding: 32px 21px 0 21px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
 	form {
 		grid-template-areas: 'action element' 'detail detail' 'complete complete' 'close close';
+		padding: 13px 0 0 0;
 	}
 }	
 
