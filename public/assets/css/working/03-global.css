@@ -1,0 +1,29 @@
+/* START GLOBAL */
+html {
+	-webkit-text-size-adjust: 100%; /* Text size fix for iphone landscape orientation. */
+}
+
+html, body {
+	font-family      : var(--primary-font-family);
+	font-size        : var(--base-font-size);
+	background-color : var(--grayscale-20);
+	margin           : 0;
+	padding          : 0;
+	width            : 100%;
+	height           : 100%; /* Sticky Footer Magic */	
+}
+
+body {
+	position              : relative;
+	display               : grid;
+	grid-template-areas   : 'form' 'main' 'footer';
+	grid-template-columns : 1fr;
+	grid-template-rows    : max-content auto max-content;
+	grid-gap              : 0px;
+	color                 : var(--base-font-color);
+}
+
+a, a:link, a:visited, a:hover, a:active {
+	color: var(--font-color-anchor);
+}	
+/* END GLOBAL */

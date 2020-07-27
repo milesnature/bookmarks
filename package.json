@@ -4,7 +4,8 @@
   "description": "Web based bookmark tool that is available everywhere. ",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "concat-css": "cat public/assets/css/working/* > public/dist/assets/css/styles.css"
   },
   "author": "Miles Nature",
   "license": "MIT",

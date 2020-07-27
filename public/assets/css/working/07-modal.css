@@ -1,0 +1,105 @@
+/* START MODAL */
+.modal { 
+	position: fixed; 
+ 	top: 0; 
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	margin: auto;
+	max-width: 800px;
+ 	height: 80vh; 
+	background-color: var(--grayscale-00);
+	padding: 3em;
+	box-shadow: 0 0 70px var(--grayscale-26);
+	display: none;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 1.1em;
+	overflow: auto;
+}
+
+@media (max-width: 800px) {
+	.modal {
+		max-width: 100vw;
+ 		height: 100vh;
+	}
+}
+
+.modal.help.show { display: block; }
+
+.modal section {
+	margin-bottom: 2.5em;
+}
+
+.modal h2 {
+	margin: 0 0 2em 0;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+.modal h3 {
+	margin: .25em 0 1em 0;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.modal h3.child {
+	margin: .45em 0 1em 0;
+	display: inline-block;
+}
+
+.modal p {
+	margin: 0 0 1em 0;
+	clear: both;
+}
+
+.modal strong {
+	font-weight: bold;
+}
+
+.modal ul {
+	list-style-type: square;
+	padding-left: 2em;
+	margin: 0 0 1em 0;
+}
+
+.modal ol {
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0 0 1em 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-auto-rows: auto;
+	grid-gap: 1em;
+}
+
+@media (max-width: 600px) {
+	.modal ol {
+		grid-template-columns: 1fr 1fr;
+		grid-auto-rows: auto auto;
+	}
+	.modal {
+		padding: 1.5em;
+	}	
+}
+
+
+.modal ol li {
+	line-height: 1.5em;
+	background-color: #eee;
+	padding: 1em;
+}
+
+.modal ol li strong {
+	display: block;
+}
+
+.modal a.close {
+	float: right;
+	display: block;
+	cursor: pointer;
+	text-decoration: underline;
+	font-size: inherit;
+}
+/* END MODAL */
