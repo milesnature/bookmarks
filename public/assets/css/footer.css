@@ -1,0 +1,47 @@
+/* START FOOTER */
+footer {
+	grid-area: footer;
+	align-self: center;
+	text-align: center;
+	font-size: 1em;
+	padding: 4em 0 2em 0;
+	background-color: var(--grayscale-08);
+	position: relative;
+}
+
+footer nav {
+	margin-bottom: 15px;
+}
+
+footer nav button {
+	cursor: pointer;
+	min-width: 69px;
+	font-size: 1em;
+	margin: 0 .35em 0 .35em;
+}
+
+footer small.links {
+	text-align: center;
+	display: block;
+	margin: 0 0 1em 0;
+}
+
+footer small.links a {
+	text-decoration: underline;
+	cursor: pointer;
+	display: inline-block;
+	padding: .3em 1em;
+}
+
+footer small.links a:hover {
+	color: var(--medium-red);	
+}
+
+footer small.links a:first-child {
+	border-right: 1px solid var(--grayscale-18);
+}
+
+footer small.copyright {
+	font-size: .8em;
+}
+/* END FOOTER */
