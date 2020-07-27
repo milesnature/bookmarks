@@ -23,11 +23,6 @@ body {
 	color                 : var(--base-font-color);
 }
 
-body.edit form {
-	height  : auto;
-	display : grid;
-}
-
 a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
 }	
