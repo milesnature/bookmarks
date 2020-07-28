@@ -98,7 +98,54 @@
 				<p>Add a <strong>Group</strong>, a <strong>Name</strong>, and a <strong>Url</strong> (Detail). Then click <strong>Create</strong> (Submit).</p>
 				<p>Rinse and repeat.</p>
 			</section>
-		</div>			
+		</div>	
+		<template>
+			<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
+				<style>
+					#first {
+						animation-name: dotOpacity;
+						animation-delay: .25s;
+						animation-duration: .75s;
+						animation-fill-mode: forward;
+						animation-iteration-count: infinite;
+						animation-direction: alternate; 
+					}
+					@keyframes dotOpacity {
+						0% { opacity: 0; }
+						75% { opacity: 1; }
+					}
+					#second {
+						animation-name: dot2Opacity;
+						animation-delay: .5s;
+						animation-duration: .75s;
+						animation-fill-mode: forward;
+						animation-iteration-count: infinite;
+						animation-direction: alternate; 
+					}
+					@keyframes dot2Opacity {
+						0% { opacity: 0; }
+						75% { opacity: 1; }
+					}
+					#third {
+						animation-name: dot3Opacity;
+						animation-delay: .75s;
+						animation-duration: .75s;
+						animation-fill-mode: forward;
+						animation-iteration-count: infinite;
+						animation-direction: alternate; 
+					}
+					@keyframes dot3Opacity {
+						0% { opacity: 0; }
+						75% { opacity: 1; }
+					}
+				</style>
+				<g fill="none" fill-rule="evenodd">
+					<circle id="first" cx="42.5" cy="50.5" r="11.5" fill="white"/>
+					<circle id="second" cx="84.5" cy="50.5" r="11.5" fill="white"/>
+					<circle id="third" cx="126.5" cy="50.5" r="11.5" fill="white"/>
+				</g>
+			</svg>
+		</template>				
 		<script src="dist/assets/js/functions.min.js"></script>			  
 	</body>
 </html>

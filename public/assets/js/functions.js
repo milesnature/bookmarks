@@ -1,9 +1,10 @@
 const 
-	body         = document.body,
-	bmkSection   = document.getElementById('bookmarks'),
-	errorMessage = document.getElementById('errorMessage'),
-	footer       = document.getElementsByTagName('footer')[0],
-	modalHelp    = document.getElementById('modelHelp'),
+	body           = document.body,
+	bmkSection     = document.getElementById('bookmarks'),
+	errorMessage   = document.getElementById('errorMessage'),
+	footer         = document.getElementsByTagName('footer')[0],
+	modalHelp      = document.getElementById('modelHelp'),
+	loaderTemplate = document.getElementsByTagName("template")[0],
 
 	// CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS.
 	openGroup    = {
@@ -325,7 +326,7 @@ const
 			} else {
 				form.displayErrorMessage( validation.action, validation.element );
 			}
-		}		
+		}	
 	},
 
 	// BOOKMARKS METHODS
@@ -488,7 +489,22 @@ const
 			form.nameSelect.appendChild( fragment );
 			form.bookmarksSelect.appendChild( fragment2 );
 			form.updatePrefill();
-		}
+		},
+
+		toggleLoader = ( action ) => {
+			const hasSvg = bmkSection.querySelector('svg#loader');
+			switch ( action ) {
+				case "remove":
+					if ( hasSvg ) { bookmarks.remove(); }
+					break;
+				case "add":
+					if ( !hasSvg ) {
+				  		const loader = loaderTemplate.content.cloneNode( true );
+	  					bmkSection.appendChild( loader );
+	  				}
+  					break;
+  			}				
+		}	
 	},
 
 	// API CALLS
@@ -569,6 +585,8 @@ let
 
 // SETUP AFTER PAGE LOADS	
 window.onload = () => {
+
+	bookmarks.toggleLoader('add');
 	
 	// LOAD PAGE ELEMENTS USING DB VALUES.
 	api.getBookmarks();

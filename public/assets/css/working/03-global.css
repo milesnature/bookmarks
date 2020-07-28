@@ -25,5 +25,7 @@ body {
 
 a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
-}	
+}
+
+.hide { display: none; }
 /* END GLOBAL */

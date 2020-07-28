@@ -118,7 +118,9 @@ body {
 
 a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
-}	
+}
+
+.hide { display: none; }
 /* END GLOBAL */
 /* START FORM */
 body.edit form { display : grid; }
@@ -302,6 +304,8 @@ main section#bookmarks {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
 	grid-gap: 5px;
+	position: relative;
+	height: 100%;
 }
 
 main section#bookmarks ul.bookmarks {
@@ -359,6 +363,15 @@ main section#bookmarks ul.bookmarks li ul li a {
 main section#bookmarks ul.bookmarks li ul li a:hover {
 	color: var(--font-color-bookmark-hover);
 	background-image: linear-gradient( rgba( 200, 0, 0, 1 ), rgba( 200, 0, 0, .9 ) );
+}
+
+main section#bookmarks #loader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc( 50% - 25px );
+    border: 0;
+    margin: auto;
 }
 /* END BOOKMARKS */
 /* START FOOTER */
