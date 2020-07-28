@@ -145,6 +145,7 @@ form button.close {
 	border           : none;
 	margin-top       : 16px;
 	padding          : 5px 0;
+	cursor           : pointer;
 }
 
 form button.close:hover { background-image : linear-gradient( rgba( 54, 54, 54, .85 ), rgba( 54, 54, 54, 1 ) ); }
