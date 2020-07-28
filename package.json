@@ -1,11 +1,16 @@
 {
   "name": "bookmarks-app",
-  "version": "1.0.0",
+  "version": "1.0.7",
   "description": "Web based bookmark tool that is available everywhere. ",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "concat-css": "cat public/assets/css/working/* > public/dist/assets/css/styles.css"
+    "concat-css": "cat public/assets/css/working/* > public/dist/assets/css/styles.css",
+    "minifyJS": "uglifyjs public/assets/js/functions.js --compress --mangle --warn --output public/dist/assets/js/functions.min.js",
+    "version:bump": "npm version patch --no-git-tag-version --silent",
+    "version:add": "echo \"/* v - $(npm run version:extract --silent)\n * © Miles Nature \n * Build time: $(date '+%m-%d-%Y %H:%M:%S')\n */\n$(cat public/dist/assets/js/functions.min.js)\" > public/dist/assets/js/functions.min.js",
+    "version:extract": "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'",
+    "production": "npm run version:bump --silent && npm run concat-css && rm -f public/dist/assets/js/functions.min.js && npm run minifyJS --silent && npm run version:add --silent"
   },
   "author": "Miles Nature",
   "license": "MIT",
@@ -17,6 +22,7 @@
     "mongoose": "^5.9.14",
     "nocache": "^2.1.0",
     "session-file-store": "^1.4.0",
+    "uglify-es": "^3.3.9",
     "uuid": "^8.1.0"
   }
 }
