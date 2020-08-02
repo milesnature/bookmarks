@@ -6,6 +6,33 @@ const
 	modalHelp      = document.getElementById('modelHelp'),
 	loaderTemplate = document.getElementsByTagName("template")[0],
 
+	// DRAG AND DROP BROWSER LOCATION 
+	urlCheck  = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,
+	allowDrop = ( event ) => { event.preventDefault(); },
+	drag      = ( event ) => { event.dataTransfer.setData( 'text', event.target.id ); },
+	drop      = ( event ) => {
+
+	  	event.preventDefault();
+	  
+	  	let 
+	  		data      = event.dataTransfer.getData( 'text' ),
+	  		isTextUrl = ( data ) ? urlCheck.test( data ) : false;
+	  	
+	  	data = ( isTextUrl ) ? document.createTextNode( data ) : '';
+	  
+		console.log( 'drop', { 
+			'event': event,
+			'event.target.id': event.target.id, 
+			'data': data, 
+			'isTextUrl': isTextUrl,
+			'typeof data': typeof data, 
+			'data.nodeType': data.nodeType  
+		} );
+
+	  	if ( data ) { event.target.appendChild( data ); }
+
+	},
+
 	// CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS.
 	openGroup    = {
 		
@@ -680,4 +707,5 @@ window.onload = () => {
 	// FOOTER COPYRIGHT DATE 
 	const year = new Date();
 	document.getElementById('year').innerText = year.getFullYear();
+
 };
