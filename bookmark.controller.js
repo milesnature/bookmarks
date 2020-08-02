@@ -71,6 +71,7 @@ exports.createBookmarkSet = (req, res) => {
 // TODO: Sorting on mixed lower and upper case doesn't work as expected. Known issue with mongodb.
 exports.getBookmarks = (req, res) => {
     Bookmark.find()
+    .collation({locale: "en" })
     .sort({group: 'asc', name: 'asc'})
     .then(bookmarks => {
         res.send(bookmarks);
