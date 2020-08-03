@@ -96,10 +96,13 @@
 }
 
 .modal a.close {
-	float: right;
-	display: block;
-	cursor: pointer;
-	text-decoration: underline;
-	font-size: inherit;
+	position        : absolute;
+	right           : 0;
+	top             : 0;
+	display         : block;
+	padding         : 20px; 
+	cursor          : pointer;
+	text-decoration : underline;
+	font-size       : inherit;
 }
 /* END MODAL */

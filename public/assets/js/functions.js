@@ -6,30 +6,66 @@ const
 	modalHelp      = document.getElementById('modelHelp'),
 	loaderTemplate = document.getElementsByTagName("template")[0],
 
-	// DRAG AND DROP BROWSER LOCATION 
+	// DRAG AND DROP BROWSER LOCATION
+	html      = document.getElementsByTagName("HTML")[0],
 	urlCheck  = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,
+
 	allowDrop = ( event ) => { event.preventDefault(); },
-	drag      = ( event ) => { event.dataTransfer.setData( 'text', event.target.id ); },
-	drop      = ( event ) => {
+
+	dragStart = ( event ) => { 
+
+		const 
+			t        = event.target,
+			tag      = ( t.tagName )   ? t.tagName : '',
+			href     = ( t.href )      ? t.href : '',
+			text     = ( t.text )      ? t.text : '',
+			id       = ( t.id )        ? t.id : '',
+			c        = ( t.className ) ? t.className : '',
+			bookmark = ( tag === 'A' );
+		
+		if ( bookmark ) {
+			event.dataTransfer.setData( 'tag',  tag );
+			event.dataTransfer.setData( 'href', href ); 
+			event.dataTransfer.setData( 'text', text );
+			event.dataTransfer.setData( 'id',   id );
+		}
+
+		console.log( 'dragStart', { 
+			't': t,
+			'tag': tag,
+			'href': href,
+			'text': text, 
+			'id': id,
+			'class': c,
+			'bookmark': bookmark
+		} );
+
+	},
+
+	drop = ( event ) => {
 
 	  	event.preventDefault();
 	  
 	  	let 
-	  		data      = event.dataTransfer.getData( 'text' ),
-	  		isTextUrl = ( data ) ? urlCheck.test( data ) : false;
+	  		t    = event.target,
+	  		tag  = ( event.dataTransfer.getData( 'tag' ) ) ? event.dataTransfer.getData( 'tag' ) : '',
+	  		href = ( event.dataTransfer.getData( 'href' ) ) ? event.dataTransfer.getData( 'href' ) : '',
+	  		text = ( event.dataTransfer.getData( 'text' ) ) ? event.dataTransfer.getData( 'text' ) : '',
+	  		id   = ( event.dataTransfer.getData( 'id' ) ) ? event.dataTransfer.getData( 'id' ) : '';
+
+	  	href = ( tag === '' && href === '' ) ? text : href;
 	  	
-	  	data = ( isTextUrl ) ? document.createTextNode( data ) : '';
+	  	href = ( urlCheck.test( href ) ) ? document.createTextNode( href ) : '';
 	  
 		console.log( 'drop', { 
-			'event': event,
-			'event.target.id': event.target.id, 
-			'data': data, 
-			'isTextUrl': isTextUrl,
-			'typeof data': typeof data, 
-			'data.nodeType': data.nodeType  
+			't': t,
+			'tag': tag,
+			'href': href,
+			'text': text, 
+			'id': id
 		} );
 
-	  	if ( data ) { event.target.appendChild( data ); }
+	  	if ( href ) { t.appendChild( href ); }
 
 	},
 
@@ -414,6 +450,7 @@ const
 					id     = document.createAttribute ( 'id' ),
 					href   = document.createAttribute ( 'href' ),
 					target = document.createAttribute ( 'target' ),
+					rel    = document.createAttribute ( 'rel' ),
 					text   = document.createTextNode  ( bookmark.name );
 				// SET ATTRIBUTES FOR BOOKMARK.
 				id.value = bookmark._id;
@@ -422,6 +459,8 @@ const
 				a.setAttributeNode( href );
 				target.value = '_blank';
 				a.setAttributeNode( target );
+				rel.value = 'noreferrer';
+				a.setAttributeNode( rel );				
 				a.appendChild( text );
 				// INSERT ACHOR ELEMENT NITO IT'S LISTEN ITEM.
 				li.appendChild( a );
@@ -518,7 +557,7 @@ const
 			form.updatePrefill();
 		},
 
-		toggleLoader = ( action ) => {
+		toggleLoader : ( action ) => {
 			const hasSvg = bmkSection.querySelector('svg#loader');
 			switch ( action ) {
 				case "remove":
@@ -707,5 +746,9 @@ window.onload = () => {
 	// FOOTER COPYRIGHT DATE 
 	const year = new Date();
 	document.getElementById('year').innerText = year.getFullYear();
+
+	html.addEventListener( 'drop',      ( event ) => { drop( event ) } );
+	html.addEventListener( 'dragover',  ( event ) => { allowDrop( event ) } );
+	html.addEventListener( 'dragstart', ( event ) => { dragStart( event ) } );	
 
 };
