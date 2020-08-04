@@ -602,10 +602,10 @@ const
 			       				bookmarks.remove();
 			       			}
 			            } else {
-			            	bmkSection.textContent = this.responseText;
+			            	form.displayErrorMessage( this.responseText );
 			            }
 					} else {
-						bmkSection.textContent = this.responseText;
+						form.displayErrorMessage( this.responseText );
 					}
 				}	        
 		    };
