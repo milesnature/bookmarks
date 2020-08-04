@@ -317,6 +317,10 @@ main section#bookmarks ul.bookmarks {
 	border-color    : transparent;
 }
 
+main section#bookmarks ul.bookmarks.drag-hover {
+	background-color: var( --grayscale-03 );
+}
+
 main section#bookmarks ul.bookmarks li button {
 	cursor           : pointer;
 	display          : grid;

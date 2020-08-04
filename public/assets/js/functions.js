@@ -1,15 +1,14 @@
 const 
+	html           = document.getElementsByTagName("HTML")[0],
 	body           = document.body,
 	bmkSection     = document.getElementById('bookmarks'),
 	errorMessage   = document.getElementById('errorMessage'),
 	footer         = document.getElementsByTagName('footer')[0],
 	modalHelp      = document.getElementById('modelHelp'),
 	loaderTemplate = document.getElementsByTagName("template")[0],
+	urlCheck       = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,	
 
 	// DRAG AND DROP BROWSER LOCATION
-	html      = document.getElementsByTagName("HTML")[0],
-	urlCheck  = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,
-
 	allowDrop = ( event ) => { event.preventDefault(); },
 
 	dragStart = ( event ) => { 
@@ -30,16 +29,31 @@ const
 			event.dataTransfer.setData( 'id',   id );
 		}
 
-		console.log( 'dragStart', { 
-			't': t,
-			'tag': tag,
-			'href': href,
-			'text': text, 
-			'id': id,
-			'class': c,
-			'bookmark': bookmark
-		} );
+		// console.log( 'dragStart', { 
+		// 	't'        : t,
+		// 	'tag'      : tag,
+		// 	'href'     : href,
+		// 	'text'     : text, 
+		// 	'id'       : id,
+		// 	'class'    : c,
+		// 	'bookmark' : bookmark
+		// } );
 
+	},
+
+	dragEnter = ( event ) => {
+		let t = event.target,
+	  		g = t.closest('ul.bookmarks'),
+	  		i = g.id;
+	  	event.preventDefault();
+		cleanupDragHover();
+		g.classList.add( 'drag-hover' );
+	},
+
+	cleanupDragHover = () => {
+		let lists = openGroup.getLists();
+		removeBackgroundColor = ( item, index ) => { item.classList.remove( 'drag-hover' );; };
+		lists.forEach( removeBackgroundColor );
 	},
 
 	drop = ( event ) => {
@@ -47,26 +61,64 @@ const
 	  	event.preventDefault();
 	  
 	  	let 
-	  		t    = event.target,
-	  		tag  = ( event.dataTransfer.getData( 'tag' ) ) ? event.dataTransfer.getData( 'tag' ) : '',
-	  		href = ( event.dataTransfer.getData( 'href' ) ) ? event.dataTransfer.getData( 'href' ) : '',
-	  		text = ( event.dataTransfer.getData( 'text' ) ) ? event.dataTransfer.getData( 'text' ) : '',
-	  		id   = ( event.dataTransfer.getData( 'id' ) ) ? event.dataTransfer.getData( 'id' ) : '';
+	  		t        = event.target,
+	  		tag      = ( event.dataTransfer.getData( 'tag' ) )  ? event.dataTransfer.getData( 'tag' )  : '',
+	  		href     = ( event.dataTransfer.getData( 'href' ) ) ? event.dataTransfer.getData( 'href' ) : '',
+	  		text     = ( event.dataTransfer.getData( 'text' ) ) ? event.dataTransfer.getData( 'text' ) : '',
+	  		id       = ( event.dataTransfer.getData( 'id' ) )   ? event.dataTransfer.getData( 'id' )   : '',
+	  		group    = t.closest('ul.bookmarks'),
+	  		groupId  = group.id.substr(1),
+	  		external = ( tag === '' && href === '' ),
+	  		local    = ( tag === 'A' && href && id ),
+	  		validUrl = ( url ) => { return urlCheck.test( href ) };
 
-	  	href = ( tag === '' && href === '' ) ? text : href;
+	  	if ( external ) {
+	  		href = text;
+		  	if ( validUrl( href ) ) { 
+	  			form.actionFromFooter( 'create' );
+				body.scrollTop                     = 0; // SAFARI
+				document.documentElement.scrollTop = 0; // ALL OTHERS
+				form.urlText.value                 = href;
+				form.groupSelect.value             = groupId;
+		  	}	  		
+	  	}
 	  	
-	  	href = ( urlCheck.test( href ) ) ? document.createTextNode( href ) : '';
-	  
-		console.log( 'drop', { 
-			't': t,
-			'tag': tag,
-			'href': href,
-			'text': text, 
-			'id': id
-		} );
+	  	if ( local ) {
+		  	if ( validUrl( href ) ) { 
+	  			form.actionFromFooter( 'update' );
+				body.scrollTop                     = 0; // SAFARI
+				document.documentElement.scrollTop = 0; // ALL OTHERS
+				bookmarksSelect.value              = id;
+				form.updatePrefill();
+				form.groupText.value               = groupId;
+		  	}	  		
+	  	}
 
-	  	if ( href ) { t.appendChild( href ); }
+	  	cleanupDragHover();
 
+		// console.log( 'drop', { 
+		// 	't'        : t,
+		// 	'tag'      : tag,
+		// 	'href'     : href,
+		// 	'text'     : text, 
+		// 	'id'       : id,
+		// 	'group'    : group,
+		// 	'external' : external,
+		// 	'local'    : local
+		// } );
+
+	},
+
+	addDropEvents = () => {
+		lists   = openGroup.getLists(),
+		addDrop = ( item, index ) => { item.addEventListener( 'drop', ( event ) => { drop( event ) } ); };
+		lists.forEach( addDrop );
+	},
+
+	addDragEnterEvents = () => {
+		lists        = openGroup.getLists(),
+		addDragEnter = ( item, index ) => { item.addEventListener( 'dragenter', ( event ) => { dragEnter( event ) } ); };
+		lists.forEach( addDragEnter );
 	},
 
 	// CLICKING A GROUP NAME OPENS ALL BOOKMARKS WITHIN. OTHERWISE, LINKS ARE OPENED WITH ANCHOR TAGS.
@@ -319,6 +371,7 @@ const
 						url     : (() => {
 							if ( !values.config.url ) { return 'URL is required.'; }
 							else if ( values.config.url.length > 2083 ) { return 'URL exceeds maximum character length of 2083.'; }
+							else if ( urlCheck.test( values.config.url ) === false ) { return 'URL is invalid.' ; }
 							else { return valid; }
 						})(),
 						group   : (() => {
@@ -428,15 +481,18 @@ const
 				groupName          = item,
 				outer_UL           = document.createElement  ( 'UL' ),
 				outer_UL_class     = document.createAttribute( 'class' ),
+				outer_UL_id        = document.createAttribute( 'id' ),				
 				outer_LI           = document.createElement  ( 'LI' ),
 				outer_BUTTON       = document.createElement  ( 'BUTTON' ),
 				outer_BUTTON_class = document.createAttribute( 'class' ),
 				outer_BUTTON_text  = document.createTextNode ( groupName ),
 				inner_UL           = document.createElement  ( 'UL' ),
 				i;
-			// SET CLASS ATTRIBUTE FOR OUTER UL.
+			// SET CLASS & ID ATTRIBUTES FOR OUTER UL.
 			outer_UL_class.value     = 'bookmarks';
 			outer_UL.setAttributeNode( outer_UL_class );
+			outer_UL_id.value        = '_' + groupName;
+			outer_UL.setAttributeNode( outer_UL_id );
 			// SET CLASS ATTRIBUTE AND TEXT FOR BUTTON.
 			outer_BUTTON_class.value = 'all';
 			outer_BUTTON.setAttributeNode( outer_BUTTON_class );
@@ -492,7 +548,9 @@ const
 			bookmarks.constructGroupOptions();
 			bookmarks.constructNameOptions( sortedList );
 			form.resetFields();
-			removeChildNodes( errorMessage );		
+			removeChildNodes( errorMessage );
+			addDropEvents();
+			addDragEnterEvents();
 		},
 
 		remove : () => {
@@ -767,7 +825,6 @@ window.onload = () => {
 	const year = new Date();
 	document.getElementById('year').innerText = year.getFullYear();
 
-	html.addEventListener( 'drop',      ( event ) => { drop( event ) } );
 	html.addEventListener( 'dragover',  ( event ) => { allowDrop( event ) } );
 	html.addEventListener( 'dragstart', ( event ) => { dragStart( event ) } );	
 
