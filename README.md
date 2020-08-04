@@ -32,9 +32,7 @@ http://bookmarks-example.milesnature.com/
 * Secure login with UUID, authentication ...
 * Encrypt data for privacy
 * Nested groups of bookmarks
-* Case insensitive sorting
 * Inline editing
-* Drag and drop
 * Import bookmark files (ie. exported from a browser)
 * Export bookmarks to file
 * Multiple simultaneous edits
