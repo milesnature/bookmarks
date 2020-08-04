@@ -213,7 +213,6 @@ form .fieldset label,
 form .fieldset input, 
 form .fieldset select {
 	margin    : 0;
-	font-size : 1em;
 }
 
 form .fieldset label {

@@ -1,6 +1,6 @@
 {
   "name": "bookmarks-app",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "description": "Web based bookmark tool that is available everywhere. ",
   "main": "server.js",
   "scripts": {
