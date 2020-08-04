@@ -557,6 +557,16 @@ const
 			form.updatePrefill();
 		},
 
+		storage : {
+			set : ( bookmarks ) => {
+				localStorage.setItem( 'bookmarks', bookmarks );
+			},
+			get : () => {
+				const bookmarks = localStorage.getItem( 'bookmarks' );
+				return ( bookmarks ) ? JSON.parse( bookmarks ) : '';
+			}		
+		},		
+
 		toggleLoader : ( action ) => {
 			const hasSvg = bmkSection.querySelector('svg#loader');
 			switch ( action ) {
@@ -583,6 +593,7 @@ const
 					if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 				       	if ( this.responseText ) {
 				       		bookmarksArray = JSON.parse( this.responseText );
+				       		bookmarks.storage.set( this.responseText );	
 				       		if ( bookmarksArray.length > 0 ) {
 			       				bookmarks.constructSection();
 			       			} else {
@@ -653,7 +664,15 @@ let
 window.onload = () => {
 
 	bookmarks.toggleLoader('add');
-	
+
+	// THIS LOADS BOOKMARKS FROM LOCAL STORAGE BEFORE CALLING API. FALLBACK FOR CONNECTION OR API ISSUES AND FOR WORKING OFFLINE.   
+	let bookmarksStored = bookmarks.storage.get();
+
+	if ( bookmarksStored ) {
+		bookmarksArray = bookmarksStored;
+		bookmarks.constructSection();
+	}
+
 	// LOAD PAGE ELEMENTS USING DB VALUES.
 	api.getBookmarks();
 
@@ -721,6 +740,7 @@ window.onload = () => {
 		const 
 			target = e.target,
 			tag    = target.tagName,
+			id     = target.id,
 			name   = target.className;
 		switch ( tag ) {
 			case 'BUTTON':
@@ -729,7 +749,7 @@ window.onload = () => {
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				break;
 			case 'A':
-				if ( id = 'help' ) { toggleModalHelp(); }
+				if ( id === 'help' ) { toggleModalHelp(); }
 				break;
 		}
 	});
