@@ -92,9 +92,9 @@ form .fieldset select {
 }
 
 form .fieldset label {
-	line-height      : 2em;
+	line-height      : 3.75em;
 	text-align       : right;
-	padding          : 10px 20px 10px 20px;
+	padding          : 0 20px;
 	background-color : var(--grayscale-19);
 	cursor           : pointer;
 	user-select      : none;
@@ -111,6 +111,7 @@ form .fieldset label input,
 form .fieldset label select {
 	margin-left    : 13px;
 	vertical-align : middle;
+	display        : inline-block;
 }
 
 form .detail.fieldset label { min-width : 300px; }

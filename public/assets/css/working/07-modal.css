@@ -105,4 +105,8 @@
 	text-decoration : underline;
 	font-size       : inherit;
 }
+
+.modal a.close:hover {
+	color: var(--medium-red);
+}
 /* END MODAL */

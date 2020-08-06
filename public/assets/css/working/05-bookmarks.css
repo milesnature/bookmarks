@@ -22,7 +22,7 @@ main section#bookmarks ul.bookmarks {
 }
 
 main section#bookmarks ul.bookmarks.drag-hover {
-	background-color: var( --grayscale-03 );
+	background-color: var( --grayscale-05 );
 }
 
 main section#bookmarks ul.bookmarks li button {

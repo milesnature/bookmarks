@@ -12,39 +12,24 @@ const
 	allowDrop = ( event ) => { event.preventDefault(); },
 
 	dragStart = ( event ) => { 
-
 		const 
 			t        = event.target,
 			tag      = ( t.tagName )   ? t.tagName : '',
 			href     = ( t.href )      ? t.href : '',
 			text     = ( t.text )      ? t.text : '',
 			id       = ( t.id )        ? t.id : '',
-			c        = ( t.className ) ? t.className : '',
 			bookmark = ( tag === 'A' );
-		
 		if ( bookmark ) {
 			event.dataTransfer.setData( 'tag',  tag );
 			event.dataTransfer.setData( 'href', href ); 
 			event.dataTransfer.setData( 'text', text );
 			event.dataTransfer.setData( 'id',   id );
 		}
-
-		// console.log( 'dragStart', { 
-		// 	't'        : t,
-		// 	'tag'      : tag,
-		// 	'href'     : href,
-		// 	'text'     : text, 
-		// 	'id'       : id,
-		// 	'class'    : c,
-		// 	'bookmark' : bookmark
-		// } );
-
 	},
 
 	dragEnter = ( event ) => {
 		let t = event.target,
-	  		g = t.closest('ul.bookmarks'),
-	  		i = g.id;
+	  		g = t.closest('ul.bookmarks');
 	  	event.preventDefault();
 		cleanupDragHover();
 		g.classList.add( 'drag-hover' );
@@ -57,9 +42,7 @@ const
 	},
 
 	drop = ( event ) => {
-
 	  	event.preventDefault();
-	  
 	  	let 
 	  		t        = event.target,
 	  		tag      = ( event.dataTransfer.getData( 'tag' ) )  ? event.dataTransfer.getData( 'tag' )  : '',
@@ -71,7 +54,6 @@ const
 	  		external = ( tag === '' && href === '' ),
 	  		local    = ( tag === 'A' && href && id ),
 	  		validUrl = ( url ) => { return urlCheck.test( href ) };
-
 	  	if ( external ) {
 	  		href = text;
 		  	if ( validUrl( href ) ) { 
@@ -82,7 +64,6 @@ const
 				form.groupSelect.value             = groupId;
 		  	}	  		
 	  	}
-	  	
 	  	if ( local ) {
 		  	if ( validUrl( href ) ) { 
 	  			form.actionFromFooter( 'update' );
@@ -93,20 +74,7 @@ const
 				form.groupText.value               = groupId;
 		  	}	  		
 	  	}
-
 	  	cleanupDragHover();
-
-		// console.log( 'drop', { 
-		// 	't'        : t,
-		// 	'tag'      : tag,
-		// 	'href'     : href,
-		// 	'text'     : text, 
-		// 	'id'       : id,
-		// 	'group'    : group,
-		// 	'external' : external,
-		// 	'local'    : local
-		// } );
-
 	},
 
 	addDropEvents = () => {
@@ -748,8 +716,7 @@ window.onload = () => {
 		const 
 			target = e.target,
 			tag    = target.tagName,
-			name   = target.name,
-			id     = target.id;
+			name   = target.name;
 					
 		switch ( tag ) {
 			case 'INPUT':
@@ -774,8 +741,7 @@ window.onload = () => {
 		const 
 			target = e.target,
 			tag    = target.tagName,
-			name   = target.name,
-			id     = target.id;
+			name   = target.name;
 		switch ( tag ) {
 			case 'INPUT': 
 				if ( name === 'submit' ) { form.formSubmit( e ); }
