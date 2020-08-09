@@ -29,9 +29,15 @@
 	--grayscale-24 : rgba( 25, 25, 25, 1 );    /* #191919 */
 	--grayscale-25 : rgba( 15, 15, 15, 1 );    /* #0f0f0f */
 	--grayscale-26 : rgba( 0, 0, 0, 1 );       /* #000000 */
-	--red          : rgba( 221, 0, 0, 1 );     /* #c80000 */
-	--medium-red   : rgba( 200, 0, 0, 1 );     /* #c80000 */
-	--dark-red     : rgba( 165, 0, 0, 1 );     /* #c80000 */
+	--red          : rgba( 221, 0, 0, 1 );     /* #dd0000 */
+	--red-medium   : rgba( 200, 0, 0, 1 );     /* #c80000 */
+	--red-dark     : rgba( 165, 0, 0, 1 );     /* #a50000 */
+
+	/* COLOR OPACITY VARIATIONS */
+	--grayscale-00-a9  : rgba( 255, 255, 255, .9 );
+	--grayscale-21-a85 : rgba(  54,  54,  54, .85 );
+	--red-medium-a85   : rgba( 200,   0,   0, .85 );
+	--red-dark-a85     : rgba( 160,   0,   0, .85 );
 
 	/* FONTS */
 	--primary-font-family       : sans-serif;
@@ -40,6 +46,15 @@
 	--font-color-anchor         : var(--grayscale-25);
 	--font-color-bookmark-hover : var(--grayscale-00);
 	--font-color-form           : var(--grayscale-00);
+
+	/* FORMS */
+	--form-label-gradient          : linear-gradient( var( --grayscale-21 ),     var( --grayscale-21-a85 ) );
+	--form-delete-warning-gradient : linear-gradient( var( --red-dark ),         var( --red-dark-a85 ) );
+	--form-close-gradient          : linear-gradient( var( --grayscale-21-a85 ), var( --grayscale-21 ) );
+
+	/* BOOKMARKS */
+	--bookmarks-hover-gradient : linear-gradient( var( --red-medium ),   var( --red-medium-a85 ) ); 
+	--bookmarks-a-gradient     : linear-gradient( var( --grayscale-00 ), var( --grayscale-00-a9 ) );
 
 }
 /* END VARIABLES */

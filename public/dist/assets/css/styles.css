@@ -29,9 +29,15 @@
 	--grayscale-24 : rgba( 25, 25, 25, 1 );    /* #191919 */
 	--grayscale-25 : rgba( 15, 15, 15, 1 );    /* #0f0f0f */
 	--grayscale-26 : rgba( 0, 0, 0, 1 );       /* #000000 */
-	--red          : rgba( 221, 0, 0, 1 );     /* #c80000 */
-	--medium-red   : rgba( 200, 0, 0, 1 );     /* #c80000 */
-	--dark-red     : rgba( 165, 0, 0, 1 );     /* #c80000 */
+	--red          : rgba( 221, 0, 0, 1 );     /* #dd0000 */
+	--red-medium   : rgba( 200, 0, 0, 1 );     /* #c80000 */
+	--red-dark     : rgba( 165, 0, 0, 1 );     /* #a50000 */
+
+	/* COLOR OPACITY VARIATIONS */
+	--grayscale-00-a9  : rgba( 255, 255, 255, .9 );
+	--grayscale-21-a85 : rgba(  54,  54,  54, .85 );
+	--red-medium-a85   : rgba( 200,   0,   0, .85 );
+	--red-dark-a85     : rgba( 160,   0,   0, .85 );
 
 	/* FONTS */
 	--primary-font-family       : sans-serif;
@@ -40,6 +46,15 @@
 	--font-color-anchor         : var(--grayscale-25);
 	--font-color-bookmark-hover : var(--grayscale-00);
 	--font-color-form           : var(--grayscale-00);
+
+	/* FORMS */
+	--form-label-gradient          : linear-gradient( var( --grayscale-21 ),     var( --grayscale-21-a85 ) );
+	--form-delete-warning-gradient : linear-gradient( var( --red-dark ),         var( --red-dark-a85 ) );
+	--form-close-gradient          : linear-gradient( var( --grayscale-21-a85 ), var( --grayscale-21 ) );
+
+	/* BOOKMARKS */
+	--bookmarks-hover-gradient : linear-gradient( var( --red-medium ),   var( --red-medium-a85 ) ); 
+	--bookmarks-a-gradient     : linear-gradient( var( --grayscale-00 ), var( --grayscale-00-a9 ) );
 
 }
 /* END VARIABLES */
@@ -163,27 +178,23 @@ form {
 	}
 }	
 
-form.create.bookmark .detail #bookmarksLabel { display: none; } 
-form.create.bookmark .detail #groupText {      display: none; }
-form.create.bookmark .detail #nameSelect {     display: none; }
-
-form.create.group .detail #bookmarksLabel { display: none; } 
-form.create.group .detail #groupSelect {    display: none; }
-form.create.group .detail #nameSelect {     display: none; }
-
-form.delete.bookmark .detail #bookmarksLabel { display: none; } 
-form.delete.bookmark .detail #groupsLabel {    display: none; }
-form.delete.bookmark .detail #nameText {       display: none; }
-form.delete.bookmark .detail #urlLabel {       display: none; }
-
-form.delete.group .detail #bookmarksLabel { display: none; }
-form.delete.group .detail #groupText {      display: none; }
-form.delete.group .detail #nameLabel {      display: none; }
-form.delete.group .detail #urlLabel {       display: none; }
-
-form.update.bookmark .element #groupLabel {     display: none; }
-form.update.bookmark .detail  #groupSelect {    display: none; }
-form.update.bookmark .detail  #nameSelect {     display: none; }
+form.create.bookmark .detail #bookmarksLabel,
+form.create.bookmark .detail #groupText,
+form.create.bookmark .detail #nameSelect,
+form.create.group .detail #bookmarksLabel,
+form.create.group .detail #groupSelect,
+form.create.group .detail #nameSelect,
+form.delete.bookmark .detail #bookmarksLabel,
+form.delete.bookmark .detail #groupsLabel,
+form.delete.bookmark .detail #nameText,
+form.delete.bookmark .detail #urlLabel,
+form.delete.group .detail #bookmarksLabel,
+form.delete.group .detail #groupText,
+form.delete.group .detail #nameLabel,
+form.delete.group .detail #urlLabel,
+form.update.bookmark .element #groupLabel,
+form.update.bookmark .detail  #groupSelect,
+form.update.bookmark .detail  #nameSelect { display : none; }
 
 /* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
 form .fieldset {
@@ -205,7 +216,7 @@ form .fieldset select { margin : 0; }
 form .fieldset label {
 	min-height       : 3.75rem;
 	padding          : 0 20px;
-	background-color : var(--grayscale-19);
+	background-color : var( --grayscale-19 );
 	cursor           : pointer;
 	user-select      : none;
 	display          : flex;
@@ -216,9 +227,9 @@ form .fieldset label {
 
 form .fieldset label:hover,
 form .fieldset label:focus,
-form .fieldset label:active { background-image : linear-gradient( rgba( 54, 54, 54, 1 ), rgba( 54, 54, 54, .85 ) ); }
+form .fieldset label:active { background-image : var( --form-label-gradient ) }
 
-form.delete .complete.fieldset label:hover { background-image : linear-gradient( rgba( 160, 0, 0, 1 ), rgba( 160, 0, 0, .85 ) ); }
+form.delete .complete.fieldset label:hover { background-image : var( --form-delete-warning-gradient ) }
 
 form .fieldset label input,
 form .fieldset label select { margin-left : 13px; }
@@ -255,7 +266,7 @@ form button.close {
 	cursor           : pointer;
 }
 
-form button.close:hover { background-image : linear-gradient( rgba( 54, 54, 54, .85 ), rgba( 54, 54, 54, 1 ) ); }
+form button.close:hover { background-image : var( --form-close-gradient ) ; }
 
 form button.close svg {
 	stroke         : var(--grayscale-14);
@@ -264,13 +275,13 @@ form button.close svg {
 	stroke-linecap : square;
 }
 
-form button.close:hover svg { stroke : var(--grayscale-08); }
+form button.close:hover svg { stroke : var( --grayscale-08 ); }
 
 form div#errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
 	align-self  : start;
-	color       : var(--red);
+	color       : var( --red );
 	max-width   : 150px;
 	font-size   : 1rem;
 	line-height : 1.2rem;
@@ -323,8 +334,8 @@ main section#bookmarks ul.bookmarks li button {
 }
 
 main section#bookmarks ul.bookmarks li button:hover {
-	color            : var(--font-color-bookmark-hover);
-	background-image : linear-gradient( rgba( 200, 0, 0, 1 ), rgba( 200, 0, 0, .9 ) );
+	color            : var( --font-color-bookmark-hover );
+	background-image : var( --bookmarks-hover-gradient );
 }
 
 main section#bookmarks ul.bookmarks li ul {
@@ -345,13 +356,13 @@ main section#bookmarks ul.bookmarks li ul li a {
 	display          : grid;
 	align-content    : center;
 	padding          : .65em .75rem;
-	background-image : linear-gradient( rgba( 255, 255, 255, 1 ), rgba( 255, 255, 255, .9 ) );
+	background-image : var( --bookmarks-a-gradient );
 	word-break       : break-word;
 }
 
 main section#bookmarks ul.bookmarks li ul li a:hover {
-	color            : var(--font-color-bookmark-hover);
-	background-image : linear-gradient( rgba( 200, 0, 0, 1 ), rgba( 200, 0, 0, .9 ) );
+	color            : var( --font-color-bookmark-hover );
+	background-image : var( --bookmarks-hover-gradient );
 }
 
 main section#bookmarks #loader {
@@ -401,7 +412,7 @@ footer small.links a {
 	padding         : .3em 1rem;
 }
 
-footer small.links a:hover { color : var(--medium-red); }
+footer small.links a:hover { color : var(--red-medium); }
 
 footer small.links a:first-child { border-right : 1px solid var(--grayscale-18); }
 
@@ -506,5 +517,5 @@ footer small.copyright { font-size : .8rem; }
 	font-size       : inherit;
 }
 
-.modal a.close:hover { color : var(--medium-red); }
+.modal a.close:hover { color : var(--red-medium); }
 /* END MODAL */

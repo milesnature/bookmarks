@@ -37,27 +37,23 @@ form {
 	}
 }	
 
-form.create.bookmark .detail #bookmarksLabel { display: none; } 
-form.create.bookmark .detail #groupText {      display: none; }
-form.create.bookmark .detail #nameSelect {     display: none; }
-
-form.create.group .detail #bookmarksLabel { display: none; } 
-form.create.group .detail #groupSelect {    display: none; }
-form.create.group .detail #nameSelect {     display: none; }
-
-form.delete.bookmark .detail #bookmarksLabel { display: none; } 
-form.delete.bookmark .detail #groupsLabel {    display: none; }
-form.delete.bookmark .detail #nameText {       display: none; }
-form.delete.bookmark .detail #urlLabel {       display: none; }
-
-form.delete.group .detail #bookmarksLabel { display: none; }
-form.delete.group .detail #groupText {      display: none; }
-form.delete.group .detail #nameLabel {      display: none; }
-form.delete.group .detail #urlLabel {       display: none; }
-
-form.update.bookmark .element #groupLabel {     display: none; }
-form.update.bookmark .detail  #groupSelect {    display: none; }
-form.update.bookmark .detail  #nameSelect {     display: none; }
+form.create.bookmark .detail #bookmarksLabel,
+form.create.bookmark .detail #groupText,
+form.create.bookmark .detail #nameSelect,
+form.create.group .detail #bookmarksLabel,
+form.create.group .detail #groupSelect,
+form.create.group .detail #nameSelect,
+form.delete.bookmark .detail #bookmarksLabel,
+form.delete.bookmark .detail #groupsLabel,
+form.delete.bookmark .detail #nameText,
+form.delete.bookmark .detail #urlLabel,
+form.delete.group .detail #bookmarksLabel,
+form.delete.group .detail #groupText,
+form.delete.group .detail #nameLabel,
+form.delete.group .detail #urlLabel,
+form.update.bookmark .element #groupLabel,
+form.update.bookmark .detail  #groupSelect,
+form.update.bookmark .detail  #nameSelect { display : none; }
 
 /* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
 form .fieldset {
@@ -79,7 +75,7 @@ form .fieldset select { margin : 0; }
 form .fieldset label {
 	min-height       : 3.75rem;
 	padding          : 0 20px;
-	background-color : var(--grayscale-19);
+	background-color : var( --grayscale-19 );
 	cursor           : pointer;
 	user-select      : none;
 	display          : flex;
@@ -90,9 +86,9 @@ form .fieldset label {
 
 form .fieldset label:hover,
 form .fieldset label:focus,
-form .fieldset label:active { background-image : linear-gradient( rgba( 54, 54, 54, 1 ), rgba( 54, 54, 54, .85 ) ); }
+form .fieldset label:active { background-image : var( --form-label-gradient ) }
 
-form.delete .complete.fieldset label:hover { background-image : linear-gradient( rgba( 160, 0, 0, 1 ), rgba( 160, 0, 0, .85 ) ); }
+form.delete .complete.fieldset label:hover { background-image : var( --form-delete-warning-gradient ) }
 
 form .fieldset label input,
 form .fieldset label select { margin-left : 13px; }
@@ -129,7 +125,7 @@ form button.close {
 	cursor           : pointer;
 }
 
-form button.close:hover { background-image : linear-gradient( rgba( 54, 54, 54, .85 ), rgba( 54, 54, 54, 1 ) ); }
+form button.close:hover { background-image : var( --form-close-gradient ) ; }
 
 form button.close svg {
 	stroke         : var(--grayscale-14);
@@ -138,13 +134,13 @@ form button.close svg {
 	stroke-linecap : square;
 }
 
-form button.close:hover svg { stroke : var(--grayscale-08); }
+form button.close:hover svg { stroke : var( --grayscale-08 ); }
 
 form div#errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
 	align-self  : start;
-	color       : var(--red);
+	color       : var( --red );
 	max-width   : 150px;
 	font-size   : 1rem;
 	line-height : 1.2rem;

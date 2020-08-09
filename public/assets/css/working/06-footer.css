@@ -29,7 +29,7 @@ footer small.links a {
 	padding         : .3em 1rem;
 }
 
-footer small.links a:hover { color : var(--medium-red); }
+footer small.links a:hover { color : var(--red-medium); }
 
 footer small.links a:first-child { border-right : 1px solid var(--grayscale-18); }
 

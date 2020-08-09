@@ -97,5 +97,5 @@
 	font-size       : inherit;
 }
 
-.modal a.close:hover { color : var(--medium-red); }
+.modal a.close:hover { color : var(--red-medium); }
 /* END MODAL */
