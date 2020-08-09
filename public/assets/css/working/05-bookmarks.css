@@ -34,10 +34,10 @@ main section#bookmarks ul.bookmarks li button {
 	border-color     : transparent;
 	background-color : transparent;
 	font-weight      : bold;
-	font-size        : 1em;
-	line-height      : 1.8em;
+	font-size        : 1rem;
+	line-height      : 1.8rem;
 	text-align       : left;
-	padding          : .25em .75em;
+	padding          : .25em .75rem;
 	margin           : 0;
 	width            : 100%;
 	border-radius    : 0;
@@ -65,7 +65,7 @@ main section#bookmarks ul.bookmarks li ul li a {
 	text-decoration  : none;
 	display          : grid;
 	align-content    : center;
-	padding          : .65em .75em;
+	padding          : .65em .75rem;
 	background-image : linear-gradient( rgba( 255, 255, 255, 1 ), rgba( 255, 255, 255, .9 ) );
 	word-break       : break-word;
 }

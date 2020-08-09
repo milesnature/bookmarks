@@ -1,99 +1,90 @@
 /* START MODAL */
 .modal { 
-	position: fixed; 
- 	top: 0; 
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
-	margin: auto;
-	max-width: 800px;
- 	height: 80vh; 
-	background-color: var(--grayscale-00);
-	padding: 3em;
-	box-shadow: 0 0 70px var(--grayscale-26);
-	display: none;
-	text-align: left;
-	line-height: 1.3em;
-	font-size: 1.1em;
-	overflow: auto;
+	position         : fixed; 
+ 	top              : 0; 
+	right            : 0;
+	bottom           : 0;
+	left             : 0;
+	z-index          : 1;
+	margin           : auto;
+	max-width        : 800px;
+ 	height           : 80vh; 
+	background-color : var(--grayscale-00);
+	padding          : 3rem;
+	box-shadow       : 0 0 70px var(--grayscale-26);
+	display          : none;
+	text-align       : left;
+	line-height      : 1.3rem;
+	font-size        : 1.1rem;
+	overflow         : auto;
 }
 
 @media (max-width: 800px) {
 	.modal {
-		max-width: 100vw;
- 		height: 100vh;
+		max-width : 100vw;
+ 		height    : 100vh;
 	}
 }
 
-.modal.help.show { display: block; }
+.modal.help.show { display : block; }
 
-.modal section {
-	margin-bottom: 2.5em;
-}
+.modal section { margin-bottom : 2.5rem; }
 
 .modal h2 {
-	margin: 0 0 2em 0;
-	font-size: 1.3em;
-	font-weight: bold;
+	margin      : 0 0 2em 0;
+	font-size   : 1.3rem;
+	font-weight : bold;
 }
 
 .modal h3 {
 	margin: .25em 0 1em 0;
-	font-size: 1.2em;
-	font-weight: bold;
+	font-size   : 1.2rem;
+	font-weight : bold;
 }
 
 .modal h3.child {
-	margin: .45em 0 1em 0;
-	display: inline-block;
+	margin  : .45em 0 1em 0;
+	display : inline-block;
 }
 
 .modal p {
-	margin: 0 0 1em 0;
-	clear: both;
+	margin : 0 0 1em 0;
+	clear  : both;
 }
 
-.modal strong {
-	font-weight: bold;
-}
+.modal strong { font-weight : bold; }
 
 .modal ul {
-	list-style-type: square;
-	padding-left: 2em;
-	margin: 0 0 1em 0;
+	list-style-type : square;
+	padding-left    : 2rem;
+	margin          : 0 0 1em 0;
 }
 
 .modal ol {
-	list-style-type: none;
-	padding-left: 0;
-	margin: 0 0 1em 0;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-auto-rows: auto;
-	grid-gap: 1em;
+	list-style-type       : none;
+	padding-left          : 0;
+	margin                : 0 0 1em 0;
+	display               : grid;
+	grid-template-columns : 1fr 1fr 1fr 1fr;
+	grid-auto-rows        : auto;
+	grid-gap              : 1rem;
 }
 
 @media (max-width: 600px) {
 	.modal ol {
-		grid-template-columns: 1fr 1fr;
-		grid-auto-rows: auto auto;
+		grid-template-columns : 1fr 1fr;
+		grid-auto-rows        : auto auto;
 	}
-	.modal {
-		padding: 1.5em;
-	}	
+	.modal { padding : 1.5rem; }	
 }
-
 
 .modal ol li {
-	line-height: 1.5em;
-	background-color: #eee;
-	padding: 1em;
+	line-height      : 1.5rem;
+	background-color : #eee;
+	padding          : 1rem;
 }
 
-.modal ol li strong {
-	display: block;
-}
+.modal ol li strong { display : block; }
 
 .modal a.close {
 	position        : absolute;
@@ -106,7 +97,5 @@
 	font-size       : inherit;
 }
 
-.modal a.close:hover {
-	color: var(--medium-red);
-}
+.modal a.close:hover { color : var(--medium-red); }
 /* END MODAL */

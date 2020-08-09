@@ -27,5 +27,7 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
 }
 
+input, select, button {}
+
 .hide { display: none; }
 /* END GLOBAL */

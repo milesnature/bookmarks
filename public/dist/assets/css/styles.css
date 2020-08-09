@@ -120,6 +120,8 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
 }
 
+input, select, button {}
+
 .hide { display: none; }
 /* END GLOBAL */
 /* START FORM */
@@ -163,37 +165,24 @@ form {
 
 form.create.bookmark .detail #bookmarksLabel { display: none; } 
 form.create.bookmark .detail #groupText {      display: none; }
-form.create.bookmark .detail #groupSelect {    display: inline-block; }
-form.create.bookmark .detail #nameText {       display: inline-block; }
 form.create.bookmark .detail #nameSelect {     display: none; }
 
 form.create.group .detail #bookmarksLabel { display: none; } 
-form.create.group .detail #groupText {      display: inline-block; }
 form.create.group .detail #groupSelect {    display: none; }
-form.create.group .detail #nameLabel {      display: inline-block; }
-form.create.group .detail #nameText {       display: inline-block; }
 form.create.group .detail #nameSelect {     display: none; }
-form.create.group .detail #urlLabel {       display: inline-block; }
-form.create.group .detail #urlText {        display: inline-block; }
 
 form.delete.bookmark .detail #bookmarksLabel { display: none; } 
 form.delete.bookmark .detail #groupsLabel {    display: none; }
 form.delete.bookmark .detail #nameText {       display: none; }
-form.delete.bookmark .detail #nameSelect {     display: inline-block; }
 form.delete.bookmark .detail #urlLabel {       display: none; }
 
 form.delete.group .detail #bookmarksLabel { display: none; }
 form.delete.group .detail #groupText {      display: none; }
-form.delete.group .detail #groupSelect {    display: inline-block; }
 form.delete.group .detail #nameLabel {      display: none; }
 form.delete.group .detail #urlLabel {       display: none; }
 
 form.update.bookmark .element #groupLabel {     display: none; }
-form.update.bookmark .detail  #bookmarksLabel { display: inline-block; }
-form.update.bookmark .detail  #groupsLabel {    display: inline-block; }
-form.update.bookmark .detail  #groupText {      display: inline-block; }
 form.update.bookmark .detail  #groupSelect {    display: none; }
-form.update.bookmark .detail  #nameText {       display: inline-block; }
 form.update.bookmark .detail  #nameSelect {     display: none; }
 
 /* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
@@ -211,18 +200,18 @@ form .fieldset {
 
 form .fieldset label,
 form .fieldset input, 
-form .fieldset select {
-	margin    : 0;
-}
+form .fieldset select { margin : 0; }
 
 form .fieldset label {
-	line-height      : 3.75em;
-	text-align       : right;
+	min-height       : 3.75rem;
 	padding          : 0 20px;
 	background-color : var(--grayscale-19);
 	cursor           : pointer;
 	user-select      : none;
-	white-space      : nowrap;
+	display          : flex;
+	flex-wrap        : nowrap;
+	justify-content  : flex-end;
+	align-items      : center;  
 }
 
 form .fieldset label:hover,
@@ -232,23 +221,17 @@ form .fieldset label:active { background-image : linear-gradient( rgba( 54, 54, 
 form.delete .complete.fieldset label:hover { background-image : linear-gradient( rgba( 160, 0, 0, 1 ), rgba( 160, 0, 0, .85 ) ); }
 
 form .fieldset label input,
-form .fieldset label select {
-	margin-left    : 13px;
-	vertical-align : middle;
-	display        : inline-block;
-}
+form .fieldset label select { margin-left : 13px; }
 
 form .detail.fieldset label { min-width : 300px; }
 
 form .detail.fieldset label input,
-form .detail.fieldset label select {
-	margin-left : 13px;
-	width       : 172px;
-}
+form .detail.fieldset label select { width : 172px; }
 
 form .complete.fieldset label {
-	min-width  : 150px;
-	text-align : center;
+	min-width       : 150px;
+	text-align      : center;
+	justify-content : center;
 }
 
 form .complete.fieldset label input  {
@@ -289,8 +272,8 @@ form div#errorMessage {
 	align-self  : start;
 	color       : var(--red);
 	max-width   : 150px;
-	font-size   : 1em;
-	line-height : 1.2em;
+	font-size   : 1rem;
+	line-height : 1.2rem;
 	padding     : 10px;
 }
 /* END FORM */
@@ -330,10 +313,10 @@ main section#bookmarks ul.bookmarks li button {
 	border-color     : transparent;
 	background-color : transparent;
 	font-weight      : bold;
-	font-size        : 1em;
-	line-height      : 1.8em;
+	font-size        : 1rem;
+	line-height      : 1.8rem;
 	text-align       : left;
-	padding          : .25em .75em;
+	padding          : .25em .75rem;
 	margin           : 0;
 	width            : 100%;
 	border-radius    : 0;
@@ -361,7 +344,7 @@ main section#bookmarks ul.bookmarks li ul li a {
 	text-decoration  : none;
 	display          : grid;
 	align-content    : center;
-	padding          : .65em .75em;
+	padding          : .65em .75rem;
 	background-image : linear-gradient( rgba( 255, 255, 255, 1 ), rgba( 255, 255, 255, .9 ) );
 	word-break       : break-word;
 }
@@ -389,147 +372,128 @@ main section#bookmarks #loader {
 /* END BOOKMARKS */
 /* START FOOTER */
 footer {
-	grid-area: footer;
-	align-self: center;
-	text-align: center;
-	font-size: 1em;
-	padding: 4em 0 2em 0;
-	background-color: var(--grayscale-08);
-	position: relative;
+	grid-area        : footer;
+	align-self       : center;
+	text-align       : center;
+	padding          : 4em 0 2em 0;
+	background-color : var(--grayscale-08);
+	position         : relative;
 }
 
-footer nav {
-	margin-bottom: 15px;
-}
+footer nav { margin-bottom : 15px; }
 
 footer nav button {
-	cursor: pointer;
-	min-width: 69px;
-	font-size: 1em;
-	margin: 0 .35em 0 .35em;
+	cursor    : pointer;
+	min-width : 69px;
+	margin    : 0 .35em 0 .35rem;
 }
 
 footer small.links {
-	text-align: center;
-	display: block;
-	margin: 0 0 1em 0;
+	text-align : center;
+	display    : block;
+	margin     : 0 0 1em 0;
 }
 
 footer small.links a {
-	text-decoration: underline;
-	cursor: pointer;
-	display: inline-block;
-	padding: .3em 1em;
+	text-decoration : underline;
+	cursor          : pointer;
+	display         : inline-block;
+	padding         : .3em 1rem;
 }
 
-footer small.links a:hover {
-	color: var(--medium-red);	
-}
+footer small.links a:hover { color : var(--medium-red); }
 
-footer small.links a:first-child {
-	border-right: 1px solid var(--grayscale-18);
-}
+footer small.links a:first-child { border-right : 1px solid var(--grayscale-18); }
 
-footer small.copyright {
-	font-size: .8em;
-}
+footer small.copyright { font-size : .8rem; }
 /* END FOOTER */
 /* START MODAL */
 .modal { 
-	position: fixed; 
- 	top: 0; 
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
-	margin: auto;
-	max-width: 800px;
- 	height: 80vh; 
-	background-color: var(--grayscale-00);
-	padding: 3em;
-	box-shadow: 0 0 70px var(--grayscale-26);
-	display: none;
-	text-align: left;
-	line-height: 1.3em;
-	font-size: 1.1em;
-	overflow: auto;
+	position         : fixed; 
+ 	top              : 0; 
+	right            : 0;
+	bottom           : 0;
+	left             : 0;
+	z-index          : 1;
+	margin           : auto;
+	max-width        : 800px;
+ 	height           : 80vh; 
+	background-color : var(--grayscale-00);
+	padding          : 3rem;
+	box-shadow       : 0 0 70px var(--grayscale-26);
+	display          : none;
+	text-align       : left;
+	line-height      : 1.3rem;
+	font-size        : 1.1rem;
+	overflow         : auto;
 }
 
 @media (max-width: 800px) {
 	.modal {
-		max-width: 100vw;
- 		height: 100vh;
+		max-width : 100vw;
+ 		height    : 100vh;
 	}
 }
 
-.modal.help.show { display: block; }
+.modal.help.show { display : block; }
 
-.modal section {
-	margin-bottom: 2.5em;
-}
+.modal section { margin-bottom : 2.5rem; }
 
 .modal h2 {
-	margin: 0 0 2em 0;
-	font-size: 1.3em;
-	font-weight: bold;
+	margin      : 0 0 2em 0;
+	font-size   : 1.3rem;
+	font-weight : bold;
 }
 
 .modal h3 {
 	margin: .25em 0 1em 0;
-	font-size: 1.2em;
-	font-weight: bold;
+	font-size   : 1.2rem;
+	font-weight : bold;
 }
 
 .modal h3.child {
-	margin: .45em 0 1em 0;
-	display: inline-block;
+	margin  : .45em 0 1em 0;
+	display : inline-block;
 }
 
 .modal p {
-	margin: 0 0 1em 0;
-	clear: both;
+	margin : 0 0 1em 0;
+	clear  : both;
 }
 
-.modal strong {
-	font-weight: bold;
-}
+.modal strong { font-weight : bold; }
 
 .modal ul {
-	list-style-type: square;
-	padding-left: 2em;
-	margin: 0 0 1em 0;
+	list-style-type : square;
+	padding-left    : 2rem;
+	margin          : 0 0 1em 0;
 }
 
 .modal ol {
-	list-style-type: none;
-	padding-left: 0;
-	margin: 0 0 1em 0;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-auto-rows: auto;
-	grid-gap: 1em;
+	list-style-type       : none;
+	padding-left          : 0;
+	margin                : 0 0 1em 0;
+	display               : grid;
+	grid-template-columns : 1fr 1fr 1fr 1fr;
+	grid-auto-rows        : auto;
+	grid-gap              : 1rem;
 }
 
 @media (max-width: 600px) {
 	.modal ol {
-		grid-template-columns: 1fr 1fr;
-		grid-auto-rows: auto auto;
+		grid-template-columns : 1fr 1fr;
+		grid-auto-rows        : auto auto;
 	}
-	.modal {
-		padding: 1.5em;
-	}	
+	.modal { padding : 1.5rem; }	
 }
-
 
 .modal ol li {
-	line-height: 1.5em;
-	background-color: #eee;
-	padding: 1em;
+	line-height      : 1.5rem;
+	background-color : #eee;
+	padding          : 1rem;
 }
 
-.modal ol li strong {
-	display: block;
-}
+.modal ol li strong { display : block; }
 
 .modal a.close {
 	position        : absolute;
@@ -542,7 +506,5 @@ footer small.copyright {
 	font-size       : inherit;
 }
 
-.modal a.close:hover {
-	color: var(--medium-red);
-}
+.modal a.close:hover { color : var(--medium-red); }
 /* END MODAL */
