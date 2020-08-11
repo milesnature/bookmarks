@@ -4,9 +4,9 @@ html {
 }
 
 html, body {
-	font-family      : var(--primary-font-family);
-	font-size        : var(--base-font-size);
-	background-color : var(--grayscale-20);
+	font-family      : var( --primary-font-family );
+	font-size        : var( --base-font-size );
+	background-color : var( --grayscale-20 );
 	margin           : 0;
 	padding          : 0;
 	width            : 100%;
@@ -20,14 +20,31 @@ body {
 	grid-template-columns : 1fr;
 	grid-template-rows    : max-content auto max-content;
 	grid-gap              : 0px;
-	color                 : var(--base-font-color);
+	color                 : var( --base-font-color );
 }
 
 a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
 }
 
-input, select, button {}
+input[type='text'], input[type='submit'], select, button {
+	font-size          : var( --base-font-size );
+	color              : var( --base-font-color );
+	padding            : 0 .35rem;
+	height             : 2rem;
+	-moz-appearance    : none;
+	-webkit-appearance : none;
+	appearance         : none;
+	background-color   : var( --grayscale-00 );
+	border             : 1px solid var( --grayscale-09 );
+	border-radius      : 3px;
+}
+
+select {
+	position            : relative;
+  	background          : var( --grayscale-00 ) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' viewBox='0 0 40 19'><path fill='191919' stroke='none' fill-rule='evenodd' d='M0,19 C0.666666667,18.3333333 7.33333333,12 20,-5.32907052e-15 L40,19 L0,19 Z' transform='rotate(-180 20 9.5)'/></svg>") no-repeat;
+  	background-position : right 9px top 50%;	
+}
 
 .hide { display: none; }
 /* END GLOBAL */
