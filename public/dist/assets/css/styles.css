@@ -151,7 +151,8 @@ input[type='text'], input[type='submit'], select, button {
 select {
 	position            : relative;
   	background          : var( --grayscale-00 ) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' viewBox='0 0 40 19'><path fill='191919' stroke='none' fill-rule='evenodd' d='M0,19 C0.666666667,18.3333333 7.33333333,12 20,-5.32907052e-15 L40,19 L0,19 Z' transform='rotate(-180 20 9.5)'/></svg>") no-repeat;
-  	background-position : right 9px top 50%;	
+  	background-position : right 9px top 50%;
+  	padding-right       : 30px; 	
 }
 
 .hide { display: none; }
@@ -280,7 +281,7 @@ form button.close {
 	border           : none;
 	margin-top       : 16px;
 	padding          : 9px 0;
-	height           : 2.35rem;
+	height           : 2.5rem;
 	cursor           : pointer;
 }
 
