@@ -29,8 +29,8 @@ a, a:link, a:visited, a:hover, a:active {
 
 input:focus, select:focus, button:focus, a:focus {
 	outline-style : solid;
-	outline-color : var( --red );
-  	outline-width : medium;
+	outline-color : var( --blue );
+  	outline-width : 3px;
 }
 
 input[type='text'], input[type='submit'], input[type='radio'], select, button {

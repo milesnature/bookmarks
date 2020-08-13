@@ -32,6 +32,7 @@
 	--red          : rgba( 221, 0, 0, 1 );     /* #dd0000 */
 	--red-medium   : rgba( 200, 0, 0, 1 );     /* #c80000 */
 	--red-dark     : rgba( 165, 0, 0, 1 );     /* #a50000 */
+	--blue         : rgba( 47, 129, 210, 1 );  /* #2f81d2 */
 
 	/* COLOR OPACITY VARIATIONS */
 	--grayscale-00-a9  : rgba( 255, 255, 255, .9 );
@@ -137,8 +138,8 @@ a, a:link, a:visited, a:hover, a:active {
 
 input:focus, select:focus, button:focus, a:focus {
 	outline-style : solid;
-	outline-color : var( --red );
-  	outline-width : medium;
+	outline-color : var( --blue );
+  	outline-width : 3px;
 }
 
 input[type='text'], input[type='submit'], input[type='radio'], select, button {
