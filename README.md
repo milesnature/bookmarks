@@ -23,7 +23,7 @@ SERVER_PORT=3000
 ```
 2. Install node and npm
 3. $ npm install
-4. $ npm run concat-css
+4. $ npm run production
 5. $ node app.js
 6. http://localhost:3000
 
