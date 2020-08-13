@@ -24,16 +24,19 @@ form {
 
 @media (max-width: 800px) {
 	form {
-		grid-template-areas: 'action element' 'detail detail' 'complete complete' 'close close';
-		padding: 13px 0 0 0;
+		grid-template-areas : 'action element' 'detail detail' 'complete complete' 'close close';
+		max-width           : 300px;  
+		padding             : 13px 0 0 0;
 	}
+	form .complete.fieldset { max-width : 100%; }
 	form button.close { margin-top : 0; }
 }	
 
 @media (max-width: 420px) {
 	form {
-		width   : 100%;
-		padding : 13px 13px 0 13px;
+		max-width : 100%;
+		width     : 100%;
+		padding   : 13px 13px 0 13px;
 	}
 }	
 
@@ -96,6 +99,8 @@ form .detail.fieldset label { min-width : 300px; }
 form .detail.fieldset label input,
 form .detail.fieldset label select { width : 172px; }
 
+form .complete { max-width : 150px; }
+
 form .complete.fieldset label {
 	min-width       : 150px;
 	text-align      : center;
@@ -142,7 +147,6 @@ form div#errorMessage {
 	grid-row    : 2 / 5;
 	align-self  : start;
 	color       : var( --red );
-	max-width   : 150px;
 	font-size   : 1rem;
 	line-height : 1.2rem;
 	padding     : 10px;

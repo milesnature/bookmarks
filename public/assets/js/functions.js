@@ -6,7 +6,8 @@ const
 	footer         = document.getElementsByTagName('footer')[0],
 	modalHelp      = document.getElementById('modelHelp'),
 	loaderTemplate = document.getElementsByTagName("template")[0],
-	urlCheck       = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,	
+	urlCheck       = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,
+	domainUrl      = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
 
 	// DRAG AND DROP BROWSER LOCATION
 	allowDrop = ( event ) => { event.preventDefault(); },
@@ -310,7 +311,7 @@ const
 			        errorMessage.appendChild( fragment );
 				}
 			}
-		},
+		},		
 
 		// FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID.
 		formSubmit : ( e ) => {
@@ -362,7 +363,7 @@ const
 						params = 'name=' + values.config.name + '&url=' + values.config.url + '&group=' + values.config.group;
 						api.verbBookmark( 
 							'POST', 
-							window.location.href + 'bookmarks', 
+							domainUrl + 'bookmarks', 
 							params,
 							api.getBookmarks
 						);
@@ -374,7 +375,7 @@ const
 					if ( validation.id === valid ) {
 						api.verbBookmark( 
 							'DELETE', 
-							window.location.href + 'bookmarks/' + values.config.id, 
+							domainUrl + 'bookmarks/' + values.config.id, 
 							params, 
 							api.getBookmarks
 						);
@@ -386,7 +387,7 @@ const
 					if ( validation.group === valid ) {
 						api.verbBookmark( 
 							'DELETE', 
-							window.location.href + 'bookmarks/group/' + values.config.group, 
+							domainUrl + 'bookmarks/group/' + values.config.group, 
 							params, 
 							api.getBookmarks
 						);
@@ -399,7 +400,7 @@ const
 						params = 'name=' + values.config.name + '&url=' + values.config.url + '&group=' + values.config.group;
 						api.verbBookmark( 
 							'PUT', 
-							window.location.href + 'bookmarks/' + values.config.id, 
+							domainUrl + 'bookmarks/' + values.config.id, 
 							params, 
 							api.getBookmarks
 						); 
@@ -635,7 +636,7 @@ const
 					}
 				}	        
 		    };
-		    xhr.open( 'GET', window.location.href + 'bookmarks', true );
+		    xhr.open( 'GET', domainUrl + 'bookmarks', true );
 		    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		    xhr.send();	
 		},

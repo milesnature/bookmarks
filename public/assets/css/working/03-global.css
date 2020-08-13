@@ -27,6 +27,12 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
 }
 
+input:focus, select:focus, button:focus, a:focus {
+	outline-style : solid;
+	outline-color : var( --red );
+  	outline-width : medium;
+}
+
 input[type='text'], input[type='submit'], input[type='radio'], select, button {
 	-moz-appearance    : none;
 	-webkit-appearance : none;

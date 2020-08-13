@@ -135,6 +135,12 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var(--font-color-anchor);
 }
 
+input:focus, select:focus, button:focus, a:focus {
+	outline-style : solid;
+	outline-color : var( --red );
+  	outline-width : medium;
+}
+
 input[type='text'], input[type='submit'], input[type='radio'], select, button {
 	-moz-appearance    : none;
 	-webkit-appearance : none;
@@ -200,16 +206,19 @@ form {
 
 @media (max-width: 800px) {
 	form {
-		grid-template-areas: 'action element' 'detail detail' 'complete complete' 'close close';
-		padding: 13px 0 0 0;
+		grid-template-areas : 'action element' 'detail detail' 'complete complete' 'close close';
+		max-width           : 300px;  
+		padding             : 13px 0 0 0;
 	}
+	form .complete.fieldset { max-width : 100%; }
 	form button.close { margin-top : 0; }
 }	
 
 @media (max-width: 420px) {
 	form {
-		width   : 100%;
-		padding : 13px 13px 0 13px;
+		max-width : 100%;
+		width     : 100%;
+		padding   : 13px 13px 0 13px;
 	}
 }	
 
@@ -272,6 +281,8 @@ form .detail.fieldset label { min-width : 300px; }
 form .detail.fieldset label input,
 form .detail.fieldset label select { width : 172px; }
 
+form .complete { max-width : 150px; }
+
 form .complete.fieldset label {
 	min-width       : 150px;
 	text-align      : center;
@@ -318,7 +329,6 @@ form div#errorMessage {
 	grid-row    : 2 / 5;
 	align-self  : start;
 	color       : var( --red );
-	max-width   : 150px;
 	font-size   : 1rem;
 	line-height : 1.2rem;
 	padding     : 10px;
@@ -545,8 +555,8 @@ footer small.copyright { font-size : .8rem; }
 
 .modal a.close {
 	position        : absolute;
-	right           : 0;
-	top             : 0;
+	right           : 4px;
+	top             : 4px;
 	display         : block;
 	padding         : 20px; 
 	cursor          : pointer;

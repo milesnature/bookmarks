@@ -88,8 +88,8 @@
 
 .modal a.close {
 	position        : absolute;
-	right           : 0;
-	top             : 0;
+	right           : 4px;
+	top             : 4px;
 	display         : block;
 	padding         : 20px; 
 	cursor          : pointer;
