@@ -30,8 +30,8 @@ a, a:link, a:visited, a:hover, a:active {
 input:focus, select:focus, button:focus, a:focus {
 	outline-style : solid;
 	outline-color : var( --blue );
-  	outline-width : 1px;
-	box-shadow    : 0px 0px 3px 6px var( --blue );
+  	outline-width : 0;
+	box-shadow    : 0 0 3px 4px var( --blue );
 	position      : relative;
 	z-index       : 1;   
 }
