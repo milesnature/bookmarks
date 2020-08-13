@@ -45,9 +45,9 @@ http://bookmarks-example.milesnature.com/
 * Minify code source and other optimizations to load times 
 
 ### Implementation & Design
-This website was designed and created from hand coded scratch (Node JS and related NPM libs excepted). The latest versions of languages and syntax were chosen above older, more backwards compatible alternatives. All modern (updated) browsers are supported, including mobile.
+This website was designed and hand-coded from scratch. No 3rd libraries were used (Node JS and related NPM libs excepted). The latest versions of languages and syntax were chosen above older, more backwards compatible alternatives. All modern (updated) browsers are supported, including mobile.
 
-The layout is designed to be the most useful for a web developer, someone who is constantly jumping from one bowser to another. The organization is deliberately simple (no folders or collapsing groups), allowing the user to see everything all at once. Alternative layouts and functionality may be added, especially for mobile.
+The layout is designed to be the most useful for a web developer, someone who is constantly jumping from one bowser to another. The organization is deliberately simple (no folders or collapsing groups), allowing the user to see everything all at once.
 
 Database storage was added to accommodate users who might not have ftp access or have the knowledge to edit a webpage. It's also pretty handy for quick edits. The goal is to make saving a bookmark as simple as possible. Enhancements forthcoming.
 
