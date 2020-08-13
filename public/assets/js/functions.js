@@ -718,7 +718,6 @@ window.onload = () => {
 			target = e.target,
 			tag    = target.tagName,
 			name   = target.name;
-					
 		switch ( tag ) {
 			case 'INPUT':
 				switch ( name ) {
@@ -755,7 +754,10 @@ window.onload = () => {
 				break;
 			case 'polyline':
 				form.openClose();
-				break;				
+				break;	
+			case 'path':
+				form.openClose();
+				break;								
 		}
 
 	});
