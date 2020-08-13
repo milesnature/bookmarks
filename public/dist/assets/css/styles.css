@@ -139,7 +139,10 @@ a, a:link, a:visited, a:hover, a:active {
 input:focus, select:focus, button:focus, a:focus {
 	outline-style : solid;
 	outline-color : var( --blue );
-  	outline-width : 3px;
+  	outline-width : 1px;
+	box-shadow    : 0px 0px 3px 6px var( --blue );
+	position      : relative;
+	z-index       : 1;   
 }
 
 input[type='text'], input[type='submit'], input[type='radio'], select, button {
@@ -397,6 +400,7 @@ main section#bookmarks ul.bookmarks li:hover ul {
 
 main section#bookmarks ul.bookmarks li ul li {
 	border-bottom : 1px solid transparent;
+	position      : relative; 
 }
 
 main section#bookmarks ul.bookmarks li ul li a {

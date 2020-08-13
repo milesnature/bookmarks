@@ -60,6 +60,7 @@ main section#bookmarks ul.bookmarks li:hover ul {
 
 main section#bookmarks ul.bookmarks li ul li {
 	border-bottom : 1px solid transparent;
+	position      : relative; 
 }
 
 main section#bookmarks ul.bookmarks li ul li a {
