@@ -8,7 +8,7 @@ Complete ownership and control of the data is also adventageous for privacy and 
 ### Description
 * NodeJS REST API (express, mongoose, mongodb). 
 
-### Version 0.0.1 
+### Version 1.0.82 
 __Early stage of construction__. This is __ready__ for consumption. However, it does require a nosql database (mongodb) and the deployment of a node server. 
 * The basic API works
 * The app is deployable
