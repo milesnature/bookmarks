@@ -10,6 +10,7 @@ main section#bookmarks {
 	grid-gap              : 5px;
 	position              : relative;
 	height                : 100%;
+	padding               : 0 5px; 
 }
 
 main section#bookmarks ul.bookmarks {
