@@ -6,7 +6,8 @@ const
 	footer         = document.getElementsByTagName('footer')[0],
 	modalHelp      = document.getElementById('modelHelp'),
 	loaderTemplate = document.getElementsByTagName("template")[0],
-	urlCheck       = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,
+	// urlCheck       = /((http|ftp|https):\/\/)?(([\w.-]*)\.([\w]*))/,
+	urlCheck       = /((http|ftp|https|file):\/\/)/,
 	domainUrl      = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
 
 	// DRAG AND DROP BROWSER LOCATION
