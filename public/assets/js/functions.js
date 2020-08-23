@@ -2,8 +2,8 @@ const
 	html              = document.getElementsByTagName("HTML")[0],
 	body              = document.body,
 	bmkSection        = document.getElementById('bookmarks'),
-	errorMessage      = document.getElementById('errorMessage'),
 	footer            = document.getElementsByTagName('footer')[0],
+	templateForm      = document.getElementById('templateForm'),
 	templateModalHelp = document.getElementById('templateModalHelp'),
 	templateLoader    = document.getElementById('templateLoader'),
 	urlCheck          = /((http|ftp|https|file):\/\/)/,
@@ -153,9 +153,9 @@ const
 		},
 
 		constructSection : () => {
-			let b          = bookmarksArray,
-				sortedList = bookmarks.sortIntoGroups( b ),
-				fragments  = document.createDocumentFragment();
+			let b         = bookmarksArray,
+				fragments = document.createDocumentFragment();
+			sortedList = bookmarks.sortIntoGroups( b );
 			bookmarks.remove();
 			for ( item in sortedList ) { 
 				if ( !item ) { continue; };
@@ -164,10 +164,12 @@ const
 			}
 			bmkSection.appendChild( fragments );
 			openGroup.setupEventHandler();
-			bookmarks.constructGroupOptions();
-			bookmarks.constructNameOptions( sortedList );
-			form.resetFields();
-			removeChildNodes( errorMessage );
+			if ( form.container ) {
+		  		bookmarks.constructGroupOptions();
+				bookmarks.constructNameOptions( sortedList );
+				form.resetFields();
+				removeChildNodes( form.errorMessage );
+			}
 			addDropEvents();
 			addDragEnterEvents();
 		},
@@ -191,10 +193,12 @@ const
 					fragment.appendChild( option );
 				};
 			groups.forEach( buildOptions );
-			if ( form.groupSelect.hasChildNodes() ) {
-		        removeChildNodes( form.groupSelect );
+			if ( form.container ) {
+				if ( form.groupSelect.hasChildNodes() ) {
+			        removeChildNodes( form.groupSelect );
+				}
+				form.groupSelect.appendChild( fragment );
 			}
-			form.groupSelect.appendChild( fragment );
 		},
 
 		constructNameOptions : ( sortedList, target ) => { 
@@ -222,16 +226,18 @@ const
 				optgroup.appendChild( groupFramgment );
 				fragment.appendChild( optgroup );
 			}
-			if ( form.nameSelect.hasChildNodes() ) {
-		        removeChildNodes( form.nameSelect );
+			if ( form.container ) {
+				if ( form.nameSelect.hasChildNodes() ) {
+			        removeChildNodes( form.nameSelect );
+				}
+				if ( form.bookmarksSelect.hasChildNodes() ) {
+			        removeChildNodes( form.bookmarksSelect );
+				}
+				let fragment2 = fragment.cloneNode( true );
+				form.nameSelect.appendChild( fragment );
+				form.bookmarksSelect.appendChild( fragment2 );
+				form.updatePrefill();
 			}
-			if ( form.bookmarksSelect.hasChildNodes() ) {
-		        removeChildNodes( form.bookmarksSelect );
-			}
-			let fragment2 = fragment.cloneNode( true );
-			form.nameSelect.appendChild( fragment );
-			form.bookmarksSelect.appendChild( fragment2 );
-			form.updatePrefill();
 		},
 
 		storage : {
@@ -247,13 +253,12 @@ const
 		toggleLoader : ( action ) => {
 			const hasSvg = bmkSection.querySelector('svg#loader');
 			switch ( action ) {
-				case "remove":
+				case 'remove':
 					if ( hasSvg ) { bookmarks.remove(); }
 					break;
-				case "add":
+				case 'add':
 					if ( !hasSvg ) {
-				  		const loader = templateLoader.content.cloneNode( true );
-	  					bmkSection.appendChild( loader );
+	  					bmkSection.appendChild( templateLoader.content.cloneNode( true ) );
 	  				}
   					break;
   			}				
@@ -303,50 +308,120 @@ const
 
 	// FORM DOM ELEMENTS AND METHODS.
 	form = {
-		'container'                 : document.forms[0],
-		'bookmark'                  : document.getElementById('bookmark'),
-		'group'                     : document.getElementById('group'),
-		'bookmarksSelect'           : document.getElementById('bookmarksSelect'),
-		'groupText'      		    : document.getElementById('groupText'),
-		'groupSelect'    		    : document.getElementById('groupSelect'),
-		'nameText'       		    : document.getElementById('nameText'),
-		'nameSelect'     		    : document.getElementById('nameSelect'),		
-		'urlText'        		    : document.getElementById('urlText'),
-		'buttonSubmit'         	    : document.getElementById('submit'),
-		'updateBookmarkSelectValue' : () => { return bookmarksSelect.value },
-		'updateBookmarkSelectText'  : () => { return ( bookmarksSelect.options.length > 0  ) ? bookmarksSelect.options[bookmarksSelect.selectedIndex].text : '' },
-		'groupValue'        		: () => { return groupText.value },
-		'groupSelectValue'  		: () => { return groupSelect.value },
-		'groupSelectText'   		: () => { return ( groupSelect.options.length > 0 ) ? groupSelect.options[groupSelect.selectedIndex].text : '' },
-		'titleValue'        		: () => { return nameText.value },
-		'titleSelectValue'  		: () => { return nameSelect.value },
-		'titleSelectText'   		: () => { return ( nameSelect.options.length > 0  ) ? nameSelect.options[nameSelect.selectedIndex].text : '' },
-		'urlValue'          		: () => { return urlText.value },
-		'actionValue'               : () => { return document.querySelector('input[name="action"]:checked').value },
-		'elementValue'              : () => { return document.querySelector('input[name="element"]:checked').value },	
-		'removeClasses'             : ( ...classes ) => { form.container.classList.remove( ...classes ); },
-		'addClasses'                : ( ...classes ) => { form.container.classList.add( ...classes ); },
-		'updateButton'              : ( action )     => { form.buttonSubmit.value = action; },
 
-		openClose : () => { 
-			body.classList.toggle( 'edit' );
-			if ( body.classList.contains( 'edit' ) ) {
-				localStorage.setItem( 'form' , 'open' );
-				form.container.reset();
-				removeChildNodes( errorMessage );
-			} else {
-				localStorage.setItem( 'form', 'closed' );
-			}
+		toggleForm : ( action ) => {
+
+			const f = document.forms[0];
+
+			switch ( action ) {
+
+				case 'remove':
+
+					if ( f ) { 
+						form.container.removeEventListener('change', ( e ) => {} );
+						form.container.removeEventListener('click',  ( e ) => {} );
+						f.remove(); 
+						localStorage.setItem( 'form', 'closed' );
+					}
+					break;
+
+				case 'add':
+
+					if ( !f ) {
+
+	  					body.prepend( templateForm.content.cloneNode( true ) );
+
+  						form[ 'container' ]                 = document.forms[0];
+  						form[ 'errorMessage' ]              = document.getElementById('errorMessage');
+						form[ 'bookmark' ]                  = document.getElementById('bookmark');
+						form[ 'group' ]                     = document.getElementById('group');
+						form[ 'bookmarksSelect' ]           = document.getElementById('bookmarksSelect');
+						form[ 'groupText' ]     	        = document.getElementById('groupText');
+						form[ 'groupSelect' ]   	        = document.getElementById('groupSelect');
+						form[ 'nameText' ]     		        = document.getElementById('nameText');
+						form[ 'nameSelect' ]    	        = document.getElementById('nameSelect');
+						form[ 'urlText' ]       	        = document.getElementById('urlText');
+						form[ 'buttonSubmit' ]              = document.getElementById('submit');
+						form[ 'updateBookmarkSelectValue' ] = () => { return bookmarksSelect.value };
+						form[ 'updateBookmarkSelectText' ]  = () => { return ( bookmarksSelect.options.length > 0  ) ? bookmarksSelect.options[bookmarksSelect.selectedIndex].text : '' };
+						form[ 'groupValue' ]       		    = () => { return groupText.value };
+						form[ 'groupSelectValue' ] 		    = () => { return groupSelect.value };
+						form[ 'groupSelectText' ]  		    = () => { return ( groupSelect.options.length > 0 ) ? groupSelect.options[groupSelect.selectedIndex].text : '' };
+						form[ 'titleValue' ]       		    = () => { return nameText.value };
+						form[ 'titleSelectValue' ] 		    = () => { return nameSelect.value };
+						form[ 'titleSelectText' ]  		    = () => { return ( nameSelect.options.length > 0  ) ? nameSelect.options[nameSelect.selectedIndex].text : '' };
+						form[ 'urlValue' ]         		    = () => { return urlText.value };
+						form[ 'actionValue' ]               = () => { return document.querySelector('input[name="action"]:checked').value };
+						form[ 'elementValue' ]              = () => { return document.querySelector('input[name="element"]:checked').value };
+						form[ 'removeClasses' ]             = ( ...classes ) => { if ( form.container ) { form.container.classList.remove( ...classes ); } };
+						form[ 'addClasses' ]                = ( ...classes ) => { if ( form.container ) { form.container.classList.add( ...classes ); } };
+						form[ 'updateButton' ]              = ( action )     => { if ( form.container ) { form.buttonSubmit.value = action; } };
+
+	  					if ( form.container ) {
+
+		  					bookmarks.constructGroupOptions();
+							bookmarks.constructNameOptions( sortedList );
+
+						    localStorage.setItem( 'form' , 'open' );						
+
+							// HIDE/SHOW FORM ELEMENTS WHEN CHANGES OCCUR. THE DISPLAY OF FORM ELEMENTS IS MODIFED BASED ON THE DESIRED OUTCOME. 
+							form.container.addEventListener('change', ( e ) => {
+								const 
+									target = e.target,
+									tag    = target.tagName,
+									name   = target.name;
+								switch ( tag ) {
+									case 'INPUT':
+										switch ( name ) {
+											case 'action':
+												form.actionState();
+												form.elementState();
+												break;
+											case 'element':
+												form.elementState();
+												break;
+										}
+										break;
+									case 'SELECT':
+										if ( name === 'name_select' ) { form.updatePrefill() }
+										break;
+								}
+							});
+
+							// LISTEN FOR FORM SUBMIT AND CLOSE. 
+							form.container.addEventListener('click', ( e ) => {
+								const 
+									target = e.target,
+									tag    = target.tagName,
+									name   = target.name,
+									remove = 'remove';
+								switch ( tag ) {
+									case 'INPUT': 
+										if ( name === 'submit' ) { form.formSubmit( e ); }
+										break;
+									case 'BUTTON':
+										form.toggleForm( remove );
+										break;
+									case 'svg':
+										form.toggleForm( remove );
+										break;
+									case 'path':
+										form.toggleForm( remove );
+										break;					
+									case 'polyline':
+										form.toggleForm( remove );
+										break;			
+								}
+							});
+						}					
+					}
+					break;
+			}			
 		},
 		
-		actionFromFooter : ( action, empty ) => {
-			if ( !body.classList.contains( 'edit' ) ) { form.openClose(); }
+		actionFromFooter : ( action ) => {
+			form.toggleForm( 'add' );
 			document.querySelector( 'input[value=' + action + ']' ).checked = 'checked';
-			if ( !empty ) { 
-				form.bookmark.checked = 'checked'; 
-			} else {
-				form.group.checked = 'checked'; 
-			}
 			form.actionState();
 			form.elementState();		
 		},
@@ -365,9 +440,9 @@ const
 						}
 					};
 				bookmarksArray.forEach( findBookmarkDetails );
-				form.groupText.value = group;
-				form.nameText.value  = name;
-				form.urlText.value   = url;
+				if ( form.groupText ) { form.groupText.value = group };
+				if ( form.nameText )  { form.nameText.value  = name };
+				if ( form.urlText )   { form.urlText.value   = url };
 			}		
 		},
 
@@ -375,7 +450,7 @@ const
 			const action = form.actionValue();
 			form.removeClasses( 'create', 'delete', 'update' );
 			form.resetFields();
-			removeChildNodes( errorMessage );
+			removeChildNodes( form.errorMessage );
 			form.addClasses( action );
 			form.updateButton( action );		
 			if ( action === 'update' ) { 
@@ -389,7 +464,7 @@ const
 				element = form.elementValue(),
 				action  = form.actionValue();
 			form.removeClasses( 'bookmark', 'group' );
-			removeChildNodes( errorMessage );
+			removeChildNodes( form.errorMessage );
 			form.addClasses( element );
 			if ( action !== 'update' ) { form.resetFields(); }	
 		},
@@ -454,14 +529,14 @@ const
 		},
 
 		resetFields : () => {
-			form.groupText.value = '';
-			form.nameText.value  = '';
-			form.urlText.value   = '';
+			if ( form.groupText ) { form.groupText.value = '' };
+			if ( form.nameText )  { form.nameText.value  = '' };
+			if ( form.urlText )   { form.urlText.value   = '' };
 		},
 
 		// GENERAL ERROR MESSAGE CONTAINER. FIRST REMOVES OLD MESSAGE THEN APPENDS NEW MESSAGE.
 		displayErrorMessage : ( ...message ) => {
-			removeChildNodes( errorMessage );
+			removeChildNodes( form.errorMessage );
 			if ( message ) {
 				if ( Array.isArray( message ) && message.length > 0 ) {
 					let fragment = document.createDocumentFragment(),
@@ -473,12 +548,12 @@ const
 							fragment.appendChild( LI );
 						};
 					message.forEach( createListItem );
-					errorMessage.appendChild( fragment );
+					form.errorMessage.appendChild( fragment );
 				} else {
 			        let fragment = document.createDocumentFragment(),
 			        	textNode = document.createTextNode( message );
 			        fragment.appendChild( textNode );
-			        errorMessage.appendChild( fragment );
+			        form.errorMessage.appendChild( fragment );
 				}
 			}
 		},		
@@ -486,7 +561,7 @@ const
 		// FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID.
 		formSubmit : ( e ) => {
 			e.preventDefault();
-			removeChildNodes( errorMessage );
+			removeChildNodes( form.errorMessage );
 			const 
 				values     = form.getValues(),
 				state      = values.state,
@@ -667,14 +742,14 @@ const
 
 	// GENERIC CONTENT REMOVAL TOOL
 	removeChildNodes = ( e ) => {
-		if ( e.hasChildNodes( ) ) {
+		if ( e && e.hasChildNodes( ) ) {
 	        let child = e.lastElementChild;  
 	        while ( child ) { 
 	            e.removeChild( child ); 
 	            child = e.lastElementChild; 
 	        } 
 		}
-		if ( e.textContent.length ) {
+		if ( e && e.textContent.length ) {
 			e.textContent = '';
 		}
 	},
@@ -683,13 +758,12 @@ const
 	toggleModalHelp = ( action ) => {
 		const modal = document.querySelector('div.modal.help');
 		switch ( action ) {
-			case "remove":
+			case 'remove':
 				if ( modal ) { modal.remove(); }
 				break;
-			case "add":
+			case 'add':
 				if ( !modal ) {
-			  		const m = templateModalHelp.content.cloneNode( true );
-  					document.body.appendChild( m );	
+  					document.body.appendChild( templateModalHelp.content.cloneNode( true ) );	
 				}
 				break;
 			}
@@ -698,7 +772,8 @@ const
 let 
 	bookmarksArray = [],
 	groupsByName   = [],
-	groups         = [];
+	groups         = [],
+	sortedList     = [];
 
 // SETUP AFTER PAGE LOADS	
 window.onload = () => {
@@ -720,60 +795,8 @@ window.onload = () => {
 	const formState = localStorage.getItem('form');
 	
 	if ( formState === 'open' ) {
-		if ( !body.classList.contains('edit') ) {
-			form.openClose();
-		}
+		form.toggleForm( 'add' );
 	}
-	
-	// HIDE/SHOW FORM ELEMENTS WHEN CHANGES OCCUR. THE DISPLAY OF FORM ELEMENTS IS MODIFED BASED ON THE DESIRED OUTCOME. 
-	form.container.addEventListener('change', ( e ) => {
-		const 
-			target = e.target,
-			tag    = target.tagName,
-			name   = target.name;
-		switch ( tag ) {
-			case 'INPUT':
-				switch ( name ) {
-					case 'action':
-						form.actionState();
-						form.elementState();
-						break;
-					case 'element':
-						form.elementState();
-						break;
-				}
-				break;
-			case 'SELECT':
-				if ( name === 'name_select' ) { form.updatePrefill() }
-				break;
-		}
-	});
-
-	// LISTEN FOR FORM SUBMIT AND CLOSE. 
-	form.container.addEventListener('click', ( e ) => {
-		const 
-			target = e.target,
-			tag    = target.tagName,
-			name   = target.name;
-		switch ( tag ) {
-			case 'INPUT': 
-				if ( name === 'submit' ) { form.formSubmit( e ); }
-				break;
-			case 'BUTTON':
-				form.openClose();
-				break;
-			case 'svg':
-				form.openClose();
-				break;
-			case 'path':
-				form.openClose();
-				break;					
-			case 'polyline':
-				form.openClose();
-				break;			
-		}
-
-	});
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
 	footer.addEventListener('click', ( e ) => {

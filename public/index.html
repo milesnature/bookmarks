@@ -12,54 +12,56 @@
 		<link rel="stylesheet" href="dist/assets/css/styles.css">
 	</head>
 	<body>
-		<form class="create bookmark" novalidate>
-			<div class="action fieldset">	
-				<label id="createLabel">Create:
-					<input id="create" type="radio" name="action" value="create" checked="checked" />
-				</label>
-				<label id="deleteLabel">Delete:
-					<input id="delete" type="radio" name="action" value="delete" />
-				</label>
-				<label id="updateLabel">Update:
-					<input id="update" type="radio" name="action" value="update" />
-				</label>
-			</div>
-			<div class="element fieldset">
-				<label id="bookmarkLabel">Bookmark:
-					<input id="bookmark" type="radio" name="element" value="bookmark" checked="checked" />
-				</label>
-				<label id="groupLabel">Group:
-					<input id="group" type="radio" name="element" value="group" />
-				</label>
-			</div>	
-			<div class="detail fieldset">
-				<label id="bookmarksLabel">Bookmark:
-					<select id="bookmarksSelect" name="name_select"></select>
-				</label>				
-				<label id="groupsLabel">Group:
-					<input id="groupText" type="text" name="group" placeholder="Group" />
-					<select id="groupSelect" name="group_select"></select>
-				</label>
-				<label id="nameLabel">Name:
-					<input id="nameText" type="text" name="name" placeholder="Name" />
-					<select id="nameSelect" name="name_select"></select>
-				</label>
-				<label id="urlLabel">Url:
-					<input id="urlText" type="text" name="url" placeholder="Url" />
-				</label>
-			</div>
-			<div class="complete fieldset">
-				<label>		
-					<input id="submit" type="submit" name="submit" class="submit" value="Create" />
-				</label>		
-				<div id="errorMessage"></div>
-			</div>
-			<button id="close" type="button" name="close" title="Close" class="close">
-				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
-				  <path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
-				</svg>				
-			</button>
-		</form>
+		<template id="templateForm">
+			<form class="create bookmark" novalidate>
+				<div class="action fieldset">	
+					<label id="createLabel">Create:
+						<input id="create" type="radio" name="action" value="create" checked="checked" />
+					</label>
+					<label id="deleteLabel">Delete:
+						<input id="delete" type="radio" name="action" value="delete" />
+					</label>
+					<label id="updateLabel">Update:
+						<input id="update" type="radio" name="action" value="update" />
+					</label>
+				</div>
+				<div class="element fieldset">
+					<label id="bookmarkLabel">Bookmark:
+						<input id="bookmark" type="radio" name="element" value="bookmark" checked="checked" />
+					</label>
+					<label id="groupLabel">Group:
+						<input id="group" type="radio" name="element" value="group" />
+					</label>
+				</div>	
+				<div class="detail fieldset">
+					<label id="bookmarksLabel">Bookmark:
+						<select id="bookmarksSelect" name="name_select"></select>
+					</label>				
+					<label id="groupsLabel">Group:
+						<input id="groupText" type="text" name="group" placeholder="Group" />
+						<select id="groupSelect" name="group_select"></select>
+					</label>
+					<label id="nameLabel">Name:
+						<input id="nameText" type="text" name="name" placeholder="Name" />
+						<select id="nameSelect" name="name_select"></select>
+					</label>
+					<label id="urlLabel">Url:
+						<input id="urlText" type="text" name="url" placeholder="Url" />
+					</label>
+				</div>
+				<div class="complete fieldset">
+					<label>		
+						<input id="submit" type="submit" name="submit" class="submit" value="Create" />
+					</label>		
+					<div id="errorMessage"></div>
+				</div>
+				<button id="close" type="button" name="close" title="Close" class="close">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
+					  <path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
+					</svg>				
+				</button>
+			</form>
+		</template>
 		<main>
 			<section id="bookmarks"></section>
 		</main>

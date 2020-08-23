@@ -185,7 +185,6 @@ input[type='radio']:checked {
 .hide { display: none; }
 /* END GLOBAL */
 /* START FORM */
-body.edit form { display : grid; }
 
 form div.action {   grid-area : action; }
 form div.element {  grid-area : element; }
@@ -194,7 +193,7 @@ form div.complete { grid-area : complete }
 form button.close { grid-area : close; }
 
 form {
-	display               : none;
+	display               : grid;
 	width                 : fit-content;
 	min-width             : 300px;
 	margin                : 0 auto;
