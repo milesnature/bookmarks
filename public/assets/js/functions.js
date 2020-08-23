@@ -19,7 +19,7 @@ const
 					if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 				       	if ( this.responseText ) {
 				       		bookmarksArray = JSON.parse( this.responseText );
-				       		bookmarks.storage.set( this.responseText );	
+				       		// bookmarks.storage.set( this.responseText );	
 				       		if ( bookmarksArray.length > 0 ) {
 			       				bookmarks.constructSection();
 			       			} else {
@@ -781,12 +781,12 @@ window.onload = () => {
 	bookmarks.toggleLoader('add');
 
 	// THIS LOADS BOOKMARKS FROM LOCAL STORAGE BEFORE CALLING API. FALLBACK FOR CONNECTION OR API ISSUES AND FOR WORKING OFFLINE.   
-	let bookmarksStored = bookmarks.storage.get();
+	// let bookmarksStored = bookmarks.storage.get();
 
-	if ( bookmarksStored ) {
-		bookmarksArray = bookmarksStored;
-		bookmarks.constructSection();
-	}
+	// if ( bookmarksStored ) {
+	// 	bookmarksArray = bookmarksStored;
+	// 	bookmarks.constructSection();
+	// }
 
 	// LOAD PAGE ELEMENTS USING DB VALUES.
 	api.getBookmarks();
