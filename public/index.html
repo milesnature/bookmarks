@@ -68,38 +68,40 @@
 			<small class="links"><a href="https://github.com/milesnature/bookmarks" target="_blank" rel="noreferrer">About</a><a id="help" href="#">Help</a></small>
 			<small class="copyright">Copyright &copy; <span id="year"></span>  Miles Nature. All Rights Reserved.</small>
 		</footer>
-		<div id="modelHelp" class="modal help">
-			<a class="close" href="#">Close</a>				
-			<h2>Help</h2>
-			<section>
-				<h3>How to open the form.</h3>
-				<p>There are 3 buttons in the footer, at the bottom of the page: <strong>Create</strong>, <strong>Delete</strong>, and <strong>Update</strong>. Clicking one of these actions will open the form and auto-scroll to it.</p>
-				<p>This help modal may be obstructing the form and or the actions buttons.</p>
-			</section>
-			<section>
-				<h3>How to use the form.</h3>
-				<p>
-					The form has 4 main sections (boxes). It is designed to make sense when completed in order.
-					<ol>
-						<li><strong>1. Action.</strong> Choose an action: Create, Delete, or Update.</li>
-						<li><strong>2. Element.</strong> Choose an element: Group or Bookmark.</li>
-						<li><strong>3. Detail.</strong> Provide details pertaining to the desired action.</li>
-						<li><strong>4. Submit.</strong> Click the corresponding button to submit the request.</li>
-					</ol>
-				</p>
-				<p>A successfull request will reset the form and reload the bookmarks section. This page does not need to be manually reloaded or refreshed.</p>
-				<p>Errors are displayed in red, underneath the submit button.</p>
-				<p>Close the form with the up arrow, located at the bottom edge of the form window. An open form will persist (in local storage) after page refreshes until it is manually closed.</p>
-			</section>
-			<section>
-				<h3>New (empty) database.</h3>
-				<p>The first step is to create a group. A bookmark and it's repsective group share the same database object. This requires a bookmark to be created at the same time as a new group.</p>
-				<p>Select form fields <strong>Create</strong> (Action) and <strong>Group</strong> (Element). The form should already be open with these options preselected.</p>
-				<p>Add a <strong>Group</strong>, a <strong>Name</strong>, and a <strong>Url</strong> (Detail). Then click <strong>Create</strong> (Submit).</p>
-				<p>Rinse and repeat.</p>
-			</section>
-		</div>	
-		<template>
+		<template id="templateModalHelp">
+			<div class="modal help">	
+				<a class="close" href="#" onclick="toggleModalHelp( 'remove' )">Close</a>				
+				<h2>Help</h2>
+				<section>
+					<h3>How to open the form.</h3>
+					<p>There are 3 buttons in the footer, at the bottom of the page: <strong>Create</strong>, <strong>Delete</strong>, and <strong>Update</strong>. Clicking one of these actions will open the form and auto-scroll to it.</p>
+					<p>This help modal may be obstructing the form and or the actions buttons.</p>
+				</section>
+				<section>
+					<h3>How to use the form.</h3>
+					<p>
+						The form has 4 main sections (boxes). It is designed to make sense when completed in order.
+						<ol>
+							<li><strong>1. Action.</strong> Choose an action: Create, Delete, or Update.</li>
+							<li><strong>2. Element.</strong> Choose an element: Group or Bookmark.</li>
+							<li><strong>3. Detail.</strong> Provide details pertaining to the desired action.</li>
+							<li><strong>4. Submit.</strong> Click the corresponding button to submit the request.</li>
+						</ol>
+					</p>
+					<p>A successfull request will reset the form and reload the bookmarks section. This page does not need to be manually reloaded or refreshed.</p>
+					<p>Errors are displayed in red, underneath the submit button.</p>
+					<p>Close the form with the up arrow, located at the bottom edge of the form window. An open form will persist (in local storage) after page refreshes until it is manually closed.</p>
+				</section>
+				<section>
+					<h3>New (empty) database.</h3>
+					<p>The first step is to create a group. A bookmark and it's repsective group share the same database object. This requires a bookmark to be created at the same time as a new group.</p>
+					<p>Select form fields <strong>Create</strong> (Action) and <strong>Group</strong> (Element). The form should already be open with these options preselected.</p>
+					<p>Add a <strong>Group</strong>, a <strong>Name</strong>, and a <strong>Url</strong> (Detail). Then click <strong>Create</strong> (Submit).</p>
+					<p>Rinse and repeat.</p>
+				</section>
+			</div>
+		</template>	
+		<template id="templateLoader">
 			<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
 				<style>
 					#first {

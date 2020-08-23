@@ -368,7 +368,6 @@ main section#bookmarks ul.bookmarks.drag-hover {
 
 main section#bookmarks ul.bookmarks li button {
 	cursor           : pointer;
-	display          : grid;
 	align-content    : center;
 	border-width     : 0 0 0 0;
 	border-style     : solid;
@@ -377,9 +376,8 @@ main section#bookmarks ul.bookmarks li button {
 	background-image : none; 
 	font-weight      : bold;
 	font-size        : 1rem;
-	line-height      : 1.8rem;
 	text-align       : left;
-	padding          : .25em .75rem;
+	padding          : 0 .75rem;
 	margin           : 0;
 	width            : 100%;
 	border-radius    : 0;
@@ -485,7 +483,7 @@ footer small.copyright { font-size : .8rem; }
 	background-color : var(--grayscale-00);
 	padding          : 3rem;
 	box-shadow       : 0 0 70px var(--grayscale-26);
-	display          : none;
+	display          : block;
 	text-align       : left;
 	line-height      : 1.3rem;
 	font-size        : 1.1rem;
@@ -498,8 +496,6 @@ footer small.copyright { font-size : .8rem; }
  		height    : 100vh;
 	}
 }
-
-.modal.help.show { display : block; }
 
 .modal section { margin-bottom : 2.5rem; }
 
