@@ -12,8 +12,8 @@ form {
 	min-width             : 300px;
 	margin                : 0 auto;
 	padding               : 32px 21px 0 21px;
-	background-color      : var(--grayscale-20);
-	color                 : var(--font-color-form);	
+	background-color      : var( --background-color-form );
+	color                 : var( --font-color-form );	
 	grid-area             : form;
 	grid-template-areas   : 'action element detail complete' 'close close close close';
 	grid-template-columns : auto;
@@ -75,7 +75,7 @@ form .fieldset label { margin : 0; }
 form .fieldset label {
 	min-height       : 3.75rem;
 	padding          : 0 20px;
-	background-color : var( --grayscale-19 );
+	background-color : var( --background-color-label );
 	cursor           : pointer;
 	user-select      : none;
 	display          : flex;
@@ -109,7 +109,7 @@ form .complete.fieldset label {
 form .complete.fieldset label input  {
 	margin         : 0;
 	width          : 100px;
-	color          : var( --base-font-color )  ;
+	color          : var( --font-color-input-select-button )  ;
 	text-transform : capitalize;
 }
 
@@ -133,19 +133,19 @@ form button.close {
 form button.close:hover { background-image : var( --form-close-gradient ) ; }
 
 form button.close svg {
-	stroke         : var(--grayscale-14);
+	stroke         : var( --stroke-svg );
 	stroke-width   : 2;
 	fill           : none;
 	stroke-linecap : square;
 }
 
-form button.close:hover svg { stroke : var( --grayscale-08 ); }
+form button.close:hover svg { stroke : var( --stroke-svg-hover ); }
 
 form div#errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
 	align-self  : start;
-	color       : var( --red );
+	color       : var( --font-color-error );
 	font-size   : 1rem;
 	line-height : 1.2rem;
 	padding     : 10px;

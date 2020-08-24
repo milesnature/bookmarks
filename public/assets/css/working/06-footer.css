@@ -4,7 +4,7 @@ footer {
 	align-self       : center;
 	text-align       : center;
 	padding          : 4rem 0 2rem 0;
-	background-color : var(--grayscale-08);
+	background-color : var( --background-color-footer );
 	position         : relative;
 }
 
@@ -29,9 +29,9 @@ footer small.links a {
 	padding         : .3rem 1rem;
 }
 
-footer small.links a:hover { color : var(--red-medium); }
+footer small.links a:hover { color : var( --font-color-footer-a-hover ); }
 
-footer small.links a:first-child { border-right : 1px solid var(--grayscale-18); }
+footer small.links a:first-child { border-right : 1px solid var( --border-color-footer-a  ); }
 
 footer small.copyright { font-size : .8rem; }
 

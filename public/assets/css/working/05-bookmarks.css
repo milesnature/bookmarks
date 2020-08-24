@@ -1,7 +1,7 @@
 /* START BOOKMARKS */
 main {
 	grid-area        : main;
-	background-color : var(--grayscale-08);
+	background-color : var( --background-color-bookmarks );
 }
 
 main section#bookmarks {
@@ -24,7 +24,7 @@ main section#bookmarks ul.bookmarks {
 }
 
 main section#bookmarks ul.bookmarks.drag-hover {
-	background-color: var( --grayscale-05 );
+	background-color: var( --background-color-bookmarks-drag-hover );
 }
 
 main section#bookmarks ul.bookmarks li button {

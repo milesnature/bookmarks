@@ -9,9 +9,9 @@
 	margin           : auto;
 	max-width        : 800px;
  	height           : 80vh; 
-	background-color : var(--grayscale-00);
+	background-color : var( --background-color-modal );
 	padding          : 3rem;
-	box-shadow       : 0 0 70px var(--grayscale-26);
+	box-shadow       : 0 0 70px var( --box-shadow-color-modal );
 	display          : block;
 	text-align       : left;
 	line-height      : 1.3rem;
@@ -78,7 +78,7 @@
 
 .modal ol li {
 	line-height      : 1.5rem;
-	background-color : #eee;
+	background-color : var( --background-color-ol-li );
 	padding          : 1rem;
 }
 
@@ -95,5 +95,5 @@
 	font-size       : inherit;
 }
 
-.modal a.close:hover { color : var(--red-medium); }
+.modal a.close:hover { color : var( --font-color-modal-a-hover ); }
 /* END MODAL */
