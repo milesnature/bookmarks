@@ -75,7 +75,7 @@ form .fieldset label { margin : 0; }
 form .fieldset label {
 	min-height       : 3.75rem;
 	padding          : 0 20px;
-	background-color : var( --background-color-label );
+	background-color : var( --background-color-form-label );
 	cursor           : pointer;
 	user-select      : none;
 	display          : flex;
@@ -86,9 +86,9 @@ form .fieldset label {
 
 form .fieldset label:hover,
 form .fieldset label:focus,
-form .fieldset label:active { background-image : var( --form-label-gradient ) }
+form .fieldset label:active { background-image : var( --linear-gradient-form-label  ) }
 
-form.delete .complete.fieldset label:hover { background-image : var( --form-delete-warning-gradient ) }
+form.delete .complete.fieldset label:hover { background-image : var( --linear-gradient-form-warning ) }
 
 form .fieldset label input,
 form .fieldset label select { margin : 0 0 0 13px; }
@@ -109,7 +109,7 @@ form .complete.fieldset label {
 form .complete.fieldset label input  {
 	margin         : 0;
 	width          : 100px;
-	color          : var( --font-color-input-select-button )  ;
+	color          : var( --font-color-form-inputs )  ;
 	text-transform : capitalize;
 }
 
@@ -130,22 +130,22 @@ form button.close {
 	cursor           : pointer;
 }
 
-form button.close:hover { background-image : var( --form-close-gradient ) ; }
+form button.close:hover { background-image : var( --linear-gradient-form-close ) ; }
 
 form button.close svg {
-	stroke         : var( --stroke-svg );
+	stroke         : var( --stroke-form-svg );
 	stroke-width   : 2;
 	fill           : none;
 	stroke-linecap : square;
 }
 
-form button.close:hover svg { stroke : var( --stroke-svg-hover ); }
+form button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
 
 form div#errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
 	align-self  : start;
-	color       : var( --font-color-error );
+	color       : var( --font-color-form-error );
 	font-size   : 1rem;
 	line-height : 1.2rem;
 	padding     : 10px;

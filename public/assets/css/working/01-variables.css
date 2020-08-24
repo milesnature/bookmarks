@@ -40,50 +40,52 @@
 	--red-medium-a85   : rgba( 200,   0,   0, .85 );
 	--red-dark-a85     : rgba( 160,   0,   0, .85 );
 
+	/* BASE */
+	--font-family-base              : sans-serif;
+	--font-size-base                : 13px;
+	--font-color-base               : var( --grayscale-25 );
+	--font-color-a-base             : var( --grayscale-25 );
+	--outline-color-base            : var( --blue );
+	--outline-box-shadow-color-base : var( --blue );
+
 	/* BODY */
-	--background-color-body    : var( --grayscale-20 );
-	--font-family-primary      : sans-serif;
-	--font-size-base           : 13px;
-	--font-color-base          : var( --grayscale-25 );
-	--font-color-anchor        : var( --grayscale-25 );
-	--outline-color            : var( --blue );
-	--outline-box-shadow-color : var( --blue );
+	--background-color-body : var( --grayscale-20 );
 
 	/* FORMS */
-	--form-label-gradient          : linear-gradient( var( --grayscale-21 ),     var( --grayscale-21-a85 ) );
-	--form-delete-warning-gradient : linear-gradient( var( --red-dark ),         var( --red-dark-a85 ) );
-	--form-close-gradient          : linear-gradient( var( --grayscale-21-a85 ), var( --grayscale-21 ) );
-	--font-size-input-select-button        : var( --font-size-base  );
-	--font-color-input-select-button       : var( --font-color-base );
-	--border-color-input-select-button     : var( --grayscale-09 );
-	--background-color-input-select-button : var( --grayscale-00 );
-	--border-color-input-radio             : var( --grayscale-09 );
-	--background-color-input-radio         : var( --grayscale-09 );
-	--background-color-input-radio-checked : var( --font-color-base );
-	--font-color-form        : var( --grayscale-00 );
-	--background-color-form  : var( --grayscale-20 );
-	--background-color-label : var( --grayscale-19 );
-	--stroke-svg       : var( --grayscale-14 );
-	--stroke-svg-hover : var( --grayscale-08 );
-	--font-color-error : var( --red );
-
+	--font-size-form-inputs                     : var( --font-size-base  );
+	--font-color-form                           : var( --grayscale-00 );
+	--font-color-form-inputs                    : var( --font-color-base );
+	--font-color-form-error                     : var( --red );
+	--border-color-form-inputs                  : var( --grayscale-09 );
+	--border-color-form-input-radio             : var( --grayscale-09 );
+	--background-color-form                     : var( --grayscale-20 );
+	--background-color-form-label               : var( --grayscale-19 );
+	--background-color-form-inputs              : var( --grayscale-00 );
+	--background-color-form-input-radio         : var( --grayscale-09 );
+	--background-color-form-input-radio-checked : var( --font-color-base );
+	--linear-gradient-form-label   		        : linear-gradient( var( --grayscale-21 ),     var( --grayscale-21-a85 ) );
+	--linear-gradient-form-warning 		        : linear-gradient( var( --red-dark ),         var( --red-dark-a85 ) );
+	--linear-gradient-form-close   		        : linear-gradient( var( --grayscale-21-a85 ), var( --grayscale-21 ) );
+	--stroke-form-svg                           : var( --grayscale-14 );
+	--stroke-form-svg-hover                     : var( --grayscale-08 );
+     
 	/* BOOKMARKS */
-	--bookmarks-hover-gradient              : linear-gradient( var( --red-medium ),   var( --red-medium-a85 ) ); 
-	--bookmarks-a-gradient                  : linear-gradient( var( --grayscale-00 ), var( --grayscale-00-a9 ) );
-	--background-color-bookmarks            : var( --grayscale-08 );
-	--background-color-bookmarks-drag-hover : var( --grayscale-05 );
-	--font-color-bookmark-hover             : var( --grayscale-00 );
+	--font-color-bookmarks-hover                : var( --grayscale-00 );
+	--background-color-bookmarks                : var( --grayscale-08 );
+	--background-color-bookmarks-drag-hover     : var( --grayscale-05 );
+	--linear-gradient-bookmarks-a-hover         : linear-gradient( var( --red-medium ),   var( --red-medium-a85 ) ); 
+	--linear-gradient-bookmarks-a               : linear-gradient( var( --grayscale-00 ), var( --grayscale-00-a9 ) );
 
 	/* FOOTER */
-	--background-color-footer   : var( --grayscale-08 );
-	--font-color-footer-a-hover : var( --red-medium );
-	--border-color-footer-a     : var( --grayscale-18 );
-
+	--font-color-footer-a-hover                 : var( --red-medium );
+	--border-color-footer-a                     : var( --grayscale-18 );
+	--background-color-footer                   : var( --grayscale-08 );
+                
 	/* MODAL */
-	--background-color-modal : var( --grayscale-00 );
-	--box-shadow-color-modal : var( --grayscale-26 );
-	--background-color-ol-li : var( --grayscale-03 );
-    --font-color-modal-a-hover : var( --red-medium );
+    --font-color-modal-a-hover                  : var( --red-medium );
+	--background-color-modal-ol-li              : var( --grayscale-03 );
+	--background-color-modal                    : var( --grayscale-00 );
+	--box-shadow-color-modal                    : var( --grayscale-26 );
 
 }
 /* END VARIABLES */

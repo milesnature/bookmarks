@@ -4,7 +4,7 @@ html {
 }
 
 html, body {
-	font-family      : var( --font-family-primary );
+	font-family      : var( --font-family-base );
 	font-size        : var( --font-size-base );
 	background-color : var( --background-color-body );
 	margin           : 0;
@@ -24,14 +24,14 @@ body {
 }
 
 a, a:link, a:visited, a:hover, a:active {
-	color: var( --font-color-anchor );
+	color: var( --font-color-a-base );
 }
 
 input:focus, select:focus, button:focus, a:focus {
 	outline-style : solid;
-	outline-color : var( --outline-color );
+	outline-color : var( --outline-color-base );
   	outline-width : 0;
-	box-shadow    : 0 0 3px 4px var( --outline-box-shadow-color );
+	box-shadow    : 0 0 3px 4px var( --outline-box-shadow-color-base );
 	position      : relative;
 	z-index       : 1;   
 }
@@ -43,18 +43,18 @@ input[type='text'], input[type='submit'], input[type='radio'], select, button {
 }
 
 input[type='text'], input[type='submit'], select, button {
-	font-size          : var( --font-size-input-select-button );
-	color              : var( --font-color-input-select-button );
+	font-size          : var( --font-size-form-inputs );
+	color              : var( --font-color-form-inputs );
 	padding            : 0 .35rem;
 	height             : 2rem;
-	background-color   : var( --background-color-input-select-button );
-	border             : 1px solid var( --border-color-input-select-button );
+	background-color   : var( --background-color-form-inputs );
+	border             : 1px solid var( --border-color-form-inputs );
 	border-radius      : 3px;
 }
 
 select {
 	position            : relative;
-  	background          : var( --background-color-input-select-button ) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='rgba(225,225,225,1)' /><polygon fill='rgba(25,25,25,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>") no-repeat;
+  	background          : var( --background-color-form-inputs ) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='rgba(225,225,225,1)' /><polygon fill='rgba(25,25,25,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>") no-repeat;
   	background-position : right 0px top 50%;
   	padding-right       : 25px; 	
 }
@@ -63,12 +63,12 @@ input[type='radio'] {
 	width            : 14px;
 	height           : 14px;
 	border-radius    : 7px;
-	border           : 2px solid var( --border-color-input-radio );
-	background-color : var( --background-color-input-radio );
+	border           : 2px solid var( --border-color-form-input-radio );
+	background-color : var( --background-color-form-input-radio );
 }
 
 input[type='radio']:checked {
-	background-color : var( --background-color-input-radio-checked );
+	background-color : var( --background-color-form-input-radio-checked );
 }
 
 .hide { display: none; }

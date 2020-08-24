@@ -78,7 +78,7 @@
 
 .modal ol li {
 	line-height      : 1.5rem;
-	background-color : var( --background-color-ol-li );
+	background-color : var( --background-color-modal-ol-li );
 	padding          : 1rem;
 }
 

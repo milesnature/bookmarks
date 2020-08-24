@@ -45,8 +45,8 @@ main section#bookmarks ul.bookmarks li button {
 }
 
 main section#bookmarks ul.bookmarks li button:hover {
-	color            : var( --font-color-bookmark-hover );
-	background-image : var( --bookmarks-hover-gradient );
+	color            : var( --font-color-bookmarks-hover );
+	background-image : var( --linear-gradient-bookmarks-a-hover );
 }
 
 main section#bookmarks ul.bookmarks li ul {
@@ -68,13 +68,13 @@ main section#bookmarks ul.bookmarks li ul li a {
 	display          : grid;
 	align-content    : center;
 	padding          : .65em .75rem;
-	background-image : var( --bookmarks-a-gradient );
+	background-image : var( --linear-gradient-bookmarks-a );
 	word-break       : break-word;
 }
 
 main section#bookmarks ul.bookmarks li ul li a:hover {
-	color            : var( --font-color-bookmark-hover );
-	background-image : var( --bookmarks-hover-gradient );
+	color            : var( --font-color-bookmarks-hover );
+	background-image : var( --linear-gradient-bookmarks-a-hover );
 }
 
 main section#bookmarks #loader {
