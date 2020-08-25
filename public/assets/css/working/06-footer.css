@@ -3,7 +3,7 @@ footer {
 	grid-area        : footer;
 	align-self       : center;
 	text-align       : center;
-	padding          : 4rem 0 2rem 0;
+	padding          : 52px 0 26px 0;
 	background-color : var( --background-color-footer );
 	position         : relative;
 }
@@ -13,20 +13,20 @@ footer nav { margin-bottom : 15px; }
 footer nav button {
 	cursor    : pointer;
 	min-width : 69px;
-	margin    : 0 .35rem 0 .35rem;
+	margin    : 0 5px;
 }
 
 footer small.links {
 	text-align : center;
 	display    : block;
-	margin     : 0 0 1em 0;
+	margin     : 0 0 13px 0;
 }
 
 footer small.links a {
 	text-decoration : underline;
 	cursor          : pointer;
 	display         : inline-block;
-	padding         : .3rem 1rem;
+	padding         : 5px 13px;
 }
 
 footer small.links a:hover { color : var( --font-color-footer-a-hover ); }
@@ -41,10 +41,10 @@ footer small.copyright { font-size : .8rem; }
 @media ( max-width: 600px ) {
 	footer nav button {
 		min-width : 20%;
-		height    : 3.39rem;
+		height    : 48px;
 	}
 	footer small.links a {
-		padding : 1.35rem 1rem;
+		padding : 18px 13px;
 	}
 }
 /* END FOOTER */

@@ -127,7 +127,7 @@ form#edit button.close {
 	border           : none;
 	margin-top       : 16px;
 	padding          : 9px 0;
-	height           : 2.5rem;
+	height           : 33px;
 	cursor           : pointer;
 }
 
@@ -227,7 +227,7 @@ form#settings button.close {
 	border           : none;
 	margin-top       : 16px;
 	padding          : 9px 0;
-	height           : 2.5rem;
+	height           : 33px;
 	cursor           : pointer;
 }
 

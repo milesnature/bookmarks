@@ -10,7 +10,7 @@
 	max-width        : 800px;
  	height           : 80vh; 
 	background-color : var( --background-color-modal );
-	padding          : 3rem;
+	padding          : 40px;
 	box-shadow       : var( --box-shadow-color-modal );
 	display          : block;
 	text-align       : left;
@@ -26,10 +26,10 @@
 	}
 }
 
-.modal section { margin-bottom : 2.5rem; }
+.modal section { margin-bottom : 33px; }
 
 .modal h2 {
-	margin      : 0 0 2em 0;
+	margin      : 0 0 2rem 0;
 	font-size   : 1.3rem;
 	font-weight : bold;
 }
@@ -41,12 +41,12 @@
 }
 
 .modal h3.child {
-	margin  : .45em 0 1em 0;
+	margin  : .45rem 0 1rem 0;
 	display : inline-block;
 }
 
 .modal p {
-	margin : 0 0 1em 0;
+	margin : 0 0 1rem 0;
 	clear  : both;
 }
 
@@ -55,13 +55,13 @@
 .modal ul {
 	list-style-type : square;
 	padding-left    : 2rem;
-	margin          : 0 0 1em 0;
+	margin          : 0 0 1rem 0;
 }
 
 .modal ol {
 	list-style-type       : none;
 	padding-left          : 0;
-	margin                : 0 0 1em 0;
+	margin                : 0 0 1rem 0;
 	display               : grid;
 	grid-template-columns : 1fr 1fr 1fr 1fr;
 	grid-auto-rows        : auto;

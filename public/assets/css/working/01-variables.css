@@ -51,6 +51,12 @@
 
 }
 
+@media ( max-width: 600px ) {
+	:root {
+		--font-size-base : 15px;
+	}
+}
+
 :root, :root .light-mode {
 
 	/* BASE */

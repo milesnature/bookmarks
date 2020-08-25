@@ -45,8 +45,8 @@ input[type='text'], input[type='submit'], input[type='radio'], select, button {
 input[type='text'], input[type='submit'], select, button {
 	font-size          : var( --font-size-form-inputs );
 	color              : var( --font-color-form-inputs );
-	padding            : 0 .35rem;
-	height             : 2rem;
+	padding            : 0 5px;
+	height             : 26px;
 	background-color   : var( --background-color-form-inputs );
 	border             : 1px solid var( --border-color-form-inputs );
 	border-radius      : 3px;
