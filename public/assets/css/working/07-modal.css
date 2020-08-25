@@ -11,7 +11,7 @@
  	height           : 80vh; 
 	background-color : var( --background-color-modal );
 	padding          : 3rem;
-	box-shadow       : 0 0 70px var( --box-shadow-color-modal );
+	box-shadow       : var( --box-shadow-color-modal );
 	display          : block;
 	text-align       : left;
 	line-height      : 1.3rem;

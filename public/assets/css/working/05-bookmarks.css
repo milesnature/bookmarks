@@ -44,6 +44,8 @@ main section#bookmarks ul.bookmarks li button {
 	border-radius    : 0;
 }
 
+main section#bookmarks ul.bookmarks li button { color: var( --font-color-bookmarks-button );  }
+
 main section#bookmarks ul.bookmarks li button:hover {
 	color            : var( --font-color-bookmarks-hover );
 	background-image : var( --linear-gradient-bookmarks-a-hover );

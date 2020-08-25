@@ -86,7 +86,7 @@ form .fieldset label {
 
 form .fieldset label:hover,
 form .fieldset label:focus,
-form .fieldset label:active { background-image : var( --linear-gradient-form-label  ) }
+form .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
 
 form.delete .complete.fieldset label:hover { background-image : var( --linear-gradient-form-warning ) }
 
@@ -130,7 +130,7 @@ form button.close {
 	cursor           : pointer;
 }
 
-form button.close:hover { background-image : var( --linear-gradient-form-close ) ; }
+form button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
 
 form button.close svg {
 	stroke         : var( --stroke-form-svg );
