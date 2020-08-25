@@ -88,6 +88,10 @@ main section#bookmarks #loader {
     margin   : auto;
 }
 
+main section#bookmarks #loader circle {
+	fill: var( --fill-bookmarks-svg-loader );
+}
+
 @media ( max-width: 600px ) {
 	main section#bookmarks { grid-template-columns: repeat( auto-fit, minmax( 150px, 1fr ) );	}
 	main section#bookmarks ul.bookmarks li button {  min-height : 48px; }	

@@ -12,8 +12,8 @@
 		<link rel="stylesheet" href="dist/assets/css/styles.min.css">
 	</head>
 	<body>
-		<template id="templateForm">
-			<form class="create bookmark" novalidate>
+		<template id="templateFormEdit">
+			<form id="edit" class="create bookmark" novalidate>
 				<div class="action fieldset">	
 					<label id="createLabel">Create:
 						<input id="create" type="radio" name="action" value="create" checked="checked" />
@@ -62,11 +62,31 @@
 				</button>
 			</form>
 		</template>
+		<template id="templateFormSettings">
+			<form id="settings" class="" novalidate>
+				<div class="appearance fieldset">	
+					<label>Default:
+						<input type="radio" name="appearance" value="default" checked="default" />
+					</label>
+					<label>Light Mode:
+						<input type="radio" name="appearance" value="light" />
+					</label>
+					<label>Dark Mode:
+						<input type="radio" name="appearance" value="dark" />
+					</label>
+				</div>
+				<button id="close" type="button" name="close" title="Close" class="close">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
+					  <path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
+					</svg>				
+				</button>
+			</form>
+		</template>		
 		<main>
 			<section id="bookmarks"></section>
 		</main>
 		<footer>
-			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button></nav>
+			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button><button class="settings">Settings</button></nav>
 			<small class="links"><a href="https://github.com/milesnature/bookmarks" target="_blank" rel="noreferrer">About</a><a id="help" href="#">Help</a></small>
 			<small class="copyright">Copyright &copy; <span id="year"></span>  Miles Nature. All Rights Reserved.</small>
 		</footer>
@@ -144,9 +164,9 @@
 					}
 				</style>
 				<g fill="none" fill-rule="evenodd">
-					<circle id="first" cx="42.5" cy="50.5" r="11.5" fill="#ededed"/>
-					<circle id="second" cx="84.5" cy="50.5" r="11.5" fill="#ededed"/>
-					<circle id="third" cx="126.5" cy="50.5" r="11.5" fill="#ededed"/>
+					<circle id="first" cx="42.5" cy="50.5" r="11.5"/>
+					<circle id="second" cx="84.5" cy="50.5" r="11.5"/>
+					<circle id="third" cx="126.5" cy="50.5" r="11.5"/>
 				</g>
 			</svg>
 		</template>				

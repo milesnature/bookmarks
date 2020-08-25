@@ -1,13 +1,14 @@
 const 
-	html              = document.getElementsByTagName("HTML")[0],
-	body              = document.body,
-	bmkSection        = document.getElementById('bookmarks'),
-	footer            = document.getElementsByTagName('footer')[0],
-	templateForm      = document.getElementById('templateForm'),
-	templateModalHelp = document.getElementById('templateModalHelp'),
-	templateLoader    = document.getElementById('templateLoader'),
-	urlCheck          = /((http|ftp|https|file):\/\/)/,
-	domainUrl         = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
+	html                 = document.getElementsByTagName("HTML")[0],
+	body                 = document.body,
+	bmkSection           = document.getElementById('bookmarks'),
+	footer               = document.getElementsByTagName('footer')[0],
+	templateFormEdit     = document.getElementById('templateFormEdit'),
+	templateFormSettings = document.getElementById('templateFormSettings'),
+	templateModalHelp    = document.getElementById('templateModalHelp'),
+	templateLoader       = document.getElementById('templateLoader'),
+	urlCheck             = /((http|ftp|https|file):\/\/)/,
+	domainUrl            = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
 
 	// API CALLS
 	api = {
@@ -23,15 +24,15 @@ const
 				       		if ( bookmarksArray.length > 0 ) {
 			       				bookmarks.constructSection();
 			       			} else {
-			       				form.actionFromFooter( 'create', true );
+			       				actionFromFooter( 'create' );
 			       				toggleModalHelp( 'add' );
 			       				bookmarks.remove();
 			       			}
 			            } else {
-			            	form.displayErrorMessage( this.responseText );
+			            	edit.displayErrorMessage( this.responseText );
 			            }
 					} else {
-						form.displayErrorMessage( this.responseText );
+						edit.displayErrorMessage( this.responseText );
 					}
 				}	        
 		    };
@@ -47,13 +48,13 @@ const
 					const status = xhr.status;
 					if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 				       	if ( this.responseText ) {
-							form.resetFields();
+							edit.resetFields();
 			       			cbf();
 			            } else {
-			            	form.displayErrorMessage( this.responseText );
+			            	edit.displayErrorMessage( this.responseText );
 			            }
 					} else {
-						form.displayErrorMessage( this.responseText );
+						edit.displayErrorMessage( this.responseText );
 					}
 				}	        
 		    };
@@ -164,11 +165,11 @@ const
 			}
 			bmkSection.appendChild( fragments );
 			openGroup.setupEventHandler();
-			if ( form.container ) {
+			if ( edit.container ) {
 		  		bookmarks.constructGroupOptions();
 				bookmarks.constructNameOptions( sortedList );
-				form.resetFields();
-				removeChildNodes( form.errorMessage );
+				edit.resetFields();
+				removeChildNodes( edit.errorMessage );
 			}
 			addDropEvents();
 			addDragEnterEvents();
@@ -193,11 +194,11 @@ const
 					fragment.appendChild( option );
 				};
 			groups.forEach( buildOptions );
-			if ( form.container ) {
-				if ( form.groupSelect.hasChildNodes() ) {
-			        removeChildNodes( form.groupSelect );
+			if ( edit.container ) {
+				if ( edit.groupSelect.hasChildNodes() ) {
+			        removeChildNodes( edit.groupSelect );
 				}
-				form.groupSelect.appendChild( fragment );
+				edit.groupSelect.appendChild( fragment );
 			}
 		},
 
@@ -226,17 +227,17 @@ const
 				optgroup.appendChild( groupFramgment );
 				fragment.appendChild( optgroup );
 			}
-			if ( form.container ) {
-				if ( form.nameSelect.hasChildNodes() ) {
-			        removeChildNodes( form.nameSelect );
+			if ( edit.container ) {
+				if ( edit.nameSelect.hasChildNodes() ) {
+			        removeChildNodes( edit.nameSelect );
 				}
-				if ( form.bookmarksSelect.hasChildNodes() ) {
-			        removeChildNodes( form.bookmarksSelect );
+				if ( edit.bookmarksSelect.hasChildNodes() ) {
+			        removeChildNodes( edit.bookmarksSelect );
 				}
 				let fragment2 = fragment.cloneNode( true );
-				form.nameSelect.appendChild( fragment );
-				form.bookmarksSelect.appendChild( fragment2 );
-				form.updatePrefill();
+				edit.nameSelect.appendChild( fragment );
+				edit.bookmarksSelect.appendChild( fragment2 );
+				edit.updatePrefill();
 			}
 		},
 
@@ -306,22 +307,111 @@ const
 		}
 	},
 
+	settings = {
+
+		toggleSettings : ( action ) => {
+
+			const s = document.getElementById('settings');
+
+			switch ( action ) {
+
+				case 'remove':
+					if ( s ) { 
+						settings.container.removeEventListener('click', ( e ) => {});
+						s.remove(); 
+						localStorage.setItem( 'settings', 'closed' );
+					}
+					break;
+
+				case 'add':
+
+					if ( !s ) {
+
+						body.prepend( templateFormSettings.content.cloneNode( true ) );
+
+						localStorage.setItem( 'settings', 'open' );
+
+						const appearance = localStorage.getItem( 'appearance' );
+
+						settings[ 'container' ] = document.forms[0],
+						
+						document.querySelector( 'input[value=' + appearance + ']'  ).checked = 'checked';
+
+						// LISTEN FOR SETTINGS CHANGES
+						settings.container.addEventListener('change', ( e ) => {
+							const 
+								target = e.target,
+								tag    = target.tagName,
+								value  = target.value;
+							switch ( tag ) {
+								case 'INPUT':
+									body.classList.remove( 'light-mode', 'dark-mode' );
+									switch ( value ) {
+										case 'default':
+											localStorage.setItem( 'appearance', 'default' );
+											break;
+										case 'light':
+											localStorage.setItem( 'appearance', 'light' );
+											body.classList.add( 'light-mode' );
+											break;
+										case 'dark':
+											localStorage.setItem( 'appearance', 'dark' );
+											body.classList.add( 'dark-mode' );
+											break;
+
+									}
+									break;
+							}
+							});
+
+						// LISTEN FOR CLOSE. 
+						settings.container.addEventListener('click', ( e ) => {
+							const 
+								target = e.target,
+								tag    = target.tagName,
+								remove = 'remove';
+							switch ( tag ) {
+								case 'BUTTON':
+									settings.toggleSettings( remove );
+									break;
+								case 'svg':
+									settings.toggleSettings( remove );
+									break;
+								case 'path':
+									settings.toggleSettings( remove );
+									break;					
+								case 'polyline':
+									settings.toggleSettings( remove );
+									break;			
+							}
+						});
+
+
+					
+					}
+					break;
+			}
+
+		}
+
+	},
+
 	// FORM DOM ELEMENTS AND METHODS.
-	form = {
+	edit = {
 
-		toggleForm : ( action ) => {
+		toggleEdit : ( action ) => {
 
-			const f = document.forms[0];
+			const f = document.getElementById('edit');
 
 			switch ( action ) {
 
 				case 'remove':
 
 					if ( f ) { 
-						form.container.removeEventListener('change', ( e ) => {} );
-						form.container.removeEventListener('click',  ( e ) => {} );
+						edit.container.removeEventListener('change', ( e ) => {} );
+						edit.container.removeEventListener('click',  ( e ) => {} );
 						f.remove(); 
-						localStorage.setItem( 'form', 'closed' );
+						localStorage.setItem( 'edit', 'closed' );
 					}
 					break;
 
@@ -329,43 +419,43 @@ const
 
 					if ( !f ) {
 
-	  					body.prepend( templateForm.content.cloneNode( true ) );
+	  					body.prepend( templateFormEdit.content.cloneNode( true ) );
 
-  						form[ 'container' ]                 = document.forms[0];
-  						form[ 'errorMessage' ]              = document.getElementById('errorMessage');
-						form[ 'bookmark' ]                  = document.getElementById('bookmark');
-						form[ 'group' ]                     = document.getElementById('group');
-						form[ 'bookmarksSelect' ]           = document.getElementById('bookmarksSelect');
-						form[ 'groupText' ]     	        = document.getElementById('groupText');
-						form[ 'groupSelect' ]   	        = document.getElementById('groupSelect');
-						form[ 'nameText' ]     		        = document.getElementById('nameText');
-						form[ 'nameSelect' ]    	        = document.getElementById('nameSelect');
-						form[ 'urlText' ]       	        = document.getElementById('urlText');
-						form[ 'buttonSubmit' ]              = document.getElementById('submit');
-						form[ 'updateBookmarkSelectValue' ] = () => { return bookmarksSelect.value };
-						form[ 'updateBookmarkSelectText' ]  = () => { return ( bookmarksSelect.options.length > 0  ) ? bookmarksSelect.options[bookmarksSelect.selectedIndex].text : '' };
-						form[ 'groupValue' ]       		    = () => { return groupText.value };
-						form[ 'groupSelectValue' ] 		    = () => { return groupSelect.value };
-						form[ 'groupSelectText' ]  		    = () => { return ( groupSelect.options.length > 0 ) ? groupSelect.options[groupSelect.selectedIndex].text : '' };
-						form[ 'titleValue' ]       		    = () => { return nameText.value };
-						form[ 'titleSelectValue' ] 		    = () => { return nameSelect.value };
-						form[ 'titleSelectText' ]  		    = () => { return ( nameSelect.options.length > 0  ) ? nameSelect.options[nameSelect.selectedIndex].text : '' };
-						form[ 'urlValue' ]         		    = () => { return urlText.value };
-						form[ 'actionValue' ]               = () => { return document.querySelector('input[name="action"]:checked').value };
-						form[ 'elementValue' ]              = () => { return document.querySelector('input[name="element"]:checked').value };
-						form[ 'removeClasses' ]             = ( ...classes ) => { if ( form.container ) { form.container.classList.remove( ...classes ); } };
-						form[ 'addClasses' ]                = ( ...classes ) => { if ( form.container ) { form.container.classList.add( ...classes ); } };
-						form[ 'updateButton' ]              = ( action )     => { if ( form.container ) { form.buttonSubmit.value = action; } };
+  						edit[ 'container' ]                 = document.forms[0];
+  						edit[ 'errorMessage' ]              = document.getElementById('errorMessage');
+						edit[ 'bookmark' ]                  = document.getElementById('bookmark');
+						edit[ 'group' ]                     = document.getElementById('group');
+						edit[ 'bookmarksSelect' ]           = document.getElementById('bookmarksSelect');
+						edit[ 'groupText' ]     	        = document.getElementById('groupText');
+						edit[ 'groupSelect' ]   	        = document.getElementById('groupSelect');
+						edit[ 'nameText' ]     		        = document.getElementById('nameText');
+						edit[ 'nameSelect' ]    	        = document.getElementById('nameSelect');
+						edit[ 'urlText' ]       	        = document.getElementById('urlText');
+						edit[ 'buttonSubmit' ]              = document.getElementById('submit');
+						edit[ 'updateBookmarkSelectValue' ] = () => { return bookmarksSelect.value };
+						edit[ 'updateBookmarkSelectText' ]  = () => { return ( bookmarksSelect.options.length > 0  ) ? bookmarksSelect.options[bookmarksSelect.selectedIndex].text : '' };
+						edit[ 'groupValue' ]       		    = () => { return groupText.value };
+						edit[ 'groupSelectValue' ] 		    = () => { return groupSelect.value };
+						edit[ 'groupSelectText' ]  		    = () => { return ( groupSelect.options.length > 0 ) ? groupSelect.options[groupSelect.selectedIndex].text : '' };
+						edit[ 'titleValue' ]       		    = () => { return nameText.value };
+						edit[ 'titleSelectValue' ] 		    = () => { return nameSelect.value };
+						edit[ 'titleSelectText' ]  		    = () => { return ( nameSelect.options.length > 0  ) ? nameSelect.options[nameSelect.selectedIndex].text : '' };
+						edit[ 'urlValue' ]         		    = () => { return urlText.value };
+						edit[ 'actionValue' ]               = () => { return document.querySelector('input[name="action"]:checked').value };
+						edit[ 'elementValue' ]              = () => { return document.querySelector('input[name="element"]:checked').value };
+						edit[ 'removeClasses' ]             = ( ...classes ) => { if ( edit.container ) { edit.container.classList.remove( ...classes ); } };
+						edit[ 'addClasses' ]                = ( ...classes ) => { if ( edit.container ) { edit.container.classList.add( ...classes ); } };
+						edit[ 'updateButton' ]              = ( action )     => { if ( edit.container ) { edit.buttonSubmit.value = action; } };
 
-	  					if ( form.container ) {
+	  					if ( edit.container ) {
 
 		  					bookmarks.constructGroupOptions();
 							bookmarks.constructNameOptions( sortedList );
 
-						    localStorage.setItem( 'form' , 'open' );						
+						    localStorage.setItem( 'edit' , 'open' );						
 
 							// HIDE/SHOW FORM ELEMENTS WHEN CHANGES OCCUR. THE DISPLAY OF FORM ELEMENTS IS MODIFED BASED ON THE DESIRED OUTCOME. 
-							form.container.addEventListener('change', ( e ) => {
+							edit.container.addEventListener('change', ( e ) => {
 								const 
 									target = e.target,
 									tag    = target.tagName,
@@ -374,22 +464,22 @@ const
 									case 'INPUT':
 										switch ( name ) {
 											case 'action':
-												form.actionState();
-												form.elementState();
+												edit.actionState();
+												edit.elementState();
 												break;
 											case 'element':
-												form.elementState();
+												edit.elementState();
 												break;
 										}
 										break;
 									case 'SELECT':
-										if ( name === 'name_select' ) { form.updatePrefill() }
+										if ( name === 'name_select' ) { edit.updatePrefill() }
 										break;
 								}
 							});
 
 							// LISTEN FOR FORM SUBMIT AND CLOSE. 
-							form.container.addEventListener('click', ( e ) => {
+							edit.container.addEventListener('click', ( e ) => {
 								const 
 									target = e.target,
 									tag    = target.tagName,
@@ -397,19 +487,19 @@ const
 									remove = 'remove';
 								switch ( tag ) {
 									case 'INPUT': 
-										if ( name === 'submit' ) { form.formSubmit( e ); }
+										if ( name === 'submit' ) { edit.editSubmit( e ); }
 										break;
 									case 'BUTTON':
-										form.toggleForm( remove );
+										edit.toggleEdit( remove );
 										break;
 									case 'svg':
-										form.toggleForm( remove );
+										edit.toggleEdit( remove );
 										break;
 									case 'path':
-										form.toggleForm( remove );
+										edit.toggleEdit( remove );
 										break;					
 									case 'polyline':
-										form.toggleForm( remove );
+										edit.toggleEdit( remove );
 										break;			
 								}
 							});
@@ -419,20 +509,13 @@ const
 			}			
 		},
 		
-		actionFromFooter : ( action ) => {
-			form.toggleForm( 'add' );
-			document.querySelector( 'input[value=' + action + ']' ).checked = 'checked';
-			form.actionState();
-			form.elementState();		
-		},
-		
 		// THIS PREFILLS BOOKMARK DATA TO FACILITATE UPDATING BOOKMARKS
 		updatePrefill : () => {
 			if ( bookmarksArray.length > 0 ) {
 				let group = '',
-					name  = form.updateBookmarkSelectText(),
+					name  = edit.updateBookmarkSelectText(),
 					url   = '',
-					id    = form.updateBookmarkSelectValue(),
+					id    = edit.updateBookmarkSelectValue(),
 					findBookmarkDetails = ( item, index ) => {
 						if ( item._id === id ) {
 							group = item.group;
@@ -440,39 +523,39 @@ const
 						}
 					};
 				bookmarksArray.forEach( findBookmarkDetails );
-				if ( form.groupText ) { form.groupText.value = group };
-				if ( form.nameText )  { form.nameText.value  = name };
-				if ( form.urlText )   { form.urlText.value   = url };
+				if ( edit.groupText ) { edit.groupText.value = group };
+				if ( edit.nameText )  { edit.nameText.value  = name };
+				if ( edit.urlText )   { edit.urlText.value   = url };
 			}		
 		},
 
 		actionState : () => {
-			const action = form.actionValue();
-			form.removeClasses( 'create', 'delete', 'update' );
-			form.resetFields();
-			removeChildNodes( form.errorMessage );
-			form.addClasses( action );
-			form.updateButton( action );		
+			const action = edit.actionValue();
+			edit.removeClasses( 'create', 'delete', 'update' );
+			edit.resetFields();
+			removeChildNodes( edit.errorMessage );
+			edit.addClasses( action );
+			edit.updateButton( action );		
 			if ( action === 'update' ) { 
-				form.bookmark.checked = 'checked';
-				form.updatePrefill();
+				edit.bookmark.checked = 'checked';
+				edit.updatePrefill();
 			}
 		},
 		
 		elementState : () => {
 			const
-				element = form.elementValue(),
-				action  = form.actionValue();
-			form.removeClasses( 'bookmark', 'group' );
-			removeChildNodes( form.errorMessage );
-			form.addClasses( element );
-			if ( action !== 'update' ) { form.resetFields(); }	
+				element = edit.elementValue(),
+				action  = edit.actionValue();
+			edit.removeClasses( 'bookmark', 'group' );
+			removeChildNodes( edit.errorMessage );
+			edit.addClasses( element );
+			if ( action !== 'update' ) { edit.resetFields(); }	
 		},
 		
 		getStates : () => {
 			const 
-				action  = form.actionValue(),
-			    element = form.elementValue();
+				action  = edit.actionValue(),
+			    element = edit.elementValue();
 			return {
 				'isCreate'   : ( action  === 'create' ),
 				'isDelete'   : ( action  === 'delete' ),
@@ -486,38 +569,38 @@ const
 
 		getValues : () => {  
 			const 
-				state  = form.getStates(),
+				state  = edit.getStates(),
 				config = {
 					'group' : (() => { 
 						if ( ( state.isGroup && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) { 
-							return form.groupValue();
+							return edit.groupValue();
 						} else if ( ( state.isGroup && state.isDelete ) || ( state.isBookmark && state.isCreate ) ) {
-							return form.groupSelectText();
+							return edit.groupSelectText();
 						} else {
 							return '';
 						}
 					})(),
 					'id' : (() => { 
 						if ( state.isBookmark && state.isDelete ) {
-							return form.titleSelectValue();
+							return edit.titleSelectValue();
 						} else if ( state.isBookmark && state.isUpdate ) {
-							return form.updateBookmarkSelectValue();
+							return edit.updateBookmarkSelectValue();
 						} else {
 							return '';
 						}
 					})(),								   
 					'name' : (() => {
 						if ( state.isBookmark && state.isDelete ) {
-							return form.titleSelectText();
+							return edit.titleSelectText();
 						} else if ( ( ( state.isBookmark || state.isGroup ) && state.isCreate ) || ( state.isBookmark && state.isUpdate )  ) {
-							return form.titleValue();
+							return edit.titleValue();
 						} else {
 							return '';
 						}
 					})(),
 					'url' : (() => {
 						if ( ( ( state.isBookmark || state.isGroup ) && state.isCreate ) || ( state.isBookmark && state.isUpdate ) ) {
-							return form.urlValue();
+							return edit.urlValue();
 						} else {
 							return '';
 						}
@@ -529,14 +612,14 @@ const
 		},
 
 		resetFields : () => {
-			if ( form.groupText ) { form.groupText.value = '' };
-			if ( form.nameText )  { form.nameText.value  = '' };
-			if ( form.urlText )   { form.urlText.value   = '' };
+			if ( edit.groupText ) { edit.groupText.value = '' };
+			if ( edit.nameText )  { edit.nameText.value  = '' };
+			if ( edit.urlText )   { edit.urlText.value   = '' };
 		},
 
 		// GENERAL ERROR MESSAGE CONTAINER. FIRST REMOVES OLD MESSAGE THEN APPENDS NEW MESSAGE.
 		displayErrorMessage : ( ...message ) => {
-			removeChildNodes( form.errorMessage );
+			removeChildNodes( edit.errorMessage );
 			if ( message ) {
 				if ( Array.isArray( message ) && message.length > 0 ) {
 					let fragment = document.createDocumentFragment(),
@@ -548,22 +631,22 @@ const
 							fragment.appendChild( LI );
 						};
 					message.forEach( createListItem );
-					form.errorMessage.appendChild( fragment );
+					edit.errorMessage.appendChild( fragment );
 				} else {
 			        let fragment = document.createDocumentFragment(),
 			        	textNode = document.createTextNode( message );
 			        fragment.appendChild( textNode );
-			        form.errorMessage.appendChild( fragment );
+			        edit.errorMessage.appendChild( fragment );
 				}
 			}
 		},		
 
 		// FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID.
-		formSubmit : ( e ) => {
+		editSubmit : ( e ) => {
 			e.preventDefault();
-			removeChildNodes( form.errorMessage );
+			removeChildNodes( edit.errorMessage );
 			const 
-				values     = form.getValues(),
+				values     = edit.getValues(),
 				state      = values.state,
 				valid      = '',
 				validation = {
@@ -613,7 +696,7 @@ const
 							api.getBookmarks
 						);
 					} else {
-						form.displayErrorMessage( validation.group, validation.name, validation.url );
+						edit.displayErrorMessage( validation.group, validation.name, validation.url );
 					}
 				}
 				if ( state.isDelete && state.isBookmark  ) {
@@ -625,7 +708,7 @@ const
 							api.getBookmarks
 						);
 					} else {
-						form.displayErrorMessage( validation.id );
+						edit.displayErrorMessage( validation.id );
 					}
 				}
 				if ( state.isDelete && state.isGroup ) {
@@ -637,7 +720,7 @@ const
 							api.getBookmarks
 						);
 					} else {
-						form.displayErrorMessage( validation.group );
+						edit.displayErrorMessage( validation.group );
 					}
 				}
 				if ( state.isUpdate && state.isBookmark ) {
@@ -650,14 +733,28 @@ const
 							api.getBookmarks
 						); 
 					} else {
-						form.displayErrorMessage( validation.group, validation.name, validation.url, validation.id );
+						edit.displayErrorMessage( validation.group, validation.name, validation.url, validation.id );
 					}
 				}
 			} else {
-				form.displayErrorMessage( validation.action, validation.element );
+				edit.displayErrorMessage( validation.action, validation.element );
 			}
 		}	
 	},
+
+	actionFromFooter = ( action ) => {
+
+		if ( action !== 'settings' ) {
+			if ( document.getElementById('settings') ) { settings.toggleSettings( 'remove' ); }
+			edit.toggleEdit( 'add' );
+			document.querySelector( 'input[value=' + action + ']' ).checked = 'checked';
+			edit.actionState();
+			edit.elementState();				
+		} else {
+			if ( document.getElementById('edit') ) { edit.toggleEdit( 'remove' ); }
+			settings.toggleSettings( 'add' );
+		}
+	},	
 
 	// DRAG AND DROP BROWSER LOCATION
 	allowDrop = ( event ) => { event.preventDefault(); },
@@ -708,21 +805,21 @@ const
 	  	if ( external ) {
 	  		href = text;
 		  	if ( validUrl( href ) ) { 
-	  			form.actionFromFooter( 'create' );
+	  			actionFromFooter( 'create' );
 				body.scrollTop                     = 0; // SAFARI
 				document.documentElement.scrollTop = 0; // ALL OTHERS
-				form.urlText.value                 = href;
-				form.groupSelect.value             = groupId;
+				edit.urlText.value                 = href;
+				edit.groupSelect.value             = groupId;
 		  	}	  		
 	  	}
 	  	if ( local ) {
 		  	if ( validUrl( href ) ) { 
-	  			form.actionFromFooter( 'update' );
+	  			actionFromFooter( 'update' );
 				body.scrollTop                     = 0; // SAFARI
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				bookmarksSelect.value              = id;
-				form.updatePrefill();
-				form.groupText.value               = groupId;
+				edit.updatePrefill();
+				edit.groupText.value               = groupId;
 		  	}	  		
 	  	}
 	  	cleanupDragHover();
@@ -792,10 +889,18 @@ window.onload = () => {
 	api.getBookmarks();
 
 	// CHECK STATE OF LOCAL STORAGE TO RESTORE FORM STATE ON RELOAD. THIS IS LESS IMPORTANT NOW THAT THE FORM IS USING AJAX.
-	const formState = localStorage.getItem('form');
+	const editState     = localStorage.getItem('edit');
+	const settingsState = localStorage.getItem('settings');
+	const appearance    = localStorage.getItem('appearance');
 	
-	if ( formState === 'open' ) {
-		form.toggleForm( 'add' );
+	if ( editState === 'open' ) {
+		edit.toggleEdit( 'add' );
+	} else if ( settingsState === 'open' ) {
+		settings.toggleSettings( 'add' );
+	}
+
+	if ( appearance && appearance !== 'default' ) {
+		body.classList.add( appearance + '-mode' );
 	}
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
@@ -807,7 +912,7 @@ window.onload = () => {
 			name   = target.className;
 		switch ( tag ) {
 			case 'BUTTON':
-				form.actionFromFooter( name );
+				actionFromFooter( name );
 				body.scrollTop = 0; // SAFARI
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				break;
