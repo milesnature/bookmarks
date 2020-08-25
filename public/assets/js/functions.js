@@ -333,9 +333,9 @@ const
 
 						const appearance = localStorage.getItem( 'appearance' );
 
-						settings[ 'container' ] = document.forms[0],
+						settings[ 'container' ] = document.forms[0];
 						
-						document.querySelector( 'input[value=' + appearance + ']'  ).checked = 'checked';
+						if ( appearance ) { document.querySelector( 'input[value=' + appearance + ']'  ).checked = 'checked'; }
 
 						// LISTEN FOR SETTINGS CHANGES
 						settings.container.addEventListener('change', ( e ) => {
