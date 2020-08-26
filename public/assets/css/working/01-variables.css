@@ -37,10 +37,12 @@
 	--blue         : hsla( 210,  64.4%,  50.4%, 1 ); /* #2f81d2, rgba( 47, 129, 210, 1 )  */
 
 	/* COLOR OPACITY VARIATIONS */
-	--grayscale-00-a9  : hsla( 0,   0.0%, 100.0%, .9 );
-	--grayscale-21-a85 : hsla( 0,   0.0%,  21.2%, .85 );
-	--red-medium-a85   : hsla( 0, 100.0%,  39.2%, .85 );
-	--red-dark-a85     : hsla( 0, 100.0%,  32.4%, .85 );
+	--grayscale-00-a9  : hsla(   0,   0.0%, 100.0%, .9 );
+	--grayscale-19-a85 : hsla(   0,   0.0%,  29.0%, .85 );
+	--grayscale-21-a85 : hsla(   0,   0.0%,  21.2%, .85 );
+	--grayscale-23-a85 : hsla(   0,   0.0%,  13.7%, .85 ); 
+	--red-medium-a85   : hsla(   0, 100.0%,  39.2%, .85 );
+	--red-dark-a85     : hsla(   0, 100.0%,  32.4%, .85 );
 
 	/* BASE */
 	--font-family-base : sans-serif;
@@ -88,24 +90,24 @@
 
      
 	/* BOOKMARKS */
-	--font-color-bookmarks-button               : var( --font-color-base );
-	--font-color-bookmarks-hover                : var( --grayscale-00 );
-	--background-color-bookmarks                : var( --grayscale-08 );
-	--background-color-bookmarks-drag-hover     : var( --grayscale-05 );
-	--linear-gradient-bookmarks-a-hover         : linear-gradient( var( --red-medium ), var( --red-medium-a85 ) ); 
-	--linear-gradient-bookmarks-a               : linear-gradient( var( --grayscale-00 ), var( --grayscale-00-a9 ) );
-	--fill-bookmarks-svg-loader                 : var( --grayscale-01 );
+	--font-color-bookmarks-button           : var( --font-color-base );
+	--font-color-bookmarks-hover            : var( --grayscale-00 );
+	--background-color-bookmarks            : var( --grayscale-08 );
+	--background-color-bookmarks-drag-hover : var( --grayscale-05 );
+	--linear-gradient-bookmarks-a-hover     : linear-gradient( var( --red-medium ), var( --red-medium-a85 ) ); 
+	--linear-gradient-bookmarks-a           : linear-gradient( var( --grayscale-00 ), var( --grayscale-00-a9 ) );
+	--fill-bookmarks-svg-loader             : var( --grayscale-01 );
 
 	/* FOOTER */
-	--font-color-footer-a-hover                 : var( --red-medium );
-	--border-color-footer-a                     : var( --grayscale-18 );
-	--background-color-footer                   : var( --grayscale-08 );
+	--font-color-footer-a-hover : var( --red-medium );
+	--border-color-footer-a     : var( --grayscale-18 );
+	--background-color-footer   : var( --grayscale-08 );
                 
 	/* MODAL */
-    --font-color-modal-a-hover                  : var( --red-medium );
-	--background-color-modal-ol-li              : var( --grayscale-04 );
-	--background-color-modal                    : var( --grayscale-01 );
-	--box-shadow-color-modal                    : 0 0 90px var( --grayscale-26 );
+    --font-color-modal-a-hover     : var( --red-medium );
+	--background-color-modal-ol-li : var( --grayscale-04 );
+	--background-color-modal       : var( --grayscale-01 );
+	--box-shadow-color-modal       : 0 0 90px var( --grayscale-26 );
 
 }
 
@@ -124,17 +126,18 @@
 	--background-color-form-label               : var( --grayscale-22 );
 	--background-color-form-inputs              : var( --grayscale-03 );
 	--background-color-form-input-radio-checked : var( --grayscale-25 );
-	--linear-gradient-form-label-hover          : linear-gradient( var( --grayscale-23 ), var( --grayscale-23 ) );
+	--linear-gradient-form-label-hover          : linear-gradient( var( --grayscale-23 ), var( --grayscale-23-a85 ) );
 	--linear-gradient-form-close-hover          : var( --linear-gradient-form-label-hover );
 	--background-image-form-select              : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='rgba(201,201,201,1)' /><polygon fill='rgba(25,25,25,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>");
 
 
 	/* BOOKAMRKS */
-	--font-color-bookmarks-button       : var( --font-color-base );
-	--background-color-bookmarks        : var( --grayscale-22 );
-	--linear-gradient-bookmarks-a       : linear-gradient( var( --grayscale-19 ), var( --grayscale-19 ) );
-	--linear-gradient-bookmarks-a-hover : var( --linear-gradient-form-warning );
-	--fill-bookmarks-svg-loader         : var( --grayscale-07 );
+	--font-color-bookmarks-button           : var( --font-color-base );
+	--background-color-bookmarks            : var( --grayscale-22 );
+	--background-color-bookmarks-drag-hover : var( --grayscale-21 );
+	--linear-gradient-bookmarks-a           : linear-gradient( var( --grayscale-19 ), var( --grayscale-19-a85 ) );
+	--linear-gradient-bookmarks-a-hover     : var( --linear-gradient-form-warning );
+	--fill-bookmarks-svg-loader             : var( --grayscale-07 );
 
 	/* FOOTER */
 	--background-color-footer : var( --grayscale-22 ); 
@@ -162,16 +165,17 @@
 		--background-color-form-label               : var( --grayscale-22 );
 		--background-color-form-inputs              : var( --grayscale-03 );
 		--background-color-form-input-radio-checked : var( --grayscale-25 );
-		--linear-gradient-form-label-hover          : linear-gradient( var( --grayscale-23 ), var( --grayscale-23 ) );
+		--linear-gradient-form-label-hover          : linear-gradient( var( --grayscale-23 ), var( --grayscale-23-a85 ) );
 		--linear-gradient-form-close-hover          : var( --linear-gradient-form-label-hover );
 		--background-image-form-select              : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='rgba(201,201,201,1)' /><polygon fill='rgba(25,25,25,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>");
 
 		/* BOOKAMRKS */
-		--font-color-bookmarks-button       : var( --font-color-base );
-		--background-color-bookmarks        : var( --grayscale-22 );
-		--linear-gradient-bookmarks-a       : linear-gradient( var( --grayscale-19 ), var( --grayscale-19 ) );
-		--linear-gradient-bookmarks-a-hover : var( --linear-gradient-form-warning );
-		--fill-bookmarks-svg-loader         : var( --grayscale-07 );
+		--font-color-bookmarks-button           : var( --font-color-base );
+		--background-color-bookmarks            : var( --grayscale-22 );
+		--background-color-bookmarks-drag-hover : var( --grayscale-21 );
+		--linear-gradient-bookmarks-a           : linear-gradient( var( --grayscale-19 ), var( --grayscale-19-a85 ) );
+		--linear-gradient-bookmarks-a-hover     : var( --linear-gradient-form-warning );
+		--fill-bookmarks-svg-loader             : var( --grayscale-07 );
 
 		/* FOOTER */
 		--background-color-footer : var( --grayscale-22 ); 
