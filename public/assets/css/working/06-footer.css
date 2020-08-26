@@ -26,7 +26,8 @@ footer small.links a {
 	text-decoration : underline;
 	cursor          : pointer;
 	display         : inline-block;
-	padding         : 5px 13px;
+	line-height     : 26px;
+	padding         : 0 13px;
 }
 
 footer small.links a:hover { color : var( --font-color-footer-a-hover ); }
@@ -44,7 +45,9 @@ footer small.copyright { font-size : .8rem; }
 		height    : 48px;
 	}
 	footer small.links a {
-		padding : 18px 13px;
+		min-width   : 90px;
+		line-height : 48px;
+		padding     : 0;   
 	}
 }
 /* END FOOTER */

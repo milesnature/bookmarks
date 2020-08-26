@@ -1,6 +1,6 @@
 /* START GLOBAL */
 html {
-	-webkit-text-size-adjust: 100%; /* Text size fix for iphone landscape orientation. */
+	-webkit-text-size-adjust : 100%; /* Text size fix for iphone landscape orientation. */
 }
 
 html, body {

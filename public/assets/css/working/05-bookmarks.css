@@ -93,7 +93,7 @@ main section#bookmarks #loader circle {
 }
 
 @media ( max-width: 600px ) {
-	main section#bookmarks { grid-template-columns: repeat( auto-fit, minmax( 150px, 1fr ) );	}
+	main section#bookmarks { grid-template-columns: repeat( auto-fit, minmax( 200px, 1fr ) );	}
 	main section#bookmarks ul.bookmarks li button {  min-height : 48px; }	
 	main section#bookmarks ul.bookmarks li ul li a { min-height : 48px; }
 }
