@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<template id="templateFormEdit">
-			<form id="edit" class="create bookmark" novalidate>
+			<form id="edit" class="create bookmark" title="Edit Bookmarks Form" novalidate>
 				<div class="action fieldset">	
 					<label id="createLabel">Create:
 						<input id="create" type="radio" name="action" value="create" checked="checked" />
@@ -53,17 +53,19 @@
 					<label>		
 						<input id="submit" type="submit" name="submit" class="submit" value="Create" />
 					</label>		
-					<div id="errorMessage"></div>
+					<textarea id="errorMessage" aria-live="polite" readonly></textarea>
 				</div>
-				<button id="close" type="button" name="close" title="Close" class="close">
+				<button id="close" type="button" name="close" title="Close Edit Bookmarks Form" class="close">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
-					  <path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
+						<title>Close Form</title>
+						<desc>This is an arrow, indicting the collapse of an open form.</desc>
+					  	<path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
 					</svg>				
 				</button>
 			</form>
 		</template>
 		<template id="templateFormSettings">
-			<form id="settings" class="" novalidate>
+			<form id="settings" class="" title="Settings Form" novalidate>
 				<div class="appearance fieldset">	
 					<label>Default:
 						<input type="radio" name="appearance" value="default" checked="default" />
@@ -73,11 +75,13 @@
 					</label>
 					<label>Dark Mode:
 						<input type="radio" name="appearance" value="dark" />
-					</label>
+					</label>				
 				</div>
-				<button id="close" type="button" name="close" title="Close" class="close">
+				<button id="close" type="button" name="close" title="Close Settings Form" class="close">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
-					  <path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
+						<title>Close Form</title>
+						<desc>This is an arrow, indicting the collapse of an open form.</desc>
+					  	<path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
 					</svg>				
 				</button>
 			</form>
@@ -125,6 +129,8 @@
 		</template>	
 		<template id="templateLoader">
 			<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
+				<title>Bookmarks Loading Icon</title>
+				<desc>A call to the database for user bookmarks is underway. This icon will be replaced with them when complete.</desc>
 				<style>
 					#first {
 						animation-name: dotOpacity;

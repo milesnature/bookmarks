@@ -145,14 +145,15 @@ form#edit button.close svg {
 
 form#edit button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
 
-form#edit div#errorMessage {
+form#edit #errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
+	height      : 100%;
 	align-self  : start;
 	color       : var( --font-color-form-error );
 	font-size   : .9rem;
 	line-height : 1.2rem;
-	padding     : 10px;
+	padding     : 5px;
 }
 
 /* Settings */

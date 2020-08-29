@@ -86,9 +86,9 @@
 	--linear-gradient-form-close-hover   	    : var( --linear-gradient-form-label-hover );
 	--stroke-form-svg                           : var( --grayscale-14 );
 	--stroke-form-svg-hover                     : var( --grayscale-08 );
-	--background-image-form-select              : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='rgba(225,225,225,1)' /><polygon fill='rgba(25,25,25,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>");
-
-     
+	--background-image-form-select              : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='hsla(0,0.0%,88.2%,1)' /><polygon fill='hsla(0,0.0%,9.8%,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>");
+	--background-image-form-checkbox            : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 8 7'><polyline fill='none' stroke='hsla(0,0.0%,9.8%,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' points='1 4 3 6 7 1'/></svg>");
+      
 	/* BOOKMARKS */
 	--font-color-bookmarks-button           : var( --font-color-base );
 	--font-color-bookmarks-hover            : var( --grayscale-00 );

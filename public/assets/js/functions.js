@@ -101,11 +101,13 @@ const
 				groupName          = item,
 				outer_UL           = document.createElement  ( 'UL' ),
 				outer_UL_class     = document.createAttribute( 'class' ),
-				outer_UL_id        = document.createAttribute( 'id' ),				
+				outer_UL_id        = document.createAttribute( 'id' ),
+				outer_UL_title     = document.createAttribute( 'title' ),
 				outer_LI           = document.createElement  ( 'LI' ),
 				outer_BUTTON       = document.createElement  ( 'BUTTON' ),
 				outer_BUTTON_class = document.createAttribute( 'class' ),
 				outer_BUTTON_text  = document.createTextNode ( groupName ),
+				outer_BUTTON_title = document.createAttribute( 'title' ),
 				inner_UL           = document.createElement  ( 'UL' ),
 				i;
 			// SET CLASS & ID ATTRIBUTES FOR OUTER UL.
@@ -113,9 +115,13 @@ const
 			outer_UL.setAttributeNode( outer_UL_class );
 			outer_UL_id.value        = '_' + groupName;
 			outer_UL.setAttributeNode( outer_UL_id );
+			outer_UL_title.value     = groupName + ' Group';
+			outer_UL.setAttributeNode( outer_UL_title );			
 			// SET CLASS ATTRIBUTE AND TEXT FOR BUTTON.
 			outer_BUTTON_class.value = 'all';
 			outer_BUTTON.setAttributeNode( outer_BUTTON_class );
+			outer_BUTTON_title.value = 'Open all bookmarks in' + groupName + 'group.';
+			outer_BUTTON.setAttributeNode( outer_BUTTON_title );			
 			outer_BUTTON.appendChild( outer_BUTTON_text );
 			// CREATE INDIVIUDAL BOOKMARKS.
 			for ( i = 0; i < group.length; i += 1 ) {
@@ -335,7 +341,7 @@ const
 
 						if ( appearance ) { document.querySelector( 'input[value=' + appearance + ']'  ).checked = 'checked'; }
 
-						settings[ 'container' ] = document.forms[0];						
+						settings[ 'container' ] = document.forms[0];					
 
 						// LISTEN FOR SETTINGS CHANGES
 						settings.container.addEventListener('change', ( e ) => {
@@ -503,6 +509,7 @@ const
 										break;			
 								}
 							});
+
 						}					
 					}
 					break;
@@ -535,9 +542,10 @@ const
 			edit.resetFields();
 			removeChildNodes( edit.errorMessage );
 			edit.addClasses( action );
-			edit.updateButton( action );		
+			edit.updateButton( action )
 			if ( action === 'update' ) { 
 				edit.bookmark.checked = 'checked';
+
 				edit.updatePrefill();
 			}
 		},
@@ -619,18 +627,16 @@ const
 
 		// GENERAL ERROR MESSAGE CONTAINER. FIRST REMOVES OLD MESSAGE THEN APPENDS NEW MESSAGE.
 		displayErrorMessage : ( ...message ) => {
-			removeChildNodes( edit.errorMessage );
+			if ( edit.errorMessage.value ) { removeChildNodes( edit.errorMessage ) };
 			if ( message ) {
 				if ( Array.isArray( message ) && message.length > 0 ) {
 					let fragment = document.createDocumentFragment(),
-						createListItem = ( item, index ) => {
+						createTextItem = ( item, index ) => {
 							if ( item === '' ) { return }
-							let LI       = document.createElement( 'LI' ),
-							    textNode = document.createTextNode( item );
-							LI.appendChild( textNode );
-							fragment.appendChild( LI );
+							let textNode = document.createTextNode( item + String.fromCharCode(13) );
+							fragment.appendChild( textNode );
 						};
-					message.forEach( createListItem );
+					message.forEach( createTextItem );
 					edit.errorMessage.appendChild( fragment );
 				} else {
 			        let fragment = document.createDocumentFragment(),
@@ -638,7 +644,9 @@ const
 			        fragment.appendChild( textNode );
 			        edit.errorMessage.appendChild( fragment );
 				}
+				edit.errorMessage.focus();
 			}
+
 		},		
 
 		// FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID.
@@ -743,16 +751,27 @@ const
 	},
 
 	actionFromFooter = ( action ) => {
-
-		if ( action !== 'settings' ) {
-			if ( document.getElementById('settings') ) { settings.toggleSettings( 'remove' ); }
-			edit.toggleEdit( 'add' );
-			document.querySelector( 'input[value=' + action + ']' ).checked = 'checked';
-			edit.actionState();
-			edit.elementState();				
-		} else {
-			if ( document.getElementById('edit') ) { edit.toggleEdit( 'remove' ); }
-			settings.toggleSettings( 'add' );
+		const formEdit     = document.getElementById( 'edit' ),
+			  formSettings = document.getElementById( 'settings' );
+		switch ( action ) {
+			case 'settings':
+				if ( !formSettings ) {
+					if ( formEdit ) { formEdit.remove(); }
+					settings.toggleSettings( 'add' );
+				}
+				const a = document.querySelector( 'input[name="appearance"]:checked' );
+				a.focus();					
+				break;
+			default:
+				if ( !formEdit ) { 
+					if ( formSettings ) { formSettings.remove(); }
+					edit.toggleEdit( 'add' );
+				}
+				const e = document.querySelector( 'input[value=' + action + ']' );
+				e.checked = 'checked';
+				e.focus();	
+				edit.actionState();
+				edit.elementState();
 		}
 	},	
 
@@ -839,15 +858,20 @@ const
 
 	// GENERIC CONTENT REMOVAL TOOL
 	removeChildNodes = ( e ) => {
-		if ( e && e.hasChildNodes( ) ) {
-	        let child = e.lastElementChild;  
-	        while ( child ) { 
-	            e.removeChild( child ); 
-	            child = e.lastElementChild; 
-	        } 
-		}
-		if ( e && e.textContent.length ) {
-			e.textContent = '';
+		let hasContent = ( e && e.hasChildNodes( ) ),
+		    tag        = e.tagName;
+		if ( hasContent ) {
+			switch ( tag ) {
+				case 'TEXTAREA':
+					e.textContent = '';
+					break;
+				default:
+					let child = e.lastElementChild;  
+			        while ( child ) { 
+			            e.removeChild( child ); 
+			            child = e.lastElementChild; 
+			        } 
+			}
 		}
 	},
 

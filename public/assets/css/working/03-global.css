@@ -27,7 +27,7 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var( --font-color-a-base );
 }
 
-input:focus, select:focus, button:focus, a:focus {
+input:focus, select:focus, button:focus, a:focus, textarea:focus {
 	outline-style : solid;
 	outline-color : var( --outline-color-base );
   	outline-width : 0;
@@ -36,7 +36,7 @@ input:focus, select:focus, button:focus, a:focus {
 	z-index       : 1;   
 }
 
-input[type='text'], input[type='submit'], input[type='radio'], select, button {
+input[type='text'], input[type='submit'], input[type='radio'], input[type='checkbox'], select, textarea, button {
 	-moz-appearance    : none;
 	-webkit-appearance : none;
 	appearance         : none;
@@ -59,6 +59,12 @@ select {
   	padding-right       : 25px; 	
 }
 
+textarea {
+	background   : transparent;
+	border-color : transparent;
+	resize       : none;
+}
+
 input[type='radio'] {
 	width            : 14px;
 	height           : 14px;
@@ -69,6 +75,20 @@ input[type='radio'] {
 
 input[type='radio']:checked {
 	background-color : var( --background-color-form-input-radio-checked );
+}
+
+input[type='checkbox'] {
+	position         : relative; 
+	width            : 14px;
+	height           : 14px;
+	border-radius    : 2px;
+	border           : 1px solid var( --border-color-form-input-radio );
+	background-color : var( --background-color-form-input-radio );
+}
+
+input[type='checkbox']:checked {
+  	background          : var( --background-color-form-input-radio ) var( --background-image-form-checkbox ) no-repeat;
+  	background-position : center center;	
 }
 
 .hide { display: none; }
