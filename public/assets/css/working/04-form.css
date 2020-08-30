@@ -1,5 +1,10 @@
 /* START FORM */
 
+.form {
+	--scrollbarThumbColor       : var( --grayscale-15 );
+	--scrollbarThumbBorderColor : var( --background-color-form );	
+}
+
 /* Edit */
 form#edit div.action {   grid-area : action; }
 form#edit div.element {  grid-area : element; }
@@ -21,8 +26,6 @@ form#edit {
 	grid-template-rows    : max-content;
 	grid-gap              : 13px;
 	justify-content       : center; 
-	--scrollbarThumbColor       : var( --grayscale-15 );
-	--scrollbarThumbBorderColor : var( --background-color-form );	
 }
 
 @media (max-width: 800px) {

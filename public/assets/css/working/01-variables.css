@@ -134,7 +134,6 @@
 	--linear-gradient-form-close-hover          : var( --linear-gradient-form-label-hover );
 	--background-image-form-select              : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='34' viewBox='0 0 25 34'><g fill-rule='evenodd' stroke='none'><rect width='25' height='34' fill='rgba(201,201,201,1)' /><polygon fill='rgba(25,25,25,1)' points='12.5 14 19 20 6 20' transform='matrix(1 0 0 -1 0 34)'/></g></svg>");
 
-
 	/* BOOKAMRKS */
 	--font-color-bookmarks-button           : var( --font-color-base );
 	--background-color-bookmarks            : var( --grayscale-22 );
@@ -151,6 +150,23 @@
 	--background-color-modal       : var( --grayscale-23 );
 	--box-shadow-color-modal       : 0 0 160px 50px var( --grayscale-26 );
 
+	/* SCROLLBARS */
+	--scrollbarTrackColor       : var( --background-color-bookmarks );
+	--scrollbarThumbColor       : var( --grayscale-15 );
+	--scrollbarThumbBorderColor : var( --background-color-bookmarks );	
+
+}
+
+:root .dark-mode .form {
+	--scrollbarTrackColor       : transparent;
+	--scrollbarThumbColor       : var( --grayscale-17 );
+	--scrollbarThumbBorderColor : var( --background-color-form );
+}
+
+:root .dark-mode .modal {
+	--scrollbarTrackColor       : transparent;	
+	--scrollbarThumbColor       : var( --grayscale-17 );
+	--scrollbarThumbBorderColor : var( --background-color-modal );
 }
 
 @media ( prefers-color-scheme: dark ) {
@@ -188,7 +204,24 @@
 		--background-color-modal-ol-li : var( --grayscale-20 );
 		--background-color-modal       : var( --grayscale-23 );
 		--box-shadow-color-modal       : 0 0 160px 50px var( --grayscale-26 );
+
+		/* SCROLLBARS */
+		--scrollbarTrackColor       : var( --background-color-bookmarks );
+		--scrollbarThumbColor       : var( --grayscale-15 );
+		--scrollbarThumbBorderColor : var( --background-color-bookmarks );	
+
 	}
 
+	:root .form {
+		--scrollbarTrackColor       : transparent;
+		--scrollbarThumbColor       : var( --grayscale-17 );
+		--scrollbarThumbBorderColor : var( --background-color-form );
+	}
+
+	:root .modal {
+		--scrollbarTrackColor       : transparent;	
+		--scrollbarThumbColor       : var( --grayscale-17 );
+		--scrollbarThumbBorderColor : var( --background-color-modal );
+	}
 }
 /* END VARIABLES */
