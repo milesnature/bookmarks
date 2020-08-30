@@ -21,6 +21,8 @@ form#edit {
 	grid-template-rows    : max-content;
 	grid-gap              : 13px;
 	justify-content       : center; 
+	--scrollbarThumbColor       : var( --grayscale-15 );
+	--scrollbarThumbBorderColor : var( --background-color-form );	
 }
 
 @media (max-width: 800px) {
@@ -152,7 +154,7 @@ form#edit #errorMessage {
 	align-self  : start;
 	color       : var( --font-color-form-error );
 	font-size   : .9rem;
-	line-height : 1.2rem;
+	line-height : 1.1rem;
 	padding     : 5px;
 }
 

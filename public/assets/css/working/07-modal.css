@@ -17,6 +17,8 @@
 	line-height      : 1.3rem;
 	font-size        : 1.1rem;
 	overflow         : auto;
+	--scrollbarThumbColor       : var( --grayscale-10 );
+	--scrollbarThumbBorderColor : var( --background-color-modal );
 }
 
 @media (max-width: 800px) {

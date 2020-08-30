@@ -1,4 +1,16 @@
 /* START GLOBAL */
+* {
+	scrollbar-width : thin;
+	scrollbar-color : var( --scrollbarThumbColor ) transparent;
+}
+
+::scrollbar               { width : 9px; height : 9px; }
+::-webkit-scrollbar       { width : 9px; height : 9px; }
+::scrollbar-track         { background : var( --scrollbarTrackColor ) }
+::-webkit-scrollbar-track { background : var( --scrollbarTrackColor ) }
+::scrollbar-thumb         { background-color : var( --scrollbarThumbColor ); border : 1px solid var( --scrollbarThumbBorderColor ); border-radius : 4.5px; }
+::-webkit-scrollbar-thumb { background-color : var( --scrollbarThumbColor ); border : 1px solid var( --scrollbarThumbBorderColor ); border-radius : 4.5px; }
+
 html {
 	-webkit-text-size-adjust : 100%; /* Text size fix for iphone landscape orientation. */
 }

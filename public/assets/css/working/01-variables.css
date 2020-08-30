@@ -36,8 +36,12 @@
 	--red-dark     : hsla(   0, 100.0%,  32.4%, 1 ); /* #a50000, rgba( 165, 0, 0, 1 )     */
 	--blue         : hsla( 210,  64.4%,  50.4%, 1 ); /* #2f81d2, rgba( 47, 129, 210, 1 )  */
 
+	--scrollbarTrackColor       : transparent;
+	--scrollbarThumbColor       : var( --grayscale-13 );
+	--scrollbarThumbBorderColor : var( --grayscale-08 );
+
 	/* COLOR OPACITY VARIATIONS */
-	--grayscale-00-a9  : hsla(   0,   0.0%, 100.0%, .9 );
+	--grayscale-00-a9  : hsla(   0,   0.0%, 100.0%, .9  );
 	--grayscale-19-a85 : hsla(   0,   0.0%,  29.0%, .85 );
 	--grayscale-21-a85 : hsla(   0,   0.0%,  21.2%, .85 );
 	--grayscale-23-a85 : hsla(   0,   0.0%,  13.7%, .85 ); 
