@@ -36,7 +36,6 @@ footer small.links a { border-right : 1px solid var( --border-color-footer-a  );
 
 footer small.links a:last-child { border-right : 0px solid var( --border-color-footer-a  ); }
 
-
 footer small.copyright { font-size : .8rem; }
 
 @media ( max-width: 600px ) {

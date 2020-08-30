@@ -177,8 +177,8 @@ const
 				edit.resetFields();
 				removeChildNodes( edit.errorMessage );
 			}
-			addDropEvents();
-			addDragEnterEvents();
+			dropEvents( 'add' );
+			dragEnterEvents( 'add' );
 		},
 
 		remove : () => {
@@ -323,7 +323,8 @@ const
 
 				case 'remove':
 					if ( s ) { 
-						settings.container.removeEventListener('click', ( e ) => {});
+						settings.container.removeEventListener('change', ( e ) => {});
+						settings.container.removeEventListener('click',  ( e ) => {});
 						s.remove(); 
 						localStorage.setItem( 'settings', 'closed' );
 					}
@@ -542,10 +543,9 @@ const
 			edit.resetFields();
 			removeChildNodes( edit.errorMessage );
 			edit.addClasses( action );
-			edit.updateButton( action )
+			edit.updateButton( action );
 			if ( action === 'update' ) { 
 				edit.bookmark.checked = 'checked';
-
 				edit.updatePrefill();
 			}
 		},
@@ -844,33 +844,58 @@ const
 	  	cleanupDragHover();
 	},
 
-	addDropEvents = () => {
-		lists   = openGroup.getLists(),
-		addDrop = ( item, index ) => { item.addEventListener( 'drop', ( event ) => { drop( event ) } ); };
-		lists.forEach( addDrop );
+	dropEvents = ( action ) => {
+		lists      = openGroup.getLists(),
+		addDrop    = ( item, index ) => { item.addEventListener(    'drop', ( event ) => { drop( event ) } ); },
+		removeDrop = ( item, index ) => { item.removeEventListener( 'drop', ( event ) => { drop( event ) } ); };
+		switch (action) {
+			case 'add':		
+				lists.forEach( addDrop );
+				break;
+			case 'remove':
+				lists.forEach( removeDrop );
+				break;
+		}
 	},
 
-	addDragEnterEvents = () => {
-		lists        = openGroup.getLists(),
-		addDragEnter = ( item, index ) => { item.addEventListener( 'dragenter', ( event ) => { dragEnter( event ) } ); };
-		lists.forEach( addDragEnter );
+	dragEnterEvents = ( action ) => {
+		lists           = openGroup.getLists(),
+		addDragEnter    = ( item, index ) => { item.addEventListener(    'dragenter', ( event ) => { dragEnter( event ) } ); },
+		removeDragEnter = ( item, index ) => { item.removeEventListener( 'dragenter', ( event ) => { dragEnter( event ) } ); };
+		switch (action) {
+			case 'add':
+				lists.forEach( addDragEnter );
+				break;
+			case 'remove':
+				lists.forEach( removeDragEnter );
+				break;
+		}
+		
 	},	
 
 	// GENERIC CONTENT REMOVAL TOOL
 	removeChildNodes = ( e ) => {
-		let hasContent = ( e && e.hasChildNodes( ) ),
-		    tag        = e.tagName;
+		const hasContent     = ( e && e.hasChildNodes( ) ),
+		      tag            = e.tagName,
+		      removeChildren = ( e ) => {
+		      		let child = e.lastElementChild;  
+			        while ( child ) { 
+			            e.removeChild( child ); 
+			            child = e.lastElementChild; 
+			        } 
+		      };
 		if ( hasContent ) {
 			switch ( tag ) {
 				case 'TEXTAREA':
 					e.textContent = '';
 					break;
+				case 'SECTION':
+					dropEvents( 'remove' );
+					dragEnterEvents( 'remove' );
+					removeChildren( e );
+					break;
 				default:
-					let child = e.lastElementChild;  
-			        while ( child ) { 
-			            e.removeChild( child ); 
-			            child = e.lastElementChild; 
-			        } 
+					removeChildren( e );
 			}
 		}
 	},
