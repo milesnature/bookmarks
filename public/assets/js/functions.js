@@ -121,7 +121,7 @@ const
 			// SET CLASS ATTRIBUTE AND TEXT FOR BUTTON.
 			outer_BUTTON_class.value = 'all';
 			outer_BUTTON.setAttributeNode( outer_BUTTON_class );
-			outer_BUTTON_title.value = 'Open all bookmarks in' + groupName + 'group.';
+			outer_BUTTON_title.value = 'Open all bookmarks in ' + groupName + ' group.';
 			outer_BUTTON.setAttributeNode( outer_BUTTON_title );			
 			outer_BUTTON.appendChild( outer_BUTTON_text );
 			// CREATE INDIVIUDAL BOOKMARKS.
