@@ -112,6 +112,7 @@
 	--background-color-modal-ol-li : var( --grayscale-04 );
 	--background-color-modal       : var( --grayscale-01 );
 	--box-shadow-color-modal       : 0 0 90px var( --grayscale-26 );
+	--background-color-details     : var( --grayscale-05 );
 
 }
 
@@ -149,6 +150,7 @@
 	--background-color-modal-ol-li : var( --grayscale-20 );
 	--background-color-modal       : var( --grayscale-23 );
 	--box-shadow-color-modal       : 0 0 160px 50px var( --grayscale-26 );
+	--background-color-details     : var( --grayscale-21 );
 
 	/* SCROLLBARS */
 	--scrollbarTrackColor       : var( --background-color-bookmarks );
@@ -204,6 +206,7 @@
 		--background-color-modal-ol-li : var( --grayscale-20 );
 		--background-color-modal       : var( --grayscale-23 );
 		--box-shadow-color-modal       : 0 0 160px 50px var( --grayscale-26 );
+		--background-color-details     : var( --grayscale-21 );
 
 		/* SCROLLBARS */
 		--scrollbarTrackColor       : var( --background-color-bookmarks );
