@@ -1,7 +1,7 @@
 /* START GLOBAL */
 * {
 	scrollbar-width : thin;
-	scrollbar-color : var( --scrollbarThumbColor ) transparent;
+	scrollbar-color : var( --scrollbarThumbColor ) var( --scrollbarTrackColor );
 }
 
 ::scrollbar               { width : 9px; height : 9px; }
@@ -39,7 +39,7 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var( --font-color-a-base );
 }
 
-input:focus, select:focus, button:focus, a:focus, textarea:focus {
+input:focus, select:focus, button:focus, a:focus, textarea:focus, summary:focus {
 	outline-style : solid;
 	outline-color : var( --outline-color-base );
   	outline-width : 0;

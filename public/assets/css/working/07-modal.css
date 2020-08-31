@@ -28,7 +28,12 @@
 	}
 }
 
-.modal section { margin-bottom : 33px; }
+.modal details { 
+}
+
+.modal details[open] { 
+	margin-bottom : 33px; 
+}
 
 .modal h2 {
 	margin      : 0 0 2rem 0;
@@ -36,19 +41,18 @@
 	font-weight : bold;
 }
 
-.modal h3 {
-	margin: .25em 0 1em 0;
-	font-size   : 1.2rem;
+.modal summary {
+	margin      : 0 0 5px 0;
+	font-size   : 1.1rem;
 	font-weight : bold;
-}
-
-.modal h3.child {
-	margin  : .45rem 0 1rem 0;
-	display : inline-block;
+	padding     : 0 10px; 
+	line-height : 48px;  
+	cursor      : pointer; 
+	background-color : var( --background-color-details );
 }
 
 .modal p {
-	margin : 0 0 1rem 0;
+	margin : 1rem;
 	clear  : both;
 }
 
@@ -63,7 +67,7 @@
 .modal ol {
 	list-style-type       : none;
 	padding-left          : 0;
-	margin                : 0 0 1rem 0;
+	margin                : 0 2rem 1rem 2rem;
 	display               : grid;
 	grid-template-columns : 1fr 1fr 1fr 1fr;
 	grid-auto-rows        : auto;
@@ -75,7 +79,7 @@
 		grid-template-columns : 1fr 1fr;
 		grid-auto-rows        : auto auto;
 	}
-	.modal { padding : 1.5rem; }	
+	.modal { padding  : 1.5rem; }	
 }
 
 .modal ol li {

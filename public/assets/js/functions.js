@@ -24,8 +24,9 @@ const
 				       		if ( bookmarksArray.length > 0 ) {
 			       				bookmarks.constructSection();
 			       			} else {
-			       				actionFromFooter( 'create' );
+			       				actionFromFooter( 'create', 'group' );
 			       				toggleModalHelp( 'add' );
+			       				document.getElementById( 'helpEmptyDatabase' ).open = true;
 			       				bookmarks.remove();
 			       			}
 			            } else {
@@ -750,7 +751,7 @@ const
 		}	
 	},
 
-	actionFromFooter = ( action ) => {
+	actionFromFooter = ( action, element ) => {
 		const formEdit     = document.getElementById( 'edit' ),
 			  formSettings = document.getElementById( 'settings' );
 		switch ( action ) {
@@ -759,17 +760,22 @@ const
 					if ( formEdit ) { formEdit.remove(); }
 					settings.toggleSettings( 'add' );
 				}
-				const a = document.querySelector( 'input[name="appearance"]:checked' );
-				a.focus();					
+				document.querySelector( 'input[name="appearance"]:checked' ).focus();
 				break;
 			default:
 				if ( !formEdit ) { 
 					if ( formSettings ) { formSettings.remove(); }
 					edit.toggleEdit( 'add' );
 				}
-				const e = document.querySelector( 'input[value=' + action + ']' );
-				e.checked = 'checked';
-				e.focus();	
+				const 
+					a = ( action )  ? document.querySelector( 'input[value=' + action + ']' )  : '',
+					e = ( element ) ? document.querySelector( 'input[value=' + element + ']' ) : '';
+				a.checked = 'checked';
+				if ( !e ) {  
+					a.focus();
+				} else {
+					e.checked = 'checked';
+				}
 				edit.actionState();
 				edit.elementState();
 		}
