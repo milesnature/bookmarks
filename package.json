@@ -1,6 +1,6 @@
 {
   "name": "bookmarks-app",
-  "version": "1.1.71",
+  "version": "1.1.74",
   "description": "Web based bookmark tool that is available everywhere. ",
   "main": "server.js",
   "scripts": {
@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "clean-css-cli": "^4.3.0",
     "crypto": "^1.0.1",
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
@@ -25,9 +26,9 @@
     "mongoose": "^5.9.14",
     "nocache": "^2.1.0",
     "session-file-store": "^1.4.0",
+    "socket.io": "^2.3.0",
     "uglify-es": "^3.3.9",
-    "uuid": "^8.1.0",
-    "clean-css-cli": "^4.3.0"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "clean-css": "^4.2.3"

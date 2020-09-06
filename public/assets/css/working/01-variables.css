@@ -119,8 +119,8 @@
 :root .dark-mode {
 
 	/* BASE */
-	--font-color-base   : var( --grayscale-02 );
-	--font-color-a-base : var( --grayscale-02 );
+	--font-color-base   : var( --grayscale-06 );
+	--font-color-a-base : var( --grayscale-04 );
 
 	/* BODY */
 	--background-color-body : var( --background-color-form );
@@ -129,7 +129,7 @@
 	--font-color-form-inputs                    : var( --grayscale-25 );
 	--background-color-form                     : var( --grayscale-24 );
 	--background-color-form-label               : var( --grayscale-22 );
-	--background-color-form-inputs              : var( --grayscale-03 );
+	--background-color-form-inputs              : var( --grayscale-04 );
 	--background-color-form-input-radio-checked : var( --grayscale-25 );
 	--linear-gradient-form-label-hover          : linear-gradient( var( --grayscale-23 ), var( --grayscale-23-a85 ) );
 	--linear-gradient-form-close-hover          : var( --linear-gradient-form-label-hover );
@@ -175,8 +175,8 @@
 
 	:root {
 		/* BASE */
-		--font-color-base   : var( --grayscale-02 );
-		--font-color-a-base : var( --grayscale-02 );
+		--font-color-base   : var( --grayscale-06 );
+		--font-color-a-base : var( --grayscale-04 );
 
 		/* BODY */
 		--background-color-body : var( --background-color-form );
@@ -185,7 +185,7 @@
 		--font-color-form-inputs                    : var( --grayscale-25 );
 		--background-color-form                     : var( --grayscale-24 );
 		--background-color-form-label               : var( --grayscale-22 );
-		--background-color-form-inputs              : var( --grayscale-03 );
+		--background-color-form-inputs              : var( --grayscale-04 );
 		--background-color-form-input-radio-checked : var( --grayscale-25 );
 		--linear-gradient-form-label-hover          : linear-gradient( var( --grayscale-23 ), var( --grayscale-23-a85 ) );
 		--linear-gradient-form-close-hover          : var( --linear-gradient-form-label-hover );

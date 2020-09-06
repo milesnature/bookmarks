@@ -4,17 +4,20 @@ require('dotenv').config();
 const express    = require('express');
 const bodyParser = require('body-parser');
 const path       = require('path');
+// Sessions and authentication WIP
 // const uuid       = require('uuid/v4');
 // const session    = require('express-session');
 // const FileStore  = require('session-file-store')(session);
 
 const app        = express();
+const http       = require('http').createServer(app);
+const io         = require('socket.io')(http);
 
 // Parse requests
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-//Enable CORS for all HTTP methods
+// Enable CORS for all HTTP methods
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
@@ -64,14 +67,33 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname+'/public/index.html'));
 });
 
-app.get('/login', (req, res) => {
-    console.log('Inside the homepage callback function')
-    console.log(req.sessionID)
-    res.send(`You hit home page!\n`)
-    // res.sendFile(path.join(__dirname+'/public/login.html'));
+// Sessions and authentication WIP
+// app.get('/login', (req, res) => {
+//     console.log('Inside the homepage callback function')
+//     console.log(req.sessionID)
+//     res.send(`You hit home page!\n`)
+//     // res.sendFile(path.join(__dirname+'/public/login.html'));
+// });
+
+// Just for fun
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('a user disconnected');
+  });
 });
 
 // Listen on port 3000
-app.listen(process.env.SERVER_PORT, () => {
-    console.log("Server is listening on port 3000");
-})
+http.listen(process.env.SERVER_PORT, () => {
+    console.log("Server is listening on port : " + process.env.SERVER_PORT);
+});
+
+// Using node file system and socket.io (instead of webpack or gulp) may be overkill just to auto-reload browsers.
+// However, socket.io is more fun to play with and potentially more useful later on.
+var fs = require('fs');
+
+fs.watch('public', {recursive:true}, function(event, file){
+    let response = { 'file' : file, 'event' : event } 
+    console.log( response );
+    io.emit( 'change', file );
+});

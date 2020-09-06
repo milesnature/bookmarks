@@ -908,14 +908,30 @@ const
 
 	// MODAL HANDLER
 	toggleModalHelp = ( action ) => {
-		const modal = document.querySelector('div.modal.help');
+		const 
+			modal   = document.querySelector( 'div.modal.help' ),
+			anchors = Array.prototype.slice.call( document.getElementsByTagName( 'A' ) ),
+			inputs  = Array.prototype.slice.call( document.getElementsByTagName( 'INPUT' ) ),
+			selects = Array.prototype.slice.call( document.getElementsByTagName( 'SELECT' ) ),
+			buttons = Array.prototype.slice.call( document.getElementsByTagName( 'BUTTON' ) );
 		switch ( action ) {
 			case 'remove':
-				if ( modal ) { modal.remove(); }
+				if ( modal ) { 
+					modal.remove(); 
+					anchors.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+					inputs.forEach(  ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+					selects.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+					buttons.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+				}				
 				break;
 			case 'add':
 				if ( !modal ) {
-  					document.body.appendChild( templateModalHelp.content.cloneNode( true ) );	
+  					document.body.appendChild( templateModalHelp.content.cloneNode( true ) );
+   					document.querySelector( '#helpOpenForm summary' ).focus(); 					
+  					anchors.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+  					inputs.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+  					selects.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+  					buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				}
 				break;
 			}
