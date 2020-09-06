@@ -15,7 +15,7 @@
 	display          : block;
 	text-align       : left;
 	line-height      : 1.3rem;
-	font-size        : 1.1rem;
+	font-size        : 1rem;
 	overflow         : auto;
 	--scrollbarThumbColor       : var( --grayscale-10 );
 	--scrollbarThumbBorderColor : var( --background-color-modal );
@@ -40,11 +40,12 @@
 
 .modal details[open] { 
 	border-width  : 1px;
-	margin-bottom : 33px; 
+	margin-bottom : 21px; 
+
 }
 
 .modal details[open] summary { 
-	
+	margin-bottom: 1.25rem;
 }
 
 .modal h2 {
@@ -55,8 +56,7 @@
 
 .modal summary {
 	margin      : 0;
-	font-size   : 1.1rem;
-	font-weight : bold;
+	font-size   : 1rem;
 	padding     : 0 10px; 
 	line-height : 48px;  
 	cursor      : pointer;
@@ -66,6 +66,7 @@
 .modal p {
 	margin : 1rem;
 	clear  : both;
+	color  : var( --color-modal-p );
 }
 
 .modal strong { font-weight : bold; }
@@ -77,7 +78,6 @@
 }
 
 .modal ol {
-	list-style-type       : none;
 	padding-left          : 0;
 	margin                : 0 1rem 1rem 1rem;
 	display               : grid;
@@ -95,9 +95,10 @@
 }
 
 .modal ol li {
-	line-height      : 1.5rem;
-	background-color : var( --background-color-modal-ol-li );
-	padding          : 1rem;
+	font-size        : .95rem; 
+	line-height      : 1.25rem;
+	border           : 1px solid var( --background-color-modal-ol-li );
+	padding          : .75rem;
 }
 
 .modal ol li strong { display : block; }

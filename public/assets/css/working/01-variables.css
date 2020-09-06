@@ -109,7 +109,8 @@
                 
 	/* MODAL */
     --font-color-modal-a-hover     : var( --red-medium );
-	--background-color-modal-ol-li : var( --grayscale-04 );
+    --color-modal-p                : var( --font-color-base );
+	--background-color-modal-ol-li : var( --grayscale-09 );
 	--background-color-modal       : var( --grayscale-01 );
 	--box-shadow-color-modal       : 0 0 90px var( --grayscale-26 );
 	--background-color-details     : var( --grayscale-05 );
@@ -120,12 +121,13 @@
 
 	/* BASE */
 	--font-color-base   : var( --grayscale-06 );
-	--font-color-a-base : var( --grayscale-04 );
+	--font-color-a-base : var( --grayscale-05 );
 
 	/* BODY */
 	--background-color-body : var( --background-color-form );
 
 	/* FORM */
+	--font-color-form                           : var( --grayscale-07 );
 	--font-color-form-inputs                    : var( --grayscale-25 );
 	--background-color-form                     : var( --grayscale-24 );
 	--background-color-form-label               : var( --grayscale-22 );
@@ -147,7 +149,8 @@
 	--background-color-footer : var( --grayscale-22 ); 
 
 	/* MODAL */
-	--background-color-modal-ol-li : var( --grayscale-20 );
+	--color-modal-p                : var( --grayscale-09 );
+	--background-color-modal-ol-li : var( --grayscale-16 );
 	--background-color-modal       : var( --grayscale-23 );
 	--box-shadow-color-modal       : 0 0 160px 50px var( --grayscale-26 );
 	--background-color-details     : var( --grayscale-21 );
@@ -176,12 +179,13 @@
 	:root {
 		/* BASE */
 		--font-color-base   : var( --grayscale-06 );
-		--font-color-a-base : var( --grayscale-04 );
+		--font-color-a-base : var( --grayscale-05 );
 
 		/* BODY */
 		--background-color-body : var( --background-color-form );
 
 		/* FORM */
+		--font-color-form                           : var( --grayscale-07 );
 		--font-color-form-inputs                    : var( --grayscale-25 );
 		--background-color-form                     : var( --grayscale-24 );
 		--background-color-form-label               : var( --grayscale-22 );
@@ -203,7 +207,8 @@
 		--background-color-footer : var( --grayscale-22 ); 
 
 		/* MODAL */
-		--background-color-modal-ol-li : var( --grayscale-20 );
+		--color-modal-p                : var( --grayscale-09 );
+		--background-color-modal-ol-li : var( --grayscale-16 );
 		--background-color-modal       : var( --grayscale-23 );
 		--box-shadow-color-modal       : 0 0 160px 50px var( --grayscale-26 );
 		--background-color-details     : var( --grayscale-21 );
