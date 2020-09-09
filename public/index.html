@@ -77,6 +77,14 @@
 						<input type="radio" name="appearance" value="dark" />
 					</label>				
 				</div>
+				<div class="style fieldset">	
+					<label>Default:
+						<input type="radio" name="style" value="default" checked="default" />
+					</label>
+					<label>Tidy (Desktop):
+						<input type="radio" name="style" value="tidy" />
+					</label>			
+				</div>				
 				<button id="close" type="button" name="close" title="Close Settings Form" class="close">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
 						<title>Close Form</title>
@@ -87,7 +95,7 @@
 			</form>
 		</template>		
 		<main>
-			<section id="bookmarks"></section>
+			<section id="bookmarks" class=""></section>
 		</main>
 		<footer>
 			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button><button class="settings">Settings</button></nav>
@@ -115,10 +123,10 @@
 					<p>
 						The form has 4 main sections (boxes). It is designed to make sense when completed in order.
 						<ol>
-							<li><strong>1. Action.</strong> Create, Delete, or Update.</li>
-							<li><strong>2. Element.</strong> Group or Bookmark.</li>
-							<li><strong>3. Detail.</strong> Add, edit, or choose details.</li>
-							<li><strong>4. Submit.</strong> Submit action.</li>
+							<li><strong>1. Action.</strong> Select Create, Delete, or Update.</li>
+							<li><strong>2. Element.</strong> Select Group or Bookmark.</li>
+							<li><strong>3. Detail.</strong> Edit and or Select.</li>
+							<li><strong>4. Submit.</strong> Click action button.</li>
 						</ol>
 					</p>
 					<p>A successfull request will reset the form and reload the bookmarks section. This page does not need to be manually reloaded or refreshed.</p>
@@ -194,7 +202,7 @@
 				</g>
 			</svg>
 		</template>				
-		<script src="dist/assets/js/functions.min.js"></script>
+		<script src="assets/js/functions.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 		  	var socket = io();

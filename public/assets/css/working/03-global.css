@@ -39,13 +39,18 @@ a, a:link, a:visited, a:hover, a:active {
 	color: var( --font-color-a-base );
 }
 
+*:focus {
+	box-shadow: none;
+	outline: none;
+}
+
 input:focus, select:focus, button:focus, a:focus, textarea:focus, summary:focus, svg:focus {
 	outline-style : solid;
 	outline-color : var( --outline-color-base );
   	outline-width : 0;
 	box-shadow    : 0 0 3px 4px var( --outline-box-shadow-color-base );
 	position      : relative;
-	z-index       : 1;   
+	z-index       : 10;   
 }
 
 input[type='text'], input[type='submit'], input[type='radio'], input[type='checkbox'], select, textarea, button {
@@ -55,13 +60,13 @@ input[type='text'], input[type='submit'], input[type='radio'], input[type='check
 }
 
 input[type='text'], input[type='submit'], select, button {
-	font-size          : var( --font-size-form-inputs );
-	color              : var( --font-color-form-inputs );
-	padding            : 0 5px;
-	height             : 26px;
-	background-color   : var( --background-color-form-inputs );
-	border             : 1px solid var( --border-color-form-inputs );
-	border-radius      : 3px;
+	font-size        : var( --font-size-form-inputs );
+	color            : var( --font-color-form-inputs );
+	padding          : 0 5px;
+	height           : 26px;
+	background-color : var( --background-color-form-inputs );
+	border           : 1px solid var( --border-color-form-inputs );
+	border-radius    : 3px;
 }
 
 select {

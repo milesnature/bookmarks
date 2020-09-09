@@ -13,6 +13,7 @@ const
 	// API CALLS
 	api = {
 		getBookmarks : () => {
+			bookmarks.toggleLoader('add');
 			const xhr = new XMLHttpRequest();
 		    xhr.onreadystatechange = function () {
 				if( xhr.readyState === XMLHttpRequest.DONE ) {
@@ -104,6 +105,7 @@ const
 				outer_UL_class     = document.createAttribute( 'class' ),
 				outer_UL_id        = document.createAttribute( 'id' ),
 				outer_UL_title     = document.createAttribute( 'title' ),
+				outer_UL_tabindex  = document.createAttribute( 'tabindex' ),
 				outer_LI           = document.createElement  ( 'LI' ),
 				outer_BUTTON       = document.createElement  ( 'BUTTON' ),
 				outer_BUTTON_class = document.createAttribute( 'class' ),
@@ -117,7 +119,9 @@ const
 			outer_UL_id.value        = '_' + groupName;
 			outer_UL.setAttributeNode( outer_UL_id );
 			outer_UL_title.value     = groupName + ' Group';
-			outer_UL.setAttributeNode( outer_UL_title );			
+			outer_UL.setAttributeNode( outer_UL_title );
+			outer_UL_tabindex.value  = '0';
+			outer_UL.setAttributeNode( outer_UL_tabindex );						
 			// SET CLASS ATTRIBUTE AND TEXT FOR BUTTON.
 			outer_BUTTON_class.value = 'all';
 			outer_BUTTON.setAttributeNode( outer_BUTTON_class );
@@ -269,6 +273,8 @@ const
 	  					bmkSection.appendChild( templateLoader.content.cloneNode( true ) );
 	  				}
   					break;
+  				default:
+					break;
   			}				
 		}		
 	},
@@ -339,9 +345,12 @@ const
 
 						localStorage.setItem( 'settings', 'open' );
 
-						const appearance = localStorage.getItem( 'appearance' );
+						const 
+							appearance = localStorage.getItem( 'appearance' ),
+							style      = localStorage.getItem( 'style' );
 
 						if ( appearance ) { document.querySelector( 'input[value=' + appearance + ']'  ).checked = 'checked'; }
+						if ( style )      { document.querySelector( 'input[value=' + style + ']'  ).checked = 'checked'; }
 
 						settings[ 'container' ] = document.forms[0];					
 
@@ -350,27 +359,57 @@ const
 							const 
 								target = e.target,
 								tag    = target.tagName,
+								name   = target.name,
 								value  = target.value;
-							switch ( tag ) {
-								case 'INPUT':
-									body.classList.remove( 'light-mode', 'dark-mode' );
-									switch ( value ) {
-										case 'default':
-											localStorage.setItem( 'appearance', 'default' );
+							switch ( name ) {
+								case 'appearance':
+									switch ( tag ) {
+										case 'INPUT':
+											body.classList.remove( 'light-mode', 'dark-mode' );
+											switch ( value ) {
+												case 'default':
+													localStorage.setItem( 'appearance', 'default' );
+													break;
+												case 'light':
+													localStorage.setItem( 'appearance', 'light' );
+													body.classList.add( 'light-mode' );
+													break;
+												case 'dark':
+													localStorage.setItem( 'appearance', 'dark' );
+													body.classList.add( 'dark-mode' );
+													break;
+												default:
+													break;
+											}
 											break;
-										case 'light':
-											localStorage.setItem( 'appearance', 'light' );
-											body.classList.add( 'light-mode' );
+										default:
 											break;
-										case 'dark':
-											localStorage.setItem( 'appearance', 'dark' );
-											body.classList.add( 'dark-mode' );
-											break;
-
 									}
 									break;
+								case 'style': 
+									switch ( tag ) {
+										case 'INPUT':
+											bmkSection.classList.remove( 'tidy' );
+											switch ( value ) {
+												case 'default':
+													localStorage.setItem( 'style', 'default' );
+													break;
+												case 'tidy':
+													localStorage.setItem( 'style', 'tidy' );
+													bmkSection.classList.add( 'tidy' );
+													break;
+												default:
+													break;
+											}
+											break;
+										default:
+											break;
+									}
+									break;
+								default:
+									break;
 							}
-							});
+						});
 
 						// LISTEN FOR CLOSE. 
 						settings.container.addEventListener('click', ( e ) => {
@@ -390,6 +429,8 @@ const
 									break;					
 								case 'polyline':
 									settings.toggleSettings( remove );
+									break;
+								default:
 									break;			
 							}
 						});
@@ -397,6 +438,9 @@ const
 
 					
 					}
+					break;
+
+				default:
 					break;
 			}
 
@@ -483,6 +527,8 @@ const
 									case 'SELECT':
 										if ( name === 'name_select' ) { edit.updatePrefill() }
 										break;
+									default:
+										break;
 								}
 							});
 
@@ -508,12 +554,16 @@ const
 										break;					
 									case 'polyline':
 										edit.toggleEdit( remove );
+										break;
+									default:
 										break;			
 								}
 							});
 
 						}					
 					}
+					break;
+				default:
 					break;
 			}			
 		},
@@ -633,8 +683,10 @@ const
 				if ( Array.isArray( message ) && message.length > 0 ) {
 					let fragment = document.createDocumentFragment(),
 						createTextItem = ( item, index ) => {
+							let lineEnding = String.fromCharCode(13);
 							if ( item === '' ) { return }
-							let textNode = document.createTextNode( item + String.fromCharCode(13) );
+						    lineEnding = ( message.length === ( index + 1 ) ) ? '' : lineEnding;
+							let textNode = document.createTextNode( item + lineEnding );
 							fragment.appendChild( textNode );
 						};
 					message.forEach( createTextItem );
@@ -697,7 +749,7 @@ const
 			if ( validation.action === valid && validation.element === valid ) {
 				if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid ) {
-						params = 'name=' + values.config.name + '&url=' + values.config.url + '&group=' + values.config.group;
+						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
 						api.verbBookmark( 
 							'POST', 
 							domainUrl + 'bookmarks', 
@@ -734,7 +786,7 @@ const
 				}
 				if ( state.isUpdate && state.isBookmark ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid && validation.id === valid ) {
-						params = 'name=' + values.config.name + '&url=' + values.config.url + '&group=' + values.config.group;
+						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
 						api.verbBookmark( 
 							'PUT', 
 							domainUrl + 'bookmarks/' + values.config.id, 
@@ -861,6 +913,8 @@ const
 			case 'remove':
 				lists.forEach( removeDrop );
 				break;
+			default:
+				break;
 		}
 	},
 
@@ -874,6 +928,8 @@ const
 				break;
 			case 'remove':
 				lists.forEach( removeDragEnter );
+				break;
+		  	default:
 				break;
 		}
 		
@@ -934,7 +990,9 @@ const
   					buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				}
 				break;
-			}
+		  	default:
+				break;
+		}
 	}
 
 let 
@@ -945,8 +1003,6 @@ let
 
 // SETUP AFTER PAGE LOADS	
 window.onload = () => {
-
-	bookmarks.toggleLoader('add');
 
 	// THIS LOADS BOOKMARKS FROM LOCAL STORAGE BEFORE CALLING API. FALLBACK FOR CONNECTION OR API ISSUES AND FOR WORKING OFFLINE.   
 	// let bookmarksStored = bookmarks.storage.get();
@@ -989,6 +1045,8 @@ window.onload = () => {
 				break;
 			case 'A':
 				if ( id === 'help' ) { toggleModalHelp( 'add' ); }
+				break;
+			default:
 				break;
 		}
 	});

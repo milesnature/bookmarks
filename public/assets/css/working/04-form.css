@@ -154,6 +154,7 @@ form#edit #errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
 	height      : 100%;
+	min-height  : 4.5rem; 
 	align-self  : start;
 	color       : var( --font-color-form-error );
 	font-size   : .9rem;
@@ -163,6 +164,7 @@ form#edit #errorMessage {
 
 /* Settings */
 form#settings div.appearance { grid-area : appearance; }
+form#settings div.style      { grid-area : style; }
 form#settings button.close   { grid-area : close; }
 
 form#settings {
@@ -174,7 +176,7 @@ form#settings {
 	background-color      : var( --background-color-form );
 	color                 : var( --font-color-form );	
 	grid-area             : form;
-	grid-template-areas   : 'appearance' 'close';
+	grid-template-areas   : 'appearance style' 'close close';
 	grid-template-columns : max-content max-content;
 	grid-template-rows    : max-content;
 	grid-gap              : 13px;
@@ -202,7 +204,7 @@ form#settings {
 form#settings .fieldset {
 	display               : grid;
  	grid-template-columns : 100%;
- 	grid-template-rows    : 1fr;
+ 	grid-template-rows    : 1fr 1fr 1fr;
 	grid-gap              : 1px;
 	align-content         : start;
 }

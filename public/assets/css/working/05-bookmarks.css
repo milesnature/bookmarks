@@ -40,9 +40,7 @@ main section#bookmarks ul.bookmarks li button {
 	width            : 100%;
 	height           : min-content; 
 	border-radius    : 0;
-}
-
-main section#bookmarks ul.bookmarks li button { color: var( --font-color-bookmarks-button );  }
+	color            : var( --font-color-bookmarks-button );  }
 
 main section#bookmarks ul.bookmarks li button:hover {
 	color            : var( --font-color-bookmarks-hover );
@@ -54,12 +52,8 @@ main section#bookmarks ul.bookmarks li ul {
 	margin : 0;
 }
 
-main section#bookmarks ul.bookmarks li:hover ul {
-	display : block;
-}			
-
 main section#bookmarks ul.bookmarks li ul li {
-	border-bottom : 1px solid transparent;
+	border-bottom : 1px solid var( --background-color-bookmarks );
 	position      : relative; 
 }
 
@@ -94,6 +88,36 @@ main section#bookmarks #loader circle {
 	main section#bookmarks { grid-template-columns: repeat( auto-fit, minmax( 200px, 1fr ) );	}
 	main section#bookmarks ul.bookmarks li button {  min-height : 48px; }	
 	main section#bookmarks ul.bookmarks li ul li a { min-height : 48px; }
+}
+
+@media ( min-width: 800px ) {
+	main section#bookmarks.tidy {
+		height: auto;
+	}
+	main section#bookmarks.tidy ul.bookmarks {
+		outline: none;
+	}
+	main section#bookmarks.tidy ul.bookmarks li button {
+		background-image : var( --linear-gradient-bookmarks-a );
+		border-bottom : 1px solid var( --background-color-bookmarks );
+	}
+	main section#bookmarks.tidy ul.bookmarks li button:hover {
+		color            : var( --font-color-bookmarks-hover );
+		background-image : var( --linear-gradient-bookmarks-a-hover );	
+	}
+	main section#bookmarks.tidy ul.bookmarks li {
+		position: relative;
+	}
+	main section#bookmarks.tidy ul.bookmarks li ul {
+		display : none; 
+		width: 100%; 
+		position: absolute;
+		z-index: 5;
+	}
+	main section#bookmarks.tidy ul.bookmarks:hover li ul,
+	main section#bookmarks.tidy ul.bookmarks:focus-within li ul {
+		display : block;
+	}
 }
 
 /* END BOOKMARKS */
