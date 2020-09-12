@@ -104,7 +104,7 @@
 		</footer>
 		<template id="templateModalHelp">
 			<div class="modal help">	
-				<svg id="iconClose" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" class="close" onclick="toggleModalHelp( 'remove' )" tabindex="0">
+				<svg id="iconClose" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" class="close" tabindex="0">
 				  <g fill="none" fill-rule="evenodd">
 				  	<title>Close</title>
 				    <circle cx="24" cy="24" r="24"/>
@@ -202,7 +202,8 @@
 				</g>
 			</svg>
 		</template>				
-		<script src="assets/js/functions.js"></script>
+		<script src="dist/assets/js/functions.min.js"></script>
+		<!--
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 		  	var socket = io();
@@ -210,6 +211,7 @@
 			    console.log('change', msg);
 			    location.reload();
 			});		  
-		</script>				  
+		</script>
+		-->				  
 	</body>
 </html>

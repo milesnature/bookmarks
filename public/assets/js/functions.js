@@ -434,8 +434,6 @@ const
 									break;			
 							}
 						});
-
-
 					
 					}
 					break;
@@ -963,16 +961,36 @@ const
 	},
 
 	// MODAL HANDLER
-	toggleModalHelp = ( action ) => {
+	toggleModalHelp = () => {
 		const 
 			modal   = document.querySelector( 'div.modal.help' ),
 			anchors = Array.prototype.slice.call( document.getElementsByTagName( 'A' ) ),
 			inputs  = Array.prototype.slice.call( document.getElementsByTagName( 'INPUT' ) ),
 			selects = Array.prototype.slice.call( document.getElementsByTagName( 'SELECT' ) ),
-			buttons = Array.prototype.slice.call( document.getElementsByTagName( 'BUTTON' ) );
-		switch ( action ) {
-			case 'remove':
-				if ( modal ) { 
+			buttons = Array.prototype.slice.call( document.getElementsByTagName( 'BUTTON' ) ),
+			event   = ( e ) => {
+				const
+					target  = e.target,
+					tag     = target.tagName.toLowerCase(),
+					type    = e.type,
+					key     = e.key,
+					keyCode = e.keyCode;
+				switch ( type ) {
+					case 'click':
+						if ( tag === 'svg' || tag === 'circle' || tag === 'line' || tag === 'g' ) { toggleModalHelp(); }
+						break;
+					case 'keyup':
+						if ( tag === 'svg' && ( key === 'Enter' || keyCode === '13' ) ) { toggleModalHelp(); }
+						break;
+					default:
+						break;
+				}
+			}
+		switch ( ( modal ) ? true : false ) {
+			case true:
+				if ( modal ) {
+					document.querySelector( 'div.modal.help' ).removeEventListener( 'click', event ); 
+   					document.querySelector( 'div.modal.help' ).removeEventListener( 'keyup', event ); 				 
 					modal.remove(); 
 					anchors.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 					inputs.forEach(  ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
@@ -980,10 +998,12 @@ const
 					buttons.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				}				
 				break;
-			case 'add':
+			case false:
 				if ( !modal ) {
   					document.body.appendChild( templateModalHelp.content.cloneNode( true ) );
-   					document.querySelector( '#helpOpenForm summary' ).focus(); 					
+   					document.querySelector( '#helpOpenForm summary' ).focus();
+					document.querySelector( 'div.modal.help' ).addEventListener( 'click', event ); 
+   					document.querySelector( 'div.modal.help' ).addEventListener( 'keyup', event ); 					
   					anchors.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
   					inputs.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
   					selects.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
@@ -1039,7 +1059,7 @@ window.onload = () => {
 			name   = target.className;
 		switch ( tag ) {
 			case 'BUTTON':
-				actionFromFooter( name );
+				actionFromFooter( name );  
 				body.scrollTop = 0; // SAFARI
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				break;
