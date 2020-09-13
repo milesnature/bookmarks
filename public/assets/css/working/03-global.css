@@ -109,4 +109,6 @@ input[type='checkbox']:checked {
 }
 
 .hide { display: none; }
+
+.no-scroll { overflow: hidden; }
 /* END GLOBAL */

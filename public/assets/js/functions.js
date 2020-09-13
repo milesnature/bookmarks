@@ -26,8 +26,7 @@ const
 			       				bookmarks.constructSection();
 			       			} else {
 			       				actionFromFooter( 'create', 'group' );
-			       				toggleModalHelp( 'add' );
-			       				document.getElementById( 'helpEmptyDatabase' ).open = true;
+			       				toggleModalHelp( 'helpEmptyDatabase' );
 			       				bookmarks.remove();
 			       			}
 			            } else {
@@ -434,16 +433,13 @@ const
 									break;			
 							}
 						});
-					
 					}
 					break;
 
 				default:
 					break;
 			}
-
 		}
-
 	},
 
 	// FORM DOM ELEMENTS AND METHODS.
@@ -960,27 +956,54 @@ const
 		}
 	},
 
-	// MODAL HANDLER
-	toggleModalHelp = () => {
+	// TRAP FOCUS 
+	trapFocus = ( action ) => {
 		const 
-			modal   = document.querySelector( 'div.modal.help' ),
 			anchors = Array.prototype.slice.call( document.getElementsByTagName( 'A' ) ),
 			inputs  = Array.prototype.slice.call( document.getElementsByTagName( 'INPUT' ) ),
 			selects = Array.prototype.slice.call( document.getElementsByTagName( 'SELECT' ) ),
 			buttons = Array.prototype.slice.call( document.getElementsByTagName( 'BUTTON' ) ),
-			event   = ( e ) => {
+			groups  = Array.prototype.slice.call( document.getElementsByClassName( 'bookmarks' ) );
+		switch ( action ) {
+			case 'add':
+				document.body.classList.add('no-scroll');
+				anchors.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+				inputs.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+				selects.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+				buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+				groups.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+				break;
+			case 'remove':
+				document.body.classList.remove('no-scroll');
+				anchors.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+				inputs.forEach(  ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+				selects.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+				buttons.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+				buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '0' ) } );
+				break;	
+			default:
+				break;			
+		}
+	}
+
+	// MODAL HANDLER
+	toggleModalHelp = ( id ) => {
+		const 
+			container = 'div.modal-container',
+			modal     = document.querySelector( container ),
+			event     = ( e ) => {
 				const
 					target  = e.target,
-					tag     = target.tagName.toLowerCase(),
+					tag     = ( target.tagName ) ? target.tagName.toLowerCase() : '',
 					type    = e.type,
-					key     = e.key,
+					key     = ( e.key ) ? e.key.toLowerCase() : '',
 					keyCode = e.keyCode;
 				switch ( type ) {
 					case 'click':
 						if ( tag === 'svg' || tag === 'circle' || tag === 'line' || tag === 'g' ) { toggleModalHelp(); }
 						break;
 					case 'keyup':
-						if ( tag === 'svg' && ( key === 'Enter' || keyCode === '13' ) ) { toggleModalHelp(); }
+						if ( tag === 'svg' && ( key === 'enter' || keyCode === '13' ) ) { toggleModalHelp(); }
 						break;
 					default:
 						break;
@@ -989,25 +1012,24 @@ const
 		switch ( ( modal ) ? true : false ) {
 			case true:
 				if ( modal ) {
-					document.querySelector( 'div.modal.help' ).removeEventListener( 'click', event ); 
-   					document.querySelector( 'div.modal.help' ).removeEventListener( 'keyup', event ); 				 
+					const c = document.querySelector( container );
+					c.removeEventListener( 'click', event ); 
+   					c.removeEventListener( 'keyup', event ); 				 
 					modal.remove(); 
-					anchors.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
-					inputs.forEach(  ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
-					selects.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
-					buttons.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+					trapFocus( 'remove' );
 				}				
 				break;
 			case false:
 				if ( !modal ) {
-  					document.body.appendChild( templateModalHelp.content.cloneNode( true ) );
-   					document.querySelector( '#helpOpenForm summary' ).focus();
-					document.querySelector( 'div.modal.help' ).addEventListener( 'click', event ); 
-   					document.querySelector( 'div.modal.help' ).addEventListener( 'keyup', event ); 					
-  					anchors.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
-  					inputs.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
-  					selects.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
-  					buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+  					document.body.appendChild( templateModalHelp.content.cloneNode( true ) );   					
+   					const
+   						s = ( ( id ) ? ( '#' + id ) : '#helpOpenForm' ) + ' summary', 
+   						c = document.querySelector( container );
+   					if ( id ) { document.getElementById( id ).open = true; }
+   					document.querySelector( s ).focus();
+					c.addEventListener( 'click', event ); 
+   					c.addEventListener( 'keyup', event );
+   					trapFocus( 'add' ); 					
 				}
 				break;
 		  	default:
@@ -1064,7 +1086,7 @@ window.onload = () => {
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				break;
 			case 'A':
-				if ( id === 'help' ) { toggleModalHelp( 'add' ); }
+				if ( id === 'help' ) { toggleModalHelp(); }
 				break;
 			default:
 				break;

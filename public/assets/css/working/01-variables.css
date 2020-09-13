@@ -41,7 +41,8 @@
 	--scrollbarThumbBorderColor : var( --grayscale-08 );
 
 	/* COLOR OPACITY VARIATIONS */
-	--red-dark-a85 : hsla( 0, 100.0%, 29.0%, 1 );
+	--grayscale-26-a60 : hsla( 0,   0.0%,  0.0%, .6 );
+	--red-dark-a85     : hsla( 0, 100.0%, 29.0%, 1 );
 
 	/* BASE */
 	--font-family-base : sans-serif;
@@ -103,12 +104,13 @@
 	--background-color-footer   : var( --grayscale-08 );
                 
 	/* MODAL */
-    --font-color-modal-a-hover     : var( --red-medium );
-    --color-modal-p                : var( --font-color-base );
-	--background-color-modal-ol-li : var( --grayscale-09 );
-	--background-color-modal       : var( --grayscale-01 );
-	--box-shadow-color-modal       : 0 0 90px var( --grayscale-26 );
-	--background-color-details     : var( --grayscale-05 );
+    --font-color-modal-a-hover         : var( --red-medium );
+    --color-modal-p                    : var( --font-color-base );
+	--background-color-modal-ol-li     : var( --grayscale-09 );
+	--background-color-modal           : var( --grayscale-01 );
+	--background-color-modal-container : var( --grayscale-26-a60 );
+	--box-shadow-color-modal           : 0 0 90px var( --grayscale-26 );
+	--background-color-details         : var( --grayscale-05 );
 
 }
 
