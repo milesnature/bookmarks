@@ -15,7 +15,7 @@ const
 						edit.container.removeEventListener('change', ( e ) => {} );
 						edit.container.removeEventListener('click',  ( e ) => {} );
 						f.remove(); 
-						localStorage.setItem( 'edit', 'closed' );
+						localStorage.setItem( 'editState', 'closed' );
 					}
 					break;
 
@@ -58,7 +58,7 @@ const
 		  					edit.constructGroupOptions();
 							edit.constructNameOptions( sortedList );
 
-						    localStorage.setItem( 'edit', 'open' );						
+						    localStorage.setItem( 'editState', 'open' );						
 
 							// HIDE/SHOW FORM ELEMENTS WHEN CHANGES OCCUR. THE DISPLAY OF FORM ELEMENTS IS MODIFED BASED ON THE DESIRED OUTCOME. 
 							edit.container.addEventListener('change', ( e ) => {
@@ -158,14 +158,12 @@ const
 				}
 				edit.groupSelect.appendChild( fragment );
 			}
-			console.log( 'constructGroupOptions', fragment, groups );
 		},
 
 		constructNameOptions : ( sortedList, target ) => { 
 			// <optgroup label='News'><option id='5ec592b3fcceb051486e9c2f'>Ars Technica</option></optgroup>
 			let fragment = (() => { return document.createDocumentFragment() })(),
 				group    = [];
-			console.log( 'constructNameOptions', sortedList );	
 			for ( let item in sortedList ) { 
 				if ( !item ) { continue; };
 				group = sortedList[ item ];
@@ -340,6 +338,11 @@ const
 
 		clearErrorMessage : () => {
 			edit.errorMessage.textContent = '';
+		},
+
+		dispatchApiCallRequest : ( details ) => {
+			const event = new CustomEvent('apiCallRequest', { detail: details } );
+			document.body.dispatchEvent( event );
 		},	
 
 		// FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID.
@@ -391,34 +394,21 @@ const
 				if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid ) {
 						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
-
-						const event = new CustomEvent('apiCall', { detail: { 'verb' : 'POST', 'url': 'bookmarks', 'params' : params } } );
-						document.body.dispatchEvent( event );
-
+						edit.dispatchApiCallRequest( { 'verb' : 'POST', 'url': 'bookmarks', 'params' : params } );
 					} else {
 						edit.displayErrorMessage( validation.group, validation.name, validation.url );
 					}
 				}
 				if ( state.isDelete && state.isBookmark  ) {
 					if ( validation.id === valid ) {
-						api.verbBookmark( 
-							'DELETE', 
-							domainUrl + 'bookmarks/' + values.config.id, 
-							params, 
-							api.getBookmarks
-						);
+						edit.dispatchApiCallRequest( { 'verb' : 'DELETE', 'url': 'bookmarks/' + values.config.id, 'params' : params } );
 					} else {
 						edit.displayErrorMessage( validation.id );
 					}
 				}
 				if ( state.isDelete && state.isGroup ) {
 					if ( validation.group === valid ) {
-						api.verbBookmark( 
-							'DELETE', 
-							domainUrl + 'bookmarks/group/' + values.config.group, 
-							params, 
-							api.getBookmarks
-						);
+						edit.dispatchApiCallRequest( { 'verb' : 'DELETE', 'url': 'bookmarks/group/' + values.config.id, 'params' : params } );
 					} else {
 						edit.displayErrorMessage( validation.group );
 					}
@@ -426,12 +416,7 @@ const
 				if ( state.isUpdate && state.isBookmark ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid && validation.id === valid ) {
 						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
-						api.verbBookmark( 
-							'PUT', 
-							domainUrl + 'bookmarks/' + values.config.id, 
-							params, 
-							api.getBookmarks
-						); 
+						edit.dispatchApiCallRequest( { 'verb' : 'PUT', 'url': 'bookmarks/' + values.config.id, 'params' : params } );
 					} else {
 						edit.displayErrorMessage( validation.group, validation.name, validation.url, validation.id );
 					}

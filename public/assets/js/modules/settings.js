@@ -16,7 +16,7 @@ const
 						settings.container.removeEventListener('change', ( e ) => {});
 						settings.container.removeEventListener('click',  ( e ) => {});
 						s.remove(); 
-						localStorage.setItem( 'settings', 'closed' );
+						localStorage.setItem( 'settingsState', 'closed' );
 					}
 					break;
 
@@ -26,14 +26,41 @@ const
 
 						body.prepend( templateFormSettings.content.cloneNode( true ) );
 
-						localStorage.setItem( 'settings', 'open' );
+						localStorage.setItem( 'settingsState', 'open' );
 
-						const 
-							appearance = localStorage.getItem( 'appearance' ),
-							style      = localStorage.getItem( 'style' );
+						const
+							appearanceDefault       = document.getElementById( 'appearanceDefault' ),
+							appearanceLight         = document.getElementById( 'appearanceLight' ),
+							appearanceDark          = document.getElementById( 'appearanceDark' ),
+							styleDefault            = document.getElementById( 'styleDefault' ),
+							styleTidy               = document.getElementById( 'styleTidy' ),
+							settingsAppearance      = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
+							settingsStyle           = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
 
-						if ( appearance ) { document.querySelector( 'input[value=' + appearance + ']'  ).checked = 'checked'; }
-						if ( style )      { document.querySelector( 'input[value=' + style + ']'  ).checked = 'checked'; }
+						switch ( settingsAppearance ) {
+							case 'default':
+								appearanceDefault.checked = true;
+								break;
+							case 'light':
+								appearanceLight.checked = true;
+								break;
+							case 'dark':
+								appearanceDark.checked = true;
+								break;
+							default:
+								break;
+						};
+
+						switch ( settingsStyle ) {
+							case 'default':
+								styleDefault.checked = true;
+								break;
+							case 'tidy':
+								styleTidy.checked = true;
+								break;
+							default:
+								break;
+						};
 
 						settings[ 'container' ] = document.forms[0];					
 
@@ -45,20 +72,21 @@ const
 								name   = target.name,
 								value  = target.value;
 							switch ( name ) {
-								case 'appearance':
+								case 'settingsAppearance':
 									switch ( tag ) {
 										case 'INPUT':
-											body.classList.remove( 'light-mode', 'dark-mode' );
+											body.classList.remove( 'light-mode', 'dark-mode', 'default' );
 											switch ( value ) {
 												case 'default':
-													localStorage.setItem( 'appearance', 'default' );
+													localStorage.setItem( 'settingsAppearance', 'default' );
+													body.classList.add( 'default' );
 													break;
 												case 'light':
-													localStorage.setItem( 'appearance', 'light' );
+													localStorage.setItem( 'settingsAppearance', 'light' );
 													body.classList.add( 'light-mode' );
 													break;
 												case 'dark':
-													localStorage.setItem( 'appearance', 'dark' );
+													localStorage.setItem( 'settingsAppearance', 'dark' );
 													body.classList.add( 'dark-mode' );
 													break;
 												default:
@@ -69,16 +97,17 @@ const
 											break;
 									}
 									break;
-								case 'style': 
+								case 'settingsStyle': 
 									switch ( tag ) {
 										case 'INPUT':
-											bmkSection.classList.remove( 'tidy' );
+											bmkSection.classList.remove( 'tidy', 'default' );
 											switch ( value ) {
 												case 'default':
-													localStorage.setItem( 'style', 'default' );
+													localStorage.setItem( 'settingsStyle', 'default' );
+													bmkSection.classList.add( 'default' );
 													break;
 												case 'tidy':
-													localStorage.setItem( 'style', 'tidy' );
+													localStorage.setItem( 'settingsStyle', 'tidy' );
 													bmkSection.classList.add( 'tidy' );
 													break;
 												default:

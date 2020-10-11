@@ -1,5 +1,6 @@
 const
-	
+	bmkSection = document.getElementById('bookmarks'),	
+
 	// BOOKMARKS METHODS
 	bookmarks = {
 
@@ -79,6 +80,28 @@ const
 			return fragment;
 		},
 
+		// SORT BOOKMARKS
+		sortIntoGroups : ( bookmarksData ) => {
+			let 
+				groupsByName = {},
+				groups       = [],
+				sortGroup = ( item, index ) => {
+					const groupName = item.group;
+					if ( groupName ) {
+						if ( groupsByName.hasOwnProperty( groupName ) ) {
+							groupsByName[ groupName ].push( item );
+						} else {
+							groupsByName[ groupName ] = [ item ];
+							groups.push( groupName );
+						}
+					}			
+				};
+			bookmarksData.forEach( sortGroup );
+			sessionStorage.setItem( 'bookmarksSorted', JSON.stringify( groupsByName ) );
+			sessionStorage.setItem( 'groups',          JSON.stringify( groups ) );
+			return groupsByName;
+		},
+
 		// CONTENT REMOVAL TOOL
 		removeChildNodes : ( e ) => {
 			const 
@@ -95,17 +118,23 @@ const
 				//dragEnterEvents( 'remove' );
 				removeChildren( e );
 			}
-		}		
+		},
 
-		// storage : {
-		// 	set : ( bookmarks ) => {
-		// 		localStorage.setItem( 'bookmarks', bookmarks );
-		// 	},
-		// 	get : () => {
-		// 		const bookmarks = localStorage.getItem( 'bookmarks' );
-		// 		return ( bookmarks ) ? JSON.parse( bookmarks ) : '';
-		// 	}		
-		// }		
+		toggleBookmarksLoader : ( action ) => {
+			const hasSvg = bmkSection.querySelector('svg#loader');
+			switch ( action ) {
+				case 'remove':
+					if ( hasSvg ) { bookmarks.removeChildNodes( bmkSection ) }
+					break;
+				case 'add':
+					if ( !hasSvg ) {
+	  					bmkSection.appendChild( templateLoader.content.cloneNode( true ) );
+	  				}
+					break;
+				default:
+				break;
+			}
+		}					
 		
 	};
 

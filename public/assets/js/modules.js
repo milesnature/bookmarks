@@ -3,7 +3,6 @@ import { openGroup }                  from './modules/openGroup.js';
 import { settings }                   from './modules/settings.js';
 import { edit }                       from './modules/edit.js';
 import { allowDrop, dragStart, dragEnter, cleanupDragHover, drop, dropEvents, dragEnterEvents } from './modules/dragDrop.js';
-// import { actionFromFooter }           from './modules/footer.js';
 import { trapFocus, toggleModalHelp } from './modules/modal.js';
 import { api }                        from './modules/api.js';
 
@@ -21,48 +20,11 @@ const
 	// GET BOOKMARK GROUP LISTS
 	getLists = () => {
 		return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
-	},
-
-	toggleBookmarksLoader = ( action ) => {
-		const hasSvg = bmkSection.querySelector('svg#loader');
-		switch ( action ) {
-			case 'remove':
-				if ( hasSvg ) { bookmarks.removeChildNodes( bmkSection ) }
-				break;
-			case 'add':
-				if ( !hasSvg ) {
-  					bmkSection.appendChild( templateLoader.content.cloneNode( true ) );
-  				}
-				break;
-			default:
-			break;
-		}				
-	},
-
-	sortIntoGroups = ( bookmarksData ) => {
-		let 
-			groupsByName = {},
-			groups       = [],
-			sortGroup = ( item, index ) => {
-				const groupName = item.group;
-				if ( groupName ) {
-					if ( groupsByName.hasOwnProperty( groupName ) ) {
-						groupsByName[ groupName ].push( item );
-					} else {
-						groupsByName[ groupName ] = [ item ];
-						groups.push( groupName );
-					}
-				}			
-			};
-		bookmarksData.forEach( sortGroup );
-		sessionStorage.setItem( 'bookmarksSorted', JSON.stringify( groupsByName ) );
-		sessionStorage.setItem( 'groups',          JSON.stringify( groups ) );
-		return groupsByName;
-	},			
+	},	
 		
 	constructBookmarksSection = ( bookmarksData ) => {
 		let fragments  = document.createDocumentFragment(),
-			sortedList = sortIntoGroups( bookmarksData );
+			sortedList = bookmarks.sortIntoGroups( bookmarksData );
 		if ( bmkSection.hasChildNodes() ) { bookmarks.removeChildNodes( bmkSection ); }
 		for ( let item in sortedList ) { 
 			if ( !item ) { continue; };
@@ -89,7 +51,6 @@ const
 					if ( formEdit ) { formEdit.remove(); }
 					settings.toggleSettings( 'add' );
 				}
-				document.querySelector( 'input[name="appearance"]:checked' ).focus();
 				break;
 			default:
 				if ( !formEdit ) { 
@@ -108,56 +69,62 @@ const
 				edit.actionState();
 				edit.elementState();
 		}
+	},
+
+	// THIS HANDLES ALL API ACTIONS (VERBS): GET, POST, DELETE, PUT.
+	makeApiCall = ( verb, url, params = '' ) => {
+
+		let promise = new Promise ( ( resolve, reject ) => {
+			api.verbBookmark( resolve, reject, verb, url, params );
+		});
+
+		return promise.then( ( data ) => { 
+			if ( verb === 'GET' ) {
+				if ( data.length > 0 ) {
+		   			sessionStorage.setItem( 'bookmarksData', JSON.stringify( data ) );
+					constructBookmarksSection( data );
+				} else {	
+				    actionFromFooter( 'create', 'group' );
+	   				toggleModalHelp( 'helpEmptyDatabase' );
+	   				bookmarks.removeChildNodes( bmkSection );
+   				}	
+			} else {
+				makeApiCall( 'GET', 'bookmarks' );
+				edit.resetFields();
+			}
+		} ).catch( ( error ) => { 
+			edit.displayErrorMessage( error );
+		} )
+
 	};
 
 // SETUP AFTER PAGE LOADS	
 window.onload = () => {
 
-
-	// LOAD PAGE ELEMENTS USING DB VALUES.
-	toggleBookmarksLoader( 'add' );
+	// DISPLAY LOADING ICON WHILE BOOKMARKS ARE RETRIEVED.
+	bookmarks.toggleBookmarksLoader( 'add' );
 	
+	// INITIATE GET BOOKMARKS PROMISE
+	makeApiCall( 'GET', 'bookmarks' );
 
-	// GET BOOKMARKS PROMISE
-
+	// RESTORE LAST SELECTED FORM STATE OR PREFERENCE FROM LOCAL STORAGE.
 	const 
-		bookmarks = new Promise( ( resolve, reject ) => {
-			api.getBookmarks( resolve, reject );
-		}),
-		getBookmarks = () => {	
-			return bookmarks.then( ( data ) => {
-				console.log( 'data', data );
-		   		if ( data.length > 0 ) {
-		   			sessionStorage.setItem( 'bookmarksData', JSON.stringify( data ) );
-					constructBookmarksSection( data );
-				} else {
-					actionFromFooter( 'create', 'group' );
-					toggleModalHelp( 'helpEmptyDatabase' );
-					bookmarks.remove();
-				}		
-			} ).catch( ( error ) => {
-				console.log( 'error', error );
-				edit.displayErrorMessage( error );
-			} );
-		};
-
-	getBookmarks();	
-
-
-	// LOCAL STORAGE - MAINTAIN STATES AFTER RELOAD.
-	const 
-		editState     = localStorage.getItem('edit'),
-		settingsState = localStorage.getItem('settings'),
-		appearance    = localStorage.getItem('appearance');
+		editState          = ( localStorage.getItem('editState') )          ? localStorage.getItem('editState') : '',
+		settingsState      = ( localStorage.getItem('settingsState') )      ? localStorage.getItem('settingsState') : '',
+		settingsAppearance = ( localStorage.getItem('settingsAppearance') ) ? localStorage.getItem('settingsAppearance') : '',
+		settingsStyle      = ( localStorage.getItem('settingsStyle') )      ? localStorage.getItem('settingsStyle') : '';
 	if ( editState === 'open' ) {
 		edit.toggleEdit( 'add' );
-	} else if ( settingsState === 'open' ) {
+	}
+	if ( settingsState === 'open' ) {
 		settings.toggleSettings( 'add' );
 	}
-	if ( appearance && appearance !== 'default' ) {
-		body.classList.add( appearance + '-mode' );
+	if ( settingsAppearance !== 'default' ) {
+		body.classList.add( settingsAppearance + '-mode' );
 	}
-
+	if ( settingsStyle === 'tidy' ) {
+		bmkSection.classList.add( 'tidy' );
+	}
 
 	// EVENT HANDLER FOR FOOTER BUTTONS.
 	footer.addEventListener('click', ( e ) => {
@@ -180,14 +147,13 @@ window.onload = () => {
 		}
 	});
 
-	// EVENT HANDLER FOR 'openForm'.
+	// EVENT HANDLER FOR 'openForm' PROMPTED BY DRAG & DROP.
 	bmkSection.addEventListener( 'openForm', function ( e ) { 
 		const 
 			action  = ( e.detail.action )  ? e.detail.action  : '',
 			id      = ( e.detail.id )      ? e.detail.id      : '',
 			href    = ( e.detail.href )    ? e.detail.href    : '',
 			groupId = ( e.detail.groupId ) ? e.detail.groupId : '';
-		console.log( 'openForm', e.detail );
 		actionFromFooter( action );
 		switch ( action ) {
 			case 'update': 
@@ -207,8 +173,16 @@ window.onload = () => {
 
 	}, false);
 
+	// EVENT HANDLER FOR 'apiCallRequest' USED BY EDIT FORM.
+	body.addEventListener( 'apiCallRequest', function ( e ) { 
+		const 
+			verb   = ( e.detail.verb )   ? e.detail.verb   : '',
+			url    = ( e.detail.url )    ? e.detail.url    : '',
+			params = ( e.detail.params ) ? e.detail.params : '';
+		makeApiCall( verb, url, params );
+	}, false);	
 
-	// DRAG AND DROP EVENT HANDLERS
+	// EVENT HANDLERS FOR DRAG & DROP.
 	const groupList = getLists();
 	html.addEventListener( 'dragover',  ( event, groupList ) => { allowDrop( event ) } );
 	html.addEventListener( 'dragstart', ( event, groupList ) => { dragStart( event ) } );
@@ -216,28 +190,5 @@ window.onload = () => {
 	// FOOTER COPYRIGHT DATE 
 	const year = new Date();
 	document.getElementById('year').innerText = year.getFullYear();
-
-
-
-	// Listen for the 'apiCall' event.
-	body.addEventListener( 'apiCall', function ( e ) { 
-
-		const 
-			verb      = ( e.detail.verb )     ? e.detail.verb     : '',
-			domainUrl = ( e.detail.domain )   ? e.detail.domain   : '',
-			params    = ( e.detail.params )   ? e.detail.params   : '';
-		
-		console.log( 'apiCall', e.detail );
-
-		api.verbBookmark( 
-			verb, 
-			domainUrl + 'bookmarks', 
-			params
-		);
-
-		edit.resetFields();
-		getBookmarks();
-
-	}, false);	
 
 };

@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=0">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 		<link rel="alternate icon" href="/favicon.ico">		
-		<link rel="stylesheet" href="dist/assets/css/styles.min.css">
+		<link rel="stylesheet" href="assets/css/styles.css">
 	</head>
 	<body>
 		<template id="templateFormEdit">
@@ -65,26 +65,30 @@
 			</form>
 		</template>
 		<template id="templateFormSettings">
+
 			<form id="settings" class="form" title="Settings Form" novalidate>
+
 				<div class="appearance fieldset">	
 					<label>Default:
-						<input type="radio" name="appearance" value="default" checked="default" />
+						<input id="appearanceDefault" type="radio" name="settingsAppearance" value="default" />
 					</label>
 					<label>Light Mode:
-						<input type="radio" name="appearance" value="light" />
+						<input id="appearanceLight" type="radio" name="settingsAppearance" value="light" />
 					</label>
 					<label>Dark Mode:
-						<input type="radio" name="appearance" value="dark" />
+						<input id="appearanceDark" type="radio" name="settingsAppearance" value="dark" />
 					</label>				
 				</div>
+
 				<div class="style fieldset">	
 					<label>Default:
-						<input type="radio" name="style" value="default" checked="default" />
+						<input id="styleDefault" type="radio" name="settingsStyle" value="default" />
 					</label>
 					<label>Tidy (Desktop):
-						<input type="radio" name="style" value="tidy" />
+						<input id="styleTidy" type="radio" name="settingsStyle" value="tidy" />
 					</label>			
-				</div>				
+				</div>	
+
 				<button id="close" type="button" name="close" title="Close Settings Form" class="close">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
 						<title>Close Form</title>
@@ -92,7 +96,9 @@
 					  	<path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
 					</svg>				
 				</button>
+
 			</form>
+
 		</template>		
 		<main>
 			<section id="bookmarks" class=""></section>
