@@ -1,3 +1,6 @@
+import { edit }   from './edit.js';
+import { footer } from './footer.js';
+
 const
 
 	bmkSection = document.getElementById('bookmarks'),
@@ -51,17 +54,24 @@ const
 	  	if ( external ) {
 	  		href = text;
 		  	if ( validUrl( href ) ) { 
-				const event = new CustomEvent('openForm', { detail: { 'action' : 'create', 'href' : href, 'groupId' : groupId } } );
-				bmkSection.dispatchEvent( event );		  		
+		  		footer.actionFromFooter( 'create' );
+				edit.groupSelect.value = groupId; 
+				edit.urlText.value     = href;
+				
 		  	}	  		
 	  	}
 	  	if ( local ) {
 		  	if ( validUrl( href ) ) { 
-				const event = new CustomEvent('openForm', { detail: { 'action' : 'update', 'id': id, 'groupId' : groupId } } );
-				bmkSection.dispatchEvent( event );
+		  		footer.actionFromFooter( 'update' ); 
+				edit.bookmarksSelect.value = id; 
+				edit.updatePrefill();
+				edit.groupText.value       = groupId;
+				
 		  	}	  		
 	  	}
 	  	cleanupDragHover( lists );
+	  	document.body.scrollTop            = 0; // SAFARI
+		document.documentElement.scrollTop = 0; // ALL OTHERS
 	},
 
 	dropEvents = ( action, lists ) => {
@@ -95,6 +105,6 @@ const
 				break;
 		}
 		
-	};
+	};	
 
 export { allowDrop, dragStart, dragEnter, cleanupDragHover, drop, dropEvents, dragEnterEvents }

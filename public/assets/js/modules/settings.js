@@ -29,13 +29,13 @@ const
 						localStorage.setItem( 'settingsState', 'open' );
 
 						const
-							appearanceDefault       = document.getElementById( 'appearanceDefault' ),
-							appearanceLight         = document.getElementById( 'appearanceLight' ),
-							appearanceDark          = document.getElementById( 'appearanceDark' ),
-							styleDefault            = document.getElementById( 'styleDefault' ),
-							styleTidy               = document.getElementById( 'styleTidy' ),
-							settingsAppearance      = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
-							settingsStyle           = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
+							appearanceDefault  = document.getElementById( 'appearanceDefault' ),
+							appearanceLight    = document.getElementById( 'appearanceLight' ),
+							appearanceDark     = document.getElementById( 'appearanceDark' ),
+							styleDefault       = document.getElementById( 'styleDefault' ),
+							styleTidy          = document.getElementById( 'styleTidy' ),
+							settingsAppearance = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
+							settingsStyle      = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
 
 						switch ( settingsAppearance ) {
 							case 'default':

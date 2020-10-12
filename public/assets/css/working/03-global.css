@@ -108,6 +108,11 @@ input[type='checkbox']:checked {
   	background-position : center center;	
 }
 
+.form {
+	--scrollbarThumbColor       : var( --grayscale-15 );
+	--scrollbarThumbBorderColor : var( --background-color-form );	
+}
+
 .hide { display: none; }
 
 .no-scroll { overflow: hidden; }

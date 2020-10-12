@@ -1,4 +1,9 @@
+import { edit }      from './edit.js';
+import { openGroup } from './openGroup.js';
+import { allowDrop, dragStart, dragEnter, cleanupDragHover, drop, dropEvents, dragEnterEvents } from './dragDrop.js';
+
 const
+	html       = document.getElementsByTagName("HTML")[0],
 	bmkSection = document.getElementById('bookmarks'),	
 
 	// BOOKMARKS METHODS
@@ -103,20 +108,20 @@ const
 		},
 
 		// CONTENT REMOVAL TOOL
-		removeChildNodes : ( e ) => {
+		removeChildNodes : () => {
 			const 
-				hasContent     = ( e && e.hasChildNodes( ) ),
-			    removeChildren = ( e ) => {
-		      		let child = e.lastElementChild;  
+				hasContent     = ( bmkSection && bmkSection.hasChildNodes( ) ),
+			    removeChildren = ( bmkSection ) => {
+		      		let child = bmkSection.lastElementChild;  
 			        while ( child ) { 
-			            e.removeChild( child ); 
-			            child = e.lastElementChild; 
+			            bmkSection.removeChild( child ); 
+			            child = bmkSection.lastElementChild; 
 			        } 
 			    };
 			if ( hasContent ) {
 				//dropEvents( 'remove' );
 				//dragEnterEvents( 'remove' );
-				removeChildren( e );
+				removeChildren( bmkSection );
 			}
 		},
 
@@ -134,7 +139,38 @@ const
 				default:
 				break;
 			}
-		}					
+		},
+
+		// GET BOOKMARK GROUP LISTS
+		getLists : () => {
+			return Array.prototype.slice.call( document.getElementsByClassName('bookmarks') );
+		},			
+
+		constructBookmarksSection : ( bookmarksData ) => {
+			let fragments  = document.createDocumentFragment(),
+				sortedList = bookmarks.sortIntoGroups( bookmarksData );
+			bookmarks.removeChildNodes();
+			for ( let item in sortedList ) { 
+				if ( !item ) { continue; };
+				fragments.appendChild( bookmarks.constructList( item, sortedList[ item ] ) );
+			}
+			bmkSection.appendChild( fragments );
+			openGroup.setupEventHandler( bmkSection );
+			if ( edit.container ) {
+				edit.constructGroupOptions();
+				edit.constructNameOptions( sortedList );
+				edit.resetFields();
+				edit.clearErrorMessage( edit.errorMessage );
+			}
+			// EVENT HANDLERS FOR DRAG & DROP.
+			const groupList = bookmarks.getLists();
+			// WITHIN BOOKMARKS SECTION
+			dropEvents( 'add', groupList );
+			dragEnterEvents( 'add', groupList );
+			// FROM OUTSIDE THE DOM
+			html.addEventListener( 'dragover',  ( event, groupList ) => { allowDrop( event ) } );
+			html.addEventListener( 'dragstart', ( event, groupList ) => { dragStart( event ) } );						
+		}									
 		
 	};
 

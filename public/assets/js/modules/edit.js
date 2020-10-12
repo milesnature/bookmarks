@@ -1,3 +1,5 @@
+import { api } from './api.js';
+
 const
 
 	// FORM DOM ELEMENTS AND METHODS.
@@ -340,11 +342,6 @@ const
 			edit.errorMessage.textContent = '';
 		},
 
-		dispatchApiCallRequest : ( details ) => {
-			const event = new CustomEvent('apiCallRequest', { detail: details } );
-			document.body.dispatchEvent( event );
-		},	
-
 		// FORM VALIDATION AND MESSAGING. CALLS API WHEN VALID.
 		editSubmit : ( e ) => {
 			e.preventDefault();
@@ -394,21 +391,21 @@ const
 				if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid ) {
 						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
-						edit.dispatchApiCallRequest( { 'verb' : 'POST', 'url': 'bookmarks', 'params' : params } );
+						api.makeApiCall( 'POST', 'bookmarks', params );
 					} else {
 						edit.displayErrorMessage( validation.group, validation.name, validation.url );
 					}
 				}
 				if ( state.isDelete && state.isBookmark  ) {
 					if ( validation.id === valid ) {
-						edit.dispatchApiCallRequest( { 'verb' : 'DELETE', 'url': 'bookmarks/' + values.config.id, 'params' : params } );
+						api.makeApiCall( 'DELETE', 'bookmarks/' + values.config.id, params );
 					} else {
 						edit.displayErrorMessage( validation.id );
 					}
 				}
 				if ( state.isDelete && state.isGroup ) {
 					if ( validation.group === valid ) {
-						edit.dispatchApiCallRequest( { 'verb' : 'DELETE', 'url': 'bookmarks/group/' + values.config.id, 'params' : params } );
+						api.makeApiCall( 'DELETE', 'bookmarks/group/' + values.config.id, params );
 					} else {
 						edit.displayErrorMessage( validation.group );
 					}
@@ -416,7 +413,7 @@ const
 				if ( state.isUpdate && state.isBookmark ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid && validation.id === valid ) {
 						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
-						edit.dispatchApiCallRequest( { 'verb' : 'PUT', 'url': 'bookmarks/' + values.config.id, 'params' : params } );
+						api.makeApiCall( 'PUT', 'bookmarks/' + values.config.id, params );
 					} else {
 						edit.displayErrorMessage( validation.group, validation.name, validation.url, validation.id );
 					}
