@@ -1,0 +1,160 @@
+/* START FORM */
+
+/* Edit */
+form#edit div.action {   grid-area : action; }
+form#edit div.element {  grid-area : element; }
+form#edit div.detail {   grid-area : detail; }
+form#edit div.complete { grid-area : complete }
+form#edit button.close { grid-area : close; }
+
+form#edit {
+	display               : grid;
+	width                 : 100%;
+	min-width             : 300px;
+	margin                : 0 auto;
+	padding               : 32px 21px 0 21px;
+	background-color      : var( --background-color-form );
+	color                 : var( --font-color-form );	
+	grid-area             : form;
+	grid-template-areas   : 'action element detail complete' 'close close close close';
+	grid-template-columns : max-content max-content max-content max-content;
+	grid-template-rows    : max-content;
+	grid-gap              : 13px;
+	justify-content       : center; 
+}
+
+@media (max-width: 800px) {
+	form#edit {
+		grid-template-areas   : 'action element' 'detail detail' 'complete complete' 'close close';
+		grid-template-columns : max-content max-content;
+		padding               : 13px 0 0 0;
+	}
+	form#edit .complete.fieldset { max-width : 100%; }
+	form#edit button.close { margin-top : 0; }
+}	
+
+@media (max-width: 420px) {
+	form#edit {
+		justify-content       : normal;
+		grid-template-columns : auto auto;
+		max-width             : 100%;
+		width                 : 100%;
+		padding               : 13px 13px 0 13px;
+	}
+}	
+
+form#edit.create.bookmark .detail #bookmarksLabel,
+form#edit.create.bookmark .detail #groupText,
+form#edit.create.bookmark .detail #nameSelect,
+form#edit.create.group .detail #bookmarksLabel,
+form#edit.create.group .detail #groupSelect,
+form#edit.create.group .detail #nameSelect,
+form#edit.delete.bookmark .detail #bookmarksLabel,
+form#edit.delete.bookmark .detail #groupsLabel,
+form#edit.delete.bookmark .detail #nameText,
+form#edit.delete.bookmark .detail #urlLabel,
+form#edit.delete.group .detail #bookmarksLabel,
+form#edit.delete.group .detail #groupText,
+form#edit.delete.group .detail #nameLabel,
+form#edit.delete.group .detail #urlLabel,
+form#edit.update.bookmark .element #groupLabel,
+form#edit.update.bookmark .detail  #groupSelect,
+form#edit.update.bookmark .detail  #nameSelect { display : none; }
+
+/* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
+form#edit .fieldset {
+	display               : grid;
+ 	grid-template-columns : 100%;
+ 	grid-template-rows    : 1fr 1fr 1fr 1fr;
+	grid-gap              : 1px;
+	align-content         : start;
+}
+
+@media (max-width: 800px) {
+	form#edit .fieldset { grid-template-rows : auto; }
+}
+
+form#edit .fieldset label { margin : 0; }
+
+form#edit .fieldset label {
+	min-height       : 48px;
+	padding          : 0 20px;
+	background-color : var( --background-color-form-label );
+	cursor           : pointer;
+	user-select      : none;
+	display          : flex;
+	flex-wrap        : nowrap;
+	justify-content  : flex-end;
+	align-items      : center;  
+}
+
+form#edit .fieldset label:hover,
+form#edit .fieldset label:focus,
+form#edit .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
+
+form#edit.delete .complete.fieldset label:hover { background-image : var( --linear-gradient-form-warning ) }
+
+form#edit .fieldset label input,
+form#edit .fieldset label select { margin : 0 0 0 13px; }
+
+form#edit .detail.fieldset label { min-width : 300px; }
+
+form#edit .detail.fieldset label input,
+form#edit .detail.fieldset label select { width : 172px; }
+
+form#edit .complete { max-width : 150px; }
+
+form#edit .complete.fieldset label {
+	min-width       : 150px;
+	text-align      : center;
+	justify-content : center;
+}
+
+form#edit .complete.fieldset label input  {
+	margin         : 0;
+	width          : 100px;
+	color          : var( --font-color-form-inputs )  ;
+	text-transform : capitalize;
+}
+
+form#edit .complete.fieldset label input.submit {
+	margin     : 0;
+	min-width  : 69px;
+	text-align : center;
+	cursor     : pointer;
+}
+
+form#edit button.close {
+	background-color : transparent;
+	background-image : none; 
+	border           : none;
+	margin-top       : 16px;
+	padding          : 9px 0;
+	height           : 48px;
+	cursor           : pointer;
+}
+
+form#edit button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
+
+form#edit button.close svg {
+	stroke         : var( --stroke-form-svg );
+	stroke-width   : 2;
+	fill           : none;
+	stroke-linecap : square;
+}
+
+form#edit button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
+
+form#edit #errorMessage {
+	grid-column : 1 / 2;
+	grid-row    : 2 / 5;
+	height      : 100%;
+	min-height  : 4.5rem; 
+	align-self  : start;
+	color       : var( --font-color-form-error );
+	font-size   : .9rem;
+	line-height : 1.1rem;
+	padding     : 5px;
+}
+
+/* END FORM */

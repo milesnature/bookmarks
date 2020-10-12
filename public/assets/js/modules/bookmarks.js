@@ -3,6 +3,7 @@ import { openGroup } from './openGroup.js';
 import { allowDrop, dragStart, dragEnter, cleanupDragHover, drop, dropEvents, dragEnterEvents } from './dragDrop.js';
 
 const
+
 	html       = document.getElementsByTagName("HTML")[0],
 	bmkSection = document.getElementById('bookmarks'),	
 

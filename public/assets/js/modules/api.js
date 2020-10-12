@@ -2,6 +2,7 @@ import { bookmarks } from './bookmarks.js';
 import { edit }      from './edit.js';
 
 const
+
 	domainUrl = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
 
 	// API CALLS

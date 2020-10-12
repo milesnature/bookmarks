@@ -1,0 +1,131 @@
+/* START MODAL */
+.modal-container {
+	position : fixed; 
+	top      : 0; 
+	right    : 0;
+	bottom   : 0;
+	left     : 0;
+	z-index  : 1;
+	height   : 100%;
+	background-color : var( --background-color-modal-container ); 
+}
+
+.modal { 
+	position         : fixed; 
+	top              : 0; 
+	right            : 0;
+	bottom           : 0;
+	left             : 0;
+	margin           : auto;
+	max-width        : 800px;
+ 	height           : 80vh; 
+	background-color : var( --background-color-modal );
+	padding          : 40px;
+	box-shadow       : var( --box-shadow-color-modal );
+	display          : block;
+	text-align       : left;
+	line-height      : 1.3rem;
+	font-size        : 1rem;
+	overflow         : auto;
+	--scrollbarThumbColor       : var( --grayscale-10 );
+	--scrollbarThumbBorderColor : var( --background-color-modal );
+}
+
+@media (max-width: 800px) {
+	.modal {
+		max-width : 100vw;
+ 		height    : 100vh;
+	}
+}
+
+.modal details { 
+	border-width : 1px 1px 0 1px;
+	border-style : solid;
+	border-color : var( --background-color-modal );
+}
+
+.modal details:last-child { 
+	border-width : 1px;
+}
+
+.modal details[open] { 
+	border-width  : 1px;
+	margin-bottom : 21px; 
+
+}
+
+.modal details[open] summary { 
+	margin-bottom: 1.25rem;
+}
+
+.modal h2 {
+	margin      : 1.5rem 0;
+	font-size   : 1.3rem;
+	font-weight : bold;
+}
+
+.modal summary {
+	margin      : 0;
+	font-size   : 1rem;
+	padding     : 0 10px; 
+	line-height : 48px;  
+	cursor      : pointer;
+	background-color : var( --background-color-details );
+}
+
+.modal p {
+	margin : 1rem;
+	clear  : both;
+	color  : var( --color-modal-p );
+}
+
+.modal strong { font-weight : bold; }
+
+.modal ul {
+	list-style-type : square;
+	padding-left    : 2rem;
+	margin          : 0 0 1rem 0;
+}
+
+.modal ol {
+	padding-left          : 0;
+	margin                : 0 1rem 1rem 1rem;
+	display               : grid;
+	grid-template-columns : 1fr 1fr 1fr 1fr;
+	grid-auto-rows        : auto;
+	grid-gap              : 1rem;
+}
+
+@media (max-width: 600px) {
+	.modal ol {
+		grid-template-columns : 1fr 1fr;
+		grid-auto-rows        : auto auto;
+	}
+	.modal { padding : 1rem; }	
+}
+
+.modal ol li {
+	font-size        : .95rem; 
+	line-height      : 1.25rem;
+	border           : 1px solid var( --background-color-modal-ol-li );
+	padding          : .75rem;
+}
+
+.modal ol li strong { display : block; }
+
+#iconClose line {
+	stroke: var( --font-color-base );
+}
+
+.modal .close {
+	position        : absolute;
+	right           : 5px;
+	top             : 5px; 
+	display         : block;
+	cursor          : pointer;
+	text-decoration : underline;
+	font-size       : inherit;
+}
+
+.modal .close:hover { color : var( --font-color-modal-a-hover ); }
+/* END MODAL */
