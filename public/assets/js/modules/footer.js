@@ -1,43 +1,9 @@
-import { edit }            from './edit.js';
+import { formController }  from './formControl.js';
 import { toggleModalHelp } from './modal.js';
-import { settings }        from './settings.js';
 
-const 
-	
-	footer = {
+const setupFooter = (() => {
 
-		actionFromFooter : ( action, element ) => {
-
-			const formEdit     = document.getElementById( 'edit' ),
-				  formSettings = document.getElementById( 'settings' );
-			switch ( action ) {
-				case 'settings':
-					if ( !formSettings ) {
-						if ( formEdit ) { formEdit.remove(); }
-						settings.toggleSettings( 'add' );
-					}
-					break;
-				default:
-					if ( !formEdit ) { 
-						if ( formSettings ) { formSettings.remove(); }
-						edit.toggleEdit( 'add' );
-					}
-					const 
-						a = ( action )  ? document.querySelector( 'input[value=' + action  + ']' ) : '',
-						e = ( element ) ? document.querySelector( 'input[value=' + element + ']' ) : '';
-					a.checked = 'checked';
-					if ( !e ) {  
-						a.focus();
-					} else {
-						e.checked = 'checked';
-					}
-					edit.actionState();
-					edit.elementState();
-			}
-		}
-
-	};
-
+	// EVENT HANDLER FOOTER BUTTONS AND LINKS.
 	document.getElementsByTagName('footer')[0].addEventListener('click', ( e ) => {
 		const 
 			target = e.target,
@@ -46,7 +12,7 @@ const
 			name   = target.className;
 		switch ( tag ) {
 			case 'BUTTON':
-				footer.actionFromFooter( name );  
+				formController( name );  
 				document.body.scrollTop = 0; // SAFARI
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				break;
@@ -58,4 +24,10 @@ const
 		}
 	});	
 
-export { footer }
+	// FOOTER COPYRIGHT DATE.
+	const year = new Date();
+	document.getElementById('year').innerText = year.getFullYear();
+
+})();
+
+export { setupFooter };

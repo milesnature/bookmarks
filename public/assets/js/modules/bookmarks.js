@@ -1,4 +1,4 @@
-import { edit }      from './edit.js';
+import { edit }      from './formEdit.js';
 import { openGroup } from './openGroup.js';
 import { allowDrop, dragStart, dropEvents, dragEnterEvents } from './dragDrop.js';
 

@@ -1,11 +1,10 @@
-import { edit }   from './edit.js';
-import { footer } from './footer.js';
+import { edit }           from './formEdit.js';
+import { formController } from './formControl.js';
 
 const
-
 	bmkSection = document.getElementById('bookmarks'),
 	urlCheck   = /((http|ftp|https|file):\/\/)/,
-	
+
 	// DRAG AND DROP BROWSER LOCATION
 	allowDrop = ( event ) => { event.preventDefault(); },
 
@@ -54,7 +53,7 @@ const
 	  	if ( external ) {
 	  		href = text;
 		  	if ( validUrl( href ) ) { 
-		  		footer.actionFromFooter( 'create' );
+		  		formController( 'create' );
 				edit.groupSelect.value = groupId; 
 				edit.urlText.value     = href;
 				
@@ -62,7 +61,7 @@ const
 	  	}
 	  	if ( local ) {
 		  	if ( validUrl( href ) ) { 
-		  		footer.actionFromFooter( 'update' ); 
+		  		formController( 'update' ); 
 				edit.bookmarksSelect.value = id; 
 				edit.updatePrefill();
 				edit.groupText.value       = groupId;
@@ -107,4 +106,4 @@ const
 		
 	};	
 
-export { allowDrop, dragStart, dragEnter, cleanupDragHover, drop, dropEvents, dragEnterEvents }
+export { allowDrop, dragStart, dropEvents, dragEnterEvents }

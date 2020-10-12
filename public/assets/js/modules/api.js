@@ -1,14 +1,15 @@
-import { bookmarks } from './bookmarks.js';
-import { edit }      from './edit.js';
+import { bookmarks }        from './bookmarks.js';
+import { edit }             from './formEdit.js';
+import { formController }   from './formControl.js';
 
 const
-
 	domainUrl = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
 
-	// API CALLS
+	// API PROMISE && AJAX CALL
 	api = {
 
-		verbBookmark : ( resolve, reject, verb, url, params ) => {
+		// AJAX
+		call : ( resolve, reject, verb, url, params ) => {
 			const xhr = new XMLHttpRequest();
 		    xhr.onreadystatechange = function () {
 				if( xhr.readyState === XMLHttpRequest.DONE ) {
@@ -29,11 +30,11 @@ const
 		    xhr.send( params );	
 		},
 
-		// THIS HANDLES ALL API ACTIONS (VERBS): GET, POST, DELETE, PUT.
-		makeApiCall : ( verb, url, params = '' ) => {
+		// THIS PROMISE HANDLES ALL API ACTIONS (VERBS): GET, POST, DELETE, PUT.
+		scheduleApiCall : ( verb, url, params = '' ) => {
 
 			let promise = new Promise ( ( resolve, reject ) => {
-				api.verbBookmark( resolve, reject, verb, url, params );
+				api.call( resolve, reject, verb, url, params );
 			});
 
 			return promise.then( ( data ) => { 
@@ -42,12 +43,12 @@ const
 			   			sessionStorage.setItem( 'bookmarksData', JSON.stringify( data ) );
 						bookmarks.constructBookmarksSection( data );
 					} else {	
-					    actionFromFooter( 'create', 'group' );
+					    formController( 'create', 'group' );
 		   				toggleModalHelp( 'helpEmptyDatabase' );
 		   				bookmarks.removeChildNodes();
 	   				}	
 				} else {
-					api.makeApiCall( 'GET', 'bookmarks' );
+					api.scheduleApiCall( 'GET', 'bookmarks' );
 					edit.resetFields();
 				}
 			} ).catch( ( error ) => { 

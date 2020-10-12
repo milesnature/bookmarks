@@ -391,21 +391,21 @@ const
 				if ( state.isCreate && ( state.isBookmark || state.isGroup ) ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid ) {
 						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
-						api.makeApiCall( 'POST', 'bookmarks', params );
+						api.scheduleApiCall( 'POST', 'bookmarks', params );
 					} else {
 						edit.displayErrorMessage( validation.group, validation.name, validation.url );
 					}
 				}
 				if ( state.isDelete && state.isBookmark  ) {
 					if ( validation.id === valid ) {
-						api.makeApiCall( 'DELETE', 'bookmarks/' + values.config.id, params );
+						api.scheduleApiCall( 'DELETE', 'bookmarks/' + values.config.id, params );
 					} else {
 						edit.displayErrorMessage( validation.id );
 					}
 				}
 				if ( state.isDelete && state.isGroup ) {
 					if ( validation.group === valid ) {
-						api.makeApiCall( 'DELETE', 'bookmarks/group/' + values.config.id, params );
+						api.scheduleApiCall( 'DELETE', 'bookmarks/group/' + values.config.id, params );
 					} else {
 						edit.displayErrorMessage( validation.group );
 					}
@@ -413,7 +413,7 @@ const
 				if ( state.isUpdate && state.isBookmark ) {
 					if ( validation.name === valid && validation.url === valid && validation.group === valid && validation.id === valid ) {
 						params = 'name=' + values.config.name + '&url=' + encodeURIComponent( values.config.url ) + '&group=' + values.config.group;
-						api.makeApiCall( 'PUT', 'bookmarks/' + values.config.id, params );
+						api.scheduleApiCall( 'PUT', 'bookmarks/' + values.config.id, params );
 					} else {
 						edit.displayErrorMessage( validation.group, validation.name, validation.url, validation.id );
 					}

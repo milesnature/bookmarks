@@ -1,5 +1,4 @@
 let
-
 	// TRAP FOCUS 
 	trapFocus = ( action ) => {
 		const 
