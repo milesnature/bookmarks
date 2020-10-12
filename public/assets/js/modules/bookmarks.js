@@ -1,6 +1,6 @@
 import { edit }      from './edit.js';
 import { openGroup } from './openGroup.js';
-import { allowDrop, dragStart, dragEnter, cleanupDragHover, drop, dropEvents, dragEnterEvents } from './dragDrop.js';
+import { allowDrop, dragStart, dropEvents, dragEnterEvents } from './dragDrop.js';
 
 const
 
@@ -120,25 +120,10 @@ const
 			        } 
 			    };
 			if ( hasContent ) {
-				//dropEvents( 'remove' );
-				//dragEnterEvents( 'remove' );
+				const groupList = bookmarks.getLists();
+				dropEvents( 'remove', groupList );
+				dragEnterEvents( 'remove', groupList );
 				removeChildren( bmkSection );
-			}
-		},
-
-		toggleBookmarksLoader : ( action ) => {
-			const hasSvg = bmkSection.querySelector('svg#loader');
-			switch ( action ) {
-				case 'remove':
-					if ( hasSvg ) { bookmarks.removeChildNodes( bmkSection ) }
-					break;
-				case 'add':
-					if ( !hasSvg ) {
-	  					bmkSection.appendChild( templateLoader.content.cloneNode( true ) );
-	  				}
-					break;
-				default:
-				break;
 			}
 		},
 

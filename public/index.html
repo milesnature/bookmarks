@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=0">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 		<link rel="alternate icon" href="/favicon.ico">		
-		<link rel="stylesheet" href="assets/css/styles.css">
+		<link rel="stylesheet" href="dist/assets/css/styles.min.css">
 	</head>
 	<body>
 		<template id="templateFormEdit">
@@ -97,7 +97,55 @@
 			</form>
 		</template>		
 		<main>
-			<section id="bookmarks" class=""></section>
+			<section id="bookmarks" class="">
+				<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
+					<title>Bookmarks Loading Icon</title>
+					<desc>A call to the database for user bookmarks is underway. This icon will be replaced with them when complete.</desc>
+					<style>
+						#first {
+							animation-name: dotOpacity;
+							animation-delay: .25s;
+							animation-duration: .75s;
+							animation-fill-mode: forward;
+							animation-iteration-count: infinite;
+							animation-direction: alternate; 
+						}
+						@keyframes dotOpacity {
+							0% { opacity: 0; }
+							75% { opacity: 1; }
+						}
+						#second {
+							animation-name: dot2Opacity;
+							animation-delay: .5s;
+							animation-duration: .75s;
+							animation-fill-mode: forward;
+							animation-iteration-count: infinite;
+							animation-direction: alternate; 
+						}
+						@keyframes dot2Opacity {
+							0% { opacity: 0; }
+							75% { opacity: 1; }
+						}
+						#third {
+							animation-name: dot3Opacity;
+							animation-delay: .75s;
+							animation-duration: .75s;
+							animation-fill-mode: forward;
+							animation-iteration-count: infinite;
+							animation-direction: alternate; 
+						}
+						@keyframes dot3Opacity {
+							0% { opacity: 0; }
+							75% { opacity: 1; }
+						}
+					</style>
+					<g fill="none" fill-rule="evenodd">
+						<circle id="first" cx="42.5" cy="50.5" r="11.5"/>
+						<circle id="second" cx="84.5" cy="50.5" r="11.5"/>
+						<circle id="third" cx="126.5" cy="50.5" r="11.5"/>
+					</g>
+				</svg>				
+			</section>
 		</main>
 		<footer>
 			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button><button class="settings">Settings</button></nav>
@@ -156,55 +204,6 @@
 					</details>				
 				</div>
 			</div>
-		</template>	
-		<template id="templateLoader">
-			<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
-				<title>Bookmarks Loading Icon</title>
-				<desc>A call to the database for user bookmarks is underway. This icon will be replaced with them when complete.</desc>
-				<style>
-					#first {
-						animation-name: dotOpacity;
-						animation-delay: .25s;
-						animation-duration: .75s;
-						animation-fill-mode: forward;
-						animation-iteration-count: infinite;
-						animation-direction: alternate; 
-					}
-					@keyframes dotOpacity {
-						0% { opacity: 0; }
-						75% { opacity: 1; }
-					}
-					#second {
-						animation-name: dot2Opacity;
-						animation-delay: .5s;
-						animation-duration: .75s;
-						animation-fill-mode: forward;
-						animation-iteration-count: infinite;
-						animation-direction: alternate; 
-					}
-					@keyframes dot2Opacity {
-						0% { opacity: 0; }
-						75% { opacity: 1; }
-					}
-					#third {
-						animation-name: dot3Opacity;
-						animation-delay: .75s;
-						animation-duration: .75s;
-						animation-fill-mode: forward;
-						animation-iteration-count: infinite;
-						animation-direction: alternate; 
-					}
-					@keyframes dot3Opacity {
-						0% { opacity: 0; }
-						75% { opacity: 1; }
-					}
-				</style>
-				<g fill="none" fill-rule="evenodd">
-					<circle id="first" cx="42.5" cy="50.5" r="11.5"/>
-					<circle id="second" cx="84.5" cy="50.5" r="11.5"/>
-					<circle id="third" cx="126.5" cy="50.5" r="11.5"/>
-				</g>
-			</svg>
 		</template>				
 		<script src="assets/js/modules.js" type="module"></script>
 <!-- 		<script src="/socket.io/socket.io.js"></script>
