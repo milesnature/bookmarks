@@ -2,17 +2,19 @@ let
 	// TRAP FOCUS 
 	trapFocus = ( action ) => {
 		const 
-			anchors = Array.prototype.slice.call( document.getElementsByTagName( 'A' ) ),
-			inputs  = Array.prototype.slice.call( document.getElementsByTagName( 'INPUT' ) ),
-			selects = Array.prototype.slice.call( document.getElementsByTagName( 'SELECT' ) ),
-			buttons = Array.prototype.slice.call( document.getElementsByTagName( 'BUTTON' ) ),
-			groups  = Array.prototype.slice.call( document.getElementsByClassName( 'bookmarks' ) );
+			anchors   = Array.prototype.slice.call( document.getElementsByTagName( 'A' ) ),
+			inputs    = Array.prototype.slice.call( document.getElementsByTagName( 'INPUT' ) ),
+			selects   = Array.prototype.slice.call( document.getElementsByTagName( 'SELECT' ) ),
+			textareas = Array.prototype.slice.call( document.getElementsByTagName( 'TEXTAREA' ) ),
+			buttons   = Array.prototype.slice.call( document.getElementsByTagName( 'BUTTON' ) ),
+			groups    = Array.prototype.slice.call( document.getElementsByClassName( 'bookmarks' ) );
 		switch ( action ) {
 			case 'add':
 				document.body.classList.add('no-scroll');
 				anchors.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				inputs.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				selects.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
+				textareas.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				groups.forEach(  ( item, index ) => { item.setAttribute( 'tabindex', '-1' ) } );
 				break;
@@ -21,6 +23,7 @@ let
 				anchors.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				inputs.forEach(  ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				selects.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
+				textareas.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				buttons.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '0' ) } );
 				break;	

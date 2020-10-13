@@ -1,21 +1,21 @@
-import { edit }     from './formEdit.js';
-import { settings } from './formSettings.js';
+import { toggleFormEdit, actionState, elementState } from './formEdit.js';
+import { toggleFormSettings }                        from './formSettings.js';
 
 const 
-	formEdit     = document.getElementById( 'edit' ),
-	formSettings = document.getElementById( 'settings' ),
+	formEdit       = document.getElementById( 'edit' ),
+	formSettings   = document.getElementById( 'settings' ),
 	formController = ( action, element ) => {
 		switch ( action ) {
 			case 'settings':
 				if ( !formSettings ) {
 					if ( formEdit ) { formEdit.remove(); }
-					settings.toggleSettings( 'add' );
+					toggleFormSettings( 'add' );
 				}
 				break;
 			default:
 				if ( !formEdit ) { 
 					if ( formSettings ) { formSettings.remove(); }
-					edit.toggleEdit( 'add' );
+					toggleFormEdit( 'add' );
 				}
 				const 
 					a = ( action )  ? document.querySelector( 'input[value=' + action  + ']' ) : '',
@@ -25,8 +25,8 @@ const
 					if ( !e ) { a.focus(); }
 				}
 				if ( e ) { e.checked = true; }
-				edit.actionState();
-				edit.elementState();
+				actionState();
+				elementState();
 		}
 	}
 

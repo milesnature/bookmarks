@@ -1,5 +1,4 @@
-import { bookmarks }                         from './modules/bookmarks.js'; /* REMOVE ? */
-import { api }                               from './modules/api.js';
+import { scheduleApiCall }                   from './modules/api.js';
 import { setupFooter }                       from './modules/footer.js';
 import { setStoredState, setStoredSettings } from './modules/storage.js';
 
@@ -7,6 +6,6 @@ import { setStoredState, setStoredSettings } from './modules/storage.js';
 window.onload = () => {
 	
 	// INITIATE GET BOOKMARKS PROMISE
-	api.scheduleApiCall( 'GET', 'bookmarks' );
+	scheduleApiCall( 'GET', 'bookmarks' );
 
 };

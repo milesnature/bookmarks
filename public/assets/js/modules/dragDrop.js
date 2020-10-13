@@ -1,5 +1,10 @@
-import { edit }           from './formEdit.js';
 import { formController } from './formControl.js';
+import { 
+	formEditGroupSelect, 
+	formEditUrlText, 
+	formEditBookmarksSelect, 
+	formEditGroupText, 
+	updatePrefill } from './formEdit.js';
 
 const
 	bmkSection = document.getElementById('bookmarks'),
@@ -54,17 +59,17 @@ const
 	  		href = text;
 		  	if ( validUrl( href ) ) { 
 		  		formController( 'create' );
-				edit.groupSelect.value = groupId; 
-				edit.urlText.value     = href;
+				formEditGroupSelect.value = groupId; 
+				formEditUrlText.value     = href;
 				
 		  	}	  		
 	  	}
 	  	if ( local ) {
 		  	if ( validUrl( href ) ) { 
 		  		formController( 'update' ); 
-				edit.bookmarksSelect.value = id; 
-				edit.updatePrefill();
-				edit.groupText.value       = groupId;
+				formEditBookmarksSelect.value = id; 
+				updatePrefill();
+				formEditGroupText.value       = groupId;
 				
 		  	}	  		
 	  	}
