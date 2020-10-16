@@ -1,6 +1,6 @@
-import { constructBookmarksSection, removeBookmarks } from './bookmarks.js';
-import { resetFields, displayErrorMessage }           from './formEdit.js';
-import { formController }                             from './formControl.js';
+// import { constructBookmarksSection, removeBookmarks } from './bookmarks.js';
+// import { resetFields, displayErrorMessage }           from './formEdit.js';
+// import { formController }                             from './formControl.js';
 
 const
 	domainUrl = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
@@ -39,18 +39,32 @@ const
 			if ( verb === 'GET' ) {
 				if ( data.length > 0 ) {
 		   			sessionStorage.setItem( 'bookmarksData', JSON.stringify( data ) );
-					constructBookmarksSection( data );
+		   			import( './bookmarks.js' ).then( ( module ) => {
+		   				module.constructBookmarksSection( data );
+		   			} );
 				} else {	
-				    formController( 'create', 'group' );
-	   				toggleModalHelp( 'helpEmptyDatabase' );
-	   				removeBookmarks();
+		   			import( './formControl.js' ).then( ( module ) => {
+		   				module.formController( 'create', 'group' );
+		   			} );
+		   			import( './modal.js' ).then( ( module ) => {
+		   				module.toggleModalHelp( 'helpEmptyDatabase' );
+		   			} );
+		   			import( './bookmarks.js' ).then( ( module ) => {
+		   				module.removeBookmarks();
+		   			} );		   					   			
    				}	
 			} else {
-				scheduleApiCall( 'GET', 'bookmarks' );
-				resetFields();
+				import( './api.js' ).then( ( module ) => {
+					module.scheduleApiCall( 'GET', 'bookmarks' );
+				} );
+				import( './formEdit.js' ).then( ( module ) => {
+					module.resetFields();
+				} );
 			}
 		} ).catch( ( error ) => { 
-			displayErrorMessage( error );
+			import( './formEdit.js' ).then( ( module ) => {
+				module.displayErrorMessage( error );
+			} );			
 		} )
 
 	};

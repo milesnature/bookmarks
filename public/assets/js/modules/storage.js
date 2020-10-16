@@ -1,5 +1,5 @@
-import { toggleFormEdit }     from './formEdit.js';
-import { toggleFormSettings } from './formSettings.js';
+// import { toggleFormEdit }     from './formEdit.js';
+// import { toggleFormSettings } from './formSettings.js';
 
 // RESTORE LAST SELECTED FORM STATE OR PREFERENCE FROM LOCAL STORAGE.
 const 
@@ -12,10 +12,14 @@ const
 
 	setStoredState = (() => {
 		if ( editState === 'open' ) {
-			toggleFormEdit( 'add' );
+			import('./formEdit.js').then( ( module ) => {
+				module.toggleFormEdit( 'add' );
+			} );
 		}
 		if ( settingsState === 'open' ) {
-			toggleFormSettings( 'add' );
+			import('./formSettings.js').then( ( module ) => {
+				module.toggleFormSettings( 'add' );
+			} );
 		}
 	})(),
 

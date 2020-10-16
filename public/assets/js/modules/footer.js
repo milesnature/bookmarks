@@ -1,5 +1,5 @@
-import { formController }  from './formControl.js';
-import { toggleModalHelp } from './modal.js';
+// import { formController }  from './formControl.js';
+// import { toggleModalHelp } from './modal.js';
 
 const setupFooter = (() => {
 
@@ -12,12 +12,14 @@ const setupFooter = (() => {
 			name   = target.className;
 		switch ( tag ) {
 			case 'BUTTON':
-				formController( name );  
+				import( './formControl.js' ).then( ( module ) => { module.formController( name ); } );
 				document.body.scrollTop = 0; // SAFARI
 				document.documentElement.scrollTop = 0; // ALL OTHERS
 				break;
 			case 'A':
-				if ( id === 'help' ) { toggleModalHelp(); }
+				if ( id === 'help' ) { 
+					import( './modal.js' ).then( ( module ) => { module.toggleModalHelp(); } );
+				}
 				break;
 			default:
 				break;

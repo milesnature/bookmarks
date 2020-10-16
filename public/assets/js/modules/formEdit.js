@@ -166,7 +166,7 @@ const
 	constructGroupOptions = () => { 
 		// <option value='News'>News</option>
 		let fragment = document.createDocumentFragment(),
-		    groups   = JSON.parse( sessionStorage.getItem( 'groups' ) ),
+		    groups   = JSON.parse( sessionStorage.getItem( 'groups' ) ) || [],
 			buildOptions = ( item, index ) => {
 				let
 					option = document.createElement   ( 'OPTION' ),
