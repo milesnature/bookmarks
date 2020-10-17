@@ -1,13 +1,3 @@
-import { setupOpenGroupEventHandler }                        from './openGroup.js';
-import { allowDrop, dragStart, dropEvents, dragEnterEvents } from './dragDrop.js';
-import { 
-	formEditContainer,
-	formEditErrorMessage, 
-	resetFields, 
-	clearErrorMessage, 
-	constructGroupOptions, 
-	constructNameOptions } from './formEdit.js';
-
 const
 	html       = document.getElementsByTagName("HTML")[0],
 	bmkSection = document.getElementById('bookmarks'),	
@@ -124,8 +114,6 @@ const
 		    };
 		if ( hasContent ) {
 			const groupList = getLists();
-			dropEvents( 'remove', groupList );
-			dragEnterEvents( 'remove', groupList );
 			removeChildren( bmkSection );
 		}
 	},
@@ -144,21 +132,27 @@ const
 			fragments.appendChild( constructList( item, sortedList[ item ] ) );
 		}
 		bmkSection.appendChild( fragments );
-		setupOpenGroupEventHandler( bmkSection );
-		if ( formEditContainer ) {
-			constructGroupOptions();
-			constructNameOptions( sortedList );
-			resetFields();
-			clearErrorMessage( formEditErrorMessage );
-		}
+		import( './openGroup.js' ).then( ( module ) => {
+			module.setupOpenGroupEventHandler( bmkSection );
+		} );
+		import( './formEdit.js' ).then( ( module ) => {
+			if ( module.formEditContainer ) {
+				module.constructGroupOptions();
+				module.constructNameOptions( sortedList );
+				module.resetFields();
+				module.clearErrorMessage( module.formEditErrorMessage );
+			}
+		} );		
 		// EVENT HANDLERS FOR DRAG & DROP.
 		const groupList = getLists();
 		// WITHIN BOOKMARKS SECTION
-		dropEvents( 'add', groupList );
-		dragEnterEvents( 'add', groupList );
-		// FROM OUTSIDE THE DOM
-		html.addEventListener( 'dragover',  ( event, groupList ) => { allowDrop( event ) } );
-		html.addEventListener( 'dragstart', ( event, groupList ) => { dragStart( event ) } );						
+		import( './dragDrop.js' ).then( ( module ) => {
+			module.dropEvents( 'add', groupList );
+			module.dragEnterEvents( 'add', groupList );
+			// FROM OUTSIDE THE DOM
+			html.addEventListener( 'dragover',  ( event, groupList ) => { module.allowDrop( event ) } );
+			html.addEventListener( 'dragstart', ( event, groupList ) => { module.dragStart( event ) } );	
+		} );					
 	};
 
 export { constructBookmarksSection, removeBookmarks }

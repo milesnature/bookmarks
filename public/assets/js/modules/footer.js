@@ -1,6 +1,3 @@
-// import { formController }  from './formControl.js';
-// import { toggleModalHelp } from './modal.js';
-
 const setupFooter = (() => {
 
 	// EVENT HANDLER FOOTER BUTTONS AND LINKS.

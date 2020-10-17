@@ -1,7 +1,3 @@
-// import { constructBookmarksSection, removeBookmarks } from './bookmarks.js';
-// import { resetFields, displayErrorMessage }           from './formEdit.js';
-// import { formController }                             from './formControl.js';
-
 const
 	domainUrl = window.location.protocol + '//' + window.location.hostname + ( ( window.location.port ) ? ':' + window.location.port : '' ) + '/',
 

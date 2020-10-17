@@ -1,6 +1,3 @@
-// import { toggleFormEdit }     from './formEdit.js';
-// import { toggleFormSettings } from './formSettings.js';
-
 // RESTORE LAST SELECTED FORM STATE OR PREFERENCE FROM LOCAL STORAGE.
 const 
 	body               = document.body,
