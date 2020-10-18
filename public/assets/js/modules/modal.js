@@ -25,7 +25,7 @@ let
 				selects.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				textareas.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
 				buttons.forEach( ( item, index ) => { item.removeAttribute( 'tabindex' ) } );
-				buttons.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '0' ) } );
+				groups.forEach( ( item, index ) => { item.setAttribute( 'tabindex', '0' ) } );
 				break;	
 			default:
 				break;			
@@ -83,4 +83,4 @@ let
 		}
 	};
 
-export { trapFocus, toggleModalHelp }
+export { trapFocus, toggleModalHelp };

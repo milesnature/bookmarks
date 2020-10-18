@@ -155,4 +155,4 @@ const
 		} );					
 	};
 
-export { constructBookmarksSection, removeBookmarks }
+export { constructBookmarksSection, removeBookmarks };

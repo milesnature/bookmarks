@@ -111,4 +111,4 @@ const
 		
 	};	
 
-export { allowDrop, dragStart, dropEvents, dragEnterEvents }
+export { allowDrop, dragStart, dropEvents, dragEnterEvents };

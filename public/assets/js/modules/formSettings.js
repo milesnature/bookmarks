@@ -152,4 +152,4 @@ const
 		}
 	};
 
-export { toggleFormSettings }
+export { toggleFormSettings };

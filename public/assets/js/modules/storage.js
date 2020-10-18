@@ -32,4 +32,4 @@ const
 		}
 	})();
 
-export { setStoredState, setStoredSettings }
+export { setStoredState, setStoredSettings };

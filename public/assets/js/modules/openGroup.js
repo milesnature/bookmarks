@@ -33,4 +33,4 @@ const
 		});
 	}
 
-export { setupOpenGroupEventHandler }
+export { setupOpenGroupEventHandler };
