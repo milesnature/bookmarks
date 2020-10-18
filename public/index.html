@@ -11,7 +11,7 @@
 		<link rel="alternate icon" href="/favicon.ico">		
 		<link rel="stylesheet" href="dist/assets/css/styles.min.css">
 	</head>
-	<body>
+	<body class="light-mode">
 		<template id="templateFormEdit">
 			<form id="edit" class="create bookmark form" title="Edit Bookmarks Form" novalidate>
 				<div class="action fieldset">	
@@ -68,23 +68,25 @@
 			<form id="settings" class="form" title="Settings Form" novalidate>
 				<div class="appearance fieldset">	
 					<label>Default:
-						<input type="radio" name="appearance" value="default" checked="default" />
+						<input id="appearanceDefault" type="radio" name="settingsAppearance" value="default" />
 					</label>
 					<label>Light Mode:
-						<input type="radio" name="appearance" value="light" />
+						<input id="appearanceLight" type="radio" name="settingsAppearance" value="light" />
 					</label>
 					<label>Dark Mode:
-						<input type="radio" name="appearance" value="dark" />
+						<input id="appearanceDark" type="radio" name="settingsAppearance" value="dark" />
 					</label>				
 				</div>
+
 				<div class="style fieldset">	
 					<label>Default:
-						<input type="radio" name="style" value="default" checked="default" />
+						<input id="styleDefault" type="radio" name="settingsStyle" value="default" />
 					</label>
 					<label>Tidy (Desktop):
-						<input type="radio" name="style" value="tidy" />
+						<input id="styleTidy" type="radio" name="settingsStyle" value="tidy" />
 					</label>			
-				</div>				
+				</div>	
+
 				<button id="close" type="button" name="close" title="Close Settings Form" class="close">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
 						<title>Close Form</title>
@@ -95,7 +97,55 @@
 			</form>
 		</template>		
 		<main>
-			<section id="bookmarks" class=""></section>
+			<section id="bookmarks" class="">
+				<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
+					<title>Bookmarks Loading Icon</title>
+					<desc>A call to the database for user bookmarks is underway. This icon will be replaced with them when complete.</desc>
+					<style>
+						#first {
+							animation-name: dotOpacity;
+							animation-delay: .25s;
+							animation-duration: .75s;
+							animation-fill-mode: forward;
+							animation-iteration-count: infinite;
+							animation-direction: alternate; 
+						}
+						@keyframes dotOpacity {
+							0% { opacity: 0; }
+							75% { opacity: 1; }
+						}
+						#second {
+							animation-name: dot2Opacity;
+							animation-delay: .5s;
+							animation-duration: .75s;
+							animation-fill-mode: forward;
+							animation-iteration-count: infinite;
+							animation-direction: alternate; 
+						}
+						@keyframes dot2Opacity {
+							0% { opacity: 0; }
+							75% { opacity: 1; }
+						}
+						#third {
+							animation-name: dot3Opacity;
+							animation-delay: .75s;
+							animation-duration: .75s;
+							animation-fill-mode: forward;
+							animation-iteration-count: infinite;
+							animation-direction: alternate; 
+						}
+						@keyframes dot3Opacity {
+							0% { opacity: 0; }
+							75% { opacity: 1; }
+						}
+					</style>
+					<g fill="none" fill-rule="evenodd">
+						<circle id="first" cx="42.5" cy="50.5" r="11.5"/>
+						<circle id="second" cx="84.5" cy="50.5" r="11.5"/>
+						<circle id="third" cx="126.5" cy="50.5" r="11.5"/>
+					</g>
+				</svg>				
+			</section>
 		</main>
 		<footer>
 			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button><button class="settings">Settings</button></nav>
@@ -154,58 +204,8 @@
 					</details>				
 				</div>
 			</div>
-		</template>	
-		<template id="templateLoader">
-			<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
-				<title>Bookmarks Loading Icon</title>
-				<desc>A call to the database for user bookmarks is underway. This icon will be replaced with them when complete.</desc>
-				<style>
-					#first {
-						animation-name: dotOpacity;
-						animation-delay: .25s;
-						animation-duration: .75s;
-						animation-fill-mode: forward;
-						animation-iteration-count: infinite;
-						animation-direction: alternate; 
-					}
-					@keyframes dotOpacity {
-						0% { opacity: 0; }
-						75% { opacity: 1; }
-					}
-					#second {
-						animation-name: dot2Opacity;
-						animation-delay: .5s;
-						animation-duration: .75s;
-						animation-fill-mode: forward;
-						animation-iteration-count: infinite;
-						animation-direction: alternate; 
-					}
-					@keyframes dot2Opacity {
-						0% { opacity: 0; }
-						75% { opacity: 1; }
-					}
-					#third {
-						animation-name: dot3Opacity;
-						animation-delay: .75s;
-						animation-duration: .75s;
-						animation-fill-mode: forward;
-						animation-iteration-count: infinite;
-						animation-direction: alternate; 
-					}
-					@keyframes dot3Opacity {
-						0% { opacity: 0; }
-						75% { opacity: 1; }
-					}
-				</style>
-				<g fill="none" fill-rule="evenodd">
-					<circle id="first" cx="42.5" cy="50.5" r="11.5"/>
-					<circle id="second" cx="84.5" cy="50.5" r="11.5"/>
-					<circle id="third" cx="126.5" cy="50.5" r="11.5"/>
-				</g>
-			</svg>
 		</template>				
-		<script src="dist/assets/js/functions.min.js"></script>
-		
+		<script src="assets/js/modules.js" type="module"></script>
 <!-- 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 		  	var socket = io();
@@ -213,7 +213,6 @@
 			    console.log('change', msg);
 			    location.reload();
 			});		  
-		</script> -->
-						  
+		</script>	 -->	  
 	</body>
 </html>
