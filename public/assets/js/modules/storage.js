@@ -8,6 +8,9 @@ const
 	settingsStyle      = ( localStorage.getItem('settingsStyle') )      ? localStorage.getItem('settingsStyle') : '',
 
 	setStoredState = (() => {
+		if ( editState === 'open' && settingsState === 'open' ) {
+			localStorage.setItem( 'settingsState', 'closed' );			
+		}
 		if ( editState === 'open' ) {
 			import('./formEdit.js').then( ( module ) => {
 				module.toggleFormEdit( 'add' );
