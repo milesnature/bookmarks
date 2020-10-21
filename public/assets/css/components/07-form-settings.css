@@ -1,0 +1,96 @@
+/* START FORM */
+
+/* Settings */
+form#settings div.appearance { grid-area : appearance; }
+form#settings div.style      { grid-area : style; }
+form#settings button.close   { grid-area : close; }
+
+form#settings {
+	display               : grid;
+	width                 : 100%;
+	min-width             : 300px;
+	margin                : 0 auto;
+	padding               : 32px 21px 0 21px;
+	background-color      : var( --background-color-form );
+	color                 : var( --font-color-form );	
+	grid-area             : form;
+	grid-template-areas   : 'appearance style' 'close close';
+	grid-template-columns : max-content max-content;
+	grid-template-rows    : max-content;
+	grid-gap              : 13px;
+	justify-content       : center; 	
+}
+
+@media (max-width: 800px) {
+	form#settings {
+		padding : 13px 0 0 0;
+	}
+	form#settings button.close { margin-top : 0; }
+}	
+
+@media (max-width: 420px) {
+	form#settings {
+		justify-content       : normal;
+		grid-template-columns : auto;
+		max-width             : 100%;
+		width                 : 100%;
+		padding               : 13px 13px 0 13px;
+	}
+}	
+
+/* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
+form#settings .fieldset {
+	display               : grid;
+ 	grid-template-columns : 100%;
+ 	grid-template-rows    : 1fr 1fr 1fr;
+	grid-gap              : 1px;
+	align-content         : start;
+}
+
+@media (max-width: 800px) {
+	form#edit .fieldset { grid-template-rows : auto; }
+}
+
+form#settings .fieldset label { margin : 0; }
+
+form#settings .fieldset label {
+	min-height       : 48px;
+	padding          : 0 20px;
+	background-color : var( --background-color-form-label );
+	cursor           : pointer;
+	user-select      : none;
+	display          : flex;
+	flex-wrap        : nowrap;
+	justify-content  : flex-end;
+	align-items      : center;  
+}
+
+form#settings .fieldset label:hover,
+form#settings .fieldset label:focus,
+form#settings .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
+
+form#settings .fieldset label input,
+form#settings .fieldset label select { margin : 0 0 0 13px; }
+
+form#settings button.close {
+	background-color : transparent;
+	background-image : none; 
+	border           : none;
+	margin-top       : 16px;
+	padding          : 9px 0;
+	height           : 48px;
+	cursor           : pointer;
+}
+
+form#settings button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
+
+form#settings button.close svg {
+	stroke         : var( --stroke-form-svg );
+	stroke-width   : 2;
+	fill           : none;
+	stroke-linecap : square;
+}
+
+form#settings button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
+
+/* END FORM */
