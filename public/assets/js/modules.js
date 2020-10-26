@@ -1,11 +1,9 @@
-import { scheduleApiCall }                   from './modules/api.js';
-import { setupFooter }                       from './modules/footer.js';
-import { setStoredState, setStoredSettings } from './modules/storage.js';
-
-// SETUP AFTER PAGE LOADS	
-window.onload = () => {
+import { scheduleApiCall } from './modules/api.js';
 	
-	// INITIATE GET BOOKMARKS PROMISE
-	scheduleApiCall( 'GET', 'bookmarks' );
+// INITIATE GET BOOKMARKS PROMISE
+scheduleApiCall( 'GET', 'bookmarks' );
 
-};
+import( './modules/storage.js' ).then( ( module ) => {  } );
+import( './modules/bookmarks.js' ).then( ( module ) => {  } );
+import( './modules/footer.js' ).then( ( module ) => {  } );
+	
