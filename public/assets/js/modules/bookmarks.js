@@ -132,9 +132,11 @@ const
 			fragments.appendChild( constructList( item, sortedList[ item ] ) );
 		}
 		bmkSection.appendChild( fragments );
-		import( './openGroup.js' ).then( ( module ) => {
-			module.setupOpenGroupEventHandler( bmkSection );
-		} );
+		if ( localStorage.getItem('settingsState') !== "open" ) {
+			import( './openGroup.js' ).then( ( module ) => {
+				module.setupOpenGroupEventHandler( bmkSection );
+			} );
+		}
 		import( './formEdit.js' ).then( ( module ) => {
 			if ( module.formEditContainer ) {
 				module.constructGroupOptions();

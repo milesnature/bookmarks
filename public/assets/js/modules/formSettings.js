@@ -15,6 +15,9 @@ const
 					settings.container.removeEventListener('click',  ( e ) => {});
 					s.remove(); 
 					localStorage.setItem( 'settingsState', 'closed' );
+					import( './openGroup.js' ).then( ( module ) => {
+						module.setupOpenGroupEventHandler( bmkSection );
+					} );					
 				}
 				break;
 
@@ -25,6 +28,10 @@ const
 					body.prepend( templateFormSettings.content.cloneNode( true ) );
 
 					localStorage.setItem( 'settingsState', 'open' );
+
+					import( './openGroup.js' ).then( ( module ) => {
+						module.removeOpenGroupEventHandler( bmkSection );
+					} );
 
 					const
 						appearanceDefault  = document.getElementById( 'appearanceDefault' ),

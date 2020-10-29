@@ -25,12 +25,18 @@ const
 			urls       = getUrls( list_items );
 			urls.forEach( openNewTab );	
 	},
+
+	clickAction = ( e ) => {
+		const target = e.target; 			
+		if ( target.classList.contains('all') ) { openTabs( e ); }
+	},
 	
 	setupOpenGroupEventHandler = ( bmkSection ) => {
-		bmkSection.addEventListener('click', ( e ) => {
-			const target = e.target; 			
-			if ( target.classList.contains('all') ) { openTabs( e ); }
-		});
-	}
+		bmkSection.addEventListener('click', clickAction );
+	},
 
-export { setupOpenGroupEventHandler };
+	removeOpenGroupEventHandler = ( bmkSection ) => {
+		bmkSection.removeEventListener('click', clickAction );
+	};
+
+export { setupOpenGroupEventHandler, removeOpenGroupEventHandler };
