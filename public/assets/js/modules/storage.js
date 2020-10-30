@@ -24,8 +24,21 @@ const
 	})(),
 
 	setStoredSettings = (() => {
-		if ( settingsAppearance !== 'default' ) {
-			body.classList.add( settingsAppearance + '-mode' );
+		switch ( settingsAppearance ) {
+			case 'default':
+				body.classList.remove( 'light-mode', 'dark-mode' );
+				body.classList.add( 'default' );
+				break;
+			case 'light':
+				body.classList.remove( 'dark-mode', 'default' );
+				body.classList.add( 'light-mode' );
+				break;
+			case 'dark':
+				body.classList.remove( 'light-mode', 'default' );
+				body.classList.add( 'dark-mode' );				
+				break;	
+			default:
+				break;
 		}
 		if ( settingsStyle === 'tidy' ) {
 			bmkSection.classList.add( 'tidy' );
