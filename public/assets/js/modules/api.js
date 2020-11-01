@@ -61,6 +61,8 @@ const
 			import( './formEdit.js' ).then( ( module ) => {
 				module.displayErrorMessage( error );
 			} );			
+		} ).finally( () => {
+			import( './storage.js' ).then( ( module ) => {  } );
 		} )
 
 	};

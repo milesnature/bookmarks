@@ -11,9 +11,9 @@
 		<link rel="alternate icon" href="/favicon.ico">		
 		<link rel="stylesheet" href="dist/assets/css/styles.min.css">
 	</head>
-	<body class="light-mode">
+	<body>
 		<template id="templateFormEdit">
-			<form id="edit" class="create bookmark form" title="Edit Bookmarks Form" novalidate>
+			<form id="formEdit" class="create bookmark form" title="Edit Bookmarks Form" novalidate>
 				<div class="action fieldset">	
 					<label id="createLabel">Create:
 						<input id="create" type="radio" name="action" value="create" checked="checked" />
@@ -65,7 +65,7 @@
 			</form>
 		</template>
 		<template id="templateFormSettings">
-			<form id="settings" class="form" title="Settings Form" novalidate>
+			<form id="formSettings" class="form" title="Settings Form" novalidate>
 				<div class="appearance fieldset">	
 					<label>Default:
 						<input id="appearanceDefault" type="radio" name="settingsAppearance" value="default" />
@@ -95,7 +95,19 @@
 					</svg>				
 				</button>
 			</form>
-		</template>		
+		</template>
+		<template id="templateFormGroups">
+			<form id="formGroups" class="form" title="Groups Form" novalidate>
+				<div class="groups fieldset"></div>	
+				<button id="close" type="button" name="close" title="Close Groups Form" class="close">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
+						<title>Close Form</title>
+						<desc>This is an arrow, indicting the collapse of an open form.</desc>
+					  	<path fill="none" stroke-linecap="round" d="M0,10 C0.35,9.64912281 3.85,6.31578947 10.5,1.0658141e-14 L21,10" transform="translate(2 2)"/>
+					</svg>				
+				</button>
+			</form>
+		</template>		 				
 		<main>
 			<section id="bookmarks" class="">
 				<svg id="loader" xmlns="http://www.w3.org/2000/svg" width="84" height="50" viewBox="0 0 168 100">
@@ -148,7 +160,13 @@
 			</section>
 		</main>
 		<footer>
-			<nav><button class="create">Create</button><button class="delete">Delete</button><button class="update">Update</button><button class="settings">Settings</button></nav>
+			<nav>
+				<button class="create">Create</button>
+				<button class="delete">Delete</button>
+				<button class="update">Update</button>
+				<button class="settings">Settings</button>
+				<button class="groups">Groups</button>
+			</nav>
 			<small class="links"><a href="https://github.com/milesnature/bookmarks" target="_blank" rel="noreferrer">About</a><a id="help" href="#">Help</a></small>
 			<small class="copyright">Copyright &copy; <span id="year"></span>  Miles Nature. All Rights Reserved.</small>
 		</footer>

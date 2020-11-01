@@ -131,7 +131,23 @@ const
 			if ( !item ) { continue; };
 			fragments.appendChild( constructList( item, sortedList[ item ] ) );
 		}
+
+		// APPLY GROUPS PREFERENCES BEFORE THE DOM IS RENDERED.
+		// TODO: REUSE FUNCTIONS FROM formGroup.js ? It's not accepting the fragment.
+		const 
+			storedGroups = ( localStorage.getItem( 'groupsStorage' ) ) ? JSON.parse( localStorage.getItem( 'groupsStorage' ) ) : '',
+			keys = Object.keys( storedGroups );
+		
+		keys.forEach( ( item, index ) => {
+			if ( storedGroups[ item ] === false ) {
+				fragments.getElementById( '_' + item ).classList.add( 'hide' );
+			} else {
+				fragments.getElementById( '_' + item ).classList.remove( 'hide' );
+			}
+		} );
+
 		bmkSection.appendChild( fragments );
+
 		if ( localStorage.getItem('settingsState') !== "open" ) {
 			import( './openGroup.js' ).then( ( module ) => {
 				module.setupOpenGroupEventHandler( bmkSection );
@@ -157,4 +173,4 @@ const
 		} );					
 	};
 
-export { constructBookmarksSection, removeBookmarks };
+export { constructBookmarksSection, removeBookmarks, getLists };

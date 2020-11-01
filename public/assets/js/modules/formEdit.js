@@ -31,27 +31,25 @@ let
 const          
 	toggleFormEdit = ( action ) => {
 
-		const f = document.getElementById('edit');
+		formEditContainer = document.getElementById('formEdit');
 
 		switch ( action ) {
 
 			case 'remove':
 
-				if ( f ) { 
-					formEditContainer.removeEventListener('change', ( e ) => {} );
-					formEditContainer.removeEventListener('click',  ( e ) => {} );
-					f.remove(); 
+				if ( formEditContainer ) { 
+					formEditContainer.remove(); 
 					localStorage.setItem( 'editState', 'closed' );
 				}
 				break;
 
 			case 'add':
 
-				if ( !f ) {
+				if ( !formEditContainer ) {
 
   					document.body.prepend( templateFormEdit.content.cloneNode( true ) );
 
-					formEditContainer                 = document.forms[0];
+					formEditContainer                 = document.getElementById('formEdit');
 					formEditErrorMessage              = document.getElementById('errorMessage');
 					formEditBookmark                  = document.getElementById('bookmark');
 					formEditGroup                     = document.getElementById('group');

@@ -1,11 +1,12 @@
 // RESTORE LAST SELECTED FORM STATE OR PREFERENCE FROM LOCAL STORAGE.
 const 
 	body               = document.body,
-	bmkSection         = document.getElementById('bookmarks'),	
-	editState          = ( localStorage.getItem('editState') )          ? localStorage.getItem('editState') : '',
-	settingsState      = ( localStorage.getItem('settingsState') )      ? localStorage.getItem('settingsState') : '',
-	settingsAppearance = ( localStorage.getItem('settingsAppearance') ) ? localStorage.getItem('settingsAppearance') : '',
-	settingsStyle      = ( localStorage.getItem('settingsStyle') )      ? localStorage.getItem('settingsStyle') : '',
+	bmkSection         = document.getElementById( 'bookmarks' ),	
+	editState          = ( localStorage.getItem( 'editState' ) )          ? localStorage.getItem( 'editState' ) : '',
+	settingsState      = ( localStorage.getItem( 'settingsState' ) )      ? localStorage.getItem( 'settingsState' ) : '',
+	settingsAppearance = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : '',
+	settingsStyle      = ( localStorage.getItem( 'settingsStyle' ) )      ? localStorage.getItem( 'settingsStyle' ) : '',
+	groupsState        = ( localStorage.getItem( 'groupsState' ) )        ? localStorage.getItem( 'groupsState' ) : '',
 
 	setStoredState = (() => {
 		if ( editState === 'open' && settingsState === 'open' ) {
@@ -21,6 +22,11 @@ const
 				module.toggleFormSettings( 'add' );
 			} );
 		}
+		if ( groupsState === 'open' ) {
+			import('./formGroups.js').then( ( module ) => {
+				module.toggleFormGroups( 'add' );
+			} );
+		}		
 	})(),
 
 	setStoredSettings = (() => {

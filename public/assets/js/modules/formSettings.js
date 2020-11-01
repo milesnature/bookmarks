@@ -1,19 +1,21 @@
+
+let formSettingsContainer;
+
 const
 	// SETTINGS FORM DOM ELEMENTS AND METHODS.
 	toggleFormSettings = ( action ) => {
 
+		formSettingsContainer = document.getElementById( 'formSettings' );
+
 		const 
 			body       = document.body,
-			bmkSection = document.getElementById('bookmarks'),
-			s          = document.getElementById('settings');
+			bmkSection = document.getElementById('bookmarks');
 
 		switch ( action ) {
 
 			case 'remove':
-				if ( s ) { 
-					settings.container.removeEventListener('change', ( e ) => {});
-					settings.container.removeEventListener('click',  ( e ) => {});
-					s.remove(); 
+				if ( formSettingsContainer ) { 
+					formSettingsContainer.remove(); 
 					localStorage.setItem( 'settingsState', 'closed' );
 					import( './openGroup.js' ).then( ( module ) => {
 						module.setupOpenGroupEventHandler( bmkSection );
@@ -23,7 +25,7 @@ const
 
 			case 'add':
 
-				if ( !s ) {
+				if ( !formSettingsContainer ) {
 
 					body.prepend( templateFormSettings.content.cloneNode( true ) );
 
@@ -33,14 +35,16 @@ const
 						module.removeOpenGroupEventHandler( bmkSection );
 					} );
 
+					formSettingsContainer = document.getElementById( 'formSettings' );
+
 					const
-						appearanceDefault  = document.getElementById( 'appearanceDefault' ),
-						appearanceLight    = document.getElementById( 'appearanceLight' ),
-						appearanceDark     = document.getElementById( 'appearanceDark' ),
-						styleDefault       = document.getElementById( 'styleDefault' ),
-						styleTidy          = document.getElementById( 'styleTidy' ),
-						settingsAppearance = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
-						settingsStyle      = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
+						appearanceDefault     = document.getElementById( 'appearanceDefault' ),
+						appearanceLight       = document.getElementById( 'appearanceLight' ),
+						appearanceDark        = document.getElementById( 'appearanceDark' ),
+						styleDefault          = document.getElementById( 'styleDefault' ),
+						styleTidy             = document.getElementById( 'styleTidy' ),
+						settingsAppearance    = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
+						settingsStyle         = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
 
 					switch ( settingsAppearance ) {
 						case 'default':
@@ -67,10 +71,8 @@ const
 							break;
 					};
 
-					settings[ 'container' ] = document.forms[0];					
-
 					// LISTEN FOR SETTINGS CHANGES
-					settings.container.addEventListener('change', ( e ) => {
+					formSettingsContainer.addEventListener('change', ( e ) => {
 						const 
 							target = e.target,
 							tag    = target.tagName,
@@ -129,7 +131,7 @@ const
 					});
 
 					// LISTEN FOR CLOSE. 
-					settings.container.addEventListener('click', ( e ) => {
+					formSettingsContainer.addEventListener('click', ( e ) => {
 						const 
 							target = e.target,
 							tag    = target.tagName,

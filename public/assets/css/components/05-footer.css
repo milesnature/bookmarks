@@ -14,6 +14,7 @@ footer nav button {
 	cursor    : pointer;
 	min-width : 69px;
 	margin    : 0 5px;
+	padding   : 0 10px;
 }
 
 footer small.links {
@@ -40,8 +41,9 @@ footer small.copyright { font-size : .8rem; }
 
 @media ( max-width: 600px ) {
 	footer nav button {
-		min-width : 20%;
+		min-width : 0;
 		height    : 48px;
+		margin    : 0 2px 5px 2px;
 	}
 	footer small.links a {
 		min-width   : 90px;

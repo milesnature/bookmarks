@@ -1,13 +1,13 @@
 /* START FORM */
 
 /* Edit */
-form#edit div.action {   grid-area : action; }
-form#edit div.element {  grid-area : element; }
-form#edit div.detail {   grid-area : detail; }
-form#edit div.complete { grid-area : complete }
-form#edit button.close { grid-area : close; }
+form#formEdit div.action {   grid-area : action; }
+form#formEdit div.element {  grid-area : element; }
+form#formEdit div.detail {   grid-area : detail; }
+form#formEdit div.complete { grid-area : complete }
+form#formEdit button.close { grid-area : close; }
 
-form#edit {
+form#formEdit {
 	display               : grid;
 	width                 : 100%;
 	min-width             : 300px;
@@ -24,17 +24,17 @@ form#edit {
 }
 
 @media (max-width: 800px) {
-	form#edit {
+	form#formEdit {
 		grid-template-areas   : 'action element' 'detail detail' 'complete complete' 'close close';
 		grid-template-columns : max-content max-content;
 		padding               : 13px 0 0 0;
 	}
-	form#edit .complete.fieldset { max-width : 100%; }
-	form#edit button.close { margin-top : 0; }
+	form#formEdit .complete.fieldset { max-width : 100%; }
+	form#formEdit button.close { margin-top : 0; }
 }	
 
 @media (max-width: 420px) {
-	form#edit {
+	form#formEdit {
 		justify-content       : normal;
 		grid-template-columns : auto auto;
 		max-width             : 100%;
@@ -43,26 +43,26 @@ form#edit {
 	}
 }	
 
-form#edit.create.bookmark .detail #bookmarksLabel,
-form#edit.create.bookmark .detail #groupText,
-form#edit.create.bookmark .detail #nameSelect,
-form#edit.create.group .detail #bookmarksLabel,
-form#edit.create.group .detail #groupSelect,
-form#edit.create.group .detail #nameSelect,
-form#edit.delete.bookmark .detail #bookmarksLabel,
-form#edit.delete.bookmark .detail #groupsLabel,
-form#edit.delete.bookmark .detail #nameText,
-form#edit.delete.bookmark .detail #urlLabel,
-form#edit.delete.group .detail #bookmarksLabel,
-form#edit.delete.group .detail #groupText,
-form#edit.delete.group .detail #nameLabel,
-form#edit.delete.group .detail #urlLabel,
-form#edit.update.bookmark .element #groupLabel,
-form#edit.update.bookmark .detail  #groupSelect,
-form#edit.update.bookmark .detail  #nameSelect { display : none; }
+form#formEdit.create.bookmark .detail #bookmarksLabel,
+form#formEdit.create.bookmark .detail #groupText,
+form#formEdit.create.bookmark .detail #nameSelect,
+form#formEdit.create.group .detail #bookmarksLabel,
+form#formEdit.create.group .detail #groupSelect,
+form#formEdit.create.group .detail #nameSelect,
+form#formEdit.delete.bookmark .detail #bookmarksLabel,
+form#formEdit.delete.bookmark .detail #groupsLabel,
+form#formEdit.delete.bookmark .detail #nameText,
+form#formEdit.delete.bookmark .detail #urlLabel,
+form#formEdit.delete.group .detail #bookmarksLabel,
+form#formEdit.delete.group .detail #groupText,
+form#formEdit.delete.group .detail #nameLabel,
+form#formEdit.delete.group .detail #urlLabel,
+form#formEdit.update.bookmark .element #groupLabel,
+form#formEdit.update.bookmark .detail  #groupSelect,
+form#formEdit.update.bookmark .detail  #nameSelect { display : none; }
 
 /* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
-form#edit .fieldset {
+form#formEdit .fieldset {
 	display               : grid;
  	grid-template-columns : 100%;
  	grid-template-rows    : 1fr 1fr 1fr 1fr;
@@ -71,12 +71,12 @@ form#edit .fieldset {
 }
 
 @media (max-width: 800px) {
-	form#edit .fieldset { grid-template-rows : auto; }
+	form#formEdit .fieldset { grid-template-rows : auto; }
 }
 
-form#edit .fieldset label { margin : 0; }
+form#formEdit .fieldset label { margin : 0; }
 
-form#edit .fieldset label {
+form#formEdit .fieldset label {
 	min-height       : 48px;
 	padding          : 0 20px;
 	background-color : var( --background-color-form-label );
@@ -88,43 +88,43 @@ form#edit .fieldset label {
 	align-items      : center;  
 }
 
-form#edit .fieldset label:hover,
-form#edit .fieldset label:focus,
-form#edit .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
+form#formEdit .fieldset label:hover,
+form#formEdit .fieldset label:focus,
+form#formEdit .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
 
-form#edit.delete .complete.fieldset label:hover { background-image : var( --linear-gradient-form-warning ) }
+form#formEdit.delete .complete.fieldset label:hover { background-image : var( --linear-gradient-form-warning ) }
 
-form#edit .fieldset label input,
-form#edit .fieldset label select { margin : 0 0 0 13px; }
+form#formEdit .fieldset label input,
+form#formEdit .fieldset label select { margin : 0 0 0 13px; }
 
-form#edit .detail.fieldset label { min-width : 300px; }
+form#formEdit .detail.fieldset label { min-width : 300px; }
 
-form#edit .detail.fieldset label input,
-form#edit .detail.fieldset label select { width : 172px; }
+form#formEdit .detail.fieldset label input,
+form#formEdit .detail.fieldset label select { width : 172px; }
 
-form#edit .complete { max-width : 150px; }
+form#formEdit .complete { max-width : 150px; }
 
-form#edit .complete.fieldset label {
+form#formEdit .complete.fieldset label {
 	min-width       : 150px;
 	text-align      : center;
 	justify-content : center;
 }
 
-form#edit .complete.fieldset label input  {
+form#formEdit .complete.fieldset label input  {
 	margin         : 0;
 	width          : 100px;
 	color          : var( --font-color-form-inputs )  ;
 	text-transform : capitalize;
 }
 
-form#edit .complete.fieldset label input.submit {
+form#formEdit .complete.fieldset label input.submit {
 	margin     : 0;
 	min-width  : 69px;
 	text-align : center;
 	cursor     : pointer;
 }
 
-form#edit button.close {
+form#formEdit button.close {
 	background-color : transparent;
 	background-image : none; 
 	border           : none;
@@ -134,18 +134,18 @@ form#edit button.close {
 	cursor           : pointer;
 }
 
-form#edit button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
+form#formEdit button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
 
-form#edit button.close svg {
+form#formEdit button.close svg {
 	stroke         : var( --stroke-form-svg );
 	stroke-width   : 2;
 	fill           : none;
 	stroke-linecap : square;
 }
 
-form#edit button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
+form#formEdit button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
 
-form#edit #errorMessage {
+form#formEdit #errorMessage {
 	grid-column : 1 / 2;
 	grid-row    : 2 / 5;
 	height      : 100%;

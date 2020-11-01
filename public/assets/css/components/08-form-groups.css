@@ -1,12 +1,10 @@
-/* START FORM */
+/* START GROUPS FORM */
 
 /* Settings */
-form#formSettings div.appearance { grid-area : appearance; }
-form#formSettings div.style      { grid-area : style; }
-form#formSettings button.close   { grid-area : close; }
+form#formGroups div.groups   { grid-area : groups; }
+form#formGroups button.close { grid-area : close; }
 
-form#formSettings {
-	display               : grid;
+form#formGroups {
 	width                 : 100%;
 	min-width             : 300px;
 	margin                : 0 auto;
@@ -14,22 +12,18 @@ form#formSettings {
 	background-color      : var( --background-color-form );
 	color                 : var( --font-color-form );	
 	grid-area             : form;
-	grid-template-areas   : 'appearance style' 'close close';
-	grid-template-columns : max-content max-content;
-	grid-template-rows    : max-content;
-	grid-gap              : 13px;
 	justify-content       : center; 	
 }
 
 @media (max-width: 800px) {
-	form#formSettings {
+	form#formGroups {
 		padding : 13px 0 0 0;
 	}
-	form#formSettings button.close { margin-top : 0; }
+	form#formGroups button.close { margin-top : 0; }
 }	
 
 @media (max-width: 420px) {
-	form#formSettings {
+	form#formGroups {
 		justify-content       : normal;
 		grid-template-columns : auto;
 		max-width             : 100%;
@@ -39,10 +33,9 @@ form#formSettings {
 }	
 
 /* Had to revert fieldset tags to divs because chrome did not support css grid on them. */
-form#formSettings .fieldset {
+form#formGroups .fieldset {
 	display               : grid;
- 	grid-template-columns : 100%;
- 	grid-template-rows    : 1fr 1fr 1fr;
+ 	grid-template-columns : repeat( auto-fit, minmax(140px, 1fr) );
 	grid-gap              : 1px;
 	align-content         : start;
 }
@@ -51,9 +44,7 @@ form#formSettings .fieldset {
 	form#edit .fieldset { grid-template-rows : auto; }
 }
 
-form#formSettings .fieldset label { margin : 0; }
-
-form#formSettings .fieldset label {
+form#formGroups .fieldset label {
 	min-height       : 48px;
 	padding          : 0 20px;
 	background-color : var( --background-color-form-label );
@@ -62,35 +53,38 @@ form#formSettings .fieldset label {
 	display          : flex;
 	flex-wrap        : nowrap;
 	justify-content  : flex-end;
-	align-items      : center;  
+	align-items      : center; 
+	margin           : 0; 
+	white-space      : nowrap;  
 }
 
-form#formSettings .fieldset label:hover,
-form#formSettings .fieldset label:focus,
-form#formSettings .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
+form#formGroups .fieldset label:hover,
+form#formGroups .fieldset label:focus,
+form#formGroups .fieldset label:active { background-image : var( --linear-gradient-form-label-hover  ) }
 
-form#formSettings .fieldset label input,
-form#formSettings .fieldset label select { margin : 0 0 0 13px; }
+form#formGroups .fieldset label input,
+form#formGroups .fieldset label select { margin : 0 0 0 13px; }
 
-form#formSettings button.close {
+form#formGroups button.close {
 	background-color : transparent;
 	background-image : none; 
 	border           : none;
 	margin-top       : 16px;
 	padding          : 9px 0;
+	width            : 100%;
 	height           : 48px;
 	cursor           : pointer;
 }
 
-form#formSettings button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
+form#formGroups button.close:hover { background-image : var( --linear-gradient-form-close-hover ) ; }
 
-form#formSettings button.close svg {
+form#formGroups button.close svg {
 	stroke         : var( --stroke-form-svg );
 	stroke-width   : 2;
 	fill           : none;
 	stroke-linecap : square;
 }
 
-form#formSettings button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
+form#formGroups button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }
 
-/* END FORM */
+/* END GROUPS FORM */
