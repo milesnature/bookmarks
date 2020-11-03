@@ -40,6 +40,7 @@ footer small.links a:last-child { border-right : 0px solid var( --border-color-f
 footer small.copyright { font-size : .8rem; }
 
 @media ( max-width: 600px ) {
+	footer nav { margin-bottom : 10px; }
 	footer nav button {
 		min-width : 0;
 		height    : 48px;

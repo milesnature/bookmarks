@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+	<style>
+		#bookmark { fill:#C80000; }
+		@media (prefers-color-scheme: dark) {
+			/* #bookmark { fill:#FAFAFA; } */
+		}
+	</style>
+	<g fill="none" fill-rule="evenodd">
+		<rect width="32" height="32"/>
+		<g id="bookmark" transform="translate(6)">
+			<polygon points="0 11.938 19 11.938 18.938 32 9.494 25.636 0 32"/>
+			<rect width="19" height="2" y="8.5"/>
+			<rect width="19" height="2" y="5.25"/>
+			<rect width="19" height="4"/>
+		</g>
+	</g>
+</svg>
