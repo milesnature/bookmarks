@@ -60,7 +60,12 @@ const
 		} ).catch( ( error ) => { 
 			import( './formEdit.js' ).then( ( module ) => {
 				module.displayErrorMessage( error );
-			} );			
+			} );
+			/* This maintains access to bookmarks if database connection is unavailable during a session. */
+			let bookmarksData = JSON.parse( sessionStorage.getItem( 'bookmarksData' ) );
+			if ( bookmarksData ) {
+				module.constructBookmarksSection( bookmarksData );
+			}
 		} ).finally( () => {
 			import( './storage.js' ).then( ( module ) => {  } );
 		} )
