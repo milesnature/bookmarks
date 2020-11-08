@@ -39,6 +39,8 @@ const
 
 				if ( formEditContainer ) { 
 					formEditContainer.remove(); 
+					document.body.classList.remove( 'form-open' );
+					import( './footer.js' ).then( ( module ) => { module.updateFooterButtons() } );
 					localStorage.setItem( 'editState', 'closed' );
 				}
 				break;
@@ -47,7 +49,12 @@ const
 
 				if ( !formEditContainer ) {
 
-  					document.body.prepend( templateFormEdit.content.cloneNode( true ) );
+					const 
+						clone  = templateFormEdit.content.cloneNode( true ),
+						footer = document.getElementsByTagName( 'footer' )[0];
+					footer.parentNode.insertBefore( clone, footer );
+
+  					document.body.classList.add( 'form-open' );
 
 					formEditContainer                 = document.getElementById('formEdit');
 					formEditErrorMessage              = document.getElementById('errorMessage');

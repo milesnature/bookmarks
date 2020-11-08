@@ -16,6 +16,8 @@ const
 			case 'remove':
 				if ( formSettingsContainer ) { 
 					formSettingsContainer.remove(); 
+					body.classList.remove( 'form-open' );
+					import( './footer.js' ).then( ( module ) => { module.updateFooterButtons() } );
 					localStorage.setItem( 'settingsState', 'closed' );
 					import( './openGroup.js' ).then( ( module ) => {
 						module.setupOpenGroupEventHandler( bmkSection );
@@ -27,8 +29,11 @@ const
 
 				if ( !formSettingsContainer ) {
 
-					body.prepend( templateFormSettings.content.cloneNode( true ) );
-
+					const 
+						clone  = templateFormSettings.content.cloneNode( true ),
+						footer = document.getElementsByTagName( 'footer' )[0];
+					footer.parentNode.insertBefore( clone, footer );
+					body.classList.add( 'form-open' );
 					localStorage.setItem( 'settingsState', 'open' );
 
 					import( './openGroup.js' ).then( ( module ) => {
@@ -38,13 +43,13 @@ const
 					formSettingsContainer = document.getElementById( 'formSettings' );
 
 					const
-						appearanceDefault     = document.getElementById( 'appearanceDefault' ),
-						appearanceLight       = document.getElementById( 'appearanceLight' ),
-						appearanceDark        = document.getElementById( 'appearanceDark' ),
-						styleDefault          = document.getElementById( 'styleDefault' ),
-						styleTidy             = document.getElementById( 'styleTidy' ),
-						settingsAppearance    = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
-						settingsStyle         = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
+						appearanceDefault  = document.getElementById( 'appearanceDefault' ),
+						appearanceLight    = document.getElementById( 'appearanceLight' ),
+						appearanceDark     = document.getElementById( 'appearanceDark' ),
+						styleDefault       = document.getElementById( 'styleDefault' ),
+						styleTidy          = document.getElementById( 'styleTidy' ),
+						settingsAppearance = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'default',
+						settingsStyle      = ( localStorage.getItem( 'settingsStyle' ) ) ? localStorage.getItem( 'settingsStyle' ) : 'default';
 
 					switch ( settingsAppearance ) {
 						case 'default':

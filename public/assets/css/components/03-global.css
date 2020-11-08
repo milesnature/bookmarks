@@ -28,12 +28,23 @@ html, body {
 body {
 	position              : relative;
 	display               : grid;
-	grid-template-areas   : 'form' 'main' 'footer';
+	grid-template-areas   : 'main' 'form' 'footer';
 	grid-template-columns : 1fr;
-	grid-template-rows    : max-content auto max-content;
+	grid-template-rows    : auto max-content max-content;
 	grid-gap              : 0px;
 	color                 : var( --font-color-base );
 }
+
+body.form-open {
+	overflow: hidden;
+}
+body.form-open main {
+	overflow-y: scroll;
+}
+body.form-open footer { margin: 0; padding: 10px 0; }
+body.form-open footer nav { margin: 0; }
+body.form-open footer .links, 
+body.form-open footer .copyright { display: none; } 
 
 a, a:link, a:visited, a:hover, a:active {
 	color: var( --font-color-a-base );

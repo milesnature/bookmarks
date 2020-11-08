@@ -4,7 +4,7 @@ const
 	bmkSection         = document.getElementById( 'bookmarks' ),	
 	editState          = ( localStorage.getItem( 'editState' ) )          ? localStorage.getItem( 'editState' ) : '',
 	settingsState      = ( localStorage.getItem( 'settingsState' ) )      ? localStorage.getItem( 'settingsState' ) : '',
-	settingsAppearance = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : '',
+	settingsAppearance = ( localStorage.getItem( 'settingsAppearance' ) ) ? localStorage.getItem( 'settingsAppearance' ) : 'light',
 	settingsStyle      = ( localStorage.getItem( 'settingsStyle' ) )      ? localStorage.getItem( 'settingsStyle' ) : '',
 	groupsState        = ( localStorage.getItem( 'groupsState' ) )        ? localStorage.getItem( 'groupsState' ) : '',
 
@@ -13,19 +13,13 @@ const
 			localStorage.setItem( 'settingsState', 'closed' );			
 		}
 		if ( editState === 'open' ) {
-			import('./formEdit.js').then( ( module ) => {
-				module.toggleFormEdit( 'add' );
-			} );
+			import( './formControl.js' ).then( ( module ) => { module.formController( 'create' ) } );
 		}
 		if ( settingsState === 'open' ) {
-			import('./formSettings.js').then( ( module ) => {
-				module.toggleFormSettings( 'add' );
-			} );
+			import( './formControl.js' ).then( ( module ) => { module.formController( 'settings' ) } );
 		}
 		if ( groupsState === 'open' ) {
-			import('./formGroups.js').then( ( module ) => {
-				module.toggleFormGroups( 'add' );
-			} );
+			import( './formControl.js' ).then( ( module ) => { module.formController( 'groups' ) } );
 		}		
 	})(),
 
@@ -37,6 +31,7 @@ const
 				break;
 			case 'light':
 				body.classList.remove( 'dark-mode', 'default' );
+				localStorage.setItem( 'settingsAppearance', 'light' );
 				body.classList.add( 'light-mode' );
 				break;
 			case 'dark':

@@ -30,7 +30,9 @@ const
 		switch ( action ) {
 			case 'remove':
 				if ( formGroupsContainer ) { 
-					formGroupsContainer.remove(); 
+					formGroupsContainer.remove();
+					document.body.classList.remove( 'form-open' );
+					import( './footer.js' ).then( ( module ) => { module.updateFooterButtons() } );
 					groups       = [],
 					groupsObject = {},
 					localStorage.setItem( 'groupsState', 'closed' );					
@@ -38,9 +40,17 @@ const
 				break;
 			case 'add':
 				if ( !formGroupsContainer ) {
-					body.prepend( templateFormGroups.content.cloneNode( true ) );
-					formGroupsContainer = document.getElementById('formGroups');
+
+					const 
+						clone  = templateFormGroups.content.cloneNode( true ),
+						footer = document.getElementsByTagName( 'footer' )[0];
+					footer.parentNode.insertBefore( clone, footer );
+
+					document.body.classList.add( 'form-open' );
 					localStorage.setItem( 'groupsState', 'open' );
+
+					formGroupsContainer = document.getElementById('formGroups');
+					
 					const 
 						bookmarkLists     = Array.prototype.slice.call( document.getElementsByClassName( 'bookmarks' ) ),
 						buildGroupsArray  = ( item, index ) => {

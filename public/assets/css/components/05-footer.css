@@ -17,6 +17,11 @@ footer nav button {
 	padding   : 0 10px;
 }
 
+footer nav button.active {
+	background-color : var( --blue );
+	color            : white;
+}
+
 footer small.links {
 	text-align : center;
 	display    : block;
