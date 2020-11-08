@@ -27,30 +27,32 @@ const
 				toggleFormGroups( 'remove' );
 				toggleFormSettings( 'add' );
 				document.querySelector( 'input' ).focus();	
-				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'settings' ) } );			
+				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'settings' ); } );			
 				break;
 			case 'create':
 				edit( action, element );
-				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'create' ) } );
+				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'create' ); } );
 				break;
 			case 'delete':
 				edit( action, element );
-				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'delete' ) } );
+				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'delete' ); } );
 				break;
 			case 'update':
 				edit( action, element );
-				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'update' ) } );
+				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'update' ); } );
 				break;
 			case 'groups':
 				toggleFormEdit( 'remove' );
 				toggleFormSettings( 'remove' );
 				toggleFormGroups( 'add' );
 				document.querySelector( 'input' ).focus();	
-				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'groups' ) } );
+				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'groups' ); } );
 				break;
 			default:
 				break;
 		}
+
+		window.scrollTo( 0, document.body.scrollHeight );
 
 	}
 

@@ -35,12 +35,16 @@ body {
 	color                 : var( --font-color-base );
 }
 
-body.form-open {
-	overflow: hidden;
+@media ( min-width: 600px ) {
+	body.form-open { overflow: hidden; }
+	body.form-open main { overflow-y: scroll; }
+	body.form-open footer { margin: 0; }		
 }
-body.form-open main {
-	overflow-y: scroll;
+@media ( max-width: 600px ) {
+	body.form-open footer { padding: 10px 0 5px 0 !important; }	
+	body.form-open footer nav button { padding: 0 7px; }
 }
+
 body.form-open footer { margin: 0; padding: 10px 0; }
 body.form-open footer nav { margin: 0; }
 body.form-open footer .links, 
