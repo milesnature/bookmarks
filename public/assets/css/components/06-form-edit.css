@@ -157,4 +157,10 @@ form#formEdit #errorMessage {
 	padding     : 5px;
 }
 
+@media (max-width: 800px) {
+	form#formEdit #errorMessage {
+		min-height : 0;
+	}	
+}
+
 /* END FORM */
