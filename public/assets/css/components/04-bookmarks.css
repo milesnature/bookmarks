@@ -72,6 +72,20 @@ main section#bookmarks ul.bookmarks li ul li a:hover {
 	background-image : var( --linear-gradient-bookmarks-a-hover );
 }
 
+main section#bookmarks #bookmark-loader {
+    position         : absolute;
+    left             : 0;
+    right            : 0;
+    top              : calc( 50% - 9px );
+    border           : 0;
+    margin           : auto;
+    width            : 60px;
+    height           : 60px;  
+    text-align       : center; 
+	background-image : linear-gradient( var( --grayscale-01 ), var( --grayscale-02 ) );
+	border-radius    : 3px; 
+}
+
 @keyframes bounce { 
 	0%   { transform: translateY(0); } 
 	25%  { transform: translateY(-20px); } 
@@ -80,18 +94,13 @@ main section#bookmarks ul.bookmarks li ul li a:hover {
 	100% { transform: translateY(0); }
 }
 
-main section#bookmarks #bookmark-loader {
+main section#bookmarks #bookmark-loader svg {
 	animation-duration        : 1.3s; 
 	animation-fill-mode       : both; 
 	animation-name            : bounce; 
 	animation-timing-function : ease-in; 
 	animation-iteration-count : infinite;
-    position                  : absolute;
-    left                      : 0;
-    right                     : 0;
-    top                       : calc( 50% - 15px );
-    border                    : 0;
-    margin                    : auto;	
+	margin                    : 10px 0 0 0;	
 }
 
 @media ( max-width: 600px ) {
