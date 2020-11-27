@@ -82,15 +82,15 @@ main section#bookmarks #bookmark-loader {
     width            : 60px;
     height           : 60px;  
     text-align       : center; 
-	background-image : linear-gradient( var( --grayscale-01 ), var( --grayscale-02 ) );
+	background-image : var( --linear-gradient-bookmarks-a );
 	border-radius    : 3px; 
 }
 
 @keyframes bounce { 
 	0%   { transform: translateY(0); } 
-	25%  { transform: translateY(-20px); } 
+	25%  { transform: translateY(-16px); } 
 	50%  { transform: translateY(0); } 
-	75%  { transform: translateY(-20px); }  
+	75%  { transform: translateY(-16px); }  
 	100% { transform: translateY(0); }
 }
 
