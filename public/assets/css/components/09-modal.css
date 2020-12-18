@@ -20,13 +20,13 @@
 	max-width        : 800px;
  	height           : 80vh; 
 	background-color : var( --background-color-modal );
-	padding          : 40px;
+	padding          : 40px 40px 40px 49px;
 	box-shadow       : var( --box-shadow-color-modal );
 	display          : block;
 	text-align       : left;
 	line-height      : 1.3rem;
 	font-size        : 1rem;
-	overflow         : auto;
+	overflow-y       : scroll;
 	--scrollbarThumbColor       : var( --grayscale-10 );
 	--scrollbarThumbBorderColor : var( --background-color-modal );
 }
@@ -120,7 +120,7 @@
 .modal .close {
 	position        : absolute;
 	right           : 5px;
-	top             : 5px; 
+	top             : 14px; 
 	display         : block;
 	cursor          : pointer;
 	text-decoration : underline;

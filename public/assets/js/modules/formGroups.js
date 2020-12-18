@@ -96,6 +96,26 @@ const
 						},
 						updateInput = ( item, index ) => {
 							document.getElementById( item ).checked = groupsObject[ item ];
+						},
+						selectGroup = ( item, index ) => {
+							let group = document.getElementById( item ),
+								id    = group.id;
+							if ( !group.checked ) {
+								document.getElementById( id ).checked = true;
+								groupsObject[ id ] = document.getElementById( id ).checked;
+								setStorageGroups( groupsObject );
+								updateBookmarks( groupsObject, document );								
+							};
+						},
+						deselectGroup = ( item, index ) => {
+							let group = document.getElementById( item ),
+								id    = group.id;
+							if ( group.checked ) {
+								document.getElementById( id ).checked = false;
+								groupsObject[ id ] = document.getElementById( id ).checked;
+								setStorageGroups( groupsObject );
+								updateBookmarks( groupsObject, document );								
+							};
 						};
 
 					/*  Construct inputs and append to the DOM */
@@ -129,22 +149,33 @@ const
 						const 
 							target = e.target,
 							tag    = target.tagName,
+							id     = ( target.id ) ? target.id : '',
 							remove = 'remove';
-						switch ( tag ) {
-							case 'BUTTON':
-								toggleFormGroups( remove );
-								break;
-							case 'svg':
-								toggleFormGroups( remove );
-								break;
-							case 'path':
-								toggleFormGroups( remove );
-								break;					
-							case 'polyline':
-								toggleFormGroups( remove );
-								break;
-							default:
-								break;			
+						if ( id === 'close' || target.closest( 'button#close' ) ) {	
+							switch ( tag ) {
+								case 'BUTTON':
+									toggleFormGroups( remove );
+									break;
+								case 'svg':
+									toggleFormGroups( remove );
+									break;
+								case 'path':
+									toggleFormGroups( remove );
+									break;					
+								case 'polyline':
+									toggleFormGroups( remove );
+									break;
+								default:
+									break;			
+							}
+						}
+						if ( id === 'selectAll' ) { 
+							e.preventDefault();
+							groups.forEach( selectGroup );
+						}
+						if ( id === 'deselectAll' ) { 
+							e.preventDefault();
+							groups.forEach( deselectGroup );
 						}
 					});
 				}

@@ -8,7 +8,7 @@
 		<meta name="author" content="Miles Nature">
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1.0, maximum-scale=5, user-scalable=0, target-densitydpi=high-dpi">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="stylesheet" href="dist/assets/css/styles.min.css?v=8">
+		<link rel="stylesheet" href="dist/assets/css/styles.min.css?v=9">
 		<link rel="apple-touch-icon" sizes="180x180" href="https://milesnature.com/favicons/bookmark/apple-touch-icon.png?v=4">
 		<link rel="icon" type="image/png" sizes="32x32" href="https://milesnature.com/favicons/bookmark/favicon-32x32.png?v=4">
 		<link rel="icon" type="image/png" sizes="16x16" href="https://milesnature.com/favicons/bookmark/favicon-16x16.png?v=4">
@@ -115,7 +115,8 @@
 		</template>
 		<template id="templateFormGroups">
 			<form id="formGroups" class="form" title="Groups Form" novalidate>
-				<div class="groups fieldset"></div>	
+				<div class="groups fieldset"></div>
+				<div class="select-groups-buttons"><button id="selectAll">All</button><button id="deselectAll">None</button></div>
 				<button id="close" type="button" name="close" title="Close Groups Form" class="close">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="14" viewBox="0 0 25 14">
 						<title>Close Form</title>
@@ -190,8 +191,9 @@
 			</div>
 		</template>				
 		<script src="assets/js/modules.js" type="module"></script>
-		<script src="/socket.io/socket.io.js"></script>
-<!-- 		<script>
+
+<!-- 		<script src="/socket.io/socket.io.js"></script>
+		<script>
 		  	var socket = io();
 			socket.on('change', function(msg){
 			    console.log('change', msg);

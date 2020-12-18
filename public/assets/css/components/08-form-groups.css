@@ -65,6 +65,11 @@ form#formGroups .fieldset label:active { background-image : var( --linear-gradie
 form#formGroups .fieldset label input,
 form#formGroups .fieldset label select { margin : 0 0 0 13px; }
 
+form#formGroups .select-groups-buttons { text-align : center; margin-top: 30px; }
+form#formGroups .select-groups-buttons button { min-width : 69px; } 
+form#formGroups .select-groups-buttons button:hover { cursor : pointer; } 
+form#formGroups .select-groups-buttons button:first-child { margin-right : 10px; }
+
 form#formGroups button.close {
 	background-color : transparent;
 	background-image : none; 
