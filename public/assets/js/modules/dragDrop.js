@@ -74,8 +74,8 @@ const
 		  	}	  		
 	  	}
 	  	cleanupDragHover( lists );
-	  	document.body.scrollTop            = 0; // SAFARI
-		document.documentElement.scrollTop = 0; // ALL OTHERS
+	 	// document.body.scrollTop            = 0; // SAFARI
+		// document.documentElement.scrollTop = 0; // ALL OTHERS
 	},
 
 	dropEvents = ( action, lists ) => {

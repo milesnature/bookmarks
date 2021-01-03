@@ -77,7 +77,7 @@ const
 				break;
 		}
 
-		window.scrollTo( 0, document.body.scrollHeight );
+		// window.scrollTo( 0, document.body.scrollHeight );
 
 		// openFullscreen();
 

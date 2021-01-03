@@ -146,12 +146,17 @@ const
 
 					// LISTEN FOR CLOSE. 
 					formGroupsContainer.addEventListener('click', ( e ) => {
-						const 
+						let 
 							target = e.target,
 							tag    = target.tagName,
 							id     = ( target.id ) ? target.id : '',
 							remove = 'remove';
-						if ( id === 'close' || target.closest( 'button#close' ) ) {	
+
+						if ( tag !== 'BUTTON' && target.closest( 'button' ) ) {
+							id = ( target.closest( 'button' ).getAttribute( 'id' ) === 'close' ) ? 'close' : id;
+						}	
+
+						if ( id === 'close' ) {	
 							switch ( tag ) {
 								case 'BUTTON':
 									toggleFormGroups( remove );
@@ -172,6 +177,7 @@ const
 						if ( id === 'selectAll' ) { 
 							e.preventDefault();
 							groups.forEach( selectGroup );
+							document.getElementById( 'close' ).focus();
 						}
 						if ( id === 'deselectAll' ) { 
 							e.preventDefault();
