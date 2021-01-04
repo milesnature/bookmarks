@@ -100,7 +100,9 @@ main section#bookmarks #bookmark-loader svg {
 	animation-name            : bounce; 
 	animation-timing-function : ease-in; 
 	animation-iteration-count : infinite;
-	margin                    : 10px 0 0 0;	
+	margin                    : 10px 0 0 0;
+	width                     : 22px;
+	height                    : 43px; 
 }
 
 @media ( max-width: 600px ) {

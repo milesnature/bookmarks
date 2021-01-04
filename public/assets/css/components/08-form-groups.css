@@ -88,6 +88,8 @@ form#formGroups button.close svg {
 	stroke-width   : 2;
 	fill           : none;
 	stroke-linecap : square;
+	width          : 25px;
+	height         : 14px; 	
 }
 
 form#formGroups button.close:hover svg { stroke : var( --stroke-form-svg-hover ); }

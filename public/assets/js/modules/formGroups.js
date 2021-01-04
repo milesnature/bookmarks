@@ -164,6 +164,9 @@ const
 								case 'svg':
 									toggleFormGroups( remove );
 									break;
+								case 'use':
+									toggleFormEdit( remove );
+									break;										
 								case 'path':
 									toggleFormGroups( remove );
 									break;					

@@ -113,7 +113,7 @@
 
 .modal ol li strong { display : block; }
 
-#iconClose line {
+#closeModalIcon line {
 	stroke: var( --font-color-base );
 }
 
@@ -125,6 +125,8 @@
 	cursor          : pointer;
 	text-decoration : underline;
 	font-size       : inherit;
+	width           : 48px;
+	height          : 48px;  
 }
 
 .modal .close:hover { color : var( --font-color-modal-a-hover ); }

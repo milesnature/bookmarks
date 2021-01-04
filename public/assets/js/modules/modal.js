@@ -46,7 +46,7 @@ let
 					keyCode = e.keyCode;
 				switch ( type ) {
 					case 'click':
-						if ( tag === 'svg' || tag === 'circle' || tag === 'line' || tag === 'g' ) { toggleModalHelp(); }
+						if ( tag === 'svg' || tag === 'use' || tag === 'circle' || tag === 'line' || tag === 'g' ) { toggleModalHelp(); }
 						break;
 					case 'keyup':
 						if ( tag === 'svg' && ( key === 'enter' || keyCode === '13' ) ) { toggleModalHelp(); }
