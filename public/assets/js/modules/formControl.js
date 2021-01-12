@@ -70,7 +70,7 @@ const
 				toggleFormEdit( 'remove' );
 				toggleFormSettings( 'remove' );
 				toggleFormGroups( 'add' );
-				document.querySelector( 'input' ).focus();	
+				if ( document.querySelector( 'input' ) ) { document.querySelector( 'input' ).focus(); }
 				import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( 'groups' ); } );
 				break;
 			default:

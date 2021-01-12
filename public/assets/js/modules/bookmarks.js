@@ -139,10 +139,12 @@ const
 			keys = Object.keys( storedGroups );
 		
 		keys.forEach( ( item, index ) => {
-			if ( storedGroups[ item ] === false ) {
-				fragments.getElementById( '_' + item ).classList.add( 'hide' );
-			} else {
-				fragments.getElementById( '_' + item ).classList.remove( 'hide' );
+			if ( fragments.getElementById( '_' + item ) ) {
+				if ( storedGroups[ item ] === false ) {
+					fragments.getElementById( '_' + item ).classList.add( 'hide' );
+				} else {
+					fragments.getElementById( '_' + item ).classList.remove( 'hide' );
+				}
 			}
 		} );
 

@@ -7,10 +7,12 @@ const
 	updateBookmarks = ( obj, dom ) => {
 		const keys = Object.keys( obj );
 		keys.forEach( ( item, index ) => {
-			if ( obj[ item ] === false ) {
-				dom.getElementById( '_' + item ).classList.add( 'hide' );
-			} else {
-				dom.getElementById( '_' + item ).classList.remove( 'hide' );
+			if ( dom.getElementById( '_' + item ) ) {
+				if ( obj[ item ] === false ) {
+					dom.getElementById( '_' + item ).classList.add( 'hide' );
+				} else {
+					dom.getElementById( '_' + item ).classList.remove( 'hide' );
+				}
 			}
 		} );
 	},
@@ -165,7 +167,7 @@ const
 									toggleFormGroups( remove );
 									break;
 								case 'use':
-									toggleFormEdit( remove );
+									toggleFormGroups( remove );
 									break;										
 								case 'path':
 									toggleFormGroups( remove );

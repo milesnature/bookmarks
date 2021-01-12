@@ -10,10 +10,12 @@ const
 				name   = target.className;
 			switch ( tag ) {
 				case 'BUTTON':
+					e.preventDefault();
 					import( './formControl.js' ).then( ( module ) => { module.formController( name ); } );
 					target.classList.add( 'active' );
 					break;
 				case 'A':
+					e.preventDefault();
 					if ( id === 'help' ) { 
 						import( './modal.js' ).then( ( module ) => { module.toggleModalHelp(); } );
 					}
