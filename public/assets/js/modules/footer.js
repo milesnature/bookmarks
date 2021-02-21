@@ -15,9 +15,11 @@ const
 					target.classList.add( 'active' );
 					break;
 				case 'A':
-					e.preventDefault();
-					if ( id === 'help' ) { 
-						import( './modal.js' ).then( ( module ) => { module.toggleModalHelp(); } );
+					if ( id !== 'about' ) {
+						e.preventDefault();
+						if ( id === 'help' ) { 
+							import( './modal.js' ).then( ( module ) => { module.toggleModalHelp(); } );
+						}
 					}
 					break;
 				default:
