@@ -90,10 +90,10 @@ http.listen(process.env.SERVER_PORT, () => {
 
 // Using node file system and socket.io (instead of webpack or gulp) may be overkill just to auto-reload browsers.
 // However, socket.io is more fun to play with and potentially more useful later on.
-var fs = require('fs');
+// var fs = require('fs');
 
-fs.watch('public', {recursive:true}, function(event, file){
-    let response = { 'file' : file, 'event' : event } 
-    console.log( response );
-    io.emit( 'change', file );
-});
+// fs.watch('public', {recursive:true}, function(event, file){
+//     let response = { 'file' : file, 'event' : event } 
+//     console.log( response );
+//     io.emit( 'change', file );
+// });

@@ -121,7 +121,7 @@
 	--font-color-a-base : var( --grayscale-05 );
 
 	/* BODY */
-	--background-color-body : var( --background-color-form );
+	--background-color-body : var( --grayscale-22 );
 
 	/* FORM */
 	--font-color-form                           : var( --grayscale-07 );
@@ -179,8 +179,7 @@
 		--font-color-a-base : var( --grayscale-05 );
 
 		/* BODY */
-		--background-color-body : var( --background-color-form );
-
+		--background-color-body : var( --grayscale-22 );
 		/* FORM */
 		--font-color-form                           : var( --grayscale-07 );
 		--font-color-form-inputs                    : var( --grayscale-25 );
