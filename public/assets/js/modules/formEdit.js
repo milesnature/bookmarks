@@ -266,6 +266,7 @@ const
 			formEditBookmark.checked = 'checked';
 			updatePrefill();
 		}
+		import( './footer.js' ).then( ( module ) => { module.updateFooterButtons( action ); } );
 	},
 	
 	elementState = () => {
