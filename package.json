@@ -2,7 +2,7 @@
   "author": "Miles Nature",
   "license": "MIT",
   "name": "bookmarks-app",
-  "version": "1.1.144",
+  "version": "1.1.148",
   "description": "Web based bookmark tool that is available everywhere. ",
   "main": "server.js",
   "scripts": {

@@ -150,7 +150,18 @@ const
 
 		bmkSection.appendChild( fragments );
 
-		if ( localStorage.getItem('settingsState') !== "open" ) {
+		if ( !document.querySelector( '.clock' ) ) {
+			const
+				clone     = templateClock.content.cloneNode( true ),
+				footerNav = document.querySelector( 'footer nav' );
+				footerNav.parentNode.insertBefore( clone, footerNav );
+		}
+
+		import( './clock.js' ).then( ( module ) => { 
+			module.startClock();
+		} );	
+
+		if ( localStorage.getItem('settingsState') !== 'open' ) {
 			import( './openGroup.js' ).then( ( module ) => {
 				module.setupOpenGroupEventHandler( bmkSection );
 			} );

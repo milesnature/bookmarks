@@ -48,7 +48,7 @@ body {
 body.form-open footer { margin: 0; padding: 10px 0; }
 body.form-open footer nav { margin: 0; }
 body.form-open footer .links, 
-body.form-open footer .copyright { display: none; } 
+body.form-open footer .copyright, body.form-open footer svg { display: none; } 
 
 a, a:link, a:visited, a:hover, a:active {
 	color: var( --font-color-a-base );
@@ -133,4 +133,5 @@ input[type='checkbox']:checked {
 .hide { display: none; }
 
 .no-scroll { overflow: hidden; }
+
 /* END GLOBAL */

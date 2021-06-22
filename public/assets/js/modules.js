@@ -4,5 +4,4 @@ import { scheduleApiCall } from './modules/api.js';
 scheduleApiCall( 'GET', 'bookmarks' );
 
 import( './modules/bookmarks.js' ).then( ( module ) => {  } );
-import( './modules/footer.js' ).then( ( module ) => {  } );
-	
+import( './modules/footer.js' ).then( ( module ) => {  } );	

@@ -174,6 +174,104 @@
 			</div>
 		</template>				
 
+		<template id="templateClock">
+			<style type="text/css">
+				.form-open .clock { display : none; }
+				.clock { position : relative; z-index: 0; display : block; margin : 42px auto; width : 120px; height : 120px;}
+				.clock svg { position : absolute; z-index: 0; top : 5px; left : 5px; }
+				.hand-minutes, .hand-hours, .hand-seconds { transform : rotate( 0deg ); }
+				.face, .pin, .hand-minutes, .hand-hours, .hand-seconds { width : 109px; height : 109px; }
+				.face { fill : var(--grayscale-01); stroke : var(--grayscale-25); }
+				.dark-mode .face { fill : var(--grayscale-22); stroke : var(--grayscale-06); }
+				.pin { fill : var(--grayscale-25); stroke : var(--grayscale-01); }
+				.dark-mode .pin { fill : var(--grayscale-06); stroke : var(--grayscale-22); }
+				.hand-seconds { stroke : var(--red); }
+				.dark-mode .hand-seconds { stroke : #00ff00; }
+				.hand-minutes, .hand-hours { stroke : var(--grayscale-25); }
+				.dark-mode .hand-minutes, .dark-mode .hand-hours { stroke : var(--grayscale-06); }
+				@media ( prefers-color-scheme: dark ) {
+					.light-mode .face { fill : var(--grayscale-01); stroke : var(--grayscale-25); }
+					.face { fill : var(--grayscale-22); stroke : var(--grayscale-06); }
+					.light-mode .pin { fill : var(--grayscale-25); stroke : var(--grayscale-01); }
+					.pin { fill : var(--grayscale-06); stroke : var(--grayscale-22); }
+					.light-mode .hand-seconds { stroke : var(--red); }
+					.hand-seconds { stroke : #00ff00; }
+					.light-mode .hand-minutes, .light-mode .hand-hours { stroke : var(--grayscale-25); }
+					.hand-minutes, .dark-mode .hand-hours { stroke : var(--grayscale-06); }					
+				}	
+			</style>
+			<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+				<symbol id="clock-face-01" viewBox="0 0 309 309">
+				    <g stroke-width="1" fill-rule="evenodd">
+				        <g>
+				            <circle stroke="none" cx="154.5" cy="154.5" r="154.5"></circle>
+				            <g class="minutes" transform="translate(4.003333, 4.000000)">
+				                <line x1="150.501667" y1="0.501666667" x2="150.501667" y2="300.498333" fill="none"></line>
+				                <line x1="166.358191" y1="1" x2="135" y2="299.353254" fill="none"></line>
+				                <line x1="181.372814" y1="4" x2="119" y2="297.44102" fill="none"></line>
+				                <line x1="196.704068" y1="8" x2="104" y2="293.313785" fill="none"></line>
+				                <line x1="211.019637" y1="13" x2="89" y2="287.060592" fill="none"></line>
+				                <line x1="280.804734" y1="225.998333" x2="21" y2="76" fill="none"></line>
+				                <line x1="271.702402" y1="238.333616" x2="29" y2="62" fill="none"></line>
+				                <line x1="261.94097" y1="250.736951" x2="39" y2="50" fill="none"></line>
+				                <line x1="250.736951" y1="261.94097" x2="50" y2="39" fill="none"></line>
+				                <line x1="238.333616" y1="271.702402" x2="62" y2="29"fill="none"></line>
+				                <line x1="224.998333" y1="21" x2="75" y2="280.804734" fill="none"></line>
+				                <line x1="238.333616" y1="29" x2="62" y2="271.702402" fill="none"></line>
+				                <line x1="250.736951" y1="39" x2="50" y2="261.94097" fill="none"></line>
+				                <line x1="261.94097" y1="50" x2="39" y2="250.736951" fill="none"></line>
+				                <line x1="271.702402" y1="62" x2="29" y2="238.333616" fill="none"></line>
+				                <line x1="280.804734" y1="76" x2="21" y2="225.998333" fill="none"></line>
+				                <line x1="287.060592" y1="89" x2="13" y2="211.019637" fill="none"></line>
+				                <line x1="293.313785" y1="104" x2="8" y2="196.704068" fill="none"></line>
+				                <line x1="297.44102" y1="119" x2="4" y2="181.372814" fill="none"></line>
+				                <line x1="299.353254" y1="135" x2="1" y2="166.358191" fill="none"></line>
+				                <line x1="75" y1="21" x2="224.998333" y2="280.804734" fill="none"></line>
+				                <line x1="89" y1="13" x2="211.019637" y2="287.060592" fill="none"></line>
+				                <line x1="104" y1="8" x2="196.704068" y2="293.313785" fill="none"></line>
+				                <line x1="119" y1="4" x2="181.372814" y2="297.44102" fill="none"></line>
+				                <line x1="135" y1="1" x2="166.358191" y2="299.353254" fill="none"></line>
+				                <line x1="299.996667" y1="150.501667" x2="0" y2="150.501667" fill="none"></line>
+				                <line x1="299.353254" y1="166.358191" x2="1" y2="135" fill="none"></line>
+				                <line x1="297.44102" y1="181.372814" x2="4" y2="119" fill="none"></line>
+				                <line x1="293.313785" y1="196.704068" x2="8" y2="104" fill="none"></line>
+				                <line x1="287.060592" y1="211.019637" x2="13" y2="89" fill="none"></line>
+				                <circle stroke="none" cx="150.5" cy="150.5" r="143.5"></circle>
+				            </g>
+				            <g class="hours" transform="translate(4.003333, 4.000000)">
+				                <line x1="150.501667" y1="0.501666667" x2="150.501667" y2="300.498333" fill="none" stroke-width="3"></line>
+				                <line x1="280.804734" y1="225.998333" x2="21" y2="76" fill="none" stroke-width="3"></line>
+				                <line x1="224.998333" y1="21" x2="75" y2="280.804734" fill="none" stroke-width="3"></line>
+				                <line x1="280.804734" y1="76" x2="21" y2="225.998333" fill="none" stroke-width="3"></line>
+				                <line x1="75" y1="21" x2="224.998333" y2="280.804734" fill="none" stroke-width="3"></line>
+				                <line x1="299.996667" y1="150.501667" x2="0" y2="150.501667" fill="none" stroke-width="3"></line>
+				                <circle stroke="none" cx="150.5" cy="150.5" r="139.5"></circle>
+				            </g>
+				        </g>
+				    </g>
+				</symbol>
+				<symbol id="pin" viewBox="0 0 300 300">
+				  	<circle cx="150" cy="150" r="7" stroke-width="1" />		  	
+				</symbol>
+				<symbol id="hand-hours" viewBox="0 0 300 300">
+				  	<line x1="150" y1="150" x2="150" y2="90" stroke-linecap="round" stroke-width="5" fill="none" />
+				</symbol>
+				<symbol id="hand-minutes" viewBox="0 0 300 300">
+				  	<line x1="150" y1="150" x2="150" y2="42" stroke-linecap="round" stroke-width="3" fill="none" />
+				</symbol>
+				<symbol id="hand-seconds" viewBox="0 0 300 300">		
+				  	<line x1="150" y1="150" x2="150" y2="20" stroke-linecap="round" stroke-width="1" fill="none" />
+				</symbol>						
+			</svg>
+			<figure class="clock">
+				<svg class="face"><use href="#clock-face-01"></use></svg>
+				<svg class="hand-seconds"><use href="#hand-seconds"></use></svg>
+				<svg class="hand-minutes"><use href="#hand-minutes"></use></svg>
+				<svg class="hand-hours"><use href="#hand-hours"></use></svg>
+				<svg class="pin"><use href="#pin"></use></svg>
+			</figure>			
+		</template>
+
 		<script src="assets/js/modules.js" type="module"></script>
 <!--
 		<script src="/socket.io/socket.io.js"></script>
@@ -205,7 +303,7 @@
 					<line x1="16" x2="32" y1="16" y2="32" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
 					<line x1="32" x2="16" y1="16" y2="32" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
 				</g>
-			</symbol>				
+			</symbol>
 		</svg>
 
 	</body>

@@ -29,7 +29,7 @@ const
 
 		// FOOTER COPYRIGHT DATE.
 		const year = new Date();
-		document.getElementById('year').innerText = year.getFullYear();
+		document.getElementById('year').innerText = year.getFullYear();	
 
 	})(),
 
