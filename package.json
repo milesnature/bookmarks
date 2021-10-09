@@ -32,6 +32,8 @@
     "mquery": ">=3.2.3"
   },
   "devDependencies": {
-    "clean-css": "^4.2.3"
+    "clean-css": "^4.2.3",
+    "xmlhttprequest-ssl": ">=1.6.2",
+    "mpath": ">=0.8.4"
   }
 }
